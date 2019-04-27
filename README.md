@@ -1,5 +1,5 @@
 # StormTime
-> A simple turn based stratergy game
+> A simple turn based strategy game
 
 ## Theme And Limitations:
 - Theme -> Storm
