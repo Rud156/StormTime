@@ -12,7 +12,7 @@
 - [ ] Movement occurs on a sort of a grid
 - [ ] Nearby towns and villages on adjacent blocks provide support for recruting armies and obtaining supplies
 - [ ] Armies are spawned on either adjacent blocks or on the same block
-- [ ] Player needs to manage their resoucres such that they can reach the destination given without dying
+- [ ] Player needs to manage their resources such that they can reach the given destination without dying
 
 ## S/W Used:
 - [SFML](https://www.sfml-dev.org/)
