@@ -2,7 +2,7 @@
 //
 
 #include <SFML/Graphics.hpp>
-#include "GameMain.h"
+#include "Src/GameMain.h"
 
 int main()
 {

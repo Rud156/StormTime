@@ -169,15 +169,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\..\..\..\..\Rockin%27So\Documents\Visual Studio 2017\Projects\Simple Programs\StormTime\StormTime\CustomScreen.cpp" />
-    <ClCompile Include="..\..\..\..\..\..\..\Rockin%27So\Documents\Visual Studio 2017\Projects\Simple Programs\StormTime\StormTime\GameMain.cpp" />
-    <ClCompile Include="..\..\..\..\..\..\..\Rockin%27So\Documents\Visual Studio 2017\Projects\Simple Programs\StormTime\StormTime\MainScreen.cpp" />
-    <ClCompile Include="..\..\..\..\..\..\..\Rockin%27So\Documents\Visual Studio 2017\Projects\Simple Programs\StormTime\StormTime\StormTime.cpp" />
+    <ClCompile Include="Src/Screens/CustomScreen.cpp" />
+    <ClCompile Include="Src/GameMain.cpp" />
+    <ClCompile Include="Src/Screens/MainScreen.cpp" />
+    <ClCompile Include="StormTime.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\..\..\..\..\Rockin%27So\Documents\Visual Studio 2017\Projects\Simple Programs\StormTime\StormTime\CustomScreen.h" />
-    <ClInclude Include="..\..\..\..\..\..\..\Rockin%27So\Documents\Visual Studio 2017\Projects\Simple Programs\StormTime\StormTime\GameMain.h" />
-    <ClInclude Include="..\..\..\..\..\..\..\Rockin%27So\Documents\Visual Studio 2017\Projects\Simple Programs\StormTime\StormTime\MainScreen.h" />
+    <ClInclude Include="Src/Screens/CustomScreen.h" />
+    <ClInclude Include="Src/GameMain.h" />
+    <ClInclude Include="Src/Screens/MainScreen.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

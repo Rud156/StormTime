@@ -1,7 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-
-#include "MainScreen.h"
+#include "Screens/MainScreen.h"
 
 class GameMain
 {

@@ -21,27 +21,27 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\..\..\..\..\Rockin%27So\Documents\Visual Studio 2017\Projects\Simple Programs\StormTime\StormTime\StormTime.cpp">
+    <ClCompile Include="Src/GameMain.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Rockin%27So\Documents\Visual Studio 2017\Projects\Simple Programs\StormTime\StormTime\GameMain.cpp">
+    <ClCompile Include="StormTime.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Rockin%27So\Documents\Visual Studio 2017\Projects\Simple Programs\StormTime\StormTime\CustomScreen.cpp">
+    <ClCompile Include="Src/Screens/MainScreen.cpp">
       <Filter>Source Files\Screens</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\..\Rockin%27So\Documents\Visual Studio 2017\Projects\Simple Programs\StormTime\StormTime\MainScreen.cpp">
+    <ClCompile Include="Src/Screens/CustomScreen.cpp">
       <Filter>Source Files\Screens</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\..\..\..\..\Rockin%27So\Documents\Visual Studio 2017\Projects\Simple Programs\StormTime\StormTime\GameMain.h">
+    <ClInclude Include="Src/GameMain.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\..\..\..\Rockin%27So\Documents\Visual Studio 2017\Projects\Simple Programs\StormTime\StormTime\CustomScreen.h">
+    <ClInclude Include="Src/Screens/CustomScreen.h">
       <Filter>Header Files\Screens</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\..\..\..\Rockin%27So\Documents\Visual Studio 2017\Projects\Simple Programs\StormTime\StormTime\MainScreen.h">
+    <ClInclude Include="Src/Screens/MainScreen.h">
       <Filter>Header Files\Screens</Filter>
     </ClInclude>
   </ItemGroup>
