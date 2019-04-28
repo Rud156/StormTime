@@ -6,6 +6,7 @@ namespace Screens
 	class CustomScreen
 	{
 	public:
+		virtual ~CustomScreen() = default;
 
 		virtual void create() = 0;
 
