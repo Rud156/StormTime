@@ -2,26 +2,35 @@
 //
 
 #include <SFML/Graphics.hpp>
+#include "GameMain.h"
 
 int main()
 {
-	sf::RenderWindow window(sf::VideoMode(200, 200), "SFML works!");
-	sf::CircleShape shape(100.f);
-	shape.setFillColor(sf::Color::Green);
+	sf::RenderWindow* window = new sf::RenderWindow(sf::VideoMode(800, 480), "StormTime");
 
-	while (window.isOpen())
+	sf::Clock clock;
+
+	GameMain *gameMain = new GameMain();
+	gameMain->create();
+
+	while (window->isOpen())
 	{
 		sf::Event event{};
-		while (window.pollEvent(event))
+		while (window->pollEvent(event))
 		{
 			if (event.type == sf::Event::Closed)
-				window.close();
+				window->close();
 		}
 
-		window.clear();
-		window.draw(shape);
-		window.display();
+		window->clear();
+
+		gameMain->render(window);
+
+		window->display();
 	}
+
+	delete gameMain;
+	delete window;
 
 	return 0;
 }
