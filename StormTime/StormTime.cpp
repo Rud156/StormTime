@@ -2,6 +2,7 @@
 //
 
 #include <SFML/Graphics.hpp>
+#include <iostream>
 #include "Src/GameMain.h"
 
 int main()
@@ -18,8 +19,22 @@ int main()
 		sf::Event event{};
 		while (window->pollEvent(event))
 		{
-			if (event.type == sf::Event::Closed)
+			switch (event.type)
+			{
+
+			case sf::Event::Closed:
 				window->close();
+
+			case sf::Event::KeyPressed:
+				if (event.key.code == sf::Keyboard::Escape)
+					window->close();
+				else
+					std::cout << "Key Pressed:" << event.key.code << std::endl;
+				break;
+
+			default:
+				break;
+			}
 		}
 
 		window->clear();
