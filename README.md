@@ -1,26 +1,31 @@
 # StormTime
-> A simple turn based strategy game
+> A Simple Top Down 2D Game
 
 ## Theme And Limitations:
 - Theme -> Storm
 - Limitation -> 2D and Top Down Camera
 
-## Ideas:
-- [ ] Turn based movement for the player
-- [ ] In the stormy nights attacks occur
-- [ ] The player must use their available armies and defenses to guard till they reach their destination
-- [ ] Movement occurs on a sort of a grid
-- [ ] Nearby towns and villages on adjacent blocks provide support for recruting armies and obtaining supplies
-- [ ] Armies are spawned on either adjacent blocks or on the same block
-- [ ] Player needs to manage their resources such that they can reach the given destination without dying
-- [ ] A pixelated neon world.
-- [ ] Scrolling map with the camera focused on the player
-- [ ] Randomly generated maps based on various parameters
-- [ ] Each grid tile has randomly generated events. Most of them are interactable
-- [ ] Events are text-based. Basically, when the player reaches the point, the event pops up and they get to do something
-- [ ] Some sort of points can be earned from each encounter. Points can also be lost if you do something incorrect These help to buy stuff and also move to other tiles
-- [ ] If the player runs out of points or dies, the level resets
-- [ ] There will also be traveling enemies. Th remember whether they encountered the player or not and whether they got defeated
+## Idea:
+- [ ] Storm theme: "If I kill anyone, may lighting strike me"
+- [ ] Neon based bullet hell world
+- [ ] Multiple weapon types useful depending on the situation
+- [ ] All not unlocked at once. Points earned in the game can be used to unlock them
+- [ ] Simple shapes the main characters
+- [ ] Player goes around talking to people in the world
+- [ ] Interactions initially start with dialogues
+- [ ] This progresses to more dialogues or combat depending on what the player choses
+- [ ] Each kill takes away a point of some sort
+- [ ] So, the player must make correct decisions between killing and helping
+- [ ] When points hit zero, a sort of boss encounter occurs
+- [ ] Boss encounter occurs in a new world which is a desolated and nasty world with bad weather effects
+- [ ] Upon winning the fight player gets to live till the next encounter and the process repeats
+- [ ] Infinite single level world
+- [ ] Player needs to move around it to encounter other groups and NPC(s)
+- [ ] Just standing idle without any encounter will result in a lighting shot dealing damage
+
+## Later Ideas:
+- [ ] Player can acquire new gang members by talking to them and thus not killing them
+- [ ] They get added to the player's party depending on the player's previous actions
 
 ## S/W Used:
 - [SFML](https://www.sfml-dev.org/)
