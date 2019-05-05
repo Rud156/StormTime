@@ -18,7 +18,7 @@ namespace Managers {
 			Released
 		};
 
-		ControlsManager::KeyState getKeyState(int keyCode);
+		KeyState getKeyState(int keyCode);
 
 		void handleKeyPress(int keyCode);
 		void handleKeyReleased(int keyCode);
@@ -26,8 +26,13 @@ namespace Managers {
 		void update();
 
 	private:
-		std::vector<ControlsManager::KeyState> _keyStates;
-
+		struct KeyStatusInfo
+		{
+			KeyState keyState;
+			bool updateOccurred;
+		};
+		std::vector<KeyStatusInfo> _keyStates;
+		
 		static ControlsManager* _instance;
 		ControlsManager();
 	};

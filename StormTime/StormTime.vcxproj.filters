@@ -22,6 +22,9 @@
     <Filter Include="Header Files\Managers">
       <UniqueIdentifier>{399aefd3-edf2-46cb-9ae7-004a38724bff}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Managers">
+      <UniqueIdentifier>{e227052a-bea3-4360-a861-c60f87f120a4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src/GameMain.cpp">
@@ -36,8 +39,8 @@
     <ClCompile Include="Src/Screens/CustomScreen.cpp">
       <Filter>Source Files\Screens</Filter>
     </ClCompile>
-    <ClCompile Include="ControlsManager.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Src/Managers/ControlsManager.cpp">
+      <Filter>Source Files\Managers</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -50,8 +53,8 @@
     <ClInclude Include="Src/Screens/MainScreen.h">
       <Filter>Header Files\Screens</Filter>
     </ClInclude>
-    <ClInclude Include="ControlsManager.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Src/Managers/ControlsManager.h">
+      <Filter>Header Files\Managers</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

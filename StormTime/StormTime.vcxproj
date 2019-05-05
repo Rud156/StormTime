@@ -190,14 +190,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="ControlsManager.cpp" />
+    <ClCompile Include="Src/Managers/ControlsManager.cpp" />
     <ClCompile Include="Src/Screens/CustomScreen.cpp" />
     <ClCompile Include="Src/GameMain.cpp" />
     <ClCompile Include="Src/Screens/MainScreen.cpp" />
     <ClCompile Include="StormTime.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ControlsManager.h" />
+    <ClInclude Include="Src/Managers/ControlsManager.h" />
     <ClInclude Include="Src/Screens/CustomScreen.h" />
     <ClInclude Include="Src/GameMain.h" />
     <ClInclude Include="Src/Screens/MainScreen.h" />

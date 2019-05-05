@@ -8,7 +8,6 @@
 int main()
 {
 	sf::RenderWindow* window = new sf::RenderWindow(sf::VideoMode(800, 480), "StormTime");
-
 	sf::Clock clock;
 
 	GameMain *gameMain = new GameMain();
