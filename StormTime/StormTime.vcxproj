@@ -190,6 +190,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Src/Managers/SharedTexturesManager.cpp" />
+    <ClCompile Include="Src/Managers/BackgroundManager.cpp" />
     <ClCompile Include="Src/Managers/ControlsManager.cpp" />
     <ClCompile Include="Src/Screens/CustomScreen.cpp" />
     <ClCompile Include="Src/GameMain.cpp" />
@@ -197,6 +199,8 @@
     <ClCompile Include="StormTime.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Src/Managers/SharedTexturesManager.h" />
+    <ClInclude Include="Src/Managers/BackgroundManager.h" />
     <ClInclude Include="Src/Managers/ControlsManager.h" />
     <ClInclude Include="Src/Screens/CustomScreen.h" />
     <ClInclude Include="Src/GameMain.h" />
