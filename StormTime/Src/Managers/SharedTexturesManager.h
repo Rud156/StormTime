@@ -1,13 +1,12 @@
 #pragma once
 
+#include <unordered_map>
+#include <SFML/Graphics.hpp>
+
 namespace  Managers
 {
 	class SharedTexturesManager
 	{
-	private:
-		static SharedTexturesManager* _instance;
-		SharedTexturesManager();
-
 	public:
 		enum TextureType
 		{
@@ -28,8 +27,13 @@ namespace  Managers
 		static  SharedTexturesManager* Instance();
 
 		void loadAllTextures();
-		void disposeAllTextures();
 
-		void getTexture(TextureType textureType);
+		sf::Texture getTexture(TextureType textureType);
+
+	private:
+		static SharedTexturesManager* _instance;
+		SharedTexturesManager();
+
+		std::unordered_map<TextureType, sf::Texture> _textures;
 	};
 }

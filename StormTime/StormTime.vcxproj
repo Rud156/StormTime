@@ -190,6 +190,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Src/Managers/AssetManager.cpp" />
     <ClCompile Include="Src/Managers/SharedTexturesManager.cpp" />
     <ClCompile Include="Src/Managers/BackgroundManager.cpp" />
     <ClCompile Include="Src/Managers/ControlsManager.cpp" />
@@ -199,6 +200,7 @@
     <ClCompile Include="StormTime.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Src/Managers/AssetManager.h" />
     <ClInclude Include="Src/Managers/SharedTexturesManager.h" />
     <ClInclude Include="Src/Managers/BackgroundManager.h" />
     <ClInclude Include="Src/Managers/ControlsManager.h" />
