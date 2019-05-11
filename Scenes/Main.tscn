@@ -6,6 +6,7 @@
 [node name="Root" type="Node2D"]
 
 [node name="Moving Background" type="Node2D" parent="."]
+editor/display_folded = true
 position = Vector2( 0, -6.10352e-005 )
 script = ExtResource( 1 )
 backgroundSprite_1 = NodePath("Background_1")

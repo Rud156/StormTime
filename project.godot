@@ -22,6 +22,7 @@ config/icon="res://Textures/icon.png"
 [autoload]
 
 SceneControls="*res://Scripts/Utils/SceneControls.cs"
+PlayerVariables="*res://Scripts/Player/PlayerVariables.cs"
 
 [input]
 

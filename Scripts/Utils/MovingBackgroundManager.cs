@@ -1,4 +1,5 @@
 using Godot;
+using StormTime.Player;
 
 namespace StormTime.Utils
 {
@@ -30,8 +31,6 @@ namespace StormTime.Utils
 
         private float _currentSpeed;
         private bool _isBackgroundScrollingActive;
-
-        private float playerRotationAngle;
 
         public override void _Ready()
         {
@@ -72,8 +71,8 @@ namespace StormTime.Utils
                     _currentSpeed = maxMovementSpeed;
             }
 
-            float yDirection = Mathf.Sin(Mathf.Deg2Rad(playerRotationAngle));
-            float xDirection = Mathf.Cos(Mathf.Deg2Rad(playerRotationAngle));
+            float yDirection = Mathf.Sin(Mathf.Deg2Rad(PlayerVariables.PlayerRotation));
+            float xDirection = Mathf.Cos(Mathf.Deg2Rad(PlayerVariables.PlayerRotation));
 
             b1.y -= _currentSpeed * delta * yDirection;
             b2.y -= _currentSpeed * delta * yDirection;
@@ -93,7 +92,7 @@ namespace StormTime.Utils
             _background_3.SetPosition(b3);
             _background_4.SetPosition(b4);
 
-            
+
         }
 
         #region External Functions
