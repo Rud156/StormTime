@@ -105,6 +105,7 @@ namespace StormTime.Scene
         public void DeActivateScrolling()
         {
             _isBackgroundScrollingActive = false;
+            _currentSpeed = 0;
         }
 
         #endregion

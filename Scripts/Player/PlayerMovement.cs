@@ -23,7 +23,17 @@ namespace StormTime.Player
         public override void _Process(float delta)
         {
             base._Process(delta);
+            RotatePlayer(delta);
+        }
 
+        public override void _PhysicsProcess(float delta)
+        {
+            base._PhysicsProcess(delta);
+            MovePlayer(delta);
+        }
+
+        private void RotatePlayer(float delta)
+        {
             Vector2 playerPosition = GetPosition();
             Vector2 mousePosition = GetViewport().GetMousePosition();
 
@@ -31,14 +41,12 @@ namespace StormTime.Player
                 -Mathf.Rad2Deg(Mathf.Atan2(playerPosition.x - mousePosition.x, playerPosition.y - mousePosition.y));
             _targetAngle = ExtensionFunctions.To360Angle(turnAngle);
             _rotation = ExtensionFunctions.LerpAngleDeg(_rotation, _targetAngle, turnSpeed * delta);
-            
+
             SetRotationDegrees(_rotation);
         }
 
-        public override void _PhysicsProcess(float delta)
+        private void MovePlayer(float delta)
         {
-            base._PhysicsProcess(delta);
-
             if (Input.IsActionPressed(SceneControls.Left))
                 _movement.x -= movementIncrementSpeed * delta;
             else if (Input.IsActionPressed(SceneControls.Right))
@@ -60,6 +68,14 @@ namespace StormTime.Player
                 _movement.y = Mathf.Sign(_movement.y) * maxMovementSpeed;
 
             MoveAndSlide(_movement);
+        }
+
+        private void CheckMovementAndSetBackgroundRotation()
+        {
+            if (_movement.x == 0 && _movement.y == 0)
+            {
+                // Stop Background Scrolling
+            }
         }
     }
 }
