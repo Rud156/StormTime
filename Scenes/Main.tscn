@@ -1,3 +1,44 @@
-[gd_scene format=2]
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Scripts/Utils/MovingBackgroundManager.cs" type="Script" id=1]
+[ext_resource path="res://Textures/Background.png" type="Texture" id=2]
 
 [node name="Root" type="Node2D"]
+
+[node name="Moving Background" type="Node2D" parent="."]
+position = Vector2( 0, -6.10352e-005 )
+script = ExtResource( 1 )
+backgroundSprite_1 = NodePath("Background_1")
+backgroundSprite_2 = NodePath("Background_2")
+backgroundSprite_3 = NodePath("Background_3")
+backgroundSprite_4 = NodePath("Background_4")
+maxMovementSpeed = 10.0
+speedIncrementRate = 1.0
+
+[node name="Background_1" type="Sprite" parent="Moving Background"]
+position = Vector2( -50, -49.9999 )
+scale = Vector2( 6.64063, 6.64062 )
+z_index = -1
+texture = ExtResource( 2 )
+centered = false
+
+[node name="Background_2" type="Sprite" parent="Moving Background"]
+position = Vector2( 800, -49.9999 )
+scale = Vector2( 6.64063, 6.64062 )
+z_index = -1
+texture = ExtResource( 2 )
+centered = false
+
+[node name="Background_3" type="Sprite" parent="Moving Background"]
+position = Vector2( 800, -900 )
+scale = Vector2( 6.64063, 6.64062 )
+z_index = -1
+texture = ExtResource( 2 )
+centered = false
+
+[node name="Background_4" type="Sprite" parent="Moving Background"]
+position = Vector2( -50, -900 )
+scale = Vector2( 6.64063, 6.64062 )
+z_index = -1
+texture = ExtResource( 2 )
+centered = false
