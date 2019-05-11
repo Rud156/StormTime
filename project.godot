@@ -16,6 +16,7 @@ _global_script_class_icons={
 [application]
 
 config/name="StormTime"
+run/main_scene="res://Scenes/Main.tscn"
 config/icon="res://Textures/icon.png"
 
 [autoload]

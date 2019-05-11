@@ -12,33 +12,35 @@ backgroundSprite_1 = NodePath("Background_1")
 backgroundSprite_2 = NodePath("Background_2")
 backgroundSprite_3 = NodePath("Background_3")
 backgroundSprite_4 = NodePath("Background_4")
-maxMovementSpeed = 10.0
-speedIncrementRate = 1.0
+maxMovementSpeed = 500.0
+speedIncrementRate = 100.0
+textureSize = Vector2( 1150, 1150 )
+cameraBufferSize = 50.0
 
 [node name="Background_1" type="Sprite" parent="Moving Background"]
-position = Vector2( -50, -49.9999 )
-scale = Vector2( 6.64063, 6.64062 )
+position = Vector2( 1100, -49.9998 )
+scale = Vector2( 8.98438, 8.59375 )
 z_index = -1
 texture = ExtResource( 2 )
 centered = false
 
 [node name="Background_2" type="Sprite" parent="Moving Background"]
-position = Vector2( 800, -49.9999 )
-scale = Vector2( 6.64063, 6.64062 )
+position = Vector2( -49.9996, -49.9999 )
+scale = Vector2( 8.98438, 8.59375 )
 z_index = -1
 texture = ExtResource( 2 )
 centered = false
 
 [node name="Background_3" type="Sprite" parent="Moving Background"]
-position = Vector2( 800, -900 )
-scale = Vector2( 6.64063, 6.64062 )
+position = Vector2( 1100, -1150 )
+scale = Vector2( 8.98438, 8.59375 )
 z_index = -1
 texture = ExtResource( 2 )
 centered = false
 
 [node name="Background_4" type="Sprite" parent="Moving Background"]
-position = Vector2( -50, -900 )
-scale = Vector2( 6.64063, 6.64062 )
+position = Vector2( -49.9998, -1150 )
+scale = Vector2( 8.98438, 8.59375 )
 z_index = -1
 texture = ExtResource( 2 )
 centered = false
