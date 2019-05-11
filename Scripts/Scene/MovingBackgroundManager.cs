@@ -1,7 +1,7 @@
 using Godot;
 using StormTime.Player;
 
-namespace StormTime.Utils
+namespace StormTime.Scene
 {
     public class MovingBackgroundManager : Node2D
     {
@@ -71,8 +71,8 @@ namespace StormTime.Utils
                     _currentSpeed = maxMovementSpeed;
             }
 
-            float yDirection = Mathf.Sin(Mathf.Deg2Rad(PlayerVariables.PlayerRotation));
-            float xDirection = Mathf.Cos(Mathf.Deg2Rad(PlayerVariables.PlayerRotation));
+            float yDirection = Mathf.Sin(Mathf.Deg2Rad(PlayerVariables.PlayerStaticMovementRotation));
+            float xDirection = Mathf.Cos(Mathf.Deg2Rad(PlayerVariables.PlayerStaticMovementRotation));
 
             b1.y -= _currentSpeed * delta * yDirection;
             b2.y -= _currentSpeed * delta * yDirection;

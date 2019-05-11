@@ -1,19 +1,20 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://Scripts/Utils/MovingBackgroundManager.cs" type="Script" id=1]
+[ext_resource path="res://Scripts/Scene/MovingBackgroundManager.cs" type="Script" id=1]
 [ext_resource path="res://Textures/Background.png" type="Texture" id=2]
+[ext_resource path="res://Prefabs/Player.tscn" type="PackedScene" id=3]
 
 [node name="Root" type="Node2D"]
 
 [node name="Moving Background" type="Node2D" parent="."]
 editor/display_folded = true
-position = Vector2( 0, -6.10352e-005 )
+position = Vector2( 1, -6.10352e-005 )
 script = ExtResource( 1 )
 backgroundSprite_1 = NodePath("Background_1")
 backgroundSprite_2 = NodePath("Background_2")
 backgroundSprite_3 = NodePath("Background_3")
 backgroundSprite_4 = NodePath("Background_4")
-maxMovementSpeed = 500.0
+maxMovementSpeed = 250.0
 speedIncrementRate = 100.0
 textureSize = Vector2( 1150, 1150 )
 cameraBufferSize = 50.0
@@ -26,7 +27,7 @@ texture = ExtResource( 2 )
 centered = false
 
 [node name="Background_2" type="Sprite" parent="Moving Background"]
-position = Vector2( -49.9996, -49.9999 )
+position = Vector2( -49.9995, -49.9998 )
 scale = Vector2( 8.98438, 8.59375 )
 z_index = -1
 texture = ExtResource( 2 )
@@ -45,3 +46,7 @@ scale = Vector2( 8.98438, 8.59375 )
 z_index = -1
 texture = ExtResource( 2 )
 centered = false
+
+[node name="Player" parent="." instance=ExtResource( 3 )]
+position = Vector2( 450, 300 )
+turnSpeed = 27.0

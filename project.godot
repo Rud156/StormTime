@@ -17,12 +17,13 @@ _global_script_class_icons={
 
 config/name="StormTime"
 run/main_scene="res://Scenes/Main.tscn"
-config/icon="res://Textures/icon.png"
+config/icon="res://Textures/Player.png"
 
 [autoload]
 
 SceneControls="*res://Scripts/Utils/SceneControls.cs"
 PlayerVariables="*res://Scripts/Player/PlayerVariables.cs"
+ExtensionFunctions="*res://Scripts/Utils/ExtensionFunctions.cs"
 
 [input]
 

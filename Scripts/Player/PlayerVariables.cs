@@ -5,6 +5,6 @@ namespace StormTime.Player
 {
     public class PlayerVariables : Node2D
     {
-        public static float PlayerRotation = 0;
+        public static float PlayerStaticMovementRotation;
     }
 }
