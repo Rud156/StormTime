@@ -26,6 +26,3 @@
 ## Later Ideas:
 - [ ] Player can acquire new gang members by talking to them and thus not killing them
 - [ ] They get added to the player's party depending on the player's previous actions
-
-## S/W Used:
-- [SFML](https://www.sfml-dev.org/)
