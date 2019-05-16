@@ -56,6 +56,7 @@
     <Compile Include="Scripts\Scene\MovingBackgroundManager.cs" />
     <Compile Include="Scripts\Utils\ExtensionFunctions.cs" />
     <Compile Include="Scripts\Utils\SceneControls.cs" />
+    <Compile Include="Scripts\Weapon\Bullet.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Scenes\" />

@@ -13,6 +13,7 @@ script = ExtResource( 1 )
 __meta__ = {
 "_edit_group_": true
 }
+movementSpeed = 250.0
 turnSpeed = 720.0
 
 [node name="Shadow Sprite" type="Sprite" parent="."]
