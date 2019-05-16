@@ -6,8 +6,10 @@
 [sub_resource type="RectangleShape2D" id=1]
 
 [node name="Bullet" type="KinematicBody2D"]
+collision_layer = 2
 script = ExtResource( 1 )
 bulletSpeed = 750.0
+bulletLifeTime = 2.0
 
 [node name="Sprite" type="Sprite" parent="."]
 scale = Vector2( 0.1, 0.1 )

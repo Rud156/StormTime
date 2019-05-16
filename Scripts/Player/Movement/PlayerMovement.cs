@@ -85,5 +85,10 @@ namespace StormTime.Player.Movement
                 _movingBackgroundManager.ActivateScrolling();
             }
         }
+
+        public float GetCurrentRotation()
+        {
+            return _rotation;
+        }
     }
 }

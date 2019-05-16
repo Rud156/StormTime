@@ -4,26 +4,33 @@ using System;
 public class Bullet : KinematicBody2D
 {
     [Export] public float bulletSpeed;
+    [Export] public float bulletLifeTime;
 
     private Vector2 _launchVelocity;
     private Vector2 _position;
 
-    public override void _Ready()
-    {
-        _launchVelocity = Vector2.Zero;
-    }
+    private float _currentBulletTimeLeft;
 
     public override void _PhysicsProcess(float delta)
     {
         KinematicCollision2D collision = MoveAndCollide(_launchVelocity * delta);
-        if (collision != null)
+        if (collision != null || _currentBulletTimeLeft <= 0)
         {
-            // TODO: Destroy the Object and Spawn and Effect
+            GD.Print("Bullet Collided");
+            DestroyBullet();
         }
+
+        _currentBulletTimeLeft -= delta;
     }
 
     public void LaunchBullet(Vector2 playerForwardVector)
     {
         _launchVelocity = playerForwardVector * bulletSpeed;
+        _currentBulletTimeLeft = bulletLifeTime;
+    }
+
+    public void DestroyBullet()
+    {
+        GetParent().RemoveChild(this);
     }
 }
