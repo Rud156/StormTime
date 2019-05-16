@@ -8,7 +8,6 @@
 
 [node name="Moving Background" type="Node2D" parent="."]
 editor/display_folded = true
-visible = false
 position = Vector2( 1, -6.10352e-05 )
 script = ExtResource( 1 )
 backgroundSprite_1 = NodePath("Background_1")
@@ -16,8 +15,8 @@ backgroundSprite_2 = NodePath("Background_2")
 backgroundSprite_3 = NodePath("Background_3")
 backgroundSprite_4 = NodePath("Background_4")
 maxMovementSpeed = 300.0
-speedIncrementRate = 50.0
-textureSize = Vector2( 1150, 1150 )
+speedIncrementRate = 100.0
+textureSize = Vector2( 1150, 1100 )
 cameraBufferSize = 50.0
 
 [node name="Background_1" type="Sprite" parent="Moving Background"]
@@ -50,5 +49,6 @@ centered = false
 
 [node name="Player" parent="." instance=ExtResource( 3 )]
 position = Vector2( 510, 300 )
+movementSpeed = 200.0
 turnSpeed = 27.0
 backgroundManager = NodePath("../Moving Background")

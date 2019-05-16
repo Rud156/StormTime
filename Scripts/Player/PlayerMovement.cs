@@ -6,8 +6,7 @@ namespace StormTime.Player
 {
     public class PlayerMovement : KinematicBody2D
     {
-        [Export] public float movementIncrementSpeed;
-        [Export] public float maxMovementSpeed;
+        [Export] public float movementSpeed;
         [Export] public float turnSpeed;
 
         [Export] public NodePath backgroundManager;
@@ -41,7 +40,7 @@ namespace StormTime.Player
         private void RotatePlayer(float delta)
         {
             Vector2 playerPosition = GetPosition();
-            Vector2 mousePosition = GetViewport().GetMousePosition();
+            Vector2 mousePosition = GetGlobalMousePosition();
 
             float turnAngle =
                 -Mathf.Rad2Deg(Mathf.Atan2(playerPosition.x - mousePosition.x, playerPosition.y - mousePosition.y));
@@ -54,24 +53,18 @@ namespace StormTime.Player
         private void MovePlayer(float delta)
         {
             if (Input.IsActionPressed(SceneControls.Left))
-                _movement.x -= movementIncrementSpeed * delta;
+                _movement.x = -movementSpeed * delta;
             else if (Input.IsActionPressed(SceneControls.Right))
-                _movement.x += movementIncrementSpeed * delta;
+                _movement.x = movementSpeed * delta;
             else
                 _movement.x = 0;
 
-            if (Mathf.Abs(_movement.x) > maxMovementSpeed)
-                _movement.x = Mathf.Sign(_movement.x) * maxMovementSpeed;
-
             if (Input.IsActionPressed(SceneControls.Up))
-                _movement.y -= movementIncrementSpeed * delta;
+                _movement.y = -movementSpeed * delta;
             else if (Input.IsActionPressed(SceneControls.Down))
-                _movement.y += movementIncrementSpeed * delta;
+                _movement.y = movementSpeed * delta;
             else
                 _movement.y = 0;
-
-            if (Mathf.Abs(_movement.y) > maxMovementSpeed)
-                _movement.y = Mathf.Sign(_movement.y) * maxMovementSpeed;
 
             MoveAndSlide(_movement);
             CheckMovementAndSetBackgroundRotation();
