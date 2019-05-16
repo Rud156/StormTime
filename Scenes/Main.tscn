@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Scripts/Scene/MovingBackgroundManager.cs" type="Script" id=1]
 [ext_resource path="res://Textures/Background.png" type="Texture" id=2]
 [ext_resource path="res://Textures/Background_Normal.png" type="Texture" id=3]
 [ext_resource path="res://Prefabs/Player.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Textures/light.png" type="Texture" id=5]
+[ext_resource path="res://Scripts/Player/Shooting/PlayerShooting.cs" type="Script" id=5]
+[ext_resource path="res://Textures/light.png" type="Texture" id=6]
 
 [sub_resource type="OccluderPolygon2D" id=1]
 polygon = PoolVector2Array( 9.56291, 8.60589, 14.4516, 8.60589, 14.4516, 13.3667, 9.56291, 13.3667 )
@@ -412,7 +413,6 @@ position = Vector2( 12.0242, 11.0414 )
 shape = SubResource( 2 )
 
 [node name="Player" parent="." instance=ExtResource( 4 )]
-editor/display_folded = true
 position = Vector2( 510, 300 )
 turnSpeed = 27.0
 backgroundManager = NodePath("../Moving Background")
@@ -425,10 +425,14 @@ drag_margin_top = 0.1
 drag_margin_right = 0.1
 drag_margin_bottom = 0.1
 
+[node name="Player Shooter" type="Node2D" parent="Player"]
+script = ExtResource( 5 )
+_playerBulletHolderNodePath = NodePath("../../Bullets Holder")
+
 [node name="Light2D" type="Light2D" parent="."]
 position = Vector2( 500, 300 )
 scale = Vector2( 20, 20 )
-texture = ExtResource( 5 )
+texture = ExtResource( 6 )
 energy = 1.5
 range_height = 7.0
 shadow_enabled = true

@@ -21,4 +21,9 @@ public class Bullet : KinematicBody2D
             // TODO: Destroy the Object and Spawn and Effect
         }
     }
+
+    public void LaunchBullet(Vector2 playerForwardVector)
+    {
+        _launchVelocity = playerForwardVector * bulletSpeed;
+    }
 }
