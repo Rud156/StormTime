@@ -40,9 +40,7 @@ namespace StormTime.Player.Movement
 
         private void RotatePlayer(float delta)
         {
-            Vector2 playerPosition = GetPosition();
             Vector2 mousePosition = GetGlobalMousePosition();
-
             LookAt(mousePosition);
         }
 
