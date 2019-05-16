@@ -17,14 +17,12 @@ namespace StormTime.Player
         private float _targetAngle;
 
         private MovingBackgroundManager _movingBackgroundManager;
-        private Vector2 _maxMovementVector;
 
         public override void _Ready()
         {
             base._Ready();
 
             _movement = new Vector2();
-            _maxMovementVector = new Vector2(maxMovementSpeed, maxMovementSpeed);
             _movingBackgroundManager = GetNode<MovingBackgroundManager>(backgroundManager);
         }
 

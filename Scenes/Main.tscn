@@ -8,6 +8,7 @@
 
 [node name="Moving Background" type="Node2D" parent="."]
 editor/display_folded = true
+visible = false
 position = Vector2( 1, -6.10352e-05 )
 script = ExtResource( 1 )
 backgroundSprite_1 = NodePath("Background_1")
@@ -48,5 +49,6 @@ texture = ExtResource( 2 )
 centered = false
 
 [node name="Player" parent="." instance=ExtResource( 3 )]
+position = Vector2( 510, 300 )
 turnSpeed = 27.0
 backgroundManager = NodePath("../Moving Background")
