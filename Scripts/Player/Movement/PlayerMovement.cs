@@ -43,12 +43,7 @@ namespace StormTime.Player.Movement
             Vector2 playerPosition = GetPosition();
             Vector2 mousePosition = GetGlobalMousePosition();
 
-            float turnAngle =
-                -Mathf.Rad2Deg(Mathf.Atan2(playerPosition.x - mousePosition.x, playerPosition.y - mousePosition.y));
-            _targetAngle = ExtensionFunctions.To360Angle(turnAngle);
-            _rotation = ExtensionFunctions.LerpAngleDeg(_rotation, _targetAngle, turnSpeed * delta);
-
-            SetRotationDegrees(_rotation);
+            LookAt(mousePosition);
         }
 
         private void MovePlayer(float delta)

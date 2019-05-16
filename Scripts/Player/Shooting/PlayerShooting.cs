@@ -34,12 +34,7 @@ public class PlayerShooting : Node
     {
         Bullet bulletInstance = (Bullet)BulletPrefab.Instance();
         bulletInstance.SetPosition(_playerRoot.GetPosition());
-
-        float rotation = _playerRoot.GetCurrentRotation() - 90;
-        float xVelocity = Mathf.Cos(Mathf.Deg2Rad(rotation));
-        float yVelocity = Mathf.Sin(Mathf.Deg2Rad(rotation));
-
-        bulletInstance.LaunchBullet(new Vector2(xVelocity, yVelocity));
+        bulletInstance.LaunchBullet(_playerRoot.GetTransform().x);
 
         _playerBulletHolder.AddChild(bulletInstance);
     }
