@@ -8,13 +8,9 @@ namespace StormTime.Player.Movement
     public class PlayerMovement : KinematicBody2D
     {
         [Export] public float movementSpeed;
-        [Export] public float turnSpeed;
-
         [Export] public NodePath backgroundManager;
 
         private Vector2 _movement;
-        private float _rotation;
-        private float _targetAngle;
 
         private MovingBackgroundManager _movingBackgroundManager;
 
@@ -77,11 +73,6 @@ namespace StormTime.Player.Movement
                 PlayerVariables.PlayerStaticMovementRotation = movementAngle;
                 _movingBackgroundManager.ActivateScrolling();
             }
-        }
-
-        public float GetCurrentRotation()
-        {
-            return _rotation;
         }
     }
 }

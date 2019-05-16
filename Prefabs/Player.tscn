@@ -15,7 +15,6 @@ __meta__ = {
 "_edit_group_": true
 }
 movementSpeed = 250.0
-turnSpeed = 720.0
 
 [node name="Shadow Sprite" type="Sprite" parent="."]
 scale = Vector2( 0.1, 0.3 )
