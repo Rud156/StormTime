@@ -15,6 +15,7 @@ __meta__ = {
 turnSpeed = 720.0
 
 [node name="Sprite" type="Sprite" parent="."]
+light_mask = 2
 texture = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

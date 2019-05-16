@@ -66,7 +66,7 @@ namespace StormTime.Player
             else
                 _movement.y = 0;
 
-            MoveAndSlide(_movement);
+            _movement = MoveAndSlide(_movement);
             CheckMovementAndSetBackgroundRotation();
         }
 
