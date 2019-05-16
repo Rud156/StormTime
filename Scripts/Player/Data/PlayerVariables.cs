@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-namespace StormTime.Player
+namespace StormTime.Player.Data
 {
     public class PlayerVariables : Node2D
     {

@@ -1,8 +1,9 @@
 using Godot;
+using StormTime.Player.Data;
 using StormTime.Scene;
 using StormTime.Utils;
 
-namespace StormTime.Player
+namespace StormTime.Player.Movement
 {
     public class PlayerMovement : KinematicBody2D
     {

@@ -1,7 +1,8 @@
 using Godot;
 using System;
+using StormTime.Player.Data;
 
-namespace StormTime.Player
+namespace StormTime.Player.Camera
 {
     public class CameraPivot : Position2D
     {

@@ -1,5 +1,5 @@
 using Godot;
-using StormTime.Player;
+using StormTime.Player.Data;
 
 namespace StormTime.Scene
 {
