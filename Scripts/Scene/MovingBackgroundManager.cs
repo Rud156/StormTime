@@ -46,7 +46,7 @@ namespace StormTime.Scene
             b3 = _background_3.GetPosition();
             b4 = _background_4.GetPosition();
 
-            ActivateScrolling();
+            // ActivateScrolling();
         }
 
         public override void _Process(float delta)

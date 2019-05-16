@@ -1,4 +1,5 @@
 using Godot;
+using StormTime.Scene;
 using StormTime.Utils;
 
 namespace StormTime.Player
@@ -9,15 +10,22 @@ namespace StormTime.Player
         [Export] public float maxMovementSpeed;
         [Export] public float turnSpeed;
 
+        [Export] public NodePath backgroundManager;
+
         private Vector2 _movement;
         private float _rotation;
         private float _targetAngle;
+
+        private MovingBackgroundManager _movingBackgroundManager;
+        private Vector2 _maxMovementVector;
 
         public override void _Ready()
         {
             base._Ready();
 
             _movement = new Vector2();
+            _maxMovementVector = new Vector2(maxMovementSpeed, maxMovementSpeed);
+            _movingBackgroundManager = GetNode<MovingBackgroundManager>(backgroundManager);
         }
 
         public override void _Process(float delta)
@@ -68,13 +76,21 @@ namespace StormTime.Player
                 _movement.y = Mathf.Sign(_movement.y) * maxMovementSpeed;
 
             MoveAndSlide(_movement);
+            CheckMovementAndSetBackgroundRotation();
         }
 
         private void CheckMovementAndSetBackgroundRotation()
         {
             if (_movement.x == 0 && _movement.y == 0)
             {
-                // Stop Background Scrolling
+                _movingBackgroundManager.DeActivateScrolling();
+            }
+            else
+            {
+                float movementAngle = -Mathf.Rad2Deg(Mathf.Atan2(-_movement.x, -_movement.y));
+                movementAngle -= 90;
+                PlayerVariables.PlayerStaticMovementRotation = movementAngle;
+                _movingBackgroundManager.ActivateScrolling();
             }
         }
     }
