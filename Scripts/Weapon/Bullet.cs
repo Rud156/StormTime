@@ -63,7 +63,6 @@ namespace StormTime.Weapon
 
         private void DestroyBullet()
         {
-            GD.Print("Bullet Removed From World");
             GetParent().RemoveChild(this);
         }
 

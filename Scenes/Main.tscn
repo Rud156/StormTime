@@ -414,6 +414,8 @@ shape = SubResource( 2 )
 
 [node name="Bullets Holder" type="Node2D" parent="."]
 
+[node name="Enemy Groups Holder" type="Node2D" parent="."]
+
 [node name="Player" parent="." instance=ExtResource( 4 )]
 editor/display_folded = true
 position = Vector2( 510, 300 )

@@ -19,5 +19,4 @@ modulate = Color( 1, 0.631373, 0, 1 )
 texture = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
 shape = SubResource( 1 )
