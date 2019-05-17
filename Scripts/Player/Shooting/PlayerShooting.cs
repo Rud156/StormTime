@@ -1,11 +1,12 @@
 using Godot;
 using StormTime.Player.Movement;
 using StormTime.Utils;
+using StormTime.Weapon;
 
 public class PlayerShooting : Node
 {
     private static readonly PackedScene BulletPrefab =
-        ResourceLoader.Load<PackedScene>("res://Prefabs/Bullet.tscn");
+        ResourceLoader.Load<PackedScene>(GameConstants.BulletPrefab);
 
     [Export] public NodePath _playerBulletHolderNodePath;
 
@@ -16,6 +17,7 @@ public class PlayerShooting : Node
     {
         base._Ready();
 
+        GD.Print(_playerBulletHolderNodePath);
         _playerBulletHolder = GetNode<Node2D>(_playerBulletHolderNodePath);
         _playerRoot = GetParent<PlayerMovement>();
     }

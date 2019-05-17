@@ -56,8 +56,11 @@
     <Compile Include="Scripts\Player\Movement\PlayerMovement.cs" />
     <Compile Include="Scripts\Player\Data\PlayerVariables.cs" />
     <Compile Include="Scripts\Utils\ExtensionFunctions.cs" />
+    <Compile Include="Scripts\Utils\GameConstants.cs" />
     <Compile Include="Scripts\Utils\SceneControls.cs" />
     <Compile Include="Scripts\Weapon\Bullet.cs" />
+    <Compile Include="Scripts\Weapon\BulletExplosionCleaner.cs" />
+    <Compile Include="Scripts\Weapon\ParticleActivator.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Scenes\" />

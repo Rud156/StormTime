@@ -1,36 +1,53 @@
 using Godot;
 using System;
+using StormTime.Utils;
 
-public class Bullet : KinematicBody2D
+namespace StormTime.Weapon
 {
-    [Export] public float bulletSpeed;
-    [Export] public float bulletLifeTime;
-
-    private Vector2 _launchVelocity;
-    private Vector2 _position;
-
-    private float _currentBulletTimeLeft;
-
-    public override void _PhysicsProcess(float delta)
+    public class Bullet : KinematicBody2D
     {
-        KinematicCollision2D collision = MoveAndCollide(_launchVelocity * delta);
-        if (collision != null || _currentBulletTimeLeft <= 0)
+        private static readonly PackedScene BulletExplosion =
+            ResourceLoader.Load<PackedScene>(GameConstants.BulletExplosionPrefab);
+
+        [Export] public float bulletSpeed;
+        [Export] public float bulletLifeTime;
+
+        private Vector2 _launchVelocity;
+        private float _currentBulletTimeLeft;
+
+        public override void _PhysicsProcess(float delta)
         {
-            GD.Print("Bullet Collided");
-            DestroyBullet();
+            KinematicCollision2D collision = MoveAndCollide(_launchVelocity * delta);
+            if (collision != null || _currentBulletTimeLeft <= 0)
+            {
+                if (collision != null)
+                {
+                    SpawnBulletExplosion();
+                }
+
+                DestroyBullet();
+            }
+
+            _currentBulletTimeLeft -= delta;
         }
 
-        _currentBulletTimeLeft -= delta;
-    }
+        public void LaunchBullet(Vector2 playerForwardVector)
+        {
+            _launchVelocity = playerForwardVector * bulletSpeed;
+            _currentBulletTimeLeft = bulletLifeTime;
+        }
 
-    public void LaunchBullet(Vector2 playerForwardVector)
-    {
-        _launchVelocity = playerForwardVector * bulletSpeed;
-        _currentBulletTimeLeft = bulletLifeTime;
-    }
+        public void DestroyBullet()
+        {
+            GD.Print("Bullet Removed From World");
+            GetParent().RemoveChild(this);
+        }
 
-    public void DestroyBullet()
-    {
-        GetParent().RemoveChild(this);
+        public void SpawnBulletExplosion()
+        {
+            Node2D bulletExplosionInstance = (Node2D)BulletExplosion.Instance();
+            bulletExplosionInstance.SetPosition(GetGlobalPosition());
+            GetParent().AddChild(bulletExplosionInstance);
+        }
     }
 }

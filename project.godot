@@ -24,6 +24,7 @@ config/icon="res://Textures/Player.png"
 SceneControls="*res://Scripts/Utils/SceneControls.cs"
 ExtensionFunctions="*res://Scripts/Utils/ExtensionFunctions.cs"
 PlayerVariables="*res://Scripts/Player/Data/PlayerVariables.cs"
+GameConstants="*res://Scripts/Utils/GameConstants.cs"
 
 [input]
 
