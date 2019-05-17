@@ -11,9 +11,6 @@ namespace StormTime.Weapon
             this.Connect("timeout", this, "OnTimeOut");
         }
 
-        public void OnTimeOut()
-        {
-            GetParent().GetParent().RemoveChild(this);
-        }
+        public void OnTimeOut() => GetParent().GetParent().RemoveChild(this);
     }
 }

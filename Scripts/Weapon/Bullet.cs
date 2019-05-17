@@ -61,10 +61,7 @@ namespace StormTime.Weapon
             _currentBulletTimeLeft = bulletLifeTime;
         }
 
-        private void DestroyBullet()
-        {
-            GetParent().RemoveChild(this);
-        }
+        private void DestroyBullet() => GetParent().RemoveChild(this);
 
         private void SpawnBulletExplosion()
         {
