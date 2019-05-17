@@ -31,6 +31,7 @@ color_ramp = SubResource( 2 )
 [node name="Bullet Explosion" type="Node2D"]
 
 [node name="Bullet Particles" type="Particles2D" parent="."]
+light_mask = 2
 emitting = false
 amount = 250
 lifetime = 0.3

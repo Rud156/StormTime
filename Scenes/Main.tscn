@@ -415,6 +415,7 @@ shape = SubResource( 2 )
 [node name="Bullets Holder" type="Node2D" parent="."]
 
 [node name="Player" parent="." instance=ExtResource( 4 )]
+editor/display_folded = true
 position = Vector2( 510, 300 )
 backgroundManager = NodePath("../Moving Background")
 
@@ -430,7 +431,7 @@ drag_margin_bottom = 0.1
 script = ExtResource( 5 )
 _playerBulletHolderNodePath = NodePath("../../Bullets Holder")
 
-[node name="Light2D" type="Light2D" parent="."]
+[node name="Scene Light" type="Light2D" parent="."]
 position = Vector2( 510, 300 )
 scale = Vector2( 20, 20 )
 texture = ExtResource( 6 )

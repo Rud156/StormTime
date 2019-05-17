@@ -16,8 +16,7 @@ public class PlayerShooting : Node
     public override void _Ready()
     {
         base._Ready();
-
-        GD.Print(_playerBulletHolderNodePath);
+        
         _playerBulletHolder = GetNode<Node2D>(_playerBulletHolderNodePath);
         _playerRoot = GetParent<PlayerMovement>();
     }
