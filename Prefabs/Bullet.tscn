@@ -10,7 +10,7 @@ extents = Vector2( 16, 16 )
 scale = Vector2( 0.4, 0.4 )
 collision_layer = 2
 script = ExtResource( 1 )
-bulletSpeed = 1500.0
+bulletSpeed = 2000.0
 bulletLifeTime = 1.0
 bulletTrailTimer = 0.04
 
