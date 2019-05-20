@@ -25,6 +25,7 @@ SceneControls="*res://Scripts/Utils/SceneControls.cs"
 ExtensionFunctions="*res://Scripts/Utils/ExtensionFunctions.cs"
 PlayerVariables="*res://Scripts/Player/Data/PlayerVariables.cs"
 GameConstants="*res://Scripts/Utils/GameConstants.cs"
+VectorHelpers="*res://Scripts/Utils/VectorHelpers.cs"
 
 [input]
 
