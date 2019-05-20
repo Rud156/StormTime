@@ -53,7 +53,6 @@
     <Compile Include="Scripts\Enemy\Enemy.cs" />
     <Compile Include="Scripts\Player\Shooting\PlayerShooting.cs" />
     <Compile Include="Scripts\Scene\MovingBackgroundManager.cs" />
-    <Compile Include="Scripts\Player\Camera\CameraPivot.cs" />
     <Compile Include="Scripts\Player\Movement\PlayerMovement.cs" />
     <Compile Include="Scripts\Player\Data\PlayerVariables.cs" />
     <Compile Include="Scripts\Utils\ExtensionFunctions.cs" />
