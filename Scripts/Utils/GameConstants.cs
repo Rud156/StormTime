@@ -4,8 +4,8 @@ namespace StormTime.Utils
 {
     public class GameConstants : Node2D
     {
-        public const string BulletPrefab = "res://Prefabs/Bullet.tscn";
-        public const string PlayerPrefab = "res://Prefabs/Player.tscn";
+        public const string BulletPrefab = "res://Prefabs/Interactibles/Bullet.tscn";
+        public const string PlayerPrefab = "res://Prefabs/Interactibles/Player.tscn";
 
         // Particle Effects
         public const string BulletExplosionPrefab = "res://Prefabs/Effects/Bullet Explosion.tscn";

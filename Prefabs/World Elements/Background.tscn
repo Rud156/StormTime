@@ -10,7 +10,6 @@ polygon = PoolVector2Array( 9.56291, 8.60589, 14.4516, 8.60589, 14.4516, 13.3667
 extents = Vector2( 2.4577, 2.42435 )
 
 [node name="Moving Background" type="Node2D"]
-editor/display_folded = true
 position = Vector2( 1, -6.10352e-005 )
 
 [node name="Background_1" type="Sprite" parent="."]

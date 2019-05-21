@@ -8,18 +8,14 @@ namespace StormTime.Player.Movement
     public class PlayerMovement : KinematicBody2D
     {
         [Export] public float movementSpeed;
-        [Export] public NodePath backgroundManager;
 
         private Vector2 _movement;
-
-        private MovingBackgroundManager _movingBackgroundManager;
 
         public override void _Ready()
         {
             base._Ready();
 
             _movement = new Vector2();
-            _movingBackgroundManager = GetNode<MovingBackgroundManager>(backgroundManager);
         }
 
         public override void _Process(float delta)
@@ -57,22 +53,6 @@ namespace StormTime.Player.Movement
                 _movement.y = 0;
 
             _movement = MoveAndSlide(_movement);
-            CheckMovementAndSetBackgroundRotation();
-        }
-
-        private void CheckMovementAndSetBackgroundRotation()
-        {
-            if (_movement.x == 0 && _movement.y == 0)
-            {
-                _movingBackgroundManager.DeActivateScrolling();
-            }
-            else
-            {
-                float movementAngle = -Mathf.Rad2Deg(Mathf.Atan2(-_movement.x, -_movement.y));
-                movementAngle -= 90;
-                PlayerVariables.PlayerStaticMovementRotation = movementAngle;
-                _movingBackgroundManager.ActivateScrolling();
-            }
         }
     }
 }
