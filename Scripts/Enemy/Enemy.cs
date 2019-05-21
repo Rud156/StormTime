@@ -23,6 +23,7 @@ namespace StormTime.Enemy
 
         protected enum EnemyState
         {
+            Homing,
             Idling,
             Wandering,
             Targeting,
@@ -58,6 +59,10 @@ namespace StormTime.Enemy
 
             switch (_enemyState)
             {
+                case EnemyState.Homing:
+                    UpdateHoming(delta);
+                    break;
+
                 case EnemyState.Idling:
                     UpdateIdling(delta);
                     break;
@@ -92,6 +97,30 @@ namespace StormTime.Enemy
             _enemyState != EnemyState.Attacking && _enemyState != EnemyState.Dead)
             {
                 SetEnemyState(EnemyState.Attacking);
+            }
+
+            if (GetPosition().DistanceSquaredTo(_startPosition) > maxPlayerFollowDistance &&
+            _enemyState != EnemyState.Attacking && _enemyState != EnemyState.Dead)
+            {
+                SetEnemyState(EnemyState.Homing);
+            }
+
+            if (GetPosition().DistanceSquaredTo(PlayerVariables.PlayerPosition) > playerTargetDistance && _enemyState == EnemyState.Targeting)
+            {
+                SetEnemyState(EnemyState.Idling);
+            }
+        }
+
+        protected void UpdateHoming(float delta)
+        {
+            _targetPosition = _startPosition;
+            MoveToTowardsTarget(_targetPosition);
+
+
+            if (GetPosition().DistanceSquaredTo(_targetPosition) <= minWanderingReachDistance)
+            {
+                _idleTimeLeft = idleTime;
+                SetEnemyState(EnemyState.Idling);
             }
         }
 
