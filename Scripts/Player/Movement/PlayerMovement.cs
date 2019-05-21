@@ -40,6 +40,7 @@ namespace StormTime.Player.Movement
                 _movement.y = 0;
 
             _movement = MoveAndSlide(_movement);
+            PlayerVariables.PlayerPosition = GetPosition();
         }
     }
 }
