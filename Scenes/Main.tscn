@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://Prefabs/World Elements/Background.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Prefabs/World Elements/Moving Background.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Prefabs/Interactibles/Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scripts/Player/Shooting/PlayerShooting.cs" type="Script" id=3]
 [ext_resource path="res://Textures/light.png" type="Texture" id=4]
@@ -14,10 +14,7 @@
 [node name="Enemy Groups Holder" type="Node2D" parent="."]
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
-editor/display_folded = true
 position = Vector2( 510, 300 )
-movementSpeed = 700.0
-backgroundManager = NodePath("")
 
 [node name="Player Camera" type="Camera2D" parent="Player"]
 current = true
@@ -31,9 +28,8 @@ drag_margin_bottom = 0.1
 script = ExtResource( 3 )
 _playerBulletHolderNodePath = NodePath("../../Bullets Holder")
 
-[node name="Scene Light" type="Light2D" parent="."]
-position = Vector2( 510, 300 )
-scale = Vector2( 20, 20 )
+[node name="Scene Light" type="Light2D" parent="Player"]
+scale = Vector2( 66.6667, 66.6667 )
 texture = ExtResource( 4 )
 energy = 1.5
 range_height = 7.0

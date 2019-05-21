@@ -14,7 +14,7 @@ position = Vector2( 1, -6.10352e-005 )
 
 [node name="Background_1" type="Sprite" parent="."]
 editor/display_folded = true
-position = Vector2( -50, -47 )
+position = Vector2( -51.0002, -50.0001 )
 scale = Vector2( 8.98438, 8.59375 )
 z_index = -1
 texture = ExtResource( 1 )
@@ -110,7 +110,7 @@ shape = SubResource( 2 )
 
 [node name="Background_2" type="Sprite" parent="."]
 editor/display_folded = true
-position = Vector2( 1100, -50 )
+position = Vector2( 1099, -50 )
 scale = Vector2( 8.98438, 8.59375 )
 z_index = -1
 texture = ExtResource( 1 )
@@ -206,7 +206,7 @@ shape = SubResource( 2 )
 
 [node name="Background_3" type="Sprite" parent="."]
 editor/display_folded = true
-position = Vector2( -50, -1150 )
+position = Vector2( -51.0002, -1150 )
 scale = Vector2( 8.98438, 8.59375 )
 z_index = -1
 texture = ExtResource( 1 )
@@ -302,7 +302,7 @@ shape = SubResource( 2 )
 
 [node name="Background_4" type="Sprite" parent="."]
 editor/display_folded = true
-position = Vector2( 1100, -1150 )
+position = Vector2( 1099, -1150 )
 scale = Vector2( 8.98438, 8.59375 )
 z_index = -1
 texture = ExtResource( 1 )
@@ -590,7 +590,7 @@ shape = SubResource( 2 )
 
 [node name="Background_7" type="Sprite" parent="."]
 editor/display_folded = true
-position = Vector2( 2250, -49.9999 )
+position = Vector2( 2249, -49.9998 )
 scale = Vector2( 8.98438, 8.59375 )
 z_index = -1
 texture = ExtResource( 1 )
@@ -685,7 +685,7 @@ shape = SubResource( 2 )
 
 [node name="Background_8" type="Sprite" parent="."]
 editor/display_folded = true
-position = Vector2( 2250, -1150 )
+position = Vector2( 2249, -1150 )
 scale = Vector2( 8.98438, 8.59375 )
 z_index = -1
 texture = ExtResource( 1 )
