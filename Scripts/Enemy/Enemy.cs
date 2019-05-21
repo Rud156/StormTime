@@ -95,12 +95,13 @@ namespace StormTime.Enemy
             }
 
             if (GetPosition().DistanceSquaredTo(_startPosition) > maxPlayerFollowDistance &&
-            _enemyState != EnemyState.Attacking && _enemyState != EnemyState.Dead)
+            _enemyState == EnemyState.Targeting)
             {
                 SetEnemyState(EnemyState.Homing);
             }
 
-            if (GetPosition().DistanceSquaredTo(PlayerVariables.PlayerPosition) > playerTargetDistance && _enemyState == EnemyState.Targeting)
+            if (GetPosition().DistanceSquaredTo(PlayerVariables.PlayerPosition) > playerTargetDistance &&
+             _enemyState == EnemyState.Targeting)
             {
                 SetEnemyState(EnemyState.Idling);
             }

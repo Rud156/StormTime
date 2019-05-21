@@ -65,6 +65,7 @@
     <Compile Include="Scripts\Utils\SceneControls.cs" />
     <Compile Include="Scripts\Utils\VectorHelpers.cs" />
     <Compile Include="Scripts\Weapon\Bullet.cs" />
+    <Compile Include="Scripts\Weapon\EnemyBullet.cs" />
     <Compile Include="Scripts\Weapon\ParticleActivator.cs" />
     <Compile Include="Scripts\Weapon\ParticlesCleaner.cs" />
   </ItemGroup>
