@@ -7,7 +7,6 @@
 [ext_resource path="res://Scripts/Camera/CameraFollowTarget.cs" type="Script" id=5]
 [ext_resource path="res://Prefabs/UI/GUI.tscn" type="PackedScene" id=6]
 
-
 [node name="Main" type="Node"]
 
 [node name="Game World" type="Node2D" parent="."]
