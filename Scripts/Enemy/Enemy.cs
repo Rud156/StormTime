@@ -40,14 +40,9 @@ namespace StormTime.Enemy
         // Idle States
         protected float _idleTimeLeft;
 
-
-        // Player Attacking State
-        protected Vector2 _positionBeforePlayerFollow;
-
         public override void _Ready()
         {
             _startPosition = GetPosition();
-            _positionBeforePlayerFollow = _startPosition;
             _idleTimeLeft = 0;
 
             SetEnemyState(EnemyState.Idling);
