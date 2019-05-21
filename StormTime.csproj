@@ -55,6 +55,7 @@
     <Compile Include="Scripts\Scene\MovingBackgroundManager.cs" />
     <Compile Include="Scripts\Player\Movement\PlayerMovement.cs" />
     <Compile Include="Scripts\Player\Data\PlayerVariables.cs" />
+    <Compile Include="Scripts\UI\FPSLabel.cs" />
     <Compile Include="Scripts\Utils\ExtensionFunctions.cs" />
     <Compile Include="Scripts\Utils\GameConstants.cs" />
     <Compile Include="Scripts\Utils\SceneControls.cs" />

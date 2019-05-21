@@ -1,0 +1,29 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Prefabs/UI/Default Theme.tres" type="Theme" id=1]
+[ext_resource path="res://Scripts/UI/FPSLabel.cs" type="Script" id=2]
+
+[node name="GUI" type="Control"]
+light_mask = 2
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="FPS Panel" type="Panel" parent="."]
+light_mask = 2
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -144.0
+margin_top = -50.0
+margin_right = 1.0
+
+[node name="FPS Label" type="Label" parent="FPS Panel"]
+light_mask = 2
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 1 )
+text = "FPS: 60"
+align = 1
+valign = 1
+script = ExtResource( 2 )
