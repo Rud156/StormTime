@@ -18,6 +18,9 @@ namespace StormTime.Enemy
         [Export] public float maxPlayerFollowDistance;
         [Export] public float movementSpeed;
 
+        // Target Attack Stats
+        [Export] public float attackTime;
+
         // Debug
         [Export] public bool isDebug;
 
@@ -37,13 +40,13 @@ namespace StormTime.Enemy
         protected Vector2 _startPosition;
         protected Vector2 _targetPosition;
 
-        // Idle States
-        protected float _idleTimeLeft;
+        // Timer
+        protected float _enemyTimer;
 
         public override void _Ready()
         {
             _startPosition = GetPosition();
-            _idleTimeLeft = 0;
+            _enemyTimer = 0;
 
             SetEnemyState(EnemyState.Idling);
         }
@@ -85,6 +88,7 @@ namespace StormTime.Enemy
             if (GetPosition().DistanceSquaredTo(PlayerVariables.PlayerPosition) <= playerTargetDistance &&
             _enemyState != EnemyState.Attacking && _enemyState != EnemyState.Dead)
             {
+                _enemyTimer = attackTime;
                 SetEnemyState(EnemyState.Targeting);
             }
 
@@ -115,15 +119,15 @@ namespace StormTime.Enemy
 
             if (GetPosition().DistanceSquaredTo(_targetPosition) <= minWanderingReachDistance)
             {
-                _idleTimeLeft = idleTime;
+                _enemyTimer = idleTime;
                 SetEnemyState(EnemyState.Idling);
             }
         }
 
         protected void UpdateIdling(float delta)
         {
-            _idleTimeLeft -= delta;
-            if (_idleTimeLeft <= 0)
+            _enemyTimer -= delta;
+            if (_enemyTimer <= 0)
             {
                 Vector2 newIdlingTarget = GetNewPositionForIdling();
                 _targetPosition = newIdlingTarget;
@@ -137,7 +141,7 @@ namespace StormTime.Enemy
 
             if (GetPosition().DistanceSquaredTo(_targetPosition) <= minWanderingReachDistance)
             {
-                _idleTimeLeft = idleTime;
+                _enemyTimer = idleTime;
                 SetEnemyState(EnemyState.Idling);
             }
         }
@@ -148,7 +152,15 @@ namespace StormTime.Enemy
             MoveToTowardsTarget(_targetPosition);
         }
 
-        protected abstract void UpdateAttacking(float delta);
+        protected virtual void UpdateAttacking(float delta)
+        {
+            _enemyTimer -= delta;
+
+            if (_enemyTimer <= 0)
+            {
+                SetEnemyState(EnemyState.Targeting);
+            }
+        }
 
         protected void UpdateDead(float delta)
         {
