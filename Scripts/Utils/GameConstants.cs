@@ -8,7 +8,7 @@ namespace StormTime.Utils
         public const string PlayerPrefab = "res://Prefabs/Player.tscn";
 
         // Particle Effects
-        public const string BulletExplosionPrefab = "res://Prefabs/Bullet Explosion.tscn";
-        public const string BulletTrailPrefab = "res://Prefabs/Bullet Trail.tscn";
+        public const string BulletExplosionPrefab = "res://Prefabs/Effects/Bullet Explosion.tscn";
+        public const string BulletTrailPrefab = "res://Prefabs/Effects/Bullet Trail.tscn";
     }
 }

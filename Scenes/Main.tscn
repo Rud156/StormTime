@@ -1,11 +1,10 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=8 format=2]
 
-[ext_resource path="res://Scripts/Scene/MovingBackgroundManager.cs" type="Script" id=1]
-[ext_resource path="res://Textures/Background.png" type="Texture" id=2]
-[ext_resource path="res://Textures/Background_Normal.png" type="Texture" id=3]
-[ext_resource path="res://Prefabs/Player.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Scripts/Player/Shooting/PlayerShooting.cs" type="Script" id=5]
-[ext_resource path="res://Textures/light.png" type="Texture" id=6]
+[ext_resource path="res://Textures/Background.png" type="Texture" id=1]
+[ext_resource path="res://Textures/Background_Normal.png" type="Texture" id=2]
+[ext_resource path="res://Prefabs/Player.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Scripts/Player/Shooting/PlayerShooting.cs" type="Script" id=4]
+[ext_resource path="res://Textures/light.png" type="Texture" id=5]
 
 [sub_resource type="OccluderPolygon2D" id=1]
 polygon = PoolVector2Array( 9.56291, 8.60589, 14.4516, 8.60589, 14.4516, 13.3667, 9.56291, 13.3667 )
@@ -16,25 +15,15 @@ extents = Vector2( 2.4577, 2.42435 )
 [node name="Root" type="Node2D"]
 
 [node name="Moving Background" type="Node2D" parent="."]
-editor/display_folded = true
 position = Vector2( 1, -6.10352e-005 )
-script = ExtResource( 1 )
-backgroundSprite_1 = NodePath("Background_1")
-backgroundSprite_2 = NodePath("Background_2")
-backgroundSprite_3 = NodePath("Background_3")
-backgroundSprite_4 = NodePath("Background_4")
-maxMovementSpeed = 300.0
-speedIncrementRate = 100.0
-textureSize = Vector2( 1150, 1100 )
-cameraBufferSize = 50.0
 
 [node name="Background_1" type="Sprite" parent="Moving Background"]
 editor/display_folded = true
-position = Vector2( -50, -50 )
+position = Vector2( -50, -47 )
 scale = Vector2( 8.98438, 8.59375 )
 z_index = -1
-texture = ExtResource( 2 )
-normal_map = ExtResource( 3 )
+texture = ExtResource( 1 )
+normal_map = ExtResource( 2 )
 centered = false
 
 [node name="Occuluder 1" type="LightOccluder2D" parent="Moving Background/Background_1"]
@@ -129,8 +118,8 @@ editor/display_folded = true
 position = Vector2( 1100, -50 )
 scale = Vector2( 8.98438, 8.59375 )
 z_index = -1
-texture = ExtResource( 2 )
-normal_map = ExtResource( 3 )
+texture = ExtResource( 1 )
+normal_map = ExtResource( 2 )
 centered = false
 
 [node name="Occuluder 1" type="LightOccluder2D" parent="Moving Background/Background_2"]
@@ -225,8 +214,8 @@ editor/display_folded = true
 position = Vector2( -50, -1150 )
 scale = Vector2( 8.98438, 8.59375 )
 z_index = -1
-texture = ExtResource( 2 )
-normal_map = ExtResource( 3 )
+texture = ExtResource( 1 )
+normal_map = ExtResource( 2 )
 centered = false
 
 [node name="Occuluder 1" type="LightOccluder2D" parent="Moving Background/Background_3"]
@@ -321,8 +310,8 @@ editor/display_folded = true
 position = Vector2( 1100, -1150 )
 scale = Vector2( 8.98438, 8.59375 )
 z_index = -1
-texture = ExtResource( 2 )
-normal_map = ExtResource( 3 )
+texture = ExtResource( 1 )
+normal_map = ExtResource( 2 )
 centered = false
 
 [node name="Occuluder 1" type="LightOccluder2D" parent="Moving Background/Background_4"]
@@ -412,13 +401,1548 @@ occluder = SubResource( 1 )
 position = Vector2( 12.0242, 11.0414 )
 shape = SubResource( 2 )
 
+[node name="Background_5" type="Sprite" parent="Moving Background"]
+editor/display_folded = true
+position = Vector2( -51.0002, -2250 )
+scale = Vector2( 8.98438, 8.59375 )
+z_index = -1
+texture = ExtResource( 1 )
+normal_map = ExtResource( 2 )
+centered = false
+
+[node name="Occuluder 1" type="LightOccluder2D" parent="Moving Background/Background_5"]
+editor/display_folded = true
+occluder = SubResource( 1 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Moving Background/Background_5/Occuluder 1"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Moving Background/Background_5/Occuluder 1/StaticBody2D"]
+position = Vector2( 12.0242, 11.0414 )
+shape = SubResource( 2 )
+
+[node name="Occuluder 2" type="LightOccluder2D" parent="Moving Background/Background_5"]
+editor/display_folded = true
+position = Vector2( 51, 9 )
+occluder = SubResource( 1 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Moving Background/Background_5/Occuluder 2"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Moving Background/Background_5/Occuluder 2/StaticBody2D"]
+position = Vector2( 12.0242, 11.0414 )
+shape = SubResource( 2 )
+
+[node name="Occuluder 3" type="LightOccluder2D" parent="Moving Background/Background_5"]
+editor/display_folded = true
+position = Vector2( 91, 5 )
+occluder = SubResource( 1 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Moving Background/Background_5/Occuluder 3"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Moving Background/Background_5/Occuluder 3/StaticBody2D"]
+position = Vector2( 12.0242, 11.0414 )
+shape = SubResource( 2 )
+
+[node name="Occuluder 4" type="LightOccluder2D" parent="Moving Background/Background_5"]
+editor/display_folded = true
+position = Vector2( 9, 33 )
+occluder = SubResource( 1 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Moving Background/Background_5/Occuluder 4"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Moving Background/Background_5/Occuluder 4/StaticBody2D"]
+position = Vector2( 12.0242, 11.0414 )
+shape = SubResource( 2 )
+
+[node name="Occuluder 5" type="LightOccluder2D" parent="Moving Background/Background_5"]
+editor/display_folded = true
+position = Vector2( 72, 52 )
+occluder = SubResource( 1 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Moving Background/Background_5/Occuluder 5"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Moving Background/Background_5/Occuluder 5/StaticBody2D"]
+position = Vector2( 12.0242, 11.0414 )
+shape = SubResource( 2 )
+
+[node name="Occuluder 6" type="LightOccluder2D" parent="Moving Background/Background_5"]
+editor/display_folded = true
+position = Vector2( 20, 90 )
+occluder = SubResource( 1 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Moving Background/Background_5/Occuluder 6"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Moving Background/Background_5/Occuluder 6/StaticBody2D"]
+position = Vector2( 12.0242, 11.0414 )
+shape = SubResource( 2 )
+
+[node name="Occuluder 7" type="LightOccluder2D" parent="Moving Background/Background_5"]
+editor/display_folded = true
+position = Vector2( 59, 88 )
+occluder = SubResource( 1 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Moving Background/Background_5/Occuluder 7"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Moving Background/Background_5/Occuluder 7/StaticBody2D"]
+position = Vector2( 12.0242, 11.0414 )
+shape = SubResource( 2 )
+
+[node name="Occuluder 8" type="LightOccluder2D" parent="Moving Background/Background_5"]
+editor/display_folded = true
+position = Vector2( 92, 99 )
+occluder = SubResource( 1 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Moving Background/Background_5/Occuluder 8"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Moving Background/Background_5/Occuluder 8/StaticBody2D"]
+position = Vector2( 12.0242, 11.0414 )
+shape = SubResource( 2 )
+
+[node name="Background_6" type="Sprite" parent="Moving Background"]
+editor/display_folded = true
+position = Vector2( -1201, -2250 )
+scale = Vector2( 8.98438, 8.59375 )
+z_index = -1
+texture = ExtResource( 1 )
+normal_map = ExtResource( 2 )
+centered = false
+
+[node name="Occuluder 1" type="LightOccluder2D" parent="Moving Background/Background_6"]
+editor/display_folded = true
+occluder = SubResource( 1 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Moving Background/Background_6/Occuluder 1"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Moving Background/Background_6/Occuluder 1/StaticBody2D"]
+position = Vector2( 12.0242, 11.0414 )
+shape = SubResource( 2 )
+
+[node name="Occuluder 2" type="LightOccluder2D" parent="Moving Background/Background_6"]
+editor/display_folded = true
+position = Vector2( 51, 9 )
+occluder = SubResource( 1 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Moving Background/Background_6/Occuluder 2"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Moving Background/Background_6/Occuluder 2/StaticBody2D"]
+position = Vector2( 12.0242, 11.0414 )
+shape = SubResource( 2 )
+
+[node name="Occuluder 3" type="LightOccluder2D" parent="Moving Background/Background_6"]
+editor/display_folded = true
+position = Vector2( 91, 5 )
+occluder = SubResource( 1 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Moving Background/Background_6/Occuluder 3"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Moving Background/Background_6/Occuluder 3/StaticBody2D"]
+position = Vector2( 12.0242, 11.0414 )
+shape = SubResource( 2 )
+
+[node name="Occuluder 4" type="LightOccluder2D" parent="Moving Background/Background_6"]
+editor/display_folded = true
+position = Vector2( 9, 33 )
+occluder = SubResource( 1 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Moving Background/Background_6/Occuluder 4"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Moving Background/Background_6/Occuluder 4/StaticBody2D"]
+position = Vector2( 12.0242, 11.0414 )
+shape = SubResource( 2 )
+
+[node name="Occuluder 5" type="LightOccluder2D" parent="Moving Background/Background_6"]
+editor/display_folded = true
+position = Vector2( 72, 52 )
+occluder = SubResource( 1 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Moving Background/Background_6/Occuluder 5"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Moving Background/Background_6/Occuluder 5/StaticBody2D"]
+position = Vector2( 12.0242, 11.0414 )
+shape = SubResource( 2 )
+
+[node name="Occuluder 6" type="LightOccluder2D" parent="Moving Background/Background_6"]
+editor/display_folded = true
+position = Vector2( 20, 90 )
+occluder = SubResource( 1 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Moving Background/Background_6/Occuluder 6"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Moving Background/Background_6/Occuluder 6/StaticBody2D"]
+position = Vector2( 12.0242, 11.0414 )
+shape = SubResource( 2 )
+
+[node name="Occuluder 7" type="LightOccluder2D" parent="Moving Background/Background_6"]
+editor/display_folded = true
+position = Vector2( 59, 88 )
+occluder = SubResource( 1 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Moving Background/Background_6/Occuluder 7"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Moving Background/Background_6/Occuluder 7/StaticBody2D"]
+position = Vector2( 12.0242, 11.0414 )
+shape = SubResource( 2 )
+
+[node name="Occuluder 8" type="LightOccluder2D" parent="Moving Background/Background_6"]
+editor/display_folded = true
+position = Vector2( 92, 99 )
+occluder = SubResource( 1 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Moving Background/Background_6/Occuluder 8"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Moving Background/Background_6/Occuluder 8/StaticBody2D"]
+position = Vector2( 12.0242, 11.0414 )
+shape = SubResource( 2 )
+
+[node name="Background_7" type="Sprite" parent="Moving Background"]
+editor/display_folded = true
+position = Vector2( 2250, -49.9999 )
+scale = Vector2( 8.98438, 8.59375 )
+z_index = -1
+texture = ExtResource( 1 )
+normal_map = ExtResource( 2 )
+centered = false
+
+[node name="Occuluder 1" type="LightOccluder2D" parent="Moving Background/Background_7"]
+editor/display_folded = true
+occluder = SubResource( 1 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Moving Background/Background_7/Occuluder 1"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Moving Background/Background_7/Occuluder 1/StaticBody2D"]
+position = Vector2( 12.0242, 11.0414 )
+shape = SubResource( 2 )
+
+[node name="Occuluder 2" type="LightOccluder2D" parent="Moving Background/Background_7"]
+editor/display_folded = true
+position = Vector2( 51, 9 )
+occluder = SubResource( 1 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Moving Background/Background_7/Occuluder 2"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Moving Background/Background_7/Occuluder 2/StaticBody2D"]
+position = Vector2( 12.0242, 11.0414 )
+shape = SubResource( 2 )
+
+[node name="Occuluder 3" type="LightOccluder2D" parent="Moving Background/Background_7"]
+editor/display_folded = true
+position = Vector2( 91, 5 )
+occluder = SubResource( 1 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Moving Background/Background_7/Occuluder 3"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Moving Background/Background_7/Occuluder 3/StaticBody2D"]
+position = Vector2( 12.0242, 11.0414 )
+shape = SubResource( 2 )
+
+[node name="Occuluder 4" type="LightOccluder2D" parent="Moving Background/Background_7"]
+editor/display_folded = true
+position = Vector2( 9, 33 )
+occluder = SubResource( 1 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Moving Background/Background_7/Occuluder 4"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Moving Background/Background_7/Occuluder 4/StaticBody2D"]
+position = Vector2( 12.0242, 11.0414 )
+shape = SubResource( 2 )
+
+[node name="Occuluder 5" type="LightOccluder2D" parent="Moving Background/Background_7"]
+editor/display_folded = true
+position = Vector2( 72, 52 )
+occluder = SubResource( 1 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Moving Background/Background_7/Occuluder 5"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Moving Background/Background_7/Occuluder 5/StaticBody2D"]
+position = Vector2( 12.0242, 11.0414 )
+shape = SubResource( 2 )
+
+[node name="Occuluder 6" type="LightOccluder2D" parent="Moving Background/Background_7"]
+editor/display_folded = true
+position = Vector2( 20, 90 )
+occluder = SubResource( 1 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Moving Background/Background_7/Occuluder 6"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Moving Background/Background_7/Occuluder 6/StaticBody2D"]
+position = Vector2( 12.0242, 11.0414 )
+shape = SubResource( 2 )
+
+[node name="Occuluder 7" type="LightOccluder2D" parent="Moving Background/Background_7"]
+position = Vector2( 59, 88 )
+occluder = SubResource( 1 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Moving Background/Background_7/Occuluder 7"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Moving Background/Background_7/Occuluder 7/StaticBody2D"]
+position = Vector2( 12.0242, 11.0414 )
+shape = SubResource( 2 )
+
+[node name="Occuluder 8" type="LightOccluder2D" parent="Moving Background/Background_7"]
+editor/display_folded = true
+position = Vector2( 92, 99 )
+occluder = SubResource( 1 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Moving Background/Background_7/Occuluder 8"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Moving Background/Background_7/Occuluder 8/StaticBody2D"]
+position = Vector2( 12.0242, 11.0414 )
+shape = SubResource( 2 )
+
+[node name="Background_8" type="Sprite" parent="Moving Background"]
+editor/display_folded = true
+position = Vector2( 2250, -1150 )
+scale = Vector2( 8.98438, 8.59375 )
+z_index = -1
+texture = ExtResource( 1 )
+normal_map = ExtResource( 2 )
+centered = false
+
+[node name="Occuluder 1" type="LightOccluder2D" parent="Moving Background/Background_8"]
+editor/display_folded = true
+occluder = SubResource( 1 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Moving Background/Background_8/Occuluder 1"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Moving Background/Background_8/Occuluder 1/StaticBody2D"]
+position = Vector2( 12.0242, 11.0414 )
+shape = SubResource( 2 )
+
+[node name="Occuluder 2" type="LightOccluder2D" parent="Moving Background/Background_8"]
+editor/display_folded = true
+position = Vector2( 51, 9 )
+occluder = SubResource( 1 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Moving Background/Background_8/Occuluder 2"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Moving Background/Background_8/Occuluder 2/StaticBody2D"]
+position = Vector2( 12.0242, 11.0414 )
+shape = SubResource( 2 )
+
+[node name="Occuluder 3" type="LightOccluder2D" parent="Moving Background/Background_8"]
+editor/display_folded = true
+position = Vector2( 91, 5 )
+occluder = SubResource( 1 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Moving Background/Background_8/Occuluder 3"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Moving Background/Background_8/Occuluder 3/StaticBody2D"]
+position = Vector2( 12.0242, 11.0414 )
+shape = SubResource( 2 )
+
+[node name="Occuluder 4" type="LightOccluder2D" parent="Moving Background/Background_8"]
+editor/display_folded = true
+position = Vector2( 9, 33 )
+occluder = SubResource( 1 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Moving Background/Background_8/Occuluder 4"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Moving Background/Background_8/Occuluder 4/StaticBody2D"]
+position = Vector2( 12.0242, 11.0414 )
+shape = SubResource( 2 )
+
+[node name="Occuluder 5" type="LightOccluder2D" parent="Moving Background/Background_8"]
+editor/display_folded = true
+position = Vector2( 72, 52 )
+occluder = SubResource( 1 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Moving Background/Background_8/Occuluder 5"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Moving Background/Background_8/Occuluder 5/StaticBody2D"]
+position = Vector2( 12.0242, 11.0414 )
+shape = SubResource( 2 )
+
+[node name="Occuluder 6" type="LightOccluder2D" parent="Moving Background/Background_8"]
+editor/display_folded = true
+position = Vector2( 20, 90 )
+occluder = SubResource( 1 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Moving Background/Background_8/Occuluder 6"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Moving Background/Background_8/Occuluder 6/StaticBody2D"]
+position = Vector2( 12.0242, 11.0414 )
+shape = SubResource( 2 )
+
+[node name="Occuluder 7" type="LightOccluder2D" parent="Moving Background/Background_8"]
+editor/display_folded = true
+position = Vector2( 59, 88 )
+occluder = SubResource( 1 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Moving Background/Background_8/Occuluder 7"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Moving Background/Background_8/Occuluder 7/StaticBody2D"]
+position = Vector2( 12.0242, 11.0414 )
+shape = SubResource( 2 )
+
+[node name="Occuluder 8" type="LightOccluder2D" parent="Moving Background/Background_8"]
+editor/display_folded = true
+position = Vector2( 92, 99 )
+occluder = SubResource( 1 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Moving Background/Background_8/Occuluder 8"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Moving Background/Background_8/Occuluder 8/StaticBody2D"]
+position = Vector2( 12.0242, 11.0414 )
+shape = SubResource( 2 )
+
+[node name="Background_9" type="Sprite" parent="Moving Background"]
+editor/display_folded = true
+position = Vector2( -1201, -49.9999 )
+scale = Vector2( 8.98438, 8.59375 )
+z_index = -1
+texture = ExtResource( 1 )
+normal_map = ExtResource( 2 )
+centered = false
+
+[node name="Occuluder 1" type="LightOccluder2D" parent="Moving Background/Background_9"]
+editor/display_folded = true
+occluder = SubResource( 1 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Moving Background/Background_9/Occuluder 1"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Moving Background/Background_9/Occuluder 1/StaticBody2D"]
+position = Vector2( 12.0242, 11.0414 )
+shape = SubResource( 2 )
+
+[node name="Occuluder 2" type="LightOccluder2D" parent="Moving Background/Background_9"]
+editor/display_folded = true
+position = Vector2( 51, 9 )
+occluder = SubResource( 1 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Moving Background/Background_9/Occuluder 2"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Moving Background/Background_9/Occuluder 2/StaticBody2D"]
+position = Vector2( 12.0242, 11.0414 )
+shape = SubResource( 2 )
+
+[node name="Occuluder 3" type="LightOccluder2D" parent="Moving Background/Background_9"]
+editor/display_folded = true
+position = Vector2( 91, 5 )
+occluder = SubResource( 1 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Moving Background/Background_9/Occuluder 3"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Moving Background/Background_9/Occuluder 3/StaticBody2D"]
+position = Vector2( 12.0242, 11.0414 )
+shape = SubResource( 2 )
+
+[node name="Occuluder 4" type="LightOccluder2D" parent="Moving Background/Background_9"]
+editor/display_folded = true
+position = Vector2( 9, 33 )
+occluder = SubResource( 1 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Moving Background/Background_9/Occuluder 4"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Moving Background/Background_9/Occuluder 4/StaticBody2D"]
+position = Vector2( 12.0242, 11.0414 )
+shape = SubResource( 2 )
+
+[node name="Occuluder 5" type="LightOccluder2D" parent="Moving Background/Background_9"]
+editor/display_folded = true
+position = Vector2( 72, 52 )
+occluder = SubResource( 1 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Moving Background/Background_9/Occuluder 5"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Moving Background/Background_9/Occuluder 5/StaticBody2D"]
+position = Vector2( 12.0242, 11.0414 )
+shape = SubResource( 2 )
+
+[node name="Occuluder 6" type="LightOccluder2D" parent="Moving Background/Background_9"]
+editor/display_folded = true
+position = Vector2( 20, 90 )
+occluder = SubResource( 1 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Moving Background/Background_9/Occuluder 6"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Moving Background/Background_9/Occuluder 6/StaticBody2D"]
+position = Vector2( 12.0242, 11.0414 )
+shape = SubResource( 2 )
+
+[node name="Occuluder 7" type="LightOccluder2D" parent="Moving Background/Background_9"]
+editor/display_folded = true
+position = Vector2( 59, 88 )
+occluder = SubResource( 1 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Moving Background/Background_9/Occuluder 7"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Moving Background/Background_9/Occuluder 7/StaticBody2D"]
+position = Vector2( 12.0242, 11.0414 )
+shape = SubResource( 2 )
+
+[node name="Occuluder 8" type="LightOccluder2D" parent="Moving Background/Background_9"]
+editor/display_folded = true
+position = Vector2( 92, 99 )
+occluder = SubResource( 1 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Moving Background/Background_9/Occuluder 8"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Moving Background/Background_9/Occuluder 8/StaticBody2D"]
+position = Vector2( 12.0242, 11.0414 )
+shape = SubResource( 2 )
+
+[node name="Background_10" type="Sprite" parent="Moving Background"]
+editor/display_folded = true
+position = Vector2( -1201, -1150 )
+scale = Vector2( 8.98438, 8.59375 )
+z_index = -1
+texture = ExtResource( 1 )
+normal_map = ExtResource( 2 )
+centered = false
+
+[node name="Occuluder 1" type="LightOccluder2D" parent="Moving Background/Background_10"]
+editor/display_folded = true
+occluder = SubResource( 1 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Moving Background/Background_10/Occuluder 1"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Moving Background/Background_10/Occuluder 1/StaticBody2D"]
+position = Vector2( 12.0242, 11.0414 )
+shape = SubResource( 2 )
+
+[node name="Occuluder 2" type="LightOccluder2D" parent="Moving Background/Background_10"]
+editor/display_folded = true
+position = Vector2( 51, 9 )
+occluder = SubResource( 1 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Moving Background/Background_10/Occuluder 2"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Moving Background/Background_10/Occuluder 2/StaticBody2D"]
+position = Vector2( 12.0242, 11.0414 )
+shape = SubResource( 2 )
+
+[node name="Occuluder 3" type="LightOccluder2D" parent="Moving Background/Background_10"]
+editor/display_folded = true
+position = Vector2( 91, 5 )
+occluder = SubResource( 1 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Moving Background/Background_10/Occuluder 3"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Moving Background/Background_10/Occuluder 3/StaticBody2D"]
+position = Vector2( 12.0242, 11.0414 )
+shape = SubResource( 2 )
+
+[node name="Occuluder 4" type="LightOccluder2D" parent="Moving Background/Background_10"]
+editor/display_folded = true
+position = Vector2( 9, 33 )
+occluder = SubResource( 1 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Moving Background/Background_10/Occuluder 4"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Moving Background/Background_10/Occuluder 4/StaticBody2D"]
+position = Vector2( 12.0242, 11.0414 )
+shape = SubResource( 2 )
+
+[node name="Occuluder 5" type="LightOccluder2D" parent="Moving Background/Background_10"]
+editor/display_folded = true
+position = Vector2( 72, 52 )
+occluder = SubResource( 1 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Moving Background/Background_10/Occuluder 5"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Moving Background/Background_10/Occuluder 5/StaticBody2D"]
+position = Vector2( 12.0242, 11.0414 )
+shape = SubResource( 2 )
+
+[node name="Occuluder 6" type="LightOccluder2D" parent="Moving Background/Background_10"]
+editor/display_folded = true
+position = Vector2( 20, 90 )
+occluder = SubResource( 1 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Moving Background/Background_10/Occuluder 6"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Moving Background/Background_10/Occuluder 6/StaticBody2D"]
+position = Vector2( 12.0242, 11.0414 )
+shape = SubResource( 2 )
+
+[node name="Occuluder 7" type="LightOccluder2D" parent="Moving Background/Background_10"]
+editor/display_folded = true
+position = Vector2( 59, 88 )
+occluder = SubResource( 1 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Moving Background/Background_10/Occuluder 7"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Moving Background/Background_10/Occuluder 7/StaticBody2D"]
+position = Vector2( 12.0242, 11.0414 )
+shape = SubResource( 2 )
+
+[node name="Occuluder 8" type="LightOccluder2D" parent="Moving Background/Background_10"]
+editor/display_folded = true
+position = Vector2( 92, 99 )
+occluder = SubResource( 1 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Moving Background/Background_10/Occuluder 8"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Moving Background/Background_10/Occuluder 8/StaticBody2D"]
+position = Vector2( 12.0242, 11.0414 )
+shape = SubResource( 2 )
+
+[node name="Background_11" type="Sprite" parent="Moving Background"]
+editor/display_folded = true
+position = Vector2( -2351, 1050 )
+scale = Vector2( 8.98438, 8.59375 )
+z_index = -1
+texture = ExtResource( 1 )
+normal_map = ExtResource( 2 )
+centered = false
+
+[node name="Occuluder 1" type="LightOccluder2D" parent="Moving Background/Background_11"]
+editor/display_folded = true
+occluder = SubResource( 1 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Moving Background/Background_11/Occuluder 1"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Moving Background/Background_11/Occuluder 1/StaticBody2D"]
+position = Vector2( 12.0242, 11.0414 )
+shape = SubResource( 2 )
+
+[node name="Occuluder 2" type="LightOccluder2D" parent="Moving Background/Background_11"]
+editor/display_folded = true
+position = Vector2( 51, 9 )
+occluder = SubResource( 1 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Moving Background/Background_11/Occuluder 2"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Moving Background/Background_11/Occuluder 2/StaticBody2D"]
+position = Vector2( 12.0242, 11.0414 )
+shape = SubResource( 2 )
+
+[node name="Occuluder 3" type="LightOccluder2D" parent="Moving Background/Background_11"]
+editor/display_folded = true
+position = Vector2( 91, 5 )
+occluder = SubResource( 1 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Moving Background/Background_11/Occuluder 3"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Moving Background/Background_11/Occuluder 3/StaticBody2D"]
+position = Vector2( 12.0242, 11.0414 )
+shape = SubResource( 2 )
+
+[node name="Occuluder 4" type="LightOccluder2D" parent="Moving Background/Background_11"]
+editor/display_folded = true
+position = Vector2( 9, 33 )
+occluder = SubResource( 1 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Moving Background/Background_11/Occuluder 4"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Moving Background/Background_11/Occuluder 4/StaticBody2D"]
+position = Vector2( 12.0242, 11.0414 )
+shape = SubResource( 2 )
+
+[node name="Occuluder 5" type="LightOccluder2D" parent="Moving Background/Background_11"]
+editor/display_folded = true
+position = Vector2( 72, 52 )
+occluder = SubResource( 1 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Moving Background/Background_11/Occuluder 5"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Moving Background/Background_11/Occuluder 5/StaticBody2D"]
+position = Vector2( 12.0242, 11.0414 )
+shape = SubResource( 2 )
+
+[node name="Occuluder 6" type="LightOccluder2D" parent="Moving Background/Background_11"]
+editor/display_folded = true
+position = Vector2( 20, 90 )
+occluder = SubResource( 1 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Moving Background/Background_11/Occuluder 6"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Moving Background/Background_11/Occuluder 6/StaticBody2D"]
+position = Vector2( 12.0242, 11.0414 )
+shape = SubResource( 2 )
+
+[node name="Occuluder 7" type="LightOccluder2D" parent="Moving Background/Background_11"]
+editor/display_folded = true
+position = Vector2( 59, 88 )
+occluder = SubResource( 1 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Moving Background/Background_11/Occuluder 7"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Moving Background/Background_11/Occuluder 7/StaticBody2D"]
+position = Vector2( 12.0242, 11.0414 )
+shape = SubResource( 2 )
+
+[node name="Occuluder 8" type="LightOccluder2D" parent="Moving Background/Background_11"]
+editor/display_folded = true
+position = Vector2( 92, 99 )
+occluder = SubResource( 1 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Moving Background/Background_11/Occuluder 8"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Moving Background/Background_11/Occuluder 8/StaticBody2D"]
+position = Vector2( 12.0242, 11.0414 )
+shape = SubResource( 2 )
+
+[node name="Background_12" type="Sprite" parent="Moving Background"]
+editor/display_folded = true
+position = Vector2( -2351, -49.9998 )
+scale = Vector2( 8.98438, 8.59375 )
+z_index = -1
+texture = ExtResource( 1 )
+normal_map = ExtResource( 2 )
+centered = false
+
+[node name="Occuluder 1" type="LightOccluder2D" parent="Moving Background/Background_12"]
+editor/display_folded = true
+occluder = SubResource( 1 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Moving Background/Background_12/Occuluder 1"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Moving Background/Background_12/Occuluder 1/StaticBody2D"]
+position = Vector2( 12.0242, 11.0414 )
+shape = SubResource( 2 )
+
+[node name="Occuluder 2" type="LightOccluder2D" parent="Moving Background/Background_12"]
+editor/display_folded = true
+position = Vector2( 51, 9 )
+occluder = SubResource( 1 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Moving Background/Background_12/Occuluder 2"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Moving Background/Background_12/Occuluder 2/StaticBody2D"]
+position = Vector2( 12.0242, 11.0414 )
+shape = SubResource( 2 )
+
+[node name="Occuluder 3" type="LightOccluder2D" parent="Moving Background/Background_12"]
+editor/display_folded = true
+position = Vector2( 91, 5 )
+occluder = SubResource( 1 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Moving Background/Background_12/Occuluder 3"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Moving Background/Background_12/Occuluder 3/StaticBody2D"]
+position = Vector2( 12.0242, 11.0414 )
+shape = SubResource( 2 )
+
+[node name="Occuluder 4" type="LightOccluder2D" parent="Moving Background/Background_12"]
+editor/display_folded = true
+position = Vector2( 9, 33 )
+occluder = SubResource( 1 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Moving Background/Background_12/Occuluder 4"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Moving Background/Background_12/Occuluder 4/StaticBody2D"]
+position = Vector2( 12.0242, 11.0414 )
+shape = SubResource( 2 )
+
+[node name="Occuluder 5" type="LightOccluder2D" parent="Moving Background/Background_12"]
+editor/display_folded = true
+position = Vector2( 72, 52 )
+occluder = SubResource( 1 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Moving Background/Background_12/Occuluder 5"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Moving Background/Background_12/Occuluder 5/StaticBody2D"]
+position = Vector2( 12.0242, 11.0414 )
+shape = SubResource( 2 )
+
+[node name="Occuluder 6" type="LightOccluder2D" parent="Moving Background/Background_12"]
+editor/display_folded = true
+position = Vector2( 20, 90 )
+occluder = SubResource( 1 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Moving Background/Background_12/Occuluder 6"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Moving Background/Background_12/Occuluder 6/StaticBody2D"]
+position = Vector2( 12.0242, 11.0414 )
+shape = SubResource( 2 )
+
+[node name="Occuluder 7" type="LightOccluder2D" parent="Moving Background/Background_12"]
+editor/display_folded = true
+position = Vector2( 59, 88 )
+occluder = SubResource( 1 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Moving Background/Background_12/Occuluder 7"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Moving Background/Background_12/Occuluder 7/StaticBody2D"]
+position = Vector2( 12.0242, 11.0414 )
+shape = SubResource( 2 )
+
+[node name="Occuluder 8" type="LightOccluder2D" parent="Moving Background/Background_12"]
+editor/display_folded = true
+position = Vector2( 92, 99 )
+occluder = SubResource( 1 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Moving Background/Background_12/Occuluder 8"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Moving Background/Background_12/Occuluder 8/StaticBody2D"]
+position = Vector2( 12.0242, 11.0414 )
+shape = SubResource( 2 )
+
+[node name="Background_13" type="Sprite" parent="Moving Background"]
+editor/display_folded = true
+position = Vector2( -2351, -1150 )
+scale = Vector2( 8.98438, 8.59375 )
+z_index = -1
+texture = ExtResource( 1 )
+normal_map = ExtResource( 2 )
+centered = false
+
+[node name="Occuluder 1" type="LightOccluder2D" parent="Moving Background/Background_13"]
+editor/display_folded = true
+occluder = SubResource( 1 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Moving Background/Background_13/Occuluder 1"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Moving Background/Background_13/Occuluder 1/StaticBody2D"]
+position = Vector2( 12.0242, 11.0414 )
+shape = SubResource( 2 )
+
+[node name="Occuluder 2" type="LightOccluder2D" parent="Moving Background/Background_13"]
+editor/display_folded = true
+position = Vector2( 51, 9 )
+occluder = SubResource( 1 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Moving Background/Background_13/Occuluder 2"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Moving Background/Background_13/Occuluder 2/StaticBody2D"]
+position = Vector2( 12.0242, 11.0414 )
+shape = SubResource( 2 )
+
+[node name="Occuluder 3" type="LightOccluder2D" parent="Moving Background/Background_13"]
+editor/display_folded = true
+position = Vector2( 91, 5 )
+occluder = SubResource( 1 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Moving Background/Background_13/Occuluder 3"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Moving Background/Background_13/Occuluder 3/StaticBody2D"]
+position = Vector2( 12.0242, 11.0414 )
+shape = SubResource( 2 )
+
+[node name="Occuluder 4" type="LightOccluder2D" parent="Moving Background/Background_13"]
+editor/display_folded = true
+position = Vector2( 9, 33 )
+occluder = SubResource( 1 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Moving Background/Background_13/Occuluder 4"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Moving Background/Background_13/Occuluder 4/StaticBody2D"]
+position = Vector2( 12.0242, 11.0414 )
+shape = SubResource( 2 )
+
+[node name="Occuluder 5" type="LightOccluder2D" parent="Moving Background/Background_13"]
+editor/display_folded = true
+position = Vector2( 72, 52 )
+occluder = SubResource( 1 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Moving Background/Background_13/Occuluder 5"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Moving Background/Background_13/Occuluder 5/StaticBody2D"]
+position = Vector2( 12.0242, 11.0414 )
+shape = SubResource( 2 )
+
+[node name="Occuluder 6" type="LightOccluder2D" parent="Moving Background/Background_13"]
+editor/display_folded = true
+position = Vector2( 20, 90 )
+occluder = SubResource( 1 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Moving Background/Background_13/Occuluder 6"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Moving Background/Background_13/Occuluder 6/StaticBody2D"]
+position = Vector2( 12.0242, 11.0414 )
+shape = SubResource( 2 )
+
+[node name="Occuluder 7" type="LightOccluder2D" parent="Moving Background/Background_13"]
+editor/display_folded = true
+position = Vector2( 59, 88 )
+occluder = SubResource( 1 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Moving Background/Background_13/Occuluder 7"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Moving Background/Background_13/Occuluder 7/StaticBody2D"]
+position = Vector2( 12.0242, 11.0414 )
+shape = SubResource( 2 )
+
+[node name="Occuluder 8" type="LightOccluder2D" parent="Moving Background/Background_13"]
+editor/display_folded = true
+position = Vector2( 92, 99 )
+occluder = SubResource( 1 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Moving Background/Background_13/Occuluder 8"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Moving Background/Background_13/Occuluder 8/StaticBody2D"]
+position = Vector2( 12.0242, 11.0414 )
+shape = SubResource( 2 )
+
+[node name="Background_14" type="Sprite" parent="Moving Background"]
+editor/display_folded = true
+position = Vector2( -2351, -2250 )
+scale = Vector2( 8.98438, 8.59375 )
+z_index = -1
+texture = ExtResource( 1 )
+normal_map = ExtResource( 2 )
+centered = false
+
+[node name="Occuluder 1" type="LightOccluder2D" parent="Moving Background/Background_14"]
+editor/display_folded = true
+occluder = SubResource( 1 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Moving Background/Background_14/Occuluder 1"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Moving Background/Background_14/Occuluder 1/StaticBody2D"]
+position = Vector2( 12.0242, 11.0414 )
+shape = SubResource( 2 )
+
+[node name="Occuluder 2" type="LightOccluder2D" parent="Moving Background/Background_14"]
+editor/display_folded = true
+position = Vector2( 51, 9 )
+occluder = SubResource( 1 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Moving Background/Background_14/Occuluder 2"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Moving Background/Background_14/Occuluder 2/StaticBody2D"]
+position = Vector2( 12.0242, 11.0414 )
+shape = SubResource( 2 )
+
+[node name="Occuluder 3" type="LightOccluder2D" parent="Moving Background/Background_14"]
+editor/display_folded = true
+position = Vector2( 91, 5 )
+occluder = SubResource( 1 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Moving Background/Background_14/Occuluder 3"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Moving Background/Background_14/Occuluder 3/StaticBody2D"]
+position = Vector2( 12.0242, 11.0414 )
+shape = SubResource( 2 )
+
+[node name="Occuluder 4" type="LightOccluder2D" parent="Moving Background/Background_14"]
+editor/display_folded = true
+position = Vector2( 9, 33 )
+occluder = SubResource( 1 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Moving Background/Background_14/Occuluder 4"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Moving Background/Background_14/Occuluder 4/StaticBody2D"]
+position = Vector2( 12.0242, 11.0414 )
+shape = SubResource( 2 )
+
+[node name="Occuluder 5" type="LightOccluder2D" parent="Moving Background/Background_14"]
+editor/display_folded = true
+position = Vector2( 72, 52 )
+occluder = SubResource( 1 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Moving Background/Background_14/Occuluder 5"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Moving Background/Background_14/Occuluder 5/StaticBody2D"]
+position = Vector2( 12.0242, 11.0414 )
+shape = SubResource( 2 )
+
+[node name="Occuluder 6" type="LightOccluder2D" parent="Moving Background/Background_14"]
+editor/display_folded = true
+position = Vector2( 20, 90 )
+occluder = SubResource( 1 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Moving Background/Background_14/Occuluder 6"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Moving Background/Background_14/Occuluder 6/StaticBody2D"]
+position = Vector2( 12.0242, 11.0414 )
+shape = SubResource( 2 )
+
+[node name="Occuluder 7" type="LightOccluder2D" parent="Moving Background/Background_14"]
+editor/display_folded = true
+position = Vector2( 59, 88 )
+occluder = SubResource( 1 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Moving Background/Background_14/Occuluder 7"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Moving Background/Background_14/Occuluder 7/StaticBody2D"]
+position = Vector2( 12.0242, 11.0414 )
+shape = SubResource( 2 )
+
+[node name="Occuluder 8" type="LightOccluder2D" parent="Moving Background/Background_14"]
+editor/display_folded = true
+position = Vector2( 92, 99 )
+occluder = SubResource( 1 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Moving Background/Background_14/Occuluder 8"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Moving Background/Background_14/Occuluder 8/StaticBody2D"]
+position = Vector2( 12.0242, 11.0414 )
+shape = SubResource( 2 )
+
+[node name="Background_15" type="Sprite" parent="Moving Background"]
+editor/display_folded = true
+position = Vector2( 2249, 1050 )
+scale = Vector2( 8.98438, 8.59375 )
+z_index = -1
+texture = ExtResource( 1 )
+normal_map = ExtResource( 2 )
+centered = false
+
+[node name="Occuluder 1" type="LightOccluder2D" parent="Moving Background/Background_15"]
+editor/display_folded = true
+occluder = SubResource( 1 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Moving Background/Background_15/Occuluder 1"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Moving Background/Background_15/Occuluder 1/StaticBody2D"]
+position = Vector2( 12.0242, 11.0414 )
+shape = SubResource( 2 )
+
+[node name="Occuluder 2" type="LightOccluder2D" parent="Moving Background/Background_15"]
+editor/display_folded = true
+position = Vector2( 51, 9 )
+occluder = SubResource( 1 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Moving Background/Background_15/Occuluder 2"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Moving Background/Background_15/Occuluder 2/StaticBody2D"]
+position = Vector2( 12.0242, 11.0414 )
+shape = SubResource( 2 )
+
+[node name="Occuluder 3" type="LightOccluder2D" parent="Moving Background/Background_15"]
+editor/display_folded = true
+position = Vector2( 91, 5 )
+occluder = SubResource( 1 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Moving Background/Background_15/Occuluder 3"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Moving Background/Background_15/Occuluder 3/StaticBody2D"]
+position = Vector2( 12.0242, 11.0414 )
+shape = SubResource( 2 )
+
+[node name="Occuluder 4" type="LightOccluder2D" parent="Moving Background/Background_15"]
+editor/display_folded = true
+position = Vector2( 9, 33 )
+occluder = SubResource( 1 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Moving Background/Background_15/Occuluder 4"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Moving Background/Background_15/Occuluder 4/StaticBody2D"]
+position = Vector2( 12.0242, 11.0414 )
+shape = SubResource( 2 )
+
+[node name="Occuluder 5" type="LightOccluder2D" parent="Moving Background/Background_15"]
+editor/display_folded = true
+position = Vector2( 72, 52 )
+occluder = SubResource( 1 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Moving Background/Background_15/Occuluder 5"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Moving Background/Background_15/Occuluder 5/StaticBody2D"]
+position = Vector2( 12.0242, 11.0414 )
+shape = SubResource( 2 )
+
+[node name="Occuluder 6" type="LightOccluder2D" parent="Moving Background/Background_15"]
+editor/display_folded = true
+position = Vector2( 20, 90 )
+occluder = SubResource( 1 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Moving Background/Background_15/Occuluder 6"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Moving Background/Background_15/Occuluder 6/StaticBody2D"]
+position = Vector2( 12.0242, 11.0414 )
+shape = SubResource( 2 )
+
+[node name="Occuluder 7" type="LightOccluder2D" parent="Moving Background/Background_15"]
+editor/display_folded = true
+position = Vector2( 59, 88 )
+occluder = SubResource( 1 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Moving Background/Background_15/Occuluder 7"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Moving Background/Background_15/Occuluder 7/StaticBody2D"]
+position = Vector2( 12.0242, 11.0414 )
+shape = SubResource( 2 )
+
+[node name="Occuluder 8" type="LightOccluder2D" parent="Moving Background/Background_15"]
+editor/display_folded = true
+position = Vector2( 92, 99 )
+occluder = SubResource( 1 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Moving Background/Background_15/Occuluder 8"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Moving Background/Background_15/Occuluder 8/StaticBody2D"]
+position = Vector2( 12.0242, 11.0414 )
+shape = SubResource( 2 )
+
+[node name="Background_16" type="Sprite" parent="Moving Background"]
+editor/display_folded = true
+position = Vector2( 1099, 1050 )
+scale = Vector2( 8.98438, 8.59375 )
+z_index = -1
+texture = ExtResource( 1 )
+normal_map = ExtResource( 2 )
+centered = false
+
+[node name="Occuluder 1" type="LightOccluder2D" parent="Moving Background/Background_16"]
+editor/display_folded = true
+occluder = SubResource( 1 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Moving Background/Background_16/Occuluder 1"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Moving Background/Background_16/Occuluder 1/StaticBody2D"]
+position = Vector2( 12.0242, 11.0414 )
+shape = SubResource( 2 )
+
+[node name="Occuluder 2" type="LightOccluder2D" parent="Moving Background/Background_16"]
+editor/display_folded = true
+position = Vector2( 51, 9 )
+occluder = SubResource( 1 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Moving Background/Background_16/Occuluder 2"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Moving Background/Background_16/Occuluder 2/StaticBody2D"]
+position = Vector2( 12.0242, 11.0414 )
+shape = SubResource( 2 )
+
+[node name="Occuluder 3" type="LightOccluder2D" parent="Moving Background/Background_16"]
+editor/display_folded = true
+position = Vector2( 91, 5 )
+occluder = SubResource( 1 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Moving Background/Background_16/Occuluder 3"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Moving Background/Background_16/Occuluder 3/StaticBody2D"]
+position = Vector2( 12.0242, 11.0414 )
+shape = SubResource( 2 )
+
+[node name="Occuluder 4" type="LightOccluder2D" parent="Moving Background/Background_16"]
+editor/display_folded = true
+position = Vector2( 9, 33 )
+occluder = SubResource( 1 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Moving Background/Background_16/Occuluder 4"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Moving Background/Background_16/Occuluder 4/StaticBody2D"]
+position = Vector2( 12.0242, 11.0414 )
+shape = SubResource( 2 )
+
+[node name="Occuluder 5" type="LightOccluder2D" parent="Moving Background/Background_16"]
+editor/display_folded = true
+position = Vector2( 72, 52 )
+occluder = SubResource( 1 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Moving Background/Background_16/Occuluder 5"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Moving Background/Background_16/Occuluder 5/StaticBody2D"]
+position = Vector2( 12.0242, 11.0414 )
+shape = SubResource( 2 )
+
+[node name="Occuluder 6" type="LightOccluder2D" parent="Moving Background/Background_16"]
+editor/display_folded = true
+position = Vector2( 20, 90 )
+occluder = SubResource( 1 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Moving Background/Background_16/Occuluder 6"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Moving Background/Background_16/Occuluder 6/StaticBody2D"]
+position = Vector2( 12.0242, 11.0414 )
+shape = SubResource( 2 )
+
+[node name="Occuluder 7" type="LightOccluder2D" parent="Moving Background/Background_16"]
+editor/display_folded = true
+position = Vector2( 59, 88 )
+occluder = SubResource( 1 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Moving Background/Background_16/Occuluder 7"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Moving Background/Background_16/Occuluder 7/StaticBody2D"]
+position = Vector2( 12.0242, 11.0414 )
+shape = SubResource( 2 )
+
+[node name="Occuluder 8" type="LightOccluder2D" parent="Moving Background/Background_16"]
+editor/display_folded = true
+position = Vector2( 92, 99 )
+occluder = SubResource( 1 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Moving Background/Background_16/Occuluder 8"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Moving Background/Background_16/Occuluder 8/StaticBody2D"]
+position = Vector2( 12.0242, 11.0414 )
+shape = SubResource( 2 )
+
+[node name="Background_17" type="Sprite" parent="Moving Background"]
+editor/display_folded = true
+position = Vector2( -51, 1050 )
+scale = Vector2( 8.98438, 8.59375 )
+z_index = -1
+texture = ExtResource( 1 )
+normal_map = ExtResource( 2 )
+centered = false
+
+[node name="Occuluder 1" type="LightOccluder2D" parent="Moving Background/Background_17"]
+editor/display_folded = true
+occluder = SubResource( 1 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Moving Background/Background_17/Occuluder 1"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Moving Background/Background_17/Occuluder 1/StaticBody2D"]
+position = Vector2( 12.0242, 11.0414 )
+shape = SubResource( 2 )
+
+[node name="Occuluder 2" type="LightOccluder2D" parent="Moving Background/Background_17"]
+editor/display_folded = true
+position = Vector2( 51, 9 )
+occluder = SubResource( 1 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Moving Background/Background_17/Occuluder 2"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Moving Background/Background_17/Occuluder 2/StaticBody2D"]
+position = Vector2( 12.0242, 11.0414 )
+shape = SubResource( 2 )
+
+[node name="Occuluder 3" type="LightOccluder2D" parent="Moving Background/Background_17"]
+editor/display_folded = true
+position = Vector2( 91, 5 )
+occluder = SubResource( 1 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Moving Background/Background_17/Occuluder 3"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Moving Background/Background_17/Occuluder 3/StaticBody2D"]
+position = Vector2( 12.0242, 11.0414 )
+shape = SubResource( 2 )
+
+[node name="Occuluder 4" type="LightOccluder2D" parent="Moving Background/Background_17"]
+editor/display_folded = true
+position = Vector2( 9, 33 )
+occluder = SubResource( 1 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Moving Background/Background_17/Occuluder 4"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Moving Background/Background_17/Occuluder 4/StaticBody2D"]
+position = Vector2( 12.0242, 11.0414 )
+shape = SubResource( 2 )
+
+[node name="Occuluder 5" type="LightOccluder2D" parent="Moving Background/Background_17"]
+position = Vector2( 72, 52 )
+occluder = SubResource( 1 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Moving Background/Background_17/Occuluder 5"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Moving Background/Background_17/Occuluder 5/StaticBody2D"]
+position = Vector2( 12.0242, 11.0414 )
+shape = SubResource( 2 )
+
+[node name="Occuluder 6" type="LightOccluder2D" parent="Moving Background/Background_17"]
+editor/display_folded = true
+position = Vector2( 20, 90 )
+occluder = SubResource( 1 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Moving Background/Background_17/Occuluder 6"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Moving Background/Background_17/Occuluder 6/StaticBody2D"]
+position = Vector2( 12.0242, 11.0414 )
+shape = SubResource( 2 )
+
+[node name="Occuluder 7" type="LightOccluder2D" parent="Moving Background/Background_17"]
+editor/display_folded = true
+position = Vector2( 59, 88 )
+occluder = SubResource( 1 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Moving Background/Background_17/Occuluder 7"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Moving Background/Background_17/Occuluder 7/StaticBody2D"]
+position = Vector2( 12.0242, 11.0414 )
+shape = SubResource( 2 )
+
+[node name="Occuluder 8" type="LightOccluder2D" parent="Moving Background/Background_17"]
+editor/display_folded = true
+position = Vector2( 92, 99 )
+occluder = SubResource( 1 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Moving Background/Background_17/Occuluder 8"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Moving Background/Background_17/Occuluder 8/StaticBody2D"]
+position = Vector2( 12.0242, 11.0414 )
+shape = SubResource( 2 )
+
+[node name="Background_18" type="Sprite" parent="Moving Background"]
+editor/display_folded = true
+position = Vector2( -1201, 1050 )
+scale = Vector2( 8.98438, 8.59375 )
+z_index = -1
+texture = ExtResource( 1 )
+normal_map = ExtResource( 2 )
+centered = false
+
+[node name="Occuluder 1" type="LightOccluder2D" parent="Moving Background/Background_18"]
+editor/display_folded = true
+occluder = SubResource( 1 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Moving Background/Background_18/Occuluder 1"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Moving Background/Background_18/Occuluder 1/StaticBody2D"]
+position = Vector2( 12.0242, 11.0414 )
+shape = SubResource( 2 )
+
+[node name="Occuluder 2" type="LightOccluder2D" parent="Moving Background/Background_18"]
+editor/display_folded = true
+position = Vector2( 51, 9 )
+occluder = SubResource( 1 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Moving Background/Background_18/Occuluder 2"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Moving Background/Background_18/Occuluder 2/StaticBody2D"]
+position = Vector2( 12.0242, 11.0414 )
+shape = SubResource( 2 )
+
+[node name="Occuluder 3" type="LightOccluder2D" parent="Moving Background/Background_18"]
+editor/display_folded = true
+position = Vector2( 91, 5 )
+occluder = SubResource( 1 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Moving Background/Background_18/Occuluder 3"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Moving Background/Background_18/Occuluder 3/StaticBody2D"]
+position = Vector2( 12.0242, 11.0414 )
+shape = SubResource( 2 )
+
+[node name="Occuluder 4" type="LightOccluder2D" parent="Moving Background/Background_18"]
+editor/display_folded = true
+position = Vector2( 9, 33 )
+occluder = SubResource( 1 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Moving Background/Background_18/Occuluder 4"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Moving Background/Background_18/Occuluder 4/StaticBody2D"]
+position = Vector2( 12.0242, 11.0414 )
+shape = SubResource( 2 )
+
+[node name="Occuluder 5" type="LightOccluder2D" parent="Moving Background/Background_18"]
+editor/display_folded = true
+position = Vector2( 72, 52 )
+occluder = SubResource( 1 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Moving Background/Background_18/Occuluder 5"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Moving Background/Background_18/Occuluder 5/StaticBody2D"]
+position = Vector2( 12.0242, 11.0414 )
+shape = SubResource( 2 )
+
+[node name="Occuluder 6" type="LightOccluder2D" parent="Moving Background/Background_18"]
+editor/display_folded = true
+position = Vector2( 20, 90 )
+occluder = SubResource( 1 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Moving Background/Background_18/Occuluder 6"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Moving Background/Background_18/Occuluder 6/StaticBody2D"]
+position = Vector2( 12.0242, 11.0414 )
+shape = SubResource( 2 )
+
+[node name="Occuluder 7" type="LightOccluder2D" parent="Moving Background/Background_18"]
+editor/display_folded = true
+position = Vector2( 59, 88 )
+occluder = SubResource( 1 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Moving Background/Background_18/Occuluder 7"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Moving Background/Background_18/Occuluder 7/StaticBody2D"]
+position = Vector2( 12.0242, 11.0414 )
+shape = SubResource( 2 )
+
+[node name="Occuluder 8" type="LightOccluder2D" parent="Moving Background/Background_18"]
+editor/display_folded = true
+position = Vector2( 92, 99 )
+occluder = SubResource( 1 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Moving Background/Background_18/Occuluder 8"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Moving Background/Background_18/Occuluder 8/StaticBody2D"]
+position = Vector2( 12.0242, 11.0414 )
+shape = SubResource( 2 )
+
+[node name="Background_19" type="Sprite" parent="Moving Background"]
+editor/display_folded = true
+position = Vector2( 2250, -2250 )
+scale = Vector2( 8.98438, 8.59375 )
+z_index = -1
+texture = ExtResource( 1 )
+normal_map = ExtResource( 2 )
+centered = false
+
+[node name="Occuluder 1" type="LightOccluder2D" parent="Moving Background/Background_19"]
+editor/display_folded = true
+occluder = SubResource( 1 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Moving Background/Background_19/Occuluder 1"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Moving Background/Background_19/Occuluder 1/StaticBody2D"]
+position = Vector2( 12.0242, 11.0414 )
+shape = SubResource( 2 )
+
+[node name="Occuluder 2" type="LightOccluder2D" parent="Moving Background/Background_19"]
+editor/display_folded = true
+position = Vector2( 51, 9 )
+occluder = SubResource( 1 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Moving Background/Background_19/Occuluder 2"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Moving Background/Background_19/Occuluder 2/StaticBody2D"]
+position = Vector2( 12.0242, 11.0414 )
+shape = SubResource( 2 )
+
+[node name="Occuluder 3" type="LightOccluder2D" parent="Moving Background/Background_19"]
+editor/display_folded = true
+position = Vector2( 91, 5 )
+occluder = SubResource( 1 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Moving Background/Background_19/Occuluder 3"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Moving Background/Background_19/Occuluder 3/StaticBody2D"]
+position = Vector2( 12.0242, 11.0414 )
+shape = SubResource( 2 )
+
+[node name="Occuluder 4" type="LightOccluder2D" parent="Moving Background/Background_19"]
+editor/display_folded = true
+position = Vector2( 9, 33 )
+occluder = SubResource( 1 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Moving Background/Background_19/Occuluder 4"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Moving Background/Background_19/Occuluder 4/StaticBody2D"]
+position = Vector2( 12.0242, 11.0414 )
+shape = SubResource( 2 )
+
+[node name="Occuluder 5" type="LightOccluder2D" parent="Moving Background/Background_19"]
+editor/display_folded = true
+position = Vector2( 72, 52 )
+occluder = SubResource( 1 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Moving Background/Background_19/Occuluder 5"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Moving Background/Background_19/Occuluder 5/StaticBody2D"]
+position = Vector2( 12.0242, 11.0414 )
+shape = SubResource( 2 )
+
+[node name="Occuluder 6" type="LightOccluder2D" parent="Moving Background/Background_19"]
+editor/display_folded = true
+position = Vector2( 20, 90 )
+occluder = SubResource( 1 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Moving Background/Background_19/Occuluder 6"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Moving Background/Background_19/Occuluder 6/StaticBody2D"]
+position = Vector2( 12.0242, 11.0414 )
+shape = SubResource( 2 )
+
+[node name="Occuluder 7" type="LightOccluder2D" parent="Moving Background/Background_19"]
+editor/display_folded = true
+position = Vector2( 59, 88 )
+occluder = SubResource( 1 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Moving Background/Background_19/Occuluder 7"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Moving Background/Background_19/Occuluder 7/StaticBody2D"]
+position = Vector2( 12.0242, 11.0414 )
+shape = SubResource( 2 )
+
+[node name="Occuluder 8" type="LightOccluder2D" parent="Moving Background/Background_19"]
+editor/display_folded = true
+position = Vector2( 92, 99 )
+occluder = SubResource( 1 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Moving Background/Background_19/Occuluder 8"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Moving Background/Background_19/Occuluder 8/StaticBody2D"]
+position = Vector2( 12.0242, 11.0414 )
+shape = SubResource( 2 )
+
+[node name="Background_20" type="Sprite" parent="Moving Background"]
+editor/display_folded = true
+position = Vector2( 1099, -2250 )
+scale = Vector2( 8.98438, 8.59375 )
+z_index = -1
+texture = ExtResource( 1 )
+normal_map = ExtResource( 2 )
+centered = false
+
+[node name="Occuluder 1" type="LightOccluder2D" parent="Moving Background/Background_20"]
+editor/display_folded = true
+occluder = SubResource( 1 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Moving Background/Background_20/Occuluder 1"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Moving Background/Background_20/Occuluder 1/StaticBody2D"]
+position = Vector2( 12.0242, 11.0414 )
+shape = SubResource( 2 )
+
+[node name="Occuluder 2" type="LightOccluder2D" parent="Moving Background/Background_20"]
+editor/display_folded = true
+position = Vector2( 51, 9 )
+occluder = SubResource( 1 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Moving Background/Background_20/Occuluder 2"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Moving Background/Background_20/Occuluder 2/StaticBody2D"]
+position = Vector2( 12.0242, 11.0414 )
+shape = SubResource( 2 )
+
+[node name="Occuluder 3" type="LightOccluder2D" parent="Moving Background/Background_20"]
+editor/display_folded = true
+position = Vector2( 91, 5 )
+occluder = SubResource( 1 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Moving Background/Background_20/Occuluder 3"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Moving Background/Background_20/Occuluder 3/StaticBody2D"]
+position = Vector2( 12.0242, 11.0414 )
+shape = SubResource( 2 )
+
+[node name="Occuluder 4" type="LightOccluder2D" parent="Moving Background/Background_20"]
+editor/display_folded = true
+position = Vector2( 9, 33 )
+occluder = SubResource( 1 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Moving Background/Background_20/Occuluder 4"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Moving Background/Background_20/Occuluder 4/StaticBody2D"]
+position = Vector2( 12.0242, 11.0414 )
+shape = SubResource( 2 )
+
+[node name="Occuluder 5" type="LightOccluder2D" parent="Moving Background/Background_20"]
+editor/display_folded = true
+position = Vector2( 72, 52 )
+occluder = SubResource( 1 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Moving Background/Background_20/Occuluder 5"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Moving Background/Background_20/Occuluder 5/StaticBody2D"]
+position = Vector2( 12.0242, 11.0414 )
+shape = SubResource( 2 )
+
+[node name="Occuluder 6" type="LightOccluder2D" parent="Moving Background/Background_20"]
+editor/display_folded = true
+position = Vector2( 20, 90 )
+occluder = SubResource( 1 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Moving Background/Background_20/Occuluder 6"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Moving Background/Background_20/Occuluder 6/StaticBody2D"]
+position = Vector2( 12.0242, 11.0414 )
+shape = SubResource( 2 )
+
+[node name="Occuluder 7" type="LightOccluder2D" parent="Moving Background/Background_20"]
+editor/display_folded = true
+position = Vector2( 59, 88 )
+occluder = SubResource( 1 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Moving Background/Background_20/Occuluder 7"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Moving Background/Background_20/Occuluder 7/StaticBody2D"]
+position = Vector2( 12.0242, 11.0414 )
+shape = SubResource( 2 )
+
+[node name="Occuluder 8" type="LightOccluder2D" parent="Moving Background/Background_20"]
+editor/display_folded = true
+position = Vector2( 92, 99 )
+occluder = SubResource( 1 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Moving Background/Background_20/Occuluder 8"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Moving Background/Background_20/Occuluder 8/StaticBody2D"]
+position = Vector2( 12.0242, 11.0414 )
+shape = SubResource( 2 )
+
 [node name="Bullets Holder" type="Node2D" parent="."]
 
 [node name="Enemy Groups Holder" type="Node2D" parent="."]
 
-[node name="Player" parent="." instance=ExtResource( 4 )]
+[node name="Player" parent="." instance=ExtResource( 3 )]
 editor/display_folded = true
 position = Vector2( 510, 300 )
+movementSpeed = 700.0
 backgroundManager = NodePath("../Moving Background")
 
 [node name="Player Camera" type="Camera2D" parent="Player"]
@@ -430,13 +1954,14 @@ drag_margin_right = 0.1
 drag_margin_bottom = 0.1
 
 [node name="Player Shooter" type="Node2D" parent="Player"]
-script = ExtResource( 5 )
+script = ExtResource( 4 )
 _playerBulletHolderNodePath = NodePath("../../Bullets Holder")
 
 [node name="Scene Light" type="Light2D" parent="."]
+visible = false
 position = Vector2( 510, 300 )
 scale = Vector2( 20, 20 )
-texture = ExtResource( 6 )
+texture = ExtResource( 5 )
 energy = 1.5
 range_height = 7.0
 shadow_enabled = true
