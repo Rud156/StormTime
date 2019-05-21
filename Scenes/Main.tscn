@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://Prefabs/World Elements/Moving Background.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Prefabs/World Elements/World.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Prefabs/Interactibles/Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scripts/Player/Shooting/PlayerShooting.cs" type="Script" id=3]
 [ext_resource path="res://Textures/light.png" type="Texture" id=4]
@@ -9,7 +9,6 @@
 [node name="Main" type="Node"]
 
 [node name="Game World" type="Node2D" parent="."]
-editor/display_folded = true
 
 [node name="Moving Background" parent="Game World" instance=ExtResource( 1 )]
 
@@ -18,7 +17,9 @@ editor/display_folded = true
 [node name="Enemy Groups Holder" type="Node2D" parent="Game World"]
 
 [node name="Player" parent="Game World" instance=ExtResource( 2 )]
+editor/display_folded = true
 position = Vector2( 510, 300 )
+movementSpeed = 700.0
 
 [node name="Player Camera" type="Camera2D" parent="Game World/Player"]
 current = true
