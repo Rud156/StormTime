@@ -1,7 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Scripts/Weapon/EnemyBullet.cs" type="Script" id=1]
-[ext_resource path="res://Textures/White Pixel.png" type="Texture" id=2]
+[ext_resource path="res://Prefabs/Effects/Bullet Trail GB.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Prefabs/Effects/Bullet Explosion GB.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Textures/White Pixel.png" type="Texture" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 16, 16 )
@@ -10,13 +12,15 @@ extents = Vector2( 16, 16 )
 scale = Vector2( 0.4, 0.4 )
 collision_layer = 2
 script = ExtResource( 1 )
+bulletTrailPrefab = ExtResource( 2 )
+bulletExplosionPrefab = ExtResource( 3 )
 bulletSpeed = 2000.0
 bulletLifeTime = 1.0
 bulletTrailTimer = 0.04
 bulletSpritePath = NodePath("Sprite")
 
 [node name="Sprite" type="Sprite" parent="."]
-texture = ExtResource( 2 )
+texture = ExtResource( 4 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )

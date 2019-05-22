@@ -2,6 +2,7 @@ using Godot;
 using StormTime.Player.Data;
 using StormTime.Utils;
 using System;
+using System.Collections.Generic;
 
 namespace StormTime.Enemy
 {
@@ -20,6 +21,7 @@ namespace StormTime.Enemy
 
         // Target Attack Stats
         [Export] public float attackTime;
+        [Export] public Godot.Collections.Array<NodePath> launchPointsPath; // Hack for Array in Godot
 
         protected enum EnemyState
         {
@@ -45,8 +47,17 @@ namespace StormTime.Enemy
         // Timer
         protected float _enemyTimer;
 
+        // Launch Points
+        protected List<Node2D> _launchPoints;
+
         public override void _Ready()
         {
+            _launchPoints = new List<Node2D>();
+            foreach (NodePath launchPoint in launchPointsPath)
+            {
+                _launchPoints.Add(GetNode<Node2D>(launchPoint));
+            }
+
             _startPosition = GetPosition();
             _enemyTimer = 0;
 
@@ -91,14 +102,6 @@ namespace StormTime.Enemy
 
         private void OverHeadCheckForEnemyState()
         {
-            // TODO: Remove this later on...
-            if (Input.IsActionJustPressed(SceneControls.Interact))
-            {
-                GD.Print($"Distance Square From Player: {GetPosition().DistanceSquaredTo(PlayerVariables.PlayerPosition)}");
-                GD.Print($"Distance Square From Start: {GetPosition().DistanceSquaredTo(_startPosition)}");
-                GD.Print($"Enemy State: {_enemyState}");
-            }
-
             if (GetPosition().DistanceSquaredTo(PlayerVariables.PlayerPosition) <= _playerTargetSqDst &&
             _enemyState != EnemyState.Attacking && _enemyState != EnemyState.Dead)
             {

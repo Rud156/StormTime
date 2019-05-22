@@ -6,12 +6,9 @@ namespace StormTime.Weapon
 {
     public class Bullet : KinematicBody2D
     {
-        private static readonly PackedScene BulletExplosion =
-            ResourceLoader.Load<PackedScene>(GameConstants.BulletExplosionPrefab);
 
-        private static readonly PackedScene BulletTrail =
-            ResourceLoader.Load<PackedScene>(GameConstants.BulletTrailPrefab);
-
+        [Export] public PackedScene bulletTrailPrefab;
+        [Export] public PackedScene bulletExplosionPrefab;
         [Export] public float bulletSpeed;
         [Export] public float bulletLifeTime;
         [Export] public float bulletTrailTimer;
@@ -33,7 +30,7 @@ namespace StormTime.Weapon
 
             _currentBulletTrailTimeLeft -= delta;
             if (_currentBulletTrailTimeLeft <= 0)
-            {   
+            {
                 SpawnBulletTrail();
                 _currentBulletTrailTimeLeft = bulletTrailTimer;
             }
@@ -55,9 +52,9 @@ namespace StormTime.Weapon
             _currentBulletTimeLeft -= delta;
         }
 
-        public void LaunchBullet(Vector2 playerForwardVector)
+        public void LaunchBullet(Vector2 forwardVector)
         {
-            _launchVelocity = playerForwardVector * bulletSpeed;
+            _launchVelocity = forwardVector * bulletSpeed;
             _currentBulletTimeLeft = bulletLifeTime;
         }
 
@@ -65,14 +62,14 @@ namespace StormTime.Weapon
 
         private void SpawnBulletExplosion()
         {
-            Node2D bulletExplosionInstance = (Node2D)BulletExplosion.Instance();
+            Node2D bulletExplosionInstance = (Node2D)bulletExplosionPrefab.Instance();
             bulletExplosionInstance.SetPosition(GetGlobalPosition());
             GetParent().AddChild(bulletExplosionInstance);
         }
 
         private void SpawnBulletTrail()
         {
-            Node2D bulletTrailInstance = (Node2D) BulletTrail.Instance();
+            Node2D bulletTrailInstance = (Node2D)bulletTrailPrefab.Instance();
             bulletTrailInstance.SetPosition(GetGlobalPosition());
             GetParent().AddChild(bulletTrailInstance);
         }

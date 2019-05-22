@@ -5,10 +5,8 @@ using StormTime.Weapon;
 
 public class PlayerShooting : Node
 {
-    private static readonly PackedScene BulletPrefab =
-        ResourceLoader.Load<PackedScene>(GameConstants.BulletPrefab);
-
     [Export] public NodePath _playerBulletHolderNodePath;
+    [Export] public PackedScene playerBulletPrefab;
 
     private Node2D _playerBulletHolder;
     private PlayerMovement _playerRoot;
@@ -33,7 +31,7 @@ public class PlayerShooting : Node
 
     private void ShootBullet()
     {
-        Bullet bulletInstance = (Bullet)BulletPrefab.Instance();
+        Bullet bulletInstance = (Bullet)playerBulletPrefab.Instance();
         bulletInstance.SetPosition(_playerRoot.GetPosition());
         bulletInstance.LaunchBullet(_playerRoot.GetTransform().x);
 
