@@ -1,0 +1,48 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://Scripts/Weapon/ParticlesCleaner.cs" type="Script" id=1]
+
+[sub_resource type="Gradient" id=2]
+offsets = PoolRealArray( 0, 0.140741, 0.866667, 1 )
+colors = PoolColorArray( 0, 0, 0, 0, 1, 0, 0, 1, 1, 0.585938, 0, 1, 1, 1, 1, 0 )
+
+[sub_resource type="GradientTexture" id=3]
+gradient = SubResource( 2 )
+
+[sub_resource type="Curve" id=4]
+min_value = -300.0
+max_value = 300.0
+_data = [ Vector2( 0, 12.32 ), 0.0, 0.0, 0, 0, Vector2( 0.205081, -300 ), 0.0, 0.0, 0, 0, Vector2( 0.750995, 300 ), 0.0, 0.0, 0, 0, Vector2( 1, 1.76001 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=5]
+curve = SubResource( 4 )
+
+[sub_resource type="Curve" id=6]
+_data = [ Vector2( 0.0105601, 0 ), 0.0, 0.0, 0, 0, Vector2( 0.26783, 1 ), 0.0, 0.0, 0, 0, Vector2( 0.71962, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=7]
+curve = SubResource( 6 )
+
+[sub_resource type="ParticlesMaterial" id=1]
+emission_shape = 2
+emission_box_extents = Vector3( 1, 20, 1 )
+flag_disable_z = true
+spread = 0.0
+gravity = Vector3( 0, 0, 0 )
+angular_velocity = 0.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+linear_accel = 10.0
+linear_accel_curve = SubResource( 5 )
+scale = 2.0
+scale_random = 1.0
+scale_curve = SubResource( 7 )
+color_ramp = SubResource( 3 )
+
+[node name="Slash" type="Node2D"]
+script = ExtResource( 1 )
+cleanupWaitTime = 0.3
+
+[node name="Slash Effect" type="Particles2D" parent="."]
+amount = 50
+process_material = SubResource( 1 )

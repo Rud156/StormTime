@@ -61,7 +61,6 @@
     <Compile Include="Scripts\Player\Data\PlayerVariables.cs" />
     <Compile Include="Scripts\UI\FPSLabel.cs" />
     <Compile Include="Scripts\Utils\ExtensionFunctions.cs" />
-    <Compile Include="Scripts\Utils\GameConstants.cs" />
     <Compile Include="Scripts\Utils\SceneControls.cs" />
     <Compile Include="Scripts\Utils\VectorHelpers.cs" />
     <Compile Include="Scripts\Weapon\Bullet.cs" />
