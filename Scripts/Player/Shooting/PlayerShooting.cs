@@ -32,7 +32,7 @@ public class PlayerShooting : Node
     private void ShootBullet()
     {
         Bullet bulletInstance = (Bullet)playerBulletPrefab.Instance();
-        bulletInstance.SetPosition(_playerRoot.GetPosition());
+        bulletInstance.SetPosition(_playerRoot.GetGlobalPosition());
         bulletInstance.LaunchBullet(_playerRoot.GetTransform().x);
 
         _playerBulletHolder.AddChild(bulletInstance);

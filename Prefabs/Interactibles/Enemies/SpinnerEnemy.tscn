@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Scripts/Enemy/SpinnerEnemy.cs" type="Script" id=1]
 [ext_resource path="res://Prefabs/Interactibles/Bullets/Enemy Bullet.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Textures/Square_Shape_4.png" type="Texture" id=3]
+[ext_resource path="res://Textures/White Pixel.png" type="Texture" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 70, 70 )
@@ -23,7 +24,8 @@ launchPointsPath = [ NodePath("Launch Points/LaunchPoint_1"), NodePath("Launch P
 rotationRate = 200.0
 rotationSwitchTime = 3.0
 enemyBulletPrefab = ExtResource( 2 )
-timeBetweenShot = 0.5
+timeBetweenShot = 0.1
+bulletColor = Color( 0.0588235, 0.121569, 0.407843, 1 )
 
 [node name="Sprite" type="Sprite" parent="."]
 light_mask = 2
@@ -33,13 +35,14 @@ texture = ExtResource( 3 )
 shape = SubResource( 1 )
 
 [node name="Launch Points" type="Node2D" parent="."]
-editor/display_folded = true
 
-[node name="LaunchPoint_1" type="Node2D" parent="Launch Points"]
+[node name="LaunchPoint_1" type="Sprite" parent="Launch Points"]
 position = Vector2( -50, -63 )
 scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 4 )
 
-[node name="LaunchPoint_2" type="Node2D" parent="Launch Points"]
+[node name="LaunchPoint_2" type="Sprite" parent="Launch Points"]
 position = Vector2( 50, 63 )
 rotation = 3.14159
 scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 4 )

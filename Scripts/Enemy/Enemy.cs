@@ -203,7 +203,6 @@ namespace StormTime.Enemy
                 return;
             }
 
-            GD.Print($"Changing Enemy State From {_enemyState} To {enemyState}");
             _enemyState = enemyState;
         }
 

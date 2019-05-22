@@ -26,8 +26,6 @@ namespace StormTime.Weapon
 
         public override void _Process(float delta)
         {
-            base._Process(delta);
-
             _currentBulletTrailTimeLeft -= delta;
             if (_currentBulletTrailTimeLeft <= 0)
             {
@@ -52,9 +50,9 @@ namespace StormTime.Weapon
             _currentBulletTimeLeft -= delta;
         }
 
-        public void LaunchBullet(Vector2 forwardVector)
+        public void LaunchBullet(Vector2 forwardVectorNormalized)
         {
-            _launchVelocity = forwardVector * bulletSpeed;
+            _launchVelocity = forwardVectorNormalized * bulletSpeed;
             _currentBulletTimeLeft = bulletLifeTime;
         }
 
@@ -67,7 +65,7 @@ namespace StormTime.Weapon
             GetParent().AddChild(bulletExplosionInstance);
         }
 
-        private void SpawnBulletTrail()
+        protected virtual void SpawnBulletTrail()
         {
             Node2D bulletTrailInstance = (Node2D)bulletTrailPrefab.Instance();
             bulletTrailInstance.SetPosition(GetGlobalPosition());

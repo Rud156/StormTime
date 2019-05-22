@@ -10,6 +10,7 @@ namespace StormTime.Enemy
         [Export] public float rotationSwitchTime;
         [Export] public PackedScene enemyBulletPrefab;
         [Export] public float timeBetweenShot;
+        [Export] public Color bulletColor;
 
         private bool _isForwardRotation;
         private float _currentRotationTime;
@@ -35,13 +36,24 @@ namespace StormTime.Enemy
 
         private void ShootBullet()
         {
+            float startRotation = 0;
+            float rotationIncrementAmount = 360 / _launchPoints.Count;
+
             foreach (Node2D launchPoint in _launchPoints)
             {
-                Bullet bulletInstance = (Bullet)enemyBulletPrefab.Instance();
+                EnemyBullet bulletInstance = (EnemyBullet)enemyBulletPrefab.Instance();
                 bulletInstance.SetPosition(launchPoint.GetGlobalPosition());
-                bulletInstance.LaunchBullet(launchPoint.GetTransform().x);
+                bulletInstance.SetBulletColor(bulletColor);
+
+                float rotation = GetRotationDegrees() + startRotation - 90;
+                float xVelocity = Mathf.Cos(Mathf.Deg2Rad(rotation));
+                float yVelocity = Mathf.Sin(Mathf.Deg2Rad(rotation));
+                Vector2 launchVector = new Vector2(xVelocity, yVelocity);
+                bulletInstance.LaunchBullet(launchVector.Normalized());
 
                 GetParent().AddChild(bulletInstance);
+
+                startRotation += rotationIncrementAmount;
             }
         }
 

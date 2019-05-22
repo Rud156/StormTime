@@ -7,7 +7,7 @@ namespace StormTime.Weapon
     {
         [Export] public NodePath bulletSpritePath;
 
-        private Color _bulletColor;
+        private Color _bulletColor = new Color(1, 1, 1);
         private Sprite _bulletSprite;
 
         public override void _Ready()
