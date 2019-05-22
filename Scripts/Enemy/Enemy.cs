@@ -36,6 +36,11 @@ namespace StormTime.Enemy
 
         protected EnemyState _enemyState;
 
+        // Distances Squared
+        protected float _playerTargetSqDst;
+        protected float _playerAttackSqDst;
+        protected float _maxPlayerFollowSqDst;
+
         // General States
         protected Vector2 _startPosition;
         protected Vector2 _targetPosition;
@@ -47,6 +52,10 @@ namespace StormTime.Enemy
         {
             _startPosition = GetPosition();
             _enemyTimer = 0;
+
+            _playerTargetSqDst = playerTargetDistance * playerTargetDistance;
+            _playerAttackSqDst = playerAttackDistance * playerAttackDistance;
+            _maxPlayerFollowSqDst = maxPlayerFollowDistance * maxPlayerFollowDistance;
 
             SetEnemyState(EnemyState.Idling);
         }
@@ -85,26 +94,34 @@ namespace StormTime.Enemy
 
         private void OverHeadCheckForEnemyState()
         {
-            if (GetPosition().DistanceSquaredTo(PlayerVariables.PlayerPosition) <= playerTargetDistance &&
+            // TODO: Remove this later on...
+            if (Input.IsActionJustPressed(SceneControls.Interact))
+            {
+                GD.Print($"Distance Square From Player: {GetPosition().DistanceSquaredTo(PlayerVariables.PlayerPosition)}");
+                GD.Print($"Distance Square From Start: {GetPosition().DistanceSquaredTo(_startPosition)}");
+                GD.Print($"Enemy State: {_enemyState}");
+            }
+
+            if (GetPosition().DistanceSquaredTo(PlayerVariables.PlayerPosition) <= _playerTargetSqDst &&
             _enemyState != EnemyState.Attacking && _enemyState != EnemyState.Dead)
             {
-                _enemyTimer = attackTime;
                 SetEnemyState(EnemyState.Targeting);
             }
 
-            if (GetPosition().DistanceSquaredTo(PlayerVariables.PlayerPosition) <= playerAttackDistance &&
+            if (GetPosition().DistanceSquaredTo(PlayerVariables.PlayerPosition) <= _playerAttackSqDst &&
             _enemyState != EnemyState.Attacking && _enemyState != EnemyState.Dead)
             {
+                _enemyTimer = attackTime;
                 SetEnemyState(EnemyState.Attacking);
             }
 
-            if (GetPosition().DistanceSquaredTo(_startPosition) > maxPlayerFollowDistance &&
+            if (GetPosition().DistanceSquaredTo(_startPosition) > _maxPlayerFollowSqDst &&
             _enemyState == EnemyState.Targeting)
             {
                 SetEnemyState(EnemyState.Homing);
             }
 
-            if (GetPosition().DistanceSquaredTo(PlayerVariables.PlayerPosition) > playerTargetDistance &&
+            if (GetPosition().DistanceSquaredTo(PlayerVariables.PlayerPosition) > _playerTargetSqDst &&
              _enemyState == EnemyState.Targeting)
             {
                 SetEnemyState(EnemyState.Idling);
@@ -179,7 +196,16 @@ namespace StormTime.Enemy
 
         protected Vector2 GetNewPositionForIdling() => VectorHelpers.Random2D() * explorationRadius;
 
-        protected void SetEnemyState(EnemyState enemyState) => _enemyState = enemyState;
+        protected void SetEnemyState(EnemyState enemyState)
+        {
+            if (_enemyState == enemyState)
+            {
+                return;
+            }
+
+            GD.Print($"Changing Enemy State From {_enemyState} To {enemyState}");
+            _enemyState = enemyState;
+        }
 
         #endregion
     }

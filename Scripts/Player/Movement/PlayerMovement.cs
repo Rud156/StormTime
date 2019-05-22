@@ -25,6 +25,12 @@ namespace StormTime.Player.Movement
 
         private void MovePlayer(float delta)
         {
+            // TODO: Remove this later on...
+            if (Input.IsActionJustPressed(SceneControls.Interact))
+            {
+                GD.Print($"Player Position: {PlayerVariables.PlayerPosition}");
+            }
+
             if (Input.IsActionPressed(SceneControls.Left))
                 _movement.x = -movementSpeed;
             else if (Input.IsActionPressed(SceneControls.Right))

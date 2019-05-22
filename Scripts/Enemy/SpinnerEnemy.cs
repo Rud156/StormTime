@@ -7,6 +7,7 @@ namespace StormTime.Enemy
     {
         protected override void UpdateAttacking(float delta)
         {
+            base.UpdateAttacking(delta);
         }
     }
 }
