@@ -103,7 +103,7 @@ namespace StormTime.Enemy
         private void OverHeadCheckForEnemyState()
         {
             if (GetPosition().DistanceSquaredTo(PlayerVariables.PlayerPosition) <= _playerTargetSqDst &&
-            _enemyState != EnemyState.Attacking && _enemyState != EnemyState.Dead)
+            _enemyState != EnemyState.Attacking && _enemyState != EnemyState.Dead && _enemyState != EnemyState.Homing)
             {
                 SetEnemyState(EnemyState.Targeting);
             }
