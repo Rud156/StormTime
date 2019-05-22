@@ -21,9 +21,6 @@ namespace StormTime.Enemy
         // Target Attack Stats
         [Export] public float attackTime;
 
-        // Debug
-        [Export] public bool isDebug;
-
         protected enum EnemyState
         {
             Homing,
