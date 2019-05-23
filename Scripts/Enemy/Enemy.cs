@@ -128,6 +128,8 @@ namespace StormTime.Enemy
             }
         }
 
+        #region Enemy States Updates
+
         protected void UpdateHoming(float delta)
         {
             _targetPosition = _startPosition;
@@ -182,12 +184,14 @@ namespace StormTime.Enemy
 
         protected virtual void LaunchAttack() => _enemyTimer = attackTime;
 
-        protected virtual void EndAttack() { }
+        protected virtual void EndAttack() => _enemyTimer = 0;
 
         protected void UpdateDead(float delta)
         {
             // TODO: Play some effect or something here...
         }
+
+        #endregion
 
         #region Utility Functions
 
