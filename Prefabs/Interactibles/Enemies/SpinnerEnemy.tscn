@@ -28,7 +28,7 @@ enemyBulletPrefab = ExtResource( 2 )
 timeBetweenShot = 0.3
 bulletColor = Color( 0.0588235, 0.121569, 0.407843, 1 )
 
-[node name="shadow Sprite" type="Sprite" parent="."]
+[node name="Shadow Sprite" type="Sprite" parent="."]
 light_mask = 2
 scale = Vector2( 0.1, 0.3 )
 texture = ExtResource( 3 )

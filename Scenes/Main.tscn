@@ -11,7 +11,6 @@
 [node name="Main" type="Node"]
 
 [node name="Game World" type="Node2D" parent="."]
-editor/display_folded = true
 
 [node name="World" parent="Game World" instance=ExtResource( 1 )]
 
@@ -20,7 +19,6 @@ editor/display_folded = true
 [node name="Enemy Groups Holder" type="Node2D" parent="Game World"]
 
 [node name="Player" parent="Game World" instance=ExtResource( 2 )]
-editor/display_folded = true
 position = Vector2( 510, 300 )
 
 [node name="Player Shooter" type="Node2D" parent="Game World/Player"]
@@ -53,6 +51,5 @@ lockBottomLeftCorner = Vector2( -1900, 1890 )
 lockTopRightCorner = Vector2( 2945, -2000 )
 
 [node name="Canvas" type="CanvasLayer" parent="."]
-editor/display_folded = true
 
 [node name="GUI" parent="Canvas" instance=ExtResource( 7 )]

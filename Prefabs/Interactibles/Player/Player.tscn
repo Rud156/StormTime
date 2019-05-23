@@ -17,6 +17,7 @@ __meta__ = {
 movementSpeed = 250.0
 
 [node name="Shadow Sprite" type="Sprite" parent="."]
+light_mask = 2
 scale = Vector2( 0.1, 0.3 )
 texture = ExtResource( 2 )
 
