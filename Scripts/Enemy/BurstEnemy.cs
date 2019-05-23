@@ -1,4 +1,6 @@
 using Godot;
+using StormTime.Utils;
+using StormTime.Weapon;
 using System;
 
 namespace StormTime.Enemy
@@ -12,6 +14,10 @@ namespace StormTime.Enemy
         // Attack Stage
         [Export] public float rotationAttackCounts;
         [Export] public float timeDelayBetweenShots;
+
+        // Bullet
+        [Export] public PackedScene enemyBulletPrefab;
+        [Export] public Color bulletColor;
 
         private enum EnemyAttackState
         {
@@ -93,7 +99,24 @@ namespace StormTime.Enemy
 
         private void ShootBullets()
         {
+            float startRotation = 0;
+            float rotationIncrementAmount = 360 / _launchPoints.Count;
 
+            foreach (Node2D launchPoint in _launchPoints)
+            {
+                EnemyBullet bulletInstance = (EnemyBullet)enemyBulletPrefab.Instance();
+                bulletInstance.SetPosition(launchPoint.GetGlobalPosition());
+
+                float rotation = GetRotationDegrees() + startRotation;
+                float xVelocity = Mathf.Cos(Mathf.Deg2Rad(rotation));
+                float yVelocity = Mathf.Sin(Mathf.Deg2Rad(rotation));
+                Vector2 launchVector = new Vector2(xVelocity, yVelocity);
+                bulletInstance.LaunchBullet(launchVector.Normalized());
+
+                GetParent().AddChild(bulletInstance);
+
+                startRotation += rotationIncrementAmount;
+            }
         }
 
         #endregion

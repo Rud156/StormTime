@@ -30,11 +30,11 @@ namespace StormTime.Enemy
             if (_currentShootingTime <= 0)
             {
                 _currentShootingTime = timeBetweenShot;
-                ShootBullet();
+                ShootBullets();
             }
         }
 
-        private void ShootBullet()
+        private void ShootBullets()
         {
             float startRotation = 0;
             float rotationIncrementAmount = 360 / _launchPoints.Count;
