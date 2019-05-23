@@ -25,9 +25,9 @@ maxPlayerFollowDistance = 900.0
 movementSpeed = 200.0
 attackTime = 7.0
 launchPointsPath = [ NodePath("Launch Points/LaunchPoint_1"), NodePath("Launch Points/LaunchPoint_2"), NodePath("Launch Points/LaunchPoint_3"), NodePath("Launch Points/LaunchPoint_4") ]
-attackingPlayerMovementSpeed = 500.0
+attackingPlayerMovementSpeed = 350.0
 attackingWaitTime = 2.0
-rotationRate = 500.0
+rotationRate = 350.0
 slasherEffectNode = NodePath("Slash Effect")
 
 [node name="Shadow Sprite" type="Sprite" parent="."]
