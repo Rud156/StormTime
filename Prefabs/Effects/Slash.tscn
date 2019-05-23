@@ -1,6 +1,4 @@
-[gd_scene load_steps=9 format=2]
-
-[ext_resource path="res://Scripts/Weapon/ParticlesCleaner.cs" type="Script" id=1]
+[gd_scene load_steps=8 format=2]
 
 [sub_resource type="Gradient" id=1]
 offsets = PoolRealArray( 0, 0.140741, 0.866667, 1 )
@@ -30,7 +28,6 @@ flag_disable_z = true
 spread = 0.0
 flatness = 1.0
 gravity = Vector3( 0, 0, 0 )
-angular_velocity = 0.0
 orbit_velocity = 1.5
 orbit_velocity_random = 0.0
 linear_accel_curve = SubResource( 4 )
@@ -39,11 +36,7 @@ scale_random = 1.0
 scale_curve = SubResource( 6 )
 color_ramp = SubResource( 2 )
 
-[node name="Slash" type="Node2D"]
-script = ExtResource( 1 )
-cleanupWaitTime = 0.3
-
-[node name="Slash Effect" type="Particles2D" parent="."]
+[node name="Slash Effect" type="Particles2D"]
 emitting = false
 amount = 100
 lifetime = 2.0

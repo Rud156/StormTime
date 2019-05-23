@@ -58,7 +58,7 @@ namespace StormTime.Enemy
                 _launchPoints.Add(GetNode<Node2D>(launchPoint));
             }
 
-            _startPosition = GetPosition();
+            _startPosition = GetGlobalPosition();
             _enemyTimer = 0;
 
             _playerTargetSqDst = playerTargetDistance * playerTargetDistance;
@@ -102,26 +102,26 @@ namespace StormTime.Enemy
 
         private void OverHeadCheckForEnemyState()
         {
-            if (GetPosition().DistanceSquaredTo(PlayerVariables.PlayerPosition) <= _playerTargetSqDst &&
+            if (GetGlobalPosition().DistanceSquaredTo(PlayerVariables.PlayerPosition) <= _playerTargetSqDst &&
             _enemyState != EnemyState.Attacking && _enemyState != EnemyState.Dead && _enemyState != EnemyState.Homing)
             {
                 SetEnemyState(EnemyState.Targeting);
             }
 
-            if (GetPosition().DistanceSquaredTo(PlayerVariables.PlayerPosition) <= _playerAttackSqDst &&
+            if (GetGlobalPosition().DistanceSquaredTo(PlayerVariables.PlayerPosition) <= _playerAttackSqDst &&
             _enemyState != EnemyState.Attacking && _enemyState != EnemyState.Dead)
             {
-                _enemyTimer = attackTime;
+                LaunchAttack();
                 SetEnemyState(EnemyState.Attacking);
             }
 
-            if (GetPosition().DistanceSquaredTo(_startPosition) > _maxPlayerFollowSqDst &&
+            if (GetGlobalPosition().DistanceSquaredTo(_startPosition) > _maxPlayerFollowSqDst &&
             _enemyState == EnemyState.Targeting)
             {
                 SetEnemyState(EnemyState.Homing);
             }
 
-            if (GetPosition().DistanceSquaredTo(PlayerVariables.PlayerPosition) > _playerTargetSqDst &&
+            if (GetGlobalPosition().DistanceSquaredTo(PlayerVariables.PlayerPosition) > _playerTargetSqDst &&
              _enemyState == EnemyState.Targeting)
             {
                 SetEnemyState(EnemyState.Idling);
@@ -134,7 +134,7 @@ namespace StormTime.Enemy
             MoveToTowardsTarget(_targetPosition);
 
 
-            if (GetPosition().DistanceSquaredTo(_targetPosition) <= minWanderingReachDistance)
+            if (GetGlobalPosition().DistanceSquaredTo(_targetPosition) <= minWanderingReachDistance)
             {
                 _enemyTimer = idleTime;
                 SetEnemyState(EnemyState.Idling);
@@ -156,7 +156,7 @@ namespace StormTime.Enemy
         {
             MoveToTowardsTarget(_targetPosition);
 
-            if (GetPosition().DistanceSquaredTo(_targetPosition) <= minWanderingReachDistance)
+            if (GetGlobalPosition().DistanceSquaredTo(_targetPosition) <= minWanderingReachDistance)
             {
                 _enemyTimer = idleTime;
                 SetEnemyState(EnemyState.Idling);
@@ -175,9 +175,14 @@ namespace StormTime.Enemy
 
             if (_enemyTimer <= 0)
             {
+                EndAttack();
                 SetEnemyState(EnemyState.Targeting);
             }
         }
+
+        protected virtual void LaunchAttack() => _enemyTimer = attackTime;
+
+        protected virtual void EndAttack() { }
 
         protected void UpdateDead(float delta)
         {
@@ -188,8 +193,14 @@ namespace StormTime.Enemy
 
         protected void MoveToTowardsTarget(Vector2 targetPosition)
         {
-            Vector2 directionVector = (targetPosition - GetPosition()).Normalized();
+            Vector2 directionVector = (targetPosition - GetGlobalPosition()).Normalized();
             MoveAndSlide(directionVector * movementSpeed);
+        }
+
+        protected void MoveToTowardsTarget(Vector2 targetPosition, float speed)
+        {
+            Vector2 directionVector = (targetPosition - GetGlobalPosition()).Normalized();
+            MoveAndSlide(directionVector * speed);
         }
 
         protected void LookAtTarget(Vector2 target) => LookAt(target);

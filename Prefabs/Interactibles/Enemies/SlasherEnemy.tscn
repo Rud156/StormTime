@@ -1,16 +1,30 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Scripts/Enemy/SlasherEnemy.cs" type="Script" id=1]
 [ext_resource path="res://Textures/Blur Rectangle.png" type="Texture" id=2]
 [ext_resource path="res://Textures/Slash_Shape_4.png" type="Texture" id=3]
+[ext_resource path="res://Prefabs/Effects/Slash GB.tscn" type="PackedScene" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 60, 56.6667 )
 
 [node name="SlasherEnemy" type="KinematicBody2D"]
 scale = Vector2( 0.3, 0.3 )
-collision_layer = 2
+collision_layer = 4
+collision_mask = 3
 script = ExtResource( 1 )
+explorationRadius = 100.0
+idleTime = 3.0
+minWanderingReachDistance = 5.0
+playerTargetDistance = 800.0
+playerAttackDistance = 100.0
+maxPlayerFollowDistance = 900.0
+movementSpeed = 200.0
+attackTime = 7.0
+launchPointsPath = [ NodePath("Launch Points/LaunchPoint_1"), NodePath("Launch Points/LaunchPoint_2"), NodePath("Launch Points/LaunchPoint_3"), NodePath("Launch Points/LaunchPoint_4") ]
+attackingPlayerMovementSpeed = 300.0
+attackingWaitTime = 2.0
+_slasherEffectNode = NodePath("Slash Effect")
 
 [node name="Shadow Sprite" type="Sprite" parent="."]
 light_mask = 2
@@ -43,3 +57,6 @@ scale = Vector2( 0.3, 0.3 )
 [node name="LaunchPoint_4" type="Node2D" parent="Launch Points"]
 position = Vector2( 60.199, -34 )
 scale = Vector2( 0.3, 0.3 )
+
+[node name="Slash Effect" parent="." instance=ExtResource( 4 )]
+scale = Vector2( 3.5, 3.5 )

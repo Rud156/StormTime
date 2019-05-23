@@ -20,7 +20,7 @@ namespace StormTime.Camera
 
         public override void _Process(float delta)
         {
-            _cameraPosition = _target.GetPosition();
+            _cameraPosition = _target.GetGlobalPosition();
 
             if (useCameraLocking)
             {

@@ -10,14 +10,15 @@ extents = Vector2( 70, 70 )
 
 [node name="SpinnerEnemy" type="KinematicBody2D"]
 scale = Vector2( 0.3, 0.3 )
-collision_layer = 2
+collision_layer = 4
+collision_mask = 3
 script = ExtResource( 1 )
 explorationRadius = 200.0
 idleTime = 7.0
 minWanderingReachDistance = 5.0
-playerTargetDistance = 800.0
+playerTargetDistance = 700.0
 playerAttackDistance = 150.0
-maxPlayerFollowDistance = 600.0
+maxPlayerFollowDistance = 800.0
 movementSpeed = 200.0
 attackTime = 7.0
 launchPointsPath = [ NodePath("Launch Points/LaunchPoint_1"), NodePath("Launch Points/LaunchPoint_2") ]

@@ -41,10 +41,10 @@ namespace StormTime.Scene
             _background_3 = GetNode<Sprite>(backgroundSprite_3);
             _background_4 = GetNode<Sprite>(backgroundSprite_4);
 
-            b1 = _background_1.GetPosition();
-            b2 = _background_2.GetPosition();
-            b3 = _background_3.GetPosition();
-            b4 = _background_4.GetPosition();
+            b1 = _background_1.GetGlobalPosition();
+            b2 = _background_2.GetGlobalPosition();
+            b3 = _background_3.GetGlobalPosition();
+            b4 = _background_4.GetGlobalPosition();
         }
 
         public override void _Process(float delta)
