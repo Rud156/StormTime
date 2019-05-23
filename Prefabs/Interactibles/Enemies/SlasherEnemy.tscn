@@ -46,6 +46,9 @@ shape = SubResource( 1 )
 [node name="Effect Collision Shape" type="CollisionShape2D" parent="."]
 shape = SubResource( 2 )
 
+[node name="Slash Effect" parent="." instance=ExtResource( 4 )]
+scale = Vector2( 7, 7 )
+
 [node name="Launch Points" type="Node2D" parent="."]
 editor/display_folded = true
 
@@ -64,6 +67,3 @@ scale = Vector2( 0.3, 0.3 )
 [node name="LaunchPoint_4" type="Node2D" parent="Launch Points"]
 position = Vector2( 60.199, -34 )
 scale = Vector2( 0.3, 0.3 )
-
-[node name="Slash Effect" parent="." instance=ExtResource( 4 )]
-scale = Vector2( 7, 7 )
