@@ -28,6 +28,7 @@ namespace StormTime.Enemy
         private float _enemyAttackTimer;
         private int _rotationAttackCounter;
         private int _forwardRotationDirection;
+        private float _currentRotationRate;
         private EnemyAttackState _enemyAttackState;
 
         protected override void UpdateAttacking(float delta)
@@ -70,7 +71,7 @@ namespace StormTime.Enemy
                 SetEnemyAttackState(EnemyAttackState.AttackAttacking);
             }
 
-            Rotate(Mathf.Deg2Rad(rotationRate * delta * _forwardRotationDirection));
+            Rotate(Mathf.Deg2Rad(_currentRotationRate * delta * _forwardRotationDirection));
         }
 
         private void UpdateAttackAttackingState(float delta)
@@ -94,6 +95,7 @@ namespace StormTime.Enemy
             _enemyAttackTimer = rotationTime;
             _rotationAttackCounter = 0;
             _forwardRotationDirection = GD.Randf() <= 0.5f ? -1 : 1;
+            _currentRotationRate = (float)GD.RandRange(rotationRate, 2 * rotationTime);
             SetEnemyAttackState(EnemyAttackState.AttackRotating);
         }
 

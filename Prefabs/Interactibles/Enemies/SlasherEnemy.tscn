@@ -2,7 +2,7 @@
 
 [ext_resource path="res://Scripts/Enemy/SlasherEnemy.cs" type="Script" id=1]
 [ext_resource path="res://Textures/Blur Rectangle.png" type="Texture" id=2]
-[ext_resource path="res://Textures/Slash_Shape_4.png" type="Texture" id=3]
+[ext_resource path="res://Textures/Slash_Shape_White.png" type="Texture" id=3]
 [ext_resource path="res://Prefabs/Effects/Slash GB.tscn" type="PackedScene" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
