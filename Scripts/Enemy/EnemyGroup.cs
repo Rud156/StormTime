@@ -52,6 +52,7 @@ namespace StormTime.Enemy
                 enemyColors[GD.Randi() % enemyColors.Length],
                 enemyColors[GD.Randi() % enemyColors.Length]
             );
+            AddChild(enemyInstance);
 
             _currentEnemyTypeCount += 1;
             if (_currentEnemyTypeCount >= enemyTypeCount[_currentEnemyTypeIndex])
