@@ -17,7 +17,6 @@ namespace StormTime.Enemy
 
         // Bullet
         [Export] public PackedScene enemyBulletPrefab;
-        [Export] public Color bulletColor;
 
         private enum EnemyAttackState
         {
@@ -108,6 +107,7 @@ namespace StormTime.Enemy
             {
                 EnemyBullet bulletInstance = (EnemyBullet)enemyBulletPrefab.Instance();
                 bulletInstance.SetPosition(launchPoint.GetGlobalPosition());
+                bulletInstance.SetBulletColor(_bulletColor);
 
                 float rotation = GetRotationDegrees() + startRotation;
                 float xVelocity = Mathf.Cos(Mathf.Deg2Rad(rotation));

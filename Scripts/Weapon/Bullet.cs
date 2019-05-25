@@ -17,12 +17,7 @@ namespace StormTime.Weapon
         private float _currentBulletTimeLeft;
         private float _currentBulletTrailTimeLeft;
 
-        public override void _Ready()
-        {
-            base._Ready();
-
-            _currentBulletTrailTimeLeft = bulletTrailTimer;
-        }
+        public override void _Ready() => _currentBulletTrailTimeLeft = bulletTrailTimer;
 
         public override void _Process(float delta)
         {

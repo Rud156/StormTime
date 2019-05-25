@@ -9,6 +9,7 @@ namespace StormTime.Enemy
     public abstract class Enemy : KinematicBody2D
     {
         // Enemy State
+        [Export] public NodePath enemySpriteNodePath;
         [Export] public float explorationRadius;
         [Export] public float idleTime;
         [Export] public float minWanderingReachDistance;
@@ -50,8 +51,15 @@ namespace StormTime.Enemy
         // Launch Points
         protected List<Node2D> _launchPoints;
 
+        // Colors
+        protected Color _enemyColor;
+        protected Color _bulletColor;
+        protected Sprite _enemySprite;
+
         public override void _Ready()
         {
+            _enemySprite = (Sprite)GetNode<Sprite>(enemySpriteNodePath);
+
             _launchPoints = new List<Node2D>();
             foreach (NodePath launchPoint in launchPointsPath)
             {
@@ -194,6 +202,14 @@ namespace StormTime.Enemy
         #endregion
 
         #region Utility Functions
+
+        public void SetEnemyColors(Color enemyColor, Color bulletColor)
+        {
+            _enemyColor = enemyColor;
+            _bulletColor = bulletColor;
+
+            _enemySprite.SetSelfModulate(_enemyColor);
+        }
 
         protected void MoveToTowardsTarget(Vector2 targetPosition)
         {

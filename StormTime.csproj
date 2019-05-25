@@ -53,6 +53,7 @@
     <Compile Include="Scripts\Camera\CameraFollowTarget.cs" />
     <Compile Include="Scripts\Enemy\BurstEnemy.cs" />
     <Compile Include="Scripts\Enemy\Enemy.cs" />
+    <Compile Include="Scripts\Enemy\EnemyGroup.cs" />
     <Compile Include="Scripts\Enemy\SlasherEnemy.cs" />
     <Compile Include="Scripts\Enemy\SpinnerEnemy.cs" />
     <Compile Include="Scripts\Player\Shooting\PlayerShooting.cs" />
