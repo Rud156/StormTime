@@ -58,8 +58,6 @@ namespace StormTime.Enemy
 
         public override void _Ready()
         {
-            _enemySprite = (Sprite)GetNode<Sprite>(enemySpriteNodePath);
-
             _launchPoints = new List<Node2D>();
             foreach (NodePath launchPoint in launchPointsPath)
             {
@@ -208,6 +206,9 @@ namespace StormTime.Enemy
             _enemyColor = enemyColor;
             _bulletColor = bulletColor;
 
+            // This is done so as to ensure that the node is 
+            // assigned before use
+            _enemySprite = GetNode<Sprite>(enemySpriteNodePath);
             _enemySprite.SetSelfModulate(_enemyColor);
         }
 

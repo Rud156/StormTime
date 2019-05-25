@@ -10,3 +10,21 @@ script = ExtResource( 1 )
 enemyColors = PoolColorArray( 0.517647, 0, 1, 1, 0, 0, 1, 1, 1, 0, 0, 1, 0, 1, 0, 1 )
 enemyTypes = [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ) ]
 enemyTypeCount = PoolIntArray( 1, 2, 1 )
+spawnPointsNodePaths = [ NodePath("Spawn Points/SpawnPoint_1"), NodePath("Spawn Points/SpawnPoint_2"), NodePath("Spawn Points/SpawnPoint_3"), NodePath("Spawn Points/SpawnPoint_4"), NodePath("Spawn Points/SpawnPoint_5") ]
+
+[node name="Spawn Points" type="Node2D" parent="."]
+
+[node name="SpawnPoint_1" type="Node2D" parent="Spawn Points"]
+position = Vector2( -200, 30.73 )
+
+[node name="SpawnPoint_2" type="Node2D" parent="Spawn Points"]
+position = Vector2( -195, 305 )
+
+[node name="SpawnPoint_3" type="Node2D" parent="Spawn Points"]
+position = Vector2( 225, 50 )
+
+[node name="SpawnPoint_4" type="Node2D" parent="Spawn Points"]
+position = Vector2( 175, 160 )
+
+[node name="SpawnPoint_5" type="Node2D" parent="Spawn Points"]
+position = Vector2( 35, 255 )

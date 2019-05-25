@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Godot;
 
 namespace StormTime.Enemy
@@ -8,7 +9,9 @@ namespace StormTime.Enemy
         [Export] public Color[] enemyColors;
         [Export] public Godot.Collections.Array<PackedScene> enemyTypes; // TODO: Load this from randomRange when generating enemy groups
         [Export] public int[] enemyTypeCount; // TODO: Load this from randomRange when generating enemy groups
-        [Export] public Node2D[] spawnPoints;
+        [Export] public Godot.Collections.Array<NodePath> spawnPointsNodePaths;
+
+        private List<Node2D> _spawnPoints;
 
         private Vector2 _groupPosition;
         private int _currentEnemyTypeIndex;
@@ -18,6 +21,13 @@ namespace StormTime.Enemy
         public override void _Ready()
         {
             _groupPosition = GetPosition();
+
+            _spawnPoints = new List<Node2D>();
+            foreach (NodePath spawnPoint in spawnPointsNodePaths)
+            {
+                _spawnPoints.Add(GetNode<Node2D>(spawnPoint));
+            }
+
             StartEnemiesSpawn();
         }
 
@@ -36,7 +46,8 @@ namespace StormTime.Enemy
             }
 
             Enemy enemyInstance = (Enemy)enemyTypes[_currentEnemyTypeIndex].Instance();
-            enemyInstance.SetPosition(spawnPoints[GD.Randi() % spawnPoints.Length].GetGlobalPosition());
+            Node2D spawnPoint = _spawnPoints[(int)(GD.Randi() % _spawnPoints.Count)];
+            enemyInstance.SetPosition(spawnPoint.GetGlobalPosition());
             enemyInstance.SetEnemyColors(
                 enemyColors[GD.Randi() % enemyColors.Length],
                 enemyColors[GD.Randi() % enemyColors.Length]
