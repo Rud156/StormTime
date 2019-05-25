@@ -16,6 +16,7 @@ scale = Vector2( 0.3, 0.3 )
 collision_layer = 4
 collision_mask = 3
 script = ExtResource( 1 )
+enemySpriteNodePath = NodePath("Sprite")
 explorationRadius = 200.0
 idleTime = 5.0
 minWanderingReachDistance = 5.0
@@ -30,7 +31,6 @@ rotationTime = 0.5
 rotationAttackCounts = 2.0
 timeDelayBetweenShots = 0.5
 enemyBulletPrefab = ExtResource( 2 )
-bulletColor = Color( 0.054902, 0, 1, 1 )
 
 [node name="Shadow Sprite" type="Sprite" parent="."]
 self_modulate = Color( 0, 0, 0, 1 )

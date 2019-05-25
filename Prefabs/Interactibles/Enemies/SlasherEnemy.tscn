@@ -16,6 +16,7 @@ scale = Vector2( 0.6, 0.6 )
 collision_layer = 4
 collision_mask = 3
 script = ExtResource( 1 )
+enemySpriteNodePath = NodePath("Sprite")
 explorationRadius = 100.0
 idleTime = 3.0
 minWanderingReachDistance = 5.0
