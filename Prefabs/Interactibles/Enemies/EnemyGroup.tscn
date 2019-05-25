@@ -28,3 +28,48 @@ position = Vector2( 175, 160 )
 
 [node name="SpawnPoint_5" type="Node2D" parent="Spawn Points"]
 position = Vector2( 35, 255 )
+
+[node name="SpawnPoint_6" type="Node2D" parent="Spawn Points"]
+position = Vector2( -395, -335 )
+
+[node name="SpawnPoint_7" type="Node2D" parent="Spawn Points"]
+position = Vector2( 510, 325 )
+
+[node name="SpawnPoint_8" type="Node2D" parent="Spawn Points"]
+position = Vector2( -270, -135 )
+
+[node name="SpawnPoint_9" type="Node2D" parent="Spawn Points"]
+position = Vector2( -645, -140 )
+
+[node name="SpawnPoint_10" type="Node2D" parent="Spawn Points"]
+position = Vector2( 535, -105 )
+
+[node name="SpawnPoint_11" type="Node2D" parent="Spawn Points"]
+position = Vector2( 55, -330 )
+
+[node name="SpawnPoint_12" type="Node2D" parent="Spawn Points"]
+position = Vector2( 500, 130 )
+
+[node name="SpawnPoint_13" type="Node2D" parent="Spawn Points"]
+position = Vector2( -315, 160 )
+
+[node name="SpawnPoint_14" type="Node2D" parent="Spawn Points"]
+position = Vector2( -195, -305 )
+
+[node name="SpawnPoint_15" type="Node2D" parent="Spawn Points"]
+position = Vector2( -520, 295 )
+
+[node name="SpawnPoint_16" type="Node2D" parent="Spawn Points"]
+position = Vector2( 120, -205 )
+
+[node name="SpawnPoint_17" type="Node2D" parent="Spawn Points"]
+position = Vector2( 290, 275 )
+
+[node name="SpawnPoint_18" type="Node2D" parent="Spawn Points"]
+position = Vector2( -440, -170 )
+
+[node name="SpawnPoint_19" type="Node2D" parent="Spawn Points"]
+position = Vector2( 355, -180 )
+
+[node name="SpawnPoint_20" type="Node2D" parent="Spawn Points"]
+position = Vector2( -580, 85 )
