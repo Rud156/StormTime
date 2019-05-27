@@ -1,6 +1,5 @@
 using Godot;
 using StormTime.Player.Data;
-using StormTime.Scene;
 using StormTime.Utils;
 
 namespace StormTime.Player.Movement

@@ -13,7 +13,6 @@ namespace StormTime.Enemy
         [Export] public float explorationRadius;
         [Export] public float idleTime;
         [Export] public float minWanderingReachDistance;
-        [Export] public int enemyDangerLevel = 1;
 
         // Target Player Stats
         [Export] public float playerTargetDistance;
@@ -56,6 +55,8 @@ namespace StormTime.Enemy
         protected Color _enemyColor;
         protected Color _bulletColor;
         protected Sprite _enemySprite;
+
+        public Enemy() => _enemySprite = GetNode<Sprite>(enemySpriteNodePath);
 
         public override void _Ready()
         {
@@ -207,9 +208,6 @@ namespace StormTime.Enemy
             _enemyColor = enemyColor;
             _bulletColor = bulletColor;
 
-            // This is done so as to ensure that the node is 
-            // assigned before use
-            _enemySprite = GetNode<Sprite>(enemySpriteNodePath);
             _enemySprite.SetSelfModulate(_enemyColor);
         }
 

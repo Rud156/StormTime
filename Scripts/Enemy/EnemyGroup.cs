@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using Godot;
 
@@ -8,6 +7,7 @@ namespace StormTime.Enemy
     {
         [Export] public Color[] enemyColors;
         [Export] public Godot.Collections.Array<PackedScene> enemyTypes;
+        [Export] public int[] enemyDangerValues;
         [Export] public Godot.Collections.Array<NodePath> spawnPointsNodePaths;
 
         private List<Node2D> _spawnPoints;
@@ -15,16 +15,20 @@ namespace StormTime.Enemy
         private int _currentEnemyTypeIndex;
         private int _currentEnemyTypeCount;
         private bool _spawnEnemies;
+        private List<int> _enemyTypeCount;
+
+        public EnemyGroup()
+        {
+            _spawnPoints = new List<Node2D>();
+            _enemyTypeCount = new List<int>();
+        }
 
         public override void _Ready()
         {
-            _spawnPoints = new List<Node2D>();
             foreach (NodePath spawnPoint in spawnPointsNodePaths)
             {
                 _spawnPoints.Add(GetNode<Node2D>(spawnPoint));
             }
-
-            StartEnemiesSpawn();
         }
 
         private void StartEnemiesSpawn()
@@ -51,17 +55,26 @@ namespace StormTime.Enemy
             AddChild(enemyInstance);
 
             _currentEnemyTypeCount += 1;
-            if (_currentEnemyTypeCount >= enemyTypeCount[_currentEnemyTypeIndex])
+            if (_currentEnemyTypeCount >= _enemyTypeCount[_currentEnemyTypeIndex])
             {
                 _currentEnemyTypeIndex += 1;
                 _currentEnemyTypeCount = 0;
             }
-            if (_currentEnemyTypeIndex >= enemyTypeCount.Length)
+            if (_currentEnemyTypeIndex >= _enemyTypeCount.Count)
             {
                 _spawnEnemies = false;
                 _currentEnemyTypeIndex = 0;
                 _currentEnemyTypeCount = 0;
             }
         }
+
+        #region External Functions
+
+        public void ActivateEnemySpawning(int maxDangerAmount)
+        {
+            StartEnemiesSpawn();
+        }
+
+        #endregion
     }
 }
