@@ -7,21 +7,17 @@ namespace StormTime.Enemy
     public class EnemyGroup : Node2D
     {
         [Export] public Color[] enemyColors;
-        [Export] public Godot.Collections.Array<PackedScene> enemyTypes; // TODO: Load this from randomRange when generating enemy groups
-        [Export] public int[] enemyTypeCount; // TODO: Load this from randomRange when generating enemy groups
+        [Export] public Godot.Collections.Array<PackedScene> enemyTypes;
         [Export] public Godot.Collections.Array<NodePath> spawnPointsNodePaths;
 
         private List<Node2D> _spawnPoints;
 
-        private Vector2 _groupPosition;
         private int _currentEnemyTypeIndex;
         private int _currentEnemyTypeCount;
         private bool _spawnEnemies;
 
         public override void _Ready()
         {
-            _groupPosition = GetPosition();
-
             _spawnPoints = new List<Node2D>();
             foreach (NodePath spawnPoint in spawnPointsNodePaths)
             {

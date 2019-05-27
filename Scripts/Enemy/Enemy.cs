@@ -13,6 +13,7 @@ namespace StormTime.Enemy
         [Export] public float explorationRadius;
         [Export] public float idleTime;
         [Export] public float minWanderingReachDistance;
+        [Export] public int enemyDangerLevel = 1;
 
         // Target Player Stats
         [Export] public float playerTargetDistance;
