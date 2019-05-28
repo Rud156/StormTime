@@ -5,12 +5,14 @@ using StormTime.Enemy;
 public class EnemySpawner : Node2D
 {
     [Export] public PackedScene enemyGroupPrefab;
+    [Export] public int minEnemyGroupsToSpawn;
     [Export] public int maxEnemyGroupsToSpawn;
     [Export] public Godot.Collections.Array<NodePath> worldSpawnNodePaths;
 
     private List<EnemySpawnPoint> _worldSpawnPoints;
     private List<EnemySpawnPoint> _availableWorldSpawnPoints;
 
+    private int _enemyGroupsToSpawn;
     private int _currentEnemyGroups;
     private bool _startSpawn;
     
@@ -19,6 +21,7 @@ public class EnemySpawner : Node2D
         _worldSpawnPoints = new List<EnemySpawnPoint>();
         _availableWorldSpawnPoints = new List<EnemySpawnPoint>();
         _currentEnemyGroups = 0;
+        _enemyGroupsToSpawn = (int)(GD.Randi() % (maxEnemyGroupsToSpawn - minEnemyGroupsToSpawn)) + minEnemyGroupsToSpawn;
 
         foreach (NodePath worldSpawnNodePath in worldSpawnNodePaths)
         {
@@ -26,6 +29,10 @@ public class EnemySpawner : Node2D
         }
 
         _availableWorldSpawnPoints.AddRange(_worldSpawnPoints);
+
+        GD.Print("Starting Enemy Group Spawn");
+        _startSpawn = true;
+        _currentEnemyGroups = 0;
     }
 
     public override void _Process(float delta)
@@ -37,6 +44,7 @@ public class EnemySpawner : Node2D
 
         if (_currentEnemyGroups >= maxEnemyGroupsToSpawn)
         {
+            GD.Print("Enemy Group Spawning Complete");
             _startSpawn = false;
             _currentEnemyGroups = 0;
             return;
@@ -56,7 +64,7 @@ public class EnemySpawner : Node2D
         enemyGroupInstance.ActivateEnemySpawning(spawnNode.GetEnemyDangerLevel());
         enemyGroupInstance.SetPosition(spawnPosition);
 
-        AddChild(enemyGroupInstance);
+        spawnNode.AddChild(enemyGroupInstance);
         _availableWorldSpawnPoints.RemoveAt(randomIndex);
     }
 }

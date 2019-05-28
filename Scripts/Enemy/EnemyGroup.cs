@@ -52,10 +52,18 @@ namespace StormTime.Enemy
                 return;
             }
 
+            if (_currentEnemyTypeIndex >= _enemyTypeCount.Count)
+            {
+                _spawnEnemies = false;
+                _currentEnemyTypeIndex = 0;
+                _currentEnemyTypeCount = 0;
+            }
+
             if (_enemyTypeCount[_currentEnemyTypeIndex] == 0)
             {
                 _currentEnemyTypeIndex += 1;
                 _currentEnemyTypeCount = 0;
+                return;
             }
 
             Enemy enemyInstance = (Enemy)enemyTypes[_currentEnemyTypeIndex].Instance();
@@ -66,18 +74,11 @@ namespace StormTime.Enemy
                 enemyColors[GD.Randi() % enemyColors.Length]
             );
             AddChild(enemyInstance);
-
+            
             _currentEnemyTypeCount += 1;
             if (_currentEnemyTypeCount >= _enemyTypeCount[_currentEnemyTypeIndex])
             {
                 _currentEnemyTypeIndex += 1;
-                _currentEnemyTypeCount = 0;
-            }
-
-            if (_currentEnemyTypeIndex >= _enemyTypeCount.Count)
-            {
-                _spawnEnemies = false;
-                _currentEnemyTypeIndex = 0;
                 _currentEnemyTypeCount = 0;
             }
         }
@@ -86,12 +87,19 @@ namespace StormTime.Enemy
 
         public void ActivateEnemySpawning(int maxDangerAmount)
         {
+            if (maxDangerAmount <= 0)
+            {
+                return;
+            } 
+
+            GD.Print($"Max Danger Amount: {maxDangerAmount}");
             int currentDangerAmount = 0;
+
             while (true)
             {
                 int enemyIndex = (int)(GD.Randi() % enemyTypes.Count);
                 int randomEnemyDangerValue = enemyDangerValues[enemyIndex];
-
+                
                 if (currentDangerAmount + randomEnemyDangerValue > maxDangerAmount)
                 {
                     continue;
@@ -106,6 +114,7 @@ namespace StormTime.Enemy
                 }
             }
 
+            GD.Print("Created All Enemies. Wowser!!!");
             StartEnemiesSpawn();
         }
 
