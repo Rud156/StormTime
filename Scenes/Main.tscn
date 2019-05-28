@@ -20,13 +20,16 @@
 [node name="Bullets Holder" type="Node2D" parent="Game World"]
 
 [node name="Enemy Spawn Points" type="Node2D" parent="Game World"]
+editor/display_folded = true
 script = ExtResource( 2 )
+enemyGroupsHolderNodePath = NodePath("../Enemy Groups Holder")
 enemyGroupPrefab = ExtResource( 3 )
-maxEnemyGroupsToSpawn = 1
-worldSpawnNodePaths = [ NodePath("Enemy Group Spawn Point_1") ]
+minEnemyGroupsToSpawn = 10
+maxEnemyGroupsToSpawn = 18
+worldSpawnNodePaths = [ NodePath("Enemy Group Spawn Point_1"), NodePath("Enemy Group Spawn Point_2"), NodePath("Enemy Group Spawn Point_3"), NodePath("Enemy Group Spawn Point_4"), NodePath("Enemy Group Spawn Point_5"), NodePath("Enemy Group Spawn Point_6"), NodePath("Enemy Group Spawn Point_7"), NodePath("Enemy Group Spawn Point_8"), NodePath("Enemy Group Spawn Point_9"), NodePath("Enemy Group Spawn Point_10"), NodePath("Enemy Group Spawn Point_11"), NodePath("Enemy Group Spawn Point_12"), NodePath("Enemy Group Spawn Point_13"), NodePath("Enemy Group Spawn Point_14"), NodePath("Enemy Group Spawn Point_15"), NodePath("Enemy Group Spawn Point_16"), NodePath("Enemy Group Spawn Point_17"), NodePath("Enemy Group Spawn Point_18"), NodePath("Enemy Group Spawn Point_19"), NodePath("Enemy Group Spawn Point_20"), NodePath("Enemy Group Spawn Point_21"), NodePath("Enemy Group Spawn Point_22"), NodePath("Enemy Group Spawn Point_23"), NodePath("Enemy Group Spawn Point_24") ]
 
 [node name="Enemy Group Spawn Point_1" parent="Game World/Enemy Spawn Points" instance=ExtResource( 4 )]
-position = Vector2( -1819.09, 1395.7 )
+position = Vector2( -1480.7, 1420.22 )
 maxEnemyDangerLevel = 1
 
 [node name="Enemy Group Spawn Point_2" parent="Game World/Enemy Spawn Points" instance=ExtResource( 4 )]
@@ -70,7 +73,7 @@ position = Vector2( 1515.07, 474.563 )
 maxEnemyDangerLevel = 4
 
 [node name="Enemy Group Spawn Point_12" parent="Game World/Enemy Spawn Points" instance=ExtResource( 4 )]
-position = Vector2( -1962.39, -1684.52 )
+position = Vector2( -1570.05, -1635.48 )
 maxEnemyDangerLevel = 5
 
 [node name="Enemy Group Spawn Point_13" parent="Game World/Enemy Spawn Points" instance=ExtResource( 4 )]
@@ -102,7 +105,7 @@ position = Vector2( 2260.24, 646.526 )
 maxEnemyDangerLevel = 6
 
 [node name="Enemy Group Spawn Point_20" parent="Game World/Enemy Spawn Points" instance=ExtResource( 4 )]
-position = Vector2( 2967.2, 1305.72 )
+position = Vector2( 2745.43, 1305.72 )
 maxEnemyDangerLevel = 7
 
 [node name="Enemy Group Spawn Point_21" parent="Game World/Enemy Spawn Points" instance=ExtResource( 4 )]
@@ -121,9 +124,11 @@ maxEnemyDangerLevel = 9
 position = Vector2( 251.291, -1110.76 )
 maxEnemyDangerLevel = 8
 
+[node name="Enemy Groups Holder" type="Node2D" parent="Game World"]
+
 [node name="Player" parent="Game World" instance=ExtResource( 5 )]
 editor/display_folded = true
-position = Vector2( -1944.24, 1726.71 )
+position = Vector2( -2256.04, 2037.29 )
 
 [node name="Player Shooter" type="Node2D" parent="Game World/Player"]
 script = ExtResource( 6 )

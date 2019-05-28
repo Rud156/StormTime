@@ -68,7 +68,8 @@ namespace StormTime.Enemy
 
             Enemy enemyInstance = (Enemy)enemyTypes[_currentEnemyTypeIndex].Instance();
             Node2D spawnPoint = _spawnPoints[(int)(GD.Randi() % _spawnPoints.Count)];
-            enemyInstance.SetPosition(spawnPoint.GetGlobalPosition());
+            enemyInstance.SetGlobalPosition(spawnPoint.GetGlobalPosition());
+            GD.Print($"Enemy Spawn Position: {spawnPoint.GetGlobalPosition()}");
             enemyInstance.SetEnemyColors(
                 enemyColors[GD.Randi() % enemyColors.Length],
                 enemyColors[GD.Randi() % enemyColors.Length]

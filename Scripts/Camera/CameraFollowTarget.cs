@@ -35,7 +35,7 @@ namespace StormTime.Camera
                     _cameraPosition.y = lockTopRightCorner.y;
             }
 
-            SetPosition(_cameraPosition);
+            SetGlobalPosition(_cameraPosition);
         }
     }
 }

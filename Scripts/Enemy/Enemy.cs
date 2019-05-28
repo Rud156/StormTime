@@ -1,3 +1,4 @@
+using System;
 using Godot;
 using System.Collections.Generic;
 using StormTime.Player.Data;
@@ -232,7 +233,7 @@ namespace StormTime.Enemy
                 return;
             }
 
-            GD.Print($"Enemy State: {enemyState}");
+            GD.Print($"Enemy State: {enemyState}, Enemy Name: {GetName()}");
 
             _enemyState = enemyState;
         }

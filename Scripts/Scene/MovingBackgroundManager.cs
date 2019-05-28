@@ -85,10 +85,10 @@ namespace StormTime.Scene
             SetLeftAndDownMovement();
             SetUpAndRightMovement();
 
-            _background_1.SetPosition(b1);
-            _background_2.SetPosition(b2);
-            _background_3.SetPosition(b3);
-            _background_4.SetPosition(b4);
+            _background_1.SetGlobalPosition(b1);
+            _background_2.SetGlobalPosition(b2);
+            _background_3.SetGlobalPosition(b3);
+            _background_4.SetGlobalPosition(b4);
 
 
         }

@@ -104,7 +104,7 @@ namespace StormTime.Enemy
             foreach (Node2D launchPoint in _launchPoints)
             {
                 EnemyBullet bulletInstance = (EnemyBullet)enemyBulletPrefab.Instance();
-                bulletInstance.SetPosition(launchPoint.GetGlobalPosition());
+                bulletInstance.SetGlobalPosition(launchPoint.GetGlobalPosition());
                 bulletInstance.SetBulletColor(_bulletColor);
 
                 float rotation = GetRotationDegrees() + startRotation;

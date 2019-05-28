@@ -1,9 +1,11 @@
 using Godot;
 using System.Collections.Generic;
 using StormTime.Enemy;
+using StormTime.Utils;
 
 public class EnemySpawner : Node2D
 {
+    [Export] public NodePath enemyGroupsHolderNodePath;
     [Export] public PackedScene enemyGroupPrefab;
     [Export] public int minEnemyGroupsToSpawn;
     [Export] public int maxEnemyGroupsToSpawn;
@@ -11,6 +13,8 @@ public class EnemySpawner : Node2D
 
     private List<EnemySpawnPoint> _worldSpawnPoints;
     private List<EnemySpawnPoint> _availableWorldSpawnPoints;
+
+    private Node2D _enemyGroupsHolder;
 
     private int _enemyGroupsToSpawn;
     private int _currentEnemyGroups;
@@ -20,6 +24,7 @@ public class EnemySpawner : Node2D
     {
         _worldSpawnPoints = new List<EnemySpawnPoint>();
         _availableWorldSpawnPoints = new List<EnemySpawnPoint>();
+        _enemyGroupsHolder = GetNode<Node2D>(enemyGroupsHolderNodePath);
         _currentEnemyGroups = 0;
         _enemyGroupsToSpawn = (int)(GD.Randi() % (maxEnemyGroupsToSpawn - minEnemyGroupsToSpawn)) + minEnemyGroupsToSpawn;
 
@@ -42,7 +47,12 @@ public class EnemySpawner : Node2D
             return;
         }
 
-        if (_currentEnemyGroups >= maxEnemyGroupsToSpawn)
+        if (Input.IsActionJustPressed(SceneControls.Interact))
+        {
+            SpawnEnemyGroup();
+        }
+
+        if (_currentEnemyGroups >= _enemyGroupsToSpawn)
         {
             GD.Print("Enemy Group Spawning Complete");
             _startSpawn = false;
@@ -62,9 +72,9 @@ public class EnemySpawner : Node2D
 
         EnemyGroup enemyGroupInstance = (EnemyGroup) enemyGroupPrefab.Instance();
         enemyGroupInstance.ActivateEnemySpawning(spawnNode.GetEnemyDangerLevel());
-        enemyGroupInstance.SetPosition(spawnPosition);
-
-        spawnNode.AddChild(enemyGroupInstance);
+        enemyGroupInstance.SetGlobalPosition(spawnPosition);
+        
+        _enemyGroupsHolder.AddChild(enemyGroupInstance);
         _availableWorldSpawnPoints.RemoveAt(randomIndex);
     }
 }
