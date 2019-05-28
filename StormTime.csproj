@@ -54,6 +54,7 @@
     <Compile Include="Scripts\Enemy\BurstEnemy.cs" />
     <Compile Include="Scripts\Enemy\Enemy.cs" />
     <Compile Include="Scripts\Enemy\EnemyGroup.cs" />
+    <Compile Include="Scripts\Enemy\EnemySpawner.cs" />
     <Compile Include="Scripts\Enemy\EnemySpawnPoint.cs" />
     <Compile Include="Scripts\Enemy\SlasherEnemy.cs" />
     <Compile Include="Scripts\Enemy\SpinnerEnemy.cs" />
