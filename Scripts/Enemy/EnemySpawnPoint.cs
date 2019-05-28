@@ -1,9 +1,12 @@
 using Godot;
 using System;
 
-public class EnemySpawnPoint : Node2D
+namespace StormTime.Enemy
 {
-    [Export] public int maxEnemyDangerLevel;
+    public class EnemySpawnPoint : Node2D
+    {
+        [Export] public int maxEnemyDangerLevel;
 
-    public int GetEnemyDangerLevel() => maxEnemyDangerLevel;
+        public int GetEnemyDangerLevel() => maxEnemyDangerLevel;
+    }
 }

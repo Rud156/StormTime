@@ -10,7 +10,7 @@ polygon = PoolVector2Array( 9.56291, 8.60589, 14.4516, 8.60589, 14.4516, 13.3667
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 2.4577, 2.42435 )
 
-[sub_resource type="RectangleShape2D" id=4]
+[sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 16.3012, 16.0286 )
 
 [node name="World" type="Node2D"]
@@ -1950,10 +1950,9 @@ offset = Vector2( -922.721, 40.0165 )
 
 [node name="StaticBody2D" type="StaticBody2D" parent="World Boundaries/Left Boundary"]
 position = Vector2( -924.091, 40.0143 )
-scale = Vector2( 1, 1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World Boundaries/Left Boundary/StaticBody2D"]
-shape = SubResource( 4 )
+shape = SubResource( 3 )
 
 [node name="Right Boundary" type="Sprite" parent="World Boundaries"]
 editor/display_folded = true
@@ -1966,10 +1965,9 @@ offset = Vector2( -922.721, 40.0165 )
 
 [node name="StaticBody2D" type="StaticBody2D" parent="World Boundaries/Right Boundary"]
 position = Vector2( -924.091, 40.0143 )
-scale = Vector2( 1, 1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World Boundaries/Right Boundary/StaticBody2D"]
-shape = SubResource( 4 )
+shape = SubResource( 3 )
 
 [node name="Top Boundary" type="Sprite" parent="World Boundaries"]
 editor/display_folded = true
@@ -1983,10 +1981,9 @@ offset = Vector2( -922.721, 40.0165 )
 
 [node name="StaticBody2D" type="StaticBody2D" parent="World Boundaries/Top Boundary"]
 position = Vector2( -924.091, 40.0143 )
-scale = Vector2( 1, 1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World Boundaries/Top Boundary/StaticBody2D"]
-shape = SubResource( 4 )
+shape = SubResource( 3 )
 
 [node name="Bottom Boundary" type="Sprite" parent="World Boundaries"]
 editor/display_folded = true
@@ -2000,7 +1997,6 @@ offset = Vector2( -922.721, 40.0165 )
 
 [node name="StaticBody2D" type="StaticBody2D" parent="World Boundaries/Bottom Boundary"]
 position = Vector2( -924.091, 40.0143 )
-scale = Vector2( 1, 1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World Boundaries/Bottom Boundary/StaticBody2D"]
-shape = SubResource( 4 )
+shape = SubResource( 3 )

@@ -1,6 +1,5 @@
 using Godot;
 using StormTime.Weapon;
-using System;
 
 namespace StormTime.Enemy
 {

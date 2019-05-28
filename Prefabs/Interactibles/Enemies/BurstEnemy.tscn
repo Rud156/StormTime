@@ -33,7 +33,6 @@ timeDelayBetweenShots = 0.5
 enemyBulletPrefab = ExtResource( 2 )
 
 [node name="Shadow Sprite" type="Sprite" parent="."]
-self_modulate = Color( 0, 0, 0, 1 )
 light_mask = 2
 scale = Vector2( 0.175, 0.175 )
 texture = ExtResource( 3 )

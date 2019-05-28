@@ -20,7 +20,6 @@ enemySpriteNodePath = NodePath("Sprite")
 explorationRadius = 200.0
 idleTime = 7.0
 minWanderingReachDistance = 5.0
-enemyDangerLevel = 3
 playerTargetDistance = 700.0
 playerAttackDistance = 150.0
 maxPlayerFollowDistance = 800.0

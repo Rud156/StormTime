@@ -1,8 +1,7 @@
 using Godot;
+using System.Collections.Generic;
 using StormTime.Player.Data;
 using StormTime.Utils;
-using System;
-using System.Collections.Generic;
 
 namespace StormTime.Enemy
 {
@@ -22,7 +21,7 @@ namespace StormTime.Enemy
 
         // Target Attack Stats
         [Export] public float attackTime;
-        [Export] public Godot.Collections.Array<NodePath> launchPointsPath; // Hack for Array in Godot
+        [Export] public Godot.Collections.Array<NodePath> launchPointsPath;
 
         protected enum EnemyState
         {
@@ -55,8 +54,6 @@ namespace StormTime.Enemy
         protected Color _enemyColor;
         protected Color _bulletColor;
         protected Sprite _enemySprite;
-
-        public Enemy() => _enemySprite = GetNode<Sprite>(enemySpriteNodePath);
 
         public override void _Ready()
         {
@@ -208,6 +205,7 @@ namespace StormTime.Enemy
             _enemyColor = enemyColor;
             _bulletColor = bulletColor;
 
+            _enemySprite = GetNode<Sprite>(enemySpriteNodePath);
             _enemySprite.SetSelfModulate(_enemyColor);
         }
 
