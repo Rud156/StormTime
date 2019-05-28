@@ -6,6 +6,13 @@ namespace StormTime.Enemy
     public class EnemyGroup : Node2D
     {
         [Export] public Color[] enemyColors;
+        
+        /// <summary>
+        /// Currently Enemies Are:
+        /// 1. Burst Enemy
+        /// 2. Spinner Enemy
+        /// 3. Slasher Enemy
+        /// </summary>
         [Export] public Godot.Collections.Array<PackedScene> enemyTypes;
         [Export] public int[] enemyDangerValues;
         [Export] public Godot.Collections.Array<NodePath> spawnPointsNodePaths;
@@ -20,7 +27,7 @@ namespace StormTime.Enemy
         public EnemyGroup()
         {
             _spawnPoints = new List<Node2D>();
-            _enemyTypeCount = new List<int>();
+            _enemyTypeCount = new List<int> {0, 0, 0};
         }
 
         public override void _Ready()
@@ -45,6 +52,12 @@ namespace StormTime.Enemy
                 return;
             }
 
+            if (_enemyTypeCount[_currentEnemyTypeIndex] == 0)
+            {
+                _currentEnemyTypeIndex += 1;
+                _currentEnemyTypeCount = 0;
+            }
+
             Enemy enemyInstance = (Enemy)enemyTypes[_currentEnemyTypeIndex].Instance();
             Node2D spawnPoint = _spawnPoints[(int)(GD.Randi() % _spawnPoints.Count)];
             enemyInstance.SetPosition(spawnPoint.GetGlobalPosition());
@@ -60,6 +73,7 @@ namespace StormTime.Enemy
                 _currentEnemyTypeIndex += 1;
                 _currentEnemyTypeCount = 0;
             }
+
             if (_currentEnemyTypeIndex >= _enemyTypeCount.Count)
             {
                 _spawnEnemies = false;
@@ -72,6 +86,26 @@ namespace StormTime.Enemy
 
         public void ActivateEnemySpawning(int maxDangerAmount)
         {
+            int currentDangerAmount = 0;
+            while (true)
+            {
+                int enemyIndex = (int)(GD.Randi() % enemyTypes.Count);
+                int randomEnemyDangerValue = enemyDangerValues[enemyIndex];
+
+                if (currentDangerAmount + randomEnemyDangerValue > maxDangerAmount)
+                {
+                    continue;
+                }
+
+                currentDangerAmount += randomEnemyDangerValue;
+                _enemyTypeCount[enemyIndex] += 1;
+
+                if (currentDangerAmount == maxDangerAmount)
+                {
+                    break;
+                }
+            }
+
             StartEnemiesSpawn();
         }
 
