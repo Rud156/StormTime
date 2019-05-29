@@ -43,21 +43,16 @@ public class EnemySpawner : Node2D
             return;
         }
 
-        if (Input.IsActionJustPressed(SceneControls.Interact))
+        if (_currentEnemyGroups >= _enemyGroupsToSpawn)
         {
-            SpawnEnemyGroup();
+            GD.Print("Enemy Group Spawning Complete");
+            _startSpawn = false;
+            _currentEnemyGroups = 0;
+            return;
         }
 
-        // if (_currentEnemyGroups >= _enemyGroupsToSpawn)
-        // {
-        //     GD.Print("Enemy Group Spawning Complete");
-        //     _startSpawn = false;
-        //     _currentEnemyGroups = 0;
-        //     return;
-        // }
-
-        // SpawnEnemyGroup();
-        // _currentEnemyGroups += 1;
+        SpawnEnemyGroup();
+        _currentEnemyGroups += 1;
     }
 
     private void SpawnEnemyGroup()
