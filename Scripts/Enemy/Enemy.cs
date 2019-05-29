@@ -232,9 +232,7 @@ namespace StormTime.Enemy
             {
                 return;
             }
-
-            GD.Print($"Enemy State: {enemyState}, Enemy Name: {GetName()}");
-
+            
             _enemyState = enemyState;
         }
 

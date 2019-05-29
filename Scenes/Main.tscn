@@ -1,15 +1,16 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Prefabs/WorldElements/World.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scripts/Enemy/EnemySpawner.cs" type="Script" id=2]
 [ext_resource path="res://Prefabs/Interactibles/Enemies/EnemyGroup.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Prefabs/Interactibles/Enemies/Enemy Group Spawn Point.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Prefabs/Interactibles/Player/Player.tscn" type="PackedScene" id=5]
-[ext_resource path="res://Scripts/Player/Shooting/PlayerShooting.cs" type="Script" id=6]
-[ext_resource path="res://Prefabs/Interactibles/Bullets/Bullet.tscn" type="PackedScene" id=7]
-[ext_resource path="res://Textures/light.png" type="Texture" id=8]
-[ext_resource path="res://Scripts/Camera/CameraFollowTarget.cs" type="Script" id=9]
-[ext_resource path="res://Prefabs/UI/GUI.tscn" type="PackedScene" id=10]
+[ext_resource path="res://Scripts/Enemy/EnemySpawnPoint.cs" type="Script" id=5]
+[ext_resource path="res://Prefabs/Interactibles/Player/Player.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Scripts/Player/Shooting/PlayerShooting.cs" type="Script" id=7]
+[ext_resource path="res://Prefabs/Interactibles/Bullets/Bullet.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Textures/light.png" type="Texture" id=9]
+[ext_resource path="res://Scripts/Camera/CameraFollowTarget.cs" type="Script" id=10]
+[ext_resource path="res://Prefabs/UI/GUI.tscn" type="PackedScene" id=11]
 
 [node name="Main" type="Node"]
 
@@ -22,122 +23,166 @@
 [node name="Enemy Spawn Points" type="Node2D" parent="Game World"]
 editor/display_folded = true
 script = ExtResource( 2 )
-enemyGroupsHolderNodePath = NodePath("../Enemy Groups Holder")
 enemyGroupPrefab = ExtResource( 3 )
-minEnemyGroupsToSpawn = 10
-maxEnemyGroupsToSpawn = 18
-worldSpawnNodePaths = [ NodePath("Enemy Group Spawn Point_1"), NodePath("Enemy Group Spawn Point_2"), NodePath("Enemy Group Spawn Point_3"), NodePath("Enemy Group Spawn Point_4"), NodePath("Enemy Group Spawn Point_5"), NodePath("Enemy Group Spawn Point_6"), NodePath("Enemy Group Spawn Point_7"), NodePath("Enemy Group Spawn Point_8"), NodePath("Enemy Group Spawn Point_9"), NodePath("Enemy Group Spawn Point_10"), NodePath("Enemy Group Spawn Point_11"), NodePath("Enemy Group Spawn Point_12"), NodePath("Enemy Group Spawn Point_13"), NodePath("Enemy Group Spawn Point_14"), NodePath("Enemy Group Spawn Point_15"), NodePath("Enemy Group Spawn Point_16"), NodePath("Enemy Group Spawn Point_17"), NodePath("Enemy Group Spawn Point_18"), NodePath("Enemy Group Spawn Point_19"), NodePath("Enemy Group Spawn Point_20"), NodePath("Enemy Group Spawn Point_21"), NodePath("Enemy Group Spawn Point_22"), NodePath("Enemy Group Spawn Point_23"), NodePath("Enemy Group Spawn Point_24") ]
+maxEnemyGroupsToSpawn = 1
+worldSpawnNodePaths = [ NodePath("Enemy Group Spawn Point_1") ]
 
-[node name="Enemy Group Spawn Point_1" parent="Game World/Enemy Spawn Points" instance=ExtResource( 4 )]
+[node name="Enemy Group Spawn Point_1" type="Node2D" parent="Game World/Enemy Spawn Points" instance=ExtResource( 4 )]
+self_modulate = Color( 1, 0, 0, 1 )
 position = Vector2( -1480.7, 1420.22 )
+script = ExtResource( 5 )
 maxEnemyDangerLevel = 1
 
-[node name="Enemy Group Spawn Point_2" parent="Game World/Enemy Spawn Points" instance=ExtResource( 4 )]
+[node name="Enemy Group Spawn Point_2" type="Node2D" parent="Game World/Enemy Spawn Points" instance=ExtResource( 4 )]
+self_modulate = Color( 1, 0, 0, 1 )
 position = Vector2( -596.247, 1639.09 )
+script = ExtResource( 5 )
 maxEnemyDangerLevel = 1
 
-[node name="Enemy Group Spawn Point_3" parent="Game World/Enemy Spawn Points" instance=ExtResource( 4 )]
+[node name="Enemy Group Spawn Point_3" type="Node2D" parent="Game World/Enemy Spawn Points" instance=ExtResource( 4 )]
+self_modulate = Color( 1, 0, 0, 1 )
 position = Vector2( -1341.42, 178.406 )
+script = ExtResource( 5 )
 maxEnemyDangerLevel = 2
 
-[node name="Enemy Group Spawn Point_4" parent="Game World/Enemy Spawn Points" instance=ExtResource( 4 )]
+[node name="Enemy Group Spawn Point_4" type="Node2D" parent="Game World/Enemy Spawn Points" instance=ExtResource( 4 )]
+self_modulate = Color( 1, 0, 0, 1 )
 position = Vector2( -1188.56, -1588.99 )
+script = ExtResource( 5 )
 maxEnemyDangerLevel = 4
 
-[node name="Enemy Group Spawn Point_5" parent="Game World/Enemy Spawn Points" instance=ExtResource( 4 )]
+[node name="Enemy Group Spawn Point_5" type="Node2D" parent="Game World/Enemy Spawn Points" instance=ExtResource( 4 )]
+self_modulate = Color( 1, 0, 0, 1 )
 position = Vector2( -1159.9, -690.96 )
+script = ExtResource( 5 )
 maxEnemyDangerLevel = 3
 
-[node name="Enemy Group Spawn Point_6" parent="Game World/Enemy Spawn Points" instance=ExtResource( 4 )]
+[node name="Enemy Group Spawn Point_6" type="Node2D" parent="Game World/Enemy Spawn Points" instance=ExtResource( 4 )]
+self_modulate = Color( 1, 0, 0, 1 )
 position = Vector2( -137.68, -1569.88 )
+script = ExtResource( 5 )
 maxEnemyDangerLevel = 3
 
-[node name="Enemy Group Spawn Point_7" parent="Game World/Enemy Spawn Points" instance=ExtResource( 4 )]
+[node name="Enemy Group Spawn Point_7" type="Node2D" parent="Game World/Enemy Spawn Points" instance=ExtResource( 4 )]
+self_modulate = Color( 1, 0, 0, 1 )
 position = Vector2( -195.001, -643.193 )
+script = ExtResource( 5 )
 maxEnemyDangerLevel = 2
 
-[node name="Enemy Group Spawn Point_8" parent="Game World/Enemy Spawn Points" instance=ExtResource( 4 )]
+[node name="Enemy Group Spawn Point_8" type="Node2D" parent="Game World/Enemy Spawn Points" instance=ExtResource( 4 )]
+self_modulate = Color( 1, 0, 0, 1 )
 position = Vector2( 387.761, 1611.43 )
+script = ExtResource( 5 )
 maxEnemyDangerLevel = 4
 
-[node name="Enemy Group Spawn Point_9" parent="Game World/Enemy Spawn Points" instance=ExtResource( 4 )]
+[node name="Enemy Group Spawn Point_9" type="Node2D" parent="Game World/Enemy Spawn Points" instance=ExtResource( 4 )]
+self_modulate = Color( 1, 0, 0, 1 )
 position = Vector2( 2222.03, 1601.87 )
+script = ExtResource( 5 )
 maxEnemyDangerLevel = 5
 
-[node name="Enemy Group Spawn Point_10" parent="Game World/Enemy Spawn Points" instance=ExtResource( 4 )]
+[node name="Enemy Group Spawn Point_10" type="Node2D" parent="Game World/Enemy Spawn Points" instance=ExtResource( 4 )]
+self_modulate = Color( 1, 0, 0, 1 )
 position = Vector2( 1400.43, 1554.11 )
+script = ExtResource( 5 )
 maxEnemyDangerLevel = 3
 
-[node name="Enemy Group Spawn Point_11" parent="Game World/Enemy Spawn Points" instance=ExtResource( 4 )]
+[node name="Enemy Group Spawn Point_11" type="Node2D" parent="Game World/Enemy Spawn Points" instance=ExtResource( 4 )]
+self_modulate = Color( 1, 0, 0, 1 )
 position = Vector2( 1515.07, 474.563 )
+script = ExtResource( 5 )
 maxEnemyDangerLevel = 4
 
-[node name="Enemy Group Spawn Point_12" parent="Game World/Enemy Spawn Points" instance=ExtResource( 4 )]
+[node name="Enemy Group Spawn Point_12" type="Node2D" parent="Game World/Enemy Spawn Points" instance=ExtResource( 4 )]
+self_modulate = Color( 1, 0, 0, 1 )
 position = Vector2( -1570.05, -1635.48 )
+script = ExtResource( 5 )
 maxEnemyDangerLevel = 5
 
-[node name="Enemy Group Spawn Point_13" parent="Game World/Enemy Spawn Points" instance=ExtResource( 4 )]
+[node name="Enemy Group Spawn Point_13" type="Node2D" parent="Game World/Enemy Spawn Points" instance=ExtResource( 4 )]
+self_modulate = Color( 1, 0, 0, 1 )
 position = Vector2( -691.781, 522.331 )
+script = ExtResource( 5 )
 maxEnemyDangerLevel = 2
 
-[node name="Enemy Group Spawn Point_14" parent="Game World/Enemy Spawn Points" instance=ExtResource( 4 )]
+[node name="Enemy Group Spawn Point_14" type="Node2D" parent="Game World/Enemy Spawn Points" instance=ExtResource( 4 )]
+self_modulate = Color( 1, 0, 0, 1 )
 position = Vector2( 1066.06, -547.658 )
+script = ExtResource( 5 )
 maxEnemyDangerLevel = 7
 
-[node name="Enemy Group Spawn Point_15" parent="Game World/Enemy Spawn Points" instance=ExtResource( 4 )]
+[node name="Enemy Group Spawn Point_15" type="Node2D" parent="Game World/Enemy Spawn Points" instance=ExtResource( 4 )]
+self_modulate = Color( 1, 0, 0, 1 )
 position = Vector2( 1018.29, -1617.65 )
+script = ExtResource( 5 )
 maxEnemyDangerLevel = 3
 
-[node name="Enemy Group Spawn Point_16" parent="Game World/Enemy Spawn Points" instance=ExtResource( 4 )]
+[node name="Enemy Group Spawn Point_16" type="Node2D" parent="Game World/Enemy Spawn Points" instance=ExtResource( 4 )]
+self_modulate = Color( 1, 0, 0, 1 )
 position = Vector2( 2030.96, -796.048 )
+script = ExtResource( 5 )
 maxEnemyDangerLevel = 7
 
-[node name="Enemy Group Spawn Point_17" parent="Game World/Enemy Spawn Points" instance=ExtResource( 4 )]
+[node name="Enemy Group Spawn Point_17" type="Node2D" parent="Game World/Enemy Spawn Points" instance=ExtResource( 4 )]
+self_modulate = Color( 1, 0, 0, 1 )
 position = Vector2( 2317.56, -1617.65 )
+script = ExtResource( 5 )
 maxEnemyDangerLevel = 7
 
-[node name="Enemy Group Spawn Point_18" parent="Game World/Enemy Spawn Points" instance=ExtResource( 4 )]
+[node name="Enemy Group Spawn Point_18" type="Node2D" parent="Game World/Enemy Spawn Points" instance=ExtResource( 4 )]
+self_modulate = Color( 1, 0, 0, 1 )
 position = Vector2( 2661.49, -901.137 )
+script = ExtResource( 5 )
 maxEnemyDangerLevel = 7
 
-[node name="Enemy Group Spawn Point_19" parent="Game World/Enemy Spawn Points" instance=ExtResource( 4 )]
+[node name="Enemy Group Spawn Point_19" type="Node2D" parent="Game World/Enemy Spawn Points" instance=ExtResource( 4 )]
+self_modulate = Color( 1, 0, 0, 1 )
 position = Vector2( 2260.24, 646.526 )
+script = ExtResource( 5 )
 maxEnemyDangerLevel = 6
 
-[node name="Enemy Group Spawn Point_20" parent="Game World/Enemy Spawn Points" instance=ExtResource( 4 )]
+[node name="Enemy Group Spawn Point_20" type="Node2D" parent="Game World/Enemy Spawn Points" instance=ExtResource( 4 )]
+self_modulate = Color( 1, 0, 0, 1 )
 position = Vector2( 2745.43, 1305.72 )
+script = ExtResource( 5 )
 maxEnemyDangerLevel = 7
 
-[node name="Enemy Group Spawn Point_21" parent="Game World/Enemy Spawn Points" instance=ExtResource( 4 )]
+[node name="Enemy Group Spawn Point_21" type="Node2D" parent="Game World/Enemy Spawn Points" instance=ExtResource( 4 )]
+self_modulate = Color( 1, 0, 0, 1 )
 position = Vector2( 2680.59, 465.01 )
+script = ExtResource( 5 )
 maxEnemyDangerLevel = 9
 
-[node name="Enemy Group Spawn Point_22" parent="Game World/Enemy Spawn Points" instance=ExtResource( 4 )]
+[node name="Enemy Group Spawn Point_22" type="Node2D" parent="Game World/Enemy Spawn Points" instance=ExtResource( 4 )]
+self_modulate = Color( 1, 0, 0, 1 )
 position = Vector2( 1505.52, -442.57 )
+script = ExtResource( 5 )
 maxEnemyDangerLevel = 5
 
-[node name="Enemy Group Spawn Point_23" parent="Game World/Enemy Spawn Points" instance=ExtResource( 4 )]
+[node name="Enemy Group Spawn Point_23" type="Node2D" parent="Game World/Enemy Spawn Points" instance=ExtResource( 4 )]
+self_modulate = Color( 1, 0, 0, 1 )
 position = Vector2( 2737.11, -1859.52 )
+script = ExtResource( 5 )
 maxEnemyDangerLevel = 9
 
-[node name="Enemy Group Spawn Point_24" parent="Game World/Enemy Spawn Points" instance=ExtResource( 4 )]
+[node name="Enemy Group Spawn Point_24" type="Node2D" parent="Game World/Enemy Spawn Points" instance=ExtResource( 4 )]
+self_modulate = Color( 1, 0, 0, 1 )
 position = Vector2( 251.291, -1110.76 )
+script = ExtResource( 5 )
 maxEnemyDangerLevel = 8
 
-[node name="Enemy Groups Holder" type="Node2D" parent="Game World"]
-
-[node name="Player" parent="Game World" instance=ExtResource( 5 )]
+[node name="Player" parent="Game World" instance=ExtResource( 6 )]
 editor/display_folded = true
-position = Vector2( -2256.04, 2037.29 )
+position = Vector2( -1624.14, 1443.15 )
 
 [node name="Player Shooter" type="Node2D" parent="Game World/Player"]
-script = ExtResource( 6 )
+script = ExtResource( 7 )
 _playerBulletHolderNodePath = NodePath("../../Bullets Holder")
-playerBulletPrefab = ExtResource( 7 )
+playerBulletPrefab = ExtResource( 8 )
 
 [node name="Scene Light" type="Light2D" parent="Game World/Player"]
 scale = Vector2( 66.6667, 66.6667 )
-texture = ExtResource( 8 )
+texture = ExtResource( 9 )
 energy = 1.5
 range_height = 7.0
 shadow_enabled = true
@@ -154,11 +199,11 @@ drag_margin_left = 0.1
 drag_margin_top = 0.1
 drag_margin_right = 0.1
 drag_margin_bottom = 0.1
-script = ExtResource( 9 )
+script = ExtResource( 10 )
 targetNode = NodePath("../Player")
 lockBottomLeftCorner = Vector2( -1900, 1890 )
 lockTopRightCorner = Vector2( 2945, -2000 )
 
 [node name="Canvas" type="CanvasLayer" parent="."]
 
-[node name="GUI" parent="Canvas" instance=ExtResource( 10 )]
+[node name="GUI" parent="Canvas" instance=ExtResource( 11 )]

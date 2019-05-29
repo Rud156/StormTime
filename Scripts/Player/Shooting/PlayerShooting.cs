@@ -14,7 +14,7 @@ public class PlayerShooting : Node
     public override void _Ready()
     {
         base._Ready();
-        
+
         _playerBulletHolder = GetNode<Node2D>(_playerBulletHolderNodePath);
         _playerRoot = GetParent<PlayerMovement>();
     }
@@ -32,9 +32,9 @@ public class PlayerShooting : Node
     private void ShootBullet()
     {
         Bullet bulletInstance = (Bullet)playerBulletPrefab.Instance();
+        _playerBulletHolder.AddChild(bulletInstance);
+
         bulletInstance.SetGlobalPosition(_playerRoot.GetGlobalPosition());
         bulletInstance.LaunchBullet(_playerRoot.GetTransform().x);
-
-        _playerBulletHolder.AddChild(bulletInstance);
     }
 }

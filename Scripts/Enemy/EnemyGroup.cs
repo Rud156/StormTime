@@ -6,7 +6,7 @@ namespace StormTime.Enemy
     public class EnemyGroup : Node2D
     {
         [Export] public Color[] enemyColors;
-        
+
         /// <summary>
         /// Currently Enemies Are:
         /// 1. Burst Enemy
@@ -27,7 +27,7 @@ namespace StormTime.Enemy
         public EnemyGroup()
         {
             _spawnPoints = new List<Node2D>();
-            _enemyTypeCount = new List<int> {0, 0, 0};
+            _enemyTypeCount = new List<int> { 0, 0, 0 };
         }
 
         public override void _Ready()
@@ -67,15 +67,15 @@ namespace StormTime.Enemy
             }
 
             Enemy enemyInstance = (Enemy)enemyTypes[_currentEnemyTypeIndex].Instance();
+            AddChild(enemyInstance);
+
             Node2D spawnPoint = _spawnPoints[(int)(GD.Randi() % _spawnPoints.Count)];
             enemyInstance.SetGlobalPosition(spawnPoint.GetGlobalPosition());
-            GD.Print($"Enemy Spawn Position: {spawnPoint.GetGlobalPosition()}");
             enemyInstance.SetEnemyColors(
                 enemyColors[GD.Randi() % enemyColors.Length],
                 enemyColors[GD.Randi() % enemyColors.Length]
             );
-            AddChild(enemyInstance);
-            
+
             _currentEnemyTypeCount += 1;
             if (_currentEnemyTypeCount >= _enemyTypeCount[_currentEnemyTypeIndex])
             {
@@ -91,7 +91,7 @@ namespace StormTime.Enemy
             if (maxDangerAmount <= 0)
             {
                 return;
-            } 
+            }
 
             GD.Print($"Max Danger Amount: {maxDangerAmount}");
             int currentDangerAmount = 0;
@@ -100,7 +100,7 @@ namespace StormTime.Enemy
             {
                 int enemyIndex = (int)(GD.Randi() % enemyTypes.Count);
                 int randomEnemyDangerValue = enemyDangerValues[enemyIndex];
-                
+
                 if (currentDangerAmount + randomEnemyDangerValue > maxDangerAmount)
                 {
                     continue;

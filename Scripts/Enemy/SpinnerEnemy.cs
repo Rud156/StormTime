@@ -40,6 +40,8 @@ namespace StormTime.Enemy
             foreach (Node2D launchPoint in _launchPoints)
             {
                 EnemyBullet bulletInstance = (EnemyBullet)enemyBulletPrefab.Instance();
+                GetParent().AddChild(bulletInstance);
+
                 bulletInstance.SetGlobalPosition(launchPoint.GetGlobalPosition());
                 bulletInstance.SetBulletColor(_bulletColor);
 
@@ -48,8 +50,6 @@ namespace StormTime.Enemy
                 float yVelocity = Mathf.Sin(Mathf.Deg2Rad(rotation));
                 Vector2 launchVector = new Vector2(xVelocity, yVelocity);
                 bulletInstance.LaunchBullet(launchVector.Normalized());
-
-                GetParent().AddChild(bulletInstance);
 
                 startRotation += rotationIncrementAmount;
             }

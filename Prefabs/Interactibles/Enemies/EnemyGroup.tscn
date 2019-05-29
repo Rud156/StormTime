@@ -1,10 +1,9 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Scripts/Enemy/EnemyGroup.cs" type="Script" id=1]
 [ext_resource path="res://Prefabs/Interactibles/Enemies/BurstEnemy.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Prefabs/Interactibles/Enemies/SpinnerEnemy.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Prefabs/Interactibles/Enemies/SlasherEnemy.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Textures/White Pixel.png" type="Texture" id=5]
 
 [node name="Enemy Group" type="Node2D"]
 z_index = 1
@@ -16,82 +15,61 @@ spawnPointsNodePaths = [ NodePath("Spawn Points/SpawnPoint_1"), NodePath("Spawn 
 
 [node name="Spawn Points" type="Node2D" parent="."]
 
-[node name="SpawnPoint_1" type="Sprite" parent="Spawn Points"]
-position = Vector2( -200, 30.73 )
-texture = ExtResource( 5 )
+[node name="SpawnPoint_1" type="Node2D" parent="Spawn Points"]
 
-[node name="SpawnPoint_2" type="Sprite" parent="Spawn Points"]
+[node name="SpawnPoint_2" type="Node2D" parent="Spawn Points"]
 position = Vector2( -195, 305 )
-texture = ExtResource( 5 )
 
-[node name="SpawnPoint_3" type="Sprite" parent="Spawn Points"]
+[node name="SpawnPoint_3" type="Node2D" parent="Spawn Points"]
 position = Vector2( 225, 50 )
-texture = ExtResource( 5 )
 
-[node name="SpawnPoint_4" type="Sprite" parent="Spawn Points"]
+[node name="SpawnPoint_4" type="Node2D" parent="Spawn Points"]
 position = Vector2( 175, 160 )
-texture = ExtResource( 5 )
 
-[node name="SpawnPoint_5" type="Sprite" parent="Spawn Points"]
+[node name="SpawnPoint_5" type="Node2D" parent="Spawn Points"]
 position = Vector2( 35, 255 )
-texture = ExtResource( 5 )
 
-[node name="SpawnPoint_6" type="Sprite" parent="Spawn Points"]
+[node name="SpawnPoint_6" type="Node2D" parent="Spawn Points"]
 position = Vector2( -395, -335 )
-texture = ExtResource( 5 )
 
-[node name="SpawnPoint_7" type="Sprite" parent="Spawn Points"]
+[node name="SpawnPoint_7" type="Node2D" parent="Spawn Points"]
 position = Vector2( 510, 325 )
-texture = ExtResource( 5 )
 
-[node name="SpawnPoint_8" type="Sprite" parent="Spawn Points"]
+[node name="SpawnPoint_8" type="Node2D" parent="Spawn Points"]
 position = Vector2( -270, -135 )
-texture = ExtResource( 5 )
 
-[node name="SpawnPoint_9" type="Sprite" parent="Spawn Points"]
+[node name="SpawnPoint_9" type="Node2D" parent="Spawn Points"]
 position = Vector2( -645, -140 )
-texture = ExtResource( 5 )
 
-[node name="SpawnPoint_10" type="Sprite" parent="Spawn Points"]
+[node name="SpawnPoint_10" type="Node2D" parent="Spawn Points"]
 position = Vector2( 535, -105 )
-texture = ExtResource( 5 )
 
-[node name="SpawnPoint_11" type="Sprite" parent="Spawn Points"]
+[node name="SpawnPoint_11" type="Node2D" parent="Spawn Points"]
 position = Vector2( 55, -330 )
-texture = ExtResource( 5 )
 
-[node name="SpawnPoint_12" type="Sprite" parent="Spawn Points"]
+[node name="SpawnPoint_12" type="Node2D" parent="Spawn Points"]
 position = Vector2( 500, 130 )
-texture = ExtResource( 5 )
 
-[node name="SpawnPoint_13" type="Sprite" parent="Spawn Points"]
+[node name="SpawnPoint_13" type="Node2D" parent="Spawn Points"]
 position = Vector2( -315, 160 )
-texture = ExtResource( 5 )
 
-[node name="SpawnPoint_14" type="Sprite" parent="Spawn Points"]
+[node name="SpawnPoint_14" type="Node2D" parent="Spawn Points"]
 position = Vector2( -195, -305 )
-texture = ExtResource( 5 )
 
-[node name="SpawnPoint_15" type="Sprite" parent="Spawn Points"]
+[node name="SpawnPoint_15" type="Node2D" parent="Spawn Points"]
 position = Vector2( -520, 295 )
-texture = ExtResource( 5 )
 
-[node name="SpawnPoint_16" type="Sprite" parent="Spawn Points"]
+[node name="SpawnPoint_16" type="Node2D" parent="Spawn Points"]
 position = Vector2( 120, -205 )
-texture = ExtResource( 5 )
 
-[node name="SpawnPoint_17" type="Sprite" parent="Spawn Points"]
+[node name="SpawnPoint_17" type="Node2D" parent="Spawn Points"]
 position = Vector2( 290, 275 )
-texture = ExtResource( 5 )
 
-[node name="SpawnPoint_18" type="Sprite" parent="Spawn Points"]
+[node name="SpawnPoint_18" type="Node2D" parent="Spawn Points"]
 position = Vector2( -440, -170 )
-texture = ExtResource( 5 )
 
-[node name="SpawnPoint_19" type="Sprite" parent="Spawn Points"]
+[node name="SpawnPoint_19" type="Node2D" parent="Spawn Points"]
 position = Vector2( 355, -180 )
-texture = ExtResource( 5 )
 
-[node name="SpawnPoint_20" type="Sprite" parent="Spawn Points"]
+[node name="SpawnPoint_20" type="Node2D" parent="Spawn Points"]
 position = Vector2( -580, 85 )
-texture = ExtResource( 5 )
