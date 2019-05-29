@@ -104,10 +104,10 @@ namespace StormTime.Enemy
             foreach (Node2D launchPoint in _launchPoints)
             {
                 EnemyBullet bulletInstance = (EnemyBullet)enemyBulletPrefab.Instance();
+                bulletInstance.SetBulletColor(_bulletColor); // This is done as _Ready is called as soon as the Child is added to the tree
                 GetParent().AddChild(bulletInstance);
 
                 bulletInstance.SetGlobalPosition(launchPoint.GetGlobalPosition());
-                bulletInstance.SetBulletColor(_bulletColor);
 
                 float rotation = GetRotationDegrees() + startRotation;
                 float xVelocity = Mathf.Cos(Mathf.Deg2Rad(rotation));

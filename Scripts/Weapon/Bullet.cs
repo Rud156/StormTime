@@ -56,15 +56,17 @@ namespace StormTime.Weapon
         private void SpawnBulletExplosion()
         {
             Node2D bulletExplosionInstance = (Node2D)bulletExplosionPrefab.Instance();
-            bulletExplosionInstance.SetGlobalPosition(GetGlobalPosition());
             GetParent().AddChild(bulletExplosionInstance);
+
+            bulletExplosionInstance.SetGlobalPosition(GetGlobalPosition());
         }
 
         protected virtual void SpawnBulletTrail()
         {
             Node2D bulletTrailInstance = (Node2D)bulletTrailPrefab.Instance();
-            bulletTrailInstance.SetGlobalPosition(GetGlobalPosition());
             GetParent().AddChild(bulletTrailInstance);
+
+            bulletTrailInstance.SetGlobalPosition(GetGlobalPosition());
         }
     }
 }

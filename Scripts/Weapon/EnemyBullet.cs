@@ -12,6 +12,8 @@ namespace StormTime.Weapon
 
         public override void _Ready()
         {
+            base._Ready();
+
             _bulletSprite = GetNode<Sprite>(bulletSpritePath);
             _bulletSprite.SelfModulate = _bulletColor;
         }

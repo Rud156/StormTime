@@ -3,7 +3,7 @@ using System;
 
 namespace StormTime.Enemy
 {
-    public class EnemySpawnPoint : Sprite
+    public class EnemySpawnPoint : Node2D
     {
         [Export] public int maxEnemyDangerLevel;
 
