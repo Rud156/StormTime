@@ -23,8 +23,8 @@
 editor/display_folded = true
 script = ExtResource( 2 )
 enemyGroupPrefab = ExtResource( 3 )
-minEnemyGroupsToSpawn = 10
-maxEnemyGroupsToSpawn = 18
+minEnemyGroupsToSpawn = 15
+maxEnemyGroupsToSpawn = 20
 worldSpawnNodePaths = [ NodePath("Enemy Group Spawn Point_1"), NodePath("Enemy Group Spawn Point_2"), NodePath("Enemy Group Spawn Point_3"), NodePath("Enemy Group Spawn Point_4"), NodePath("Enemy Group Spawn Point_5"), NodePath("Enemy Group Spawn Point_6"), NodePath("Enemy Group Spawn Point_7"), NodePath("Enemy Group Spawn Point_8"), NodePath("Enemy Group Spawn Point_9"), NodePath("Enemy Group Spawn Point_10"), NodePath("Enemy Group Spawn Point_11"), NodePath("Enemy Group Spawn Point_12"), NodePath("Enemy Group Spawn Point_13"), NodePath("Enemy Group Spawn Point_14"), NodePath("Enemy Group Spawn Point_15"), NodePath("Enemy Group Spawn Point_16"), NodePath("Enemy Group Spawn Point_17"), NodePath("Enemy Group Spawn Point_18"), NodePath("Enemy Group Spawn Point_19"), NodePath("Enemy Group Spawn Point_20"), NodePath("Enemy Group Spawn Point_21"), NodePath("Enemy Group Spawn Point_22"), NodePath("Enemy Group Spawn Point_23"), NodePath("Enemy Group Spawn Point_24") ]
 
 [node name="Enemy Group Spawn Point_1" parent="Game World/Enemy Spawn Points" instance=ExtResource( 4 )]
@@ -143,7 +143,6 @@ shadow_filter = 3
 shadow_filter_smooth = 10.0
 
 [node name="Player Camera" type="Camera2D" parent="Game World"]
-visible = false
 position = Vector2( 510, 300 )
 scale = Vector2( 0.3, 0.3 )
 current = true
@@ -160,4 +159,3 @@ lockTopRightCorner = Vector2( 2945, -2000 )
 [node name="Canvas" type="CanvasLayer" parent="."]
 
 [node name="GUI" parent="Canvas" instance=ExtResource( 10 )]
-visible = false
