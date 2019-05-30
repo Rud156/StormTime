@@ -3,70 +3,73 @@ using System.Collections.Generic;
 using StormTime.Enemy;
 using StormTime.Utils;
 
-public class EnemySpawner : Node2D
+namespace StormTime.Enemy.Groups
 {
-    [Export] public PackedScene enemyGroupPrefab;
-    [Export] public int minEnemyGroupsToSpawn;
-    [Export] public int maxEnemyGroupsToSpawn;
-    [Export] public Godot.Collections.Array<NodePath> worldSpawnNodePaths;
-
-    private List<EnemySpawnPoint> _worldSpawnPoints;
-    private List<EnemySpawnPoint> _availableWorldSpawnPoints;
-
-    private int _enemyGroupsToSpawn;
-    private int _currentEnemyGroups;
-    private bool _startSpawn;
-
-    public override void _Ready()
+    public class EnemySpawner : Node2D
     {
-        _worldSpawnPoints = new List<EnemySpawnPoint>();
-        _availableWorldSpawnPoints = new List<EnemySpawnPoint>();
-        _currentEnemyGroups = 0;
-        _enemyGroupsToSpawn = (int)(GD.Randi() % (maxEnemyGroupsToSpawn - minEnemyGroupsToSpawn)) + minEnemyGroupsToSpawn;
+        [Export] public PackedScene enemyGroupPrefab;
+        [Export] public int minEnemyGroupsToSpawn;
+        [Export] public int maxEnemyGroupsToSpawn;
+        [Export] public Godot.Collections.Array<NodePath> worldSpawnNodePaths;
 
-        foreach (NodePath worldSpawnNodePath in worldSpawnNodePaths)
+        private List<EnemySpawnPoint> _worldSpawnPoints;
+        private List<EnemySpawnPoint> _availableWorldSpawnPoints;
+
+        private int _enemyGroupsToSpawn;
+        private int _currentEnemyGroups;
+        private bool _startSpawn;
+
+        public override void _Ready()
         {
-            _worldSpawnPoints.Add(GetNode<EnemySpawnPoint>(worldSpawnNodePath));
-        }
-
-        _availableWorldSpawnPoints.AddRange(_worldSpawnPoints);
-
-        GD.Print("Starting Enemy Group Spawn");
-        _startSpawn = true;
-        _currentEnemyGroups = 0;
-    }
-
-    public override void _Process(float delta)
-    {
-        if (!_startSpawn)
-        {
-            return;
-        }
-
-        if (_currentEnemyGroups >= _enemyGroupsToSpawn)
-        {
-            GD.Print("Enemy Group Spawning Complete");
-            _startSpawn = false;
+            _worldSpawnPoints = new List<EnemySpawnPoint>();
+            _availableWorldSpawnPoints = new List<EnemySpawnPoint>();
             _currentEnemyGroups = 0;
-            return;
+            _enemyGroupsToSpawn = (int)(GD.Randi() % (maxEnemyGroupsToSpawn - minEnemyGroupsToSpawn)) + minEnemyGroupsToSpawn;
+
+            foreach (NodePath worldSpawnNodePath in worldSpawnNodePaths)
+            {
+                _worldSpawnPoints.Add(GetNode<EnemySpawnPoint>(worldSpawnNodePath));
+            }
+
+            _availableWorldSpawnPoints.AddRange(_worldSpawnPoints);
+
+            GD.Print("Starting Enemy Group Spawn");
+            _startSpawn = true;
+            _currentEnemyGroups = 0;
         }
 
-        SpawnEnemyGroup();
-        _currentEnemyGroups += 1;
-    }
+        public override void _Process(float delta)
+        {
+            if (!_startSpawn)
+            {
+                return;
+            }
 
-    private void SpawnEnemyGroup()
-    {
-        int randomIndex = (int)(GD.Randi() % _availableWorldSpawnPoints.Count);
-        EnemySpawnPoint spawnNode = _availableWorldSpawnPoints[randomIndex];
-        Vector2 spawnPosition = spawnNode.GetGlobalPosition();
+            if (_currentEnemyGroups >= _enemyGroupsToSpawn)
+            {
+                GD.Print("Enemy Group Spawning Complete");
+                _startSpawn = false;
+                _currentEnemyGroups = 0;
+                return;
+            }
 
-        EnemyGroup enemyGroupInstance = (EnemyGroup)enemyGroupPrefab.Instance();
-        spawnNode.AddChild(enemyGroupInstance);
+            SpawnEnemyGroup();
+            _currentEnemyGroups += 1;
+        }
 
-        enemyGroupInstance.ActivateEnemySpawning(spawnNode.GetEnemyDangerLevel());
-        enemyGroupInstance.SetGlobalPosition(spawnPosition);
+        private void SpawnEnemyGroup()
+        {
+            int randomIndex = (int)(GD.Randi() % _availableWorldSpawnPoints.Count);
+            EnemySpawnPoint spawnNode = _availableWorldSpawnPoints[randomIndex];
+            Vector2 spawnPosition = spawnNode.GetGlobalPosition();
 
-        _availableWorldSpawnPoints.RemoveAt(randomIndex);
+            EnemyGroup enemyGroupInstance = (EnemyGroup)enemyGroupPrefab.Instance();
+            spawnNode.AddChild(enemyGroupInstance);
+
+            enemyGroupInstance.ActivateEnemySpawning(spawnNode.GetEnemyDangerLevel());
+            enemyGroupInstance.SetGlobalPosition(spawnPosition);
+
+            _availableWorldSpawnPoints.RemoveAt(randomIndex);
+        }
     }
 }

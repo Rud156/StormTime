@@ -1,7 +1,7 @@
 using Godot;
 using StormTime.Utils;
 
-namespace StormTime.Enemy
+namespace StormTime.Enemy.Groups
 {
     public class EnemyGroupPlayerInteraction : Area2D
     {

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Godot;
 
-namespace StormTime.Enemy
+namespace StormTime.Enemy.Groups
 {
     public class EnemyGroup : Node2D
     {
@@ -19,7 +19,7 @@ namespace StormTime.Enemy
 
         private List<Node2D> _spawnPoints;
         private List<int> _enemyTypeCount;
-        private List<Enemy> _groupEnemies;
+        private List<Individuals.Enemy> _groupEnemies;
 
         private int _currentEnemyTypeIndex;
         private int _currentEnemyTypeCount;
@@ -29,7 +29,7 @@ namespace StormTime.Enemy
         {
             _spawnPoints = new List<Node2D>();
             _enemyTypeCount = new List<int> { 0, 0, 0 };
-            _groupEnemies = new List<Enemy>();
+            _groupEnemies = new List<Individuals.Enemy>();
         }
 
         public override void _Ready()
@@ -68,7 +68,7 @@ namespace StormTime.Enemy
                 return;
             }
 
-            Enemy enemyInstance = (Enemy)enemyTypes[_currentEnemyTypeIndex].Instance();
+            Individuals.Enemy enemyInstance = (Individuals.Enemy)enemyTypes[_currentEnemyTypeIndex].Instance();
             _groupEnemies.Add(enemyInstance);
             AddChild(enemyInstance);
 

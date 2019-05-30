@@ -1,7 +1,7 @@
 using Godot;
 using StormTime.Weapon;
 
-namespace StormTime.Enemy
+namespace StormTime.Enemy.Individuals
 {
     public class SpinnerEnemy : Enemy
     {

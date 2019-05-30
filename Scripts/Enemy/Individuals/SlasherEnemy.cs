@@ -1,7 +1,7 @@
 using Godot;
 using StormTime.Player.Data;
 
-namespace StormTime.Enemy
+namespace StormTime.Enemy.Individuals
 {
     public class SlasherEnemy : Enemy
     {

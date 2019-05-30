@@ -1,10 +1,9 @@
-using System;
 using Godot;
 using System.Collections.Generic;
 using StormTime.Player.Data;
 using StormTime.Utils;
 
-namespace StormTime.Enemy
+namespace StormTime.Enemy.Individuals
 {
     public abstract class Enemy : KinematicBody2D
     {
@@ -109,34 +108,34 @@ namespace StormTime.Enemy
 
         private void OverHeadCheckForEnemyState()
         {
-            if (!_playerHostile)
-            {
-                return;
-            }
 
-            if (GetGlobalPosition().DistanceSquaredTo(PlayerVariables.PlayerPosition) <= _playerTargetSqDst &&
-            _enemyState != EnemyState.Attacking && _enemyState != EnemyState.Dead && _enemyState != EnemyState.Homing)
+            if (_playerHostile)
             {
-                SetEnemyState(EnemyState.Targeting);
-            }
+                if (GetGlobalPosition().DistanceSquaredTo(PlayerVariables.PlayerPosition) <= _playerTargetSqDst &&
+                    _enemyState != EnemyState.Attacking && _enemyState != EnemyState.Dead &&
+                    _enemyState != EnemyState.Homing)
+                {
+                    SetEnemyState(EnemyState.Targeting);
+                }
 
-            if (GetGlobalPosition().DistanceSquaredTo(PlayerVariables.PlayerPosition) <= _playerAttackSqDst &&
-            _enemyState != EnemyState.Attacking && _enemyState != EnemyState.Dead)
-            {
-                LaunchAttack();
-                SetEnemyState(EnemyState.Attacking);
-            }
+                if (GetGlobalPosition().DistanceSquaredTo(PlayerVariables.PlayerPosition) <= _playerAttackSqDst &&
+                    _enemyState != EnemyState.Attacking && _enemyState != EnemyState.Dead)
+                {
+                    LaunchAttack();
+                    SetEnemyState(EnemyState.Attacking);
+                }
 
-            if (GetGlobalPosition().DistanceSquaredTo(_startPosition) > _maxPlayerFollowSqDst &&
-            _enemyState == EnemyState.Targeting)
-            {
-                SetEnemyState(EnemyState.Homing);
-            }
+                if (GetGlobalPosition().DistanceSquaredTo(_startPosition) > _maxPlayerFollowSqDst &&
+                    _enemyState == EnemyState.Targeting)
+                {
+                    SetEnemyState(EnemyState.Homing);
+                }
 
-            if (GetGlobalPosition().DistanceSquaredTo(PlayerVariables.PlayerPosition) > _playerTargetSqDst &&
-             _enemyState == EnemyState.Targeting)
-            {
-                SetEnemyState(EnemyState.Idling);
+                if (GetGlobalPosition().DistanceSquaredTo(PlayerVariables.PlayerPosition) > _playerTargetSqDst &&
+                    _enemyState == EnemyState.Targeting)
+                {
+                    SetEnemyState(EnemyState.Idling);
+                }
             }
         }
 
@@ -161,6 +160,10 @@ namespace StormTime.Enemy
             if (_enemyTimer <= 0)
             {
                 Vector2 newIdlingTarget = GetNewPositionForIdling();
+
+                // This is because Idling Position will be calculated with respect to the start position
+                newIdlingTarget += _startPosition; // Otherwise all enemies will group up
+
                 _targetPosition = newIdlingTarget;
                 SetEnemyState(EnemyState.Wandering);
             }

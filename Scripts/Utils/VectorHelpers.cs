@@ -13,9 +13,11 @@ namespace StormTime.Utils
 
         public static Vector2 Vector2FromAngle(float angle, float length = 1)
         {
-            Vector2 vector = new Vector2();
-            vector.x = length * Mathf.Cos(angle);
-            vector.y = length * Mathf.Sin(angle);
+            Vector2 vector = new Vector2
+            {
+                x = length * Mathf.Cos(angle),
+                y = length * Mathf.Sin(angle)
+            };
 
             return vector;
         }

@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-namespace StormTime.Enemy
+namespace StormTime.Enemy.Groups
 {
     public class EnemySpawnPoint : Node2D
     {
