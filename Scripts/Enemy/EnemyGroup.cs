@@ -18,16 +18,18 @@ namespace StormTime.Enemy
         [Export] public Godot.Collections.Array<NodePath> spawnPointsNodePaths;
 
         private List<Node2D> _spawnPoints;
+        private List<int> _enemyTypeCount;
+        private List<Enemy> _groupEnemies;
 
         private int _currentEnemyTypeIndex;
         private int _currentEnemyTypeCount;
         private bool _spawnEnemies;
-        private List<int> _enemyTypeCount;
 
         public EnemyGroup()
         {
             _spawnPoints = new List<Node2D>();
             _enemyTypeCount = new List<int> { 0, 0, 0 };
+            _groupEnemies = new List<Enemy>();
         }
 
         public override void _Ready()
@@ -67,6 +69,7 @@ namespace StormTime.Enemy
             }
 
             Enemy enemyInstance = (Enemy)enemyTypes[_currentEnemyTypeIndex].Instance();
+            _groupEnemies.Add(enemyInstance);
             AddChild(enemyInstance);
 
             Node2D spawnPoint = _spawnPoints[(int)(GD.Randi() % _spawnPoints.Count)];

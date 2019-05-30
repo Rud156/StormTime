@@ -1,9 +1,14 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Scripts/Enemy/EnemyGroup.cs" type="Script" id=1]
 [ext_resource path="res://Prefabs/Interactibles/Enemies/BurstEnemy.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Prefabs/Interactibles/Enemies/SpinnerEnemy.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Prefabs/Interactibles/Enemies/SlasherEnemy.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Scripts/Enemy/EnemyGroupPlayerInteraction.cs" type="Script" id=5]
+[ext_resource path="res://Textures/Star2.png" type="Texture" id=6]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 150.838, 143.113 )
 
 [node name="Enemy Group" type="Node2D"]
 z_index = 1
@@ -14,8 +19,10 @@ enemyDangerValues = PoolIntArray( 1, 1, 3 )
 spawnPointsNodePaths = [ NodePath("Spawn Points/SpawnPoint_1"), NodePath("Spawn Points/SpawnPoint_2"), NodePath("Spawn Points/SpawnPoint_3"), NodePath("Spawn Points/SpawnPoint_4"), NodePath("Spawn Points/SpawnPoint_5"), NodePath("Spawn Points/SpawnPoint_6"), NodePath("Spawn Points/SpawnPoint_7"), NodePath("Spawn Points/SpawnPoint_8"), NodePath("Spawn Points/SpawnPoint_9"), NodePath("Spawn Points/SpawnPoint_10"), NodePath("Spawn Points/SpawnPoint_11"), NodePath("Spawn Points/SpawnPoint_12"), NodePath("Spawn Points/SpawnPoint_13"), NodePath("Spawn Points/SpawnPoint_14"), NodePath("Spawn Points/SpawnPoint_15"), NodePath("Spawn Points/SpawnPoint_16"), NodePath("Spawn Points/SpawnPoint_17"), NodePath("Spawn Points/SpawnPoint_18"), NodePath("Spawn Points/SpawnPoint_19"), NodePath("Spawn Points/SpawnPoint_20") ]
 
 [node name="Spawn Points" type="Node2D" parent="."]
+editor/display_folded = true
 
 [node name="SpawnPoint_1" type="Node2D" parent="Spawn Points"]
+position = Vector2( -172.947, 123.76 )
 
 [node name="SpawnPoint_2" type="Node2D" parent="Spawn Points"]
 position = Vector2( -195, 305 )
@@ -73,3 +80,14 @@ position = Vector2( 355, -180 )
 
 [node name="SpawnPoint_20" type="Node2D" parent="Spawn Points"]
 position = Vector2( -580, 85 )
+
+[node name="Interaction Area" type="Area2D" parent="."]
+editor/display_folded = true
+script = ExtResource( 5 )
+
+[node name="Sprite" type="Sprite" parent="Interaction Area"]
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 6 )
+
+[node name="Interaction Collision" type="CollisionShape2D" parent="Interaction Area"]
+shape = SubResource( 1 )

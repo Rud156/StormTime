@@ -54,6 +54,7 @@
     <Compile Include="Scripts\Enemy\BurstEnemy.cs" />
     <Compile Include="Scripts\Enemy\Enemy.cs" />
     <Compile Include="Scripts\Enemy\EnemyGroup.cs" />
+    <Compile Include="Scripts\Enemy\EnemyGroupPlayerInteraction.cs" />
     <Compile Include="Scripts\Enemy\EnemySpawner.cs" />
     <Compile Include="Scripts\Enemy\EnemySpawnPoint.cs" />
     <Compile Include="Scripts\Enemy\SlasherEnemy.cs" />
@@ -65,6 +66,7 @@
     <Compile Include="Scripts\UI\FPSLabel.cs" />
     <Compile Include="Scripts\Utils\ExtensionFunctions.cs" />
     <Compile Include="Scripts\Utils\SceneControls.cs" />
+    <Compile Include="Scripts\Utils\TagManager.cs" />
     <Compile Include="Scripts\Utils\VectorHelpers.cs" />
     <Compile Include="Scripts\Weapon\Bullet.cs" />
     <Compile Include="Scripts\Weapon\EnemyBullet.cs" />

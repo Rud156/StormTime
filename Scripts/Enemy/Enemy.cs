@@ -44,6 +44,7 @@ namespace StormTime.Enemy
         // General States
         protected Vector2 _startPosition;
         protected Vector2 _targetPosition;
+        protected bool _playerHostile;
 
         // Timer
         protected float _enemyTimer;
@@ -108,6 +109,11 @@ namespace StormTime.Enemy
 
         private void OverHeadCheckForEnemyState()
         {
+            if (!_playerHostile)
+            {
+                return;
+            }
+
             if (GetGlobalPosition().DistanceSquaredTo(PlayerVariables.PlayerPosition) <= _playerTargetSqDst &&
             _enemyState != EnemyState.Attacking && _enemyState != EnemyState.Dead && _enemyState != EnemyState.Homing)
             {
@@ -209,6 +215,8 @@ namespace StormTime.Enemy
             _enemySprite = GetNode<Sprite>(enemySpriteNodePath);
             _enemySprite.SetSelfModulate(_enemyColor);
         }
+
+        public void SetPlayerHostileState(bool playerHostile) => _playerHostile = playerHostile;
 
         protected void MoveToTowardsTarget(Vector2 targetPosition)
         {
