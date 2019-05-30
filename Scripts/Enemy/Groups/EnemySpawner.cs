@@ -1,7 +1,5 @@
 using Godot;
 using System.Collections.Generic;
-using StormTime.Enemy;
-using StormTime.Utils;
 
 namespace StormTime.Enemy.Groups
 {
@@ -10,6 +8,8 @@ namespace StormTime.Enemy.Groups
         [Export] public PackedScene enemyGroupPrefab;
         [Export] public int minEnemyGroupsToSpawn;
         [Export] public int maxEnemyGroupsToSpawn;
+        [Export] public Godot.Collections.Array<Object> enemyGroupGradients;
+        [Export] public Color[] enemyGroupColors;
         [Export] public Godot.Collections.Array<NodePath> worldSpawnNodePaths;
 
         private List<EnemySpawnPoint> _worldSpawnPoints;
@@ -65,7 +65,11 @@ namespace StormTime.Enemy.Groups
 
             EnemyGroup enemyGroupInstance = (EnemyGroup)enemyGroupPrefab.Instance();
             spawnNode.AddChild(enemyGroupInstance);
-
+            
+            enemyGroupInstance.SetEnemyGroupColors(
+                enemyGroupColors[GD.Randi()% enemyGroupColors.Length],
+                (GradientTexture) enemyGroupGradients[(int)(GD.Randi()%enemyGroupGradients.Count)]
+            );
             enemyGroupInstance.ActivateEnemySpawning(spawnNode.GetEnemyDangerLevel());
             enemyGroupInstance.SetGlobalPosition(spawnPosition);
 

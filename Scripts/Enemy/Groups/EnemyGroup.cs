@@ -5,6 +5,8 @@ namespace StormTime.Enemy.Groups
 {
     public class EnemyGroup : Node2D
     {
+        [Export] public NodePath interactionParticlesNodePath;
+        [Export] public NodePath interactionSpriteNodePath;
         [Export] public Color[] enemyColors;
 
         /// <summary>
@@ -21,6 +23,9 @@ namespace StormTime.Enemy.Groups
         private List<int> _enemyTypeCount;
         private List<Individuals.Enemy> _groupEnemies;
 
+        private Particles2D _interactionParticles;
+        private Sprite _interactionSprite;
+
         private int _currentEnemyTypeIndex;
         private int _currentEnemyTypeCount;
         private bool _spawnEnemies;
@@ -34,6 +39,9 @@ namespace StormTime.Enemy.Groups
 
         public override void _Ready()
         {
+            _interactionSprite = GetNode<Sprite>(interactionSpriteNodePath);
+            _interactionParticles = GetNode<Particles2D>(interactionParticlesNodePath);
+
             foreach (NodePath spawnPoint in spawnPointsNodePaths)
             {
                 _spawnPoints.Add(GetNode<Node2D>(spawnPoint));
@@ -88,6 +96,12 @@ namespace StormTime.Enemy.Groups
         }
 
         #region External Functions
+
+        public void SetEnemyGroupColors(Color spriteColor, GradientTexture particlesGradient)
+        {
+            _interactionSprite.SelfModulate = spriteColor;
+            _interactionParticles.ProcessMaterial.Set("color_ramp", particlesGradient);
+        }
 
         public void ActivateEnemySpawning(int maxDangerAmount)
         {
