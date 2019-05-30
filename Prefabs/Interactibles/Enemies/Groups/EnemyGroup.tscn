@@ -1,10 +1,10 @@
 [gd_scene load_steps=8 format=2]
 
-[ext_resource path="res://Scripts/Enemy/EnemyGroup.cs" type="Script" id=1]
-[ext_resource path="res://Prefabs/Interactibles/Enemies/BurstEnemy.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Prefabs/Interactibles/Enemies/SpinnerEnemy.tscn" type="PackedScene" id=3]
-[ext_resource path="res://Prefabs/Interactibles/Enemies/SlasherEnemy.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Scripts/Enemy/EnemyGroupPlayerInteraction.cs" type="Script" id=5]
+[ext_resource path="res://Scripts/Enemy/Groups/EnemyGroup.cs" type="Script" id=1]
+[ext_resource path="res://Prefabs/Interactibles/Enemies/Individuals/BurstEnemy.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Prefabs/Interactibles/Enemies/Individuals/SpinnerEnemy.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Prefabs/Interactibles/Enemies/Individuals/SlasherEnemy.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Scripts/Enemy/Groups/EnemyGroupPlayerInteraction.cs" type="Script" id=5]
 [ext_resource path="res://Textures/Star2.png" type="Texture" id=6]
 
 [sub_resource type="RectangleShape2D" id=1]

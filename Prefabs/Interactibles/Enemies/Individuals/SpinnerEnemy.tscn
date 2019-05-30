@@ -1,40 +1,39 @@
 [gd_scene load_steps=7 format=2]
 
-[ext_resource path="res://Scripts/Enemy/BurstEnemy.cs" type="Script" id=1]
+[ext_resource path="res://Scripts/Enemy/Individuals/SpinnerEnemy.cs" type="Script" id=1]
 [ext_resource path="res://Prefabs/Interactibles/Bullets/Enemy Bullet.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Textures/light.png" type="Texture" id=3]
-[ext_resource path="res://Textures/Circle_Shape_White.png" type="Texture" id=4]
+[ext_resource path="res://Textures/Blur Rectangle.png" type="Texture" id=3]
+[ext_resource path="res://Textures/Square_Shape_White.png" type="Texture" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 70, 70 )
 
 [sub_resource type="OccluderPolygon2D" id=2]
-polygon = PoolVector2Array( 0, -66.6667, 50, -50, 66.6667, 0, 50, 50, 0, 66.6667, -50, 50, -66.6667, 0, -50, -50 )
+polygon = PoolVector2Array( -66.6667, -66.6667, 66.6667, -66.6667, 66.6667, 66.6667, -66.6667, 66.6667 )
 
-[node name="BurstEnemy" type="KinematicBody2D"]
+[node name="SpinnerEnemy" type="KinematicBody2D"]
 scale = Vector2( 0.3, 0.3 )
 collision_layer = 4
 collision_mask = 3
 script = ExtResource( 1 )
 enemySpriteNodePath = NodePath("Sprite")
 explorationRadius = 200.0
-idleTime = 5.0
+idleTime = 7.0
 minWanderingReachDistance = 5.0
 playerTargetDistance = 700.0
 playerAttackDistance = 150.0
 maxPlayerFollowDistance = 800.0
-movementSpeed = 250.0
-attackTime = 10.0
-launchPointsPath = [ NodePath("Launch Points/LaunchPoint_1"), NodePath("Launch Points/LaunchPoint_2"), NodePath("Launch Points/LaunchPoint_3"), NodePath("Launch Points/LaunchPoint_4") ]
+movementSpeed = 200.0
+attackTime = 7.0
+launchPointsPath = [ NodePath("Launch Points/LaunchPoint_1"), NodePath("Launch Points/LaunchPoint_2") ]
 rotationRate = 200.0
-rotationTime = 0.5
-rotationAttackCounts = 2.0
-timeDelayBetweenShots = 0.5
+rotationSwitchTime = 3.0
 enemyBulletPrefab = ExtResource( 2 )
+timeBetweenShot = 0.3
 
 [node name="Shadow Sprite" type="Sprite" parent="."]
 light_mask = 2
-scale = Vector2( 0.175, 0.175 )
+scale = Vector2( 0.1, 0.3 )
 texture = ExtResource( 3 )
 
 [node name="Sprite" type="Sprite" parent="."]
@@ -48,19 +47,13 @@ shape = SubResource( 1 )
 occluder = SubResource( 2 )
 
 [node name="Launch Points" type="Node2D" parent="."]
+editor/display_folded = true
 
 [node name="LaunchPoint_1" type="Node2D" parent="Launch Points"]
-position = Vector2( 70, 0 )
-scale = Vector2( 0.3, 0.3 )
+position = Vector2( -50, -63 )
+scale = Vector2( 0.5, 0.5 )
 
 [node name="LaunchPoint_2" type="Node2D" parent="Launch Points"]
-position = Vector2( 0, 70 )
-scale = Vector2( 0.3, 0.3 )
-
-[node name="LaunchPoint_3" type="Node2D" parent="Launch Points"]
-position = Vector2( -70, 0 )
-scale = Vector2( 0.3, 0.3 )
-
-[node name="LaunchPoint_4" type="Node2D" parent="Launch Points"]
-position = Vector2( 0, -70 )
-scale = Vector2( 0.3, 0.3 )
+position = Vector2( 50, 63 )
+rotation = 3.14159
+scale = Vector2( 0.5, 0.5 )

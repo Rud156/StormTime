@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://Scripts/Enemy/EnemySpawnPoint.cs" type="Script" id=1]
+[ext_resource path="res://Scripts/Enemy/Groups/EnemySpawnPoint.cs" type="Script" id=1]
 
 [node name="Enemy Group Spawn Point" type="Node2D"]
 self_modulate = Color( 1, 0, 0, 1 )

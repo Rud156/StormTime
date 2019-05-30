@@ -51,14 +51,14 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Scripts\Camera\CameraFollowTarget.cs" />
-    <Compile Include="Scripts\Enemy\BurstEnemy.cs" />
-    <Compile Include="Scripts\Enemy\Enemy.cs" />
-    <Compile Include="Scripts\Enemy\EnemyGroup.cs" />
-    <Compile Include="Scripts\Enemy\EnemyGroupPlayerInteraction.cs" />
-    <Compile Include="Scripts\Enemy\EnemySpawner.cs" />
-    <Compile Include="Scripts\Enemy\EnemySpawnPoint.cs" />
-    <Compile Include="Scripts\Enemy\SlasherEnemy.cs" />
-    <Compile Include="Scripts\Enemy\SpinnerEnemy.cs" />
+    <Compile Include="Scripts\Enemy\Individuals\BurstEnemy.cs" />
+    <Compile Include="Scripts\Enemy\Individuals\Enemy.cs" />
+    <Compile Include="Scripts\Enemy\Groups\EnemyGroup.cs" />
+    <Compile Include="Scripts\Enemy\Groups\EnemyGroupPlayerInteraction.cs" />
+    <Compile Include="Scripts\Enemy\Groups\EnemySpawner.cs" />
+    <Compile Include="Scripts\Enemy\Groups\EnemySpawnPoint.cs" />
+    <Compile Include="Scripts\Enemy\Individuals\SlasherEnemy.cs" />
+    <Compile Include="Scripts\Enemy\Individuals\SpinnerEnemy.cs" />
     <Compile Include="Scripts\Player\Shooting\PlayerShooting.cs" />
     <Compile Include="Scripts\Scene\MovingBackgroundManager.cs" />
     <Compile Include="Scripts\Player\Movement\PlayerMovement.cs" />
