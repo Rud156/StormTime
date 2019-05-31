@@ -12,29 +12,29 @@
 [ext_resource path="res://Prefabs/UI/GUI.tscn" type="PackedScene" id=10]
 
 [sub_resource type="Gradient" id=1]
-offsets = PoolRealArray( 0, 0.162037, 0.856481, 1 )
-colors = PoolColorArray( 1, 0, 0, 0, 1, 0, 0, 1, 1, 0.679688, 0, 1, 1, 0.609375, 0, 0 )
+offsets = PoolRealArray( 0, 0.856481, 1 )
+colors = PoolColorArray( 1, 0, 0, 0, 1, 0.679688, 0, 1, 1, 0.609375, 0, 0 )
 
 [sub_resource type="GradientTexture" id=2]
 gradient = SubResource( 1 )
 
 [sub_resource type="Gradient" id=3]
-offsets = PoolRealArray( 0, 0.106481, 0.916667, 1 )
-colors = PoolColorArray( 0, 0, 1, 0, 0, 0, 1, 1, 0.517647, 0, 1, 1, 0.517647, 0, 1, 0 )
+offsets = PoolRealArray( 0, 0.916667, 1 )
+colors = PoolColorArray( 0, 0, 1, 0, 0.517647, 0, 1, 1, 0.517647, 0, 1, 0 )
 
 [sub_resource type="GradientTexture" id=4]
 gradient = SubResource( 3 )
 
 [sub_resource type="Gradient" id=5]
-offsets = PoolRealArray( 0, 0.111111, 0.884259, 1 )
-colors = PoolColorArray( 0.454902, 0, 1, 0, 0.454902, 0, 1, 1, 0, 0.905882, 1, 1, 0, 0.905882, 1, 0 )
+offsets = PoolRealArray( 0, 0.884259, 1 )
+colors = PoolColorArray( 0.454902, 0, 1, 0, 0, 0.905882, 1, 1, 0, 0.905882, 1, 0 )
 
 [sub_resource type="GradientTexture" id=6]
 gradient = SubResource( 5 )
 
 [sub_resource type="Gradient" id=7]
-offsets = PoolRealArray( 0, 0.106481, 0.87037, 1 )
-colors = PoolColorArray( 1, 0, 0, 0, 1, 0, 0, 1, 1, 0, 0.913725, 1, 1, 0, 0.913725, 0 )
+offsets = PoolRealArray( 0, 0.87037, 1 )
+colors = PoolColorArray( 1, 0, 0, 0, 1, 0, 0.913725, 1, 1, 0, 0.913725, 0 )
 
 [sub_resource type="GradientTexture" id=8]
 gradient = SubResource( 7 )
@@ -55,7 +55,7 @@ enemyGroupPrefab = ExtResource( 3 )
 minEnemyGroupsToSpawn = 18
 maxEnemyGroupsToSpawn = 22
 enemyGroupGradients = [ SubResource( 2 ), SubResource( 4 ), SubResource( 6 ), SubResource( 8 ) ]
-enemyGroupColors = PoolColorArray( 1, 0.537255, 0, 0.588235, 0.517647, 0, 1, 0.588235, 0, 1, 0.670588, 0.588235, 1, 0, 0.607843, 0.588235 )
+enemyGroupColors = PoolColorArray( 1, 0.537255, 0, 1, 0.517647, 0, 1, 1, 0, 1, 0.670588, 1, 1, 0, 0.607843, 1 )
 worldSpawnNodePaths = [ NodePath("Enemy Group Spawn Point_1"), NodePath("Enemy Group Spawn Point_2"), NodePath("Enemy Group Spawn Point_3"), NodePath("Enemy Group Spawn Point_4"), NodePath("Enemy Group Spawn Point_5"), NodePath("Enemy Group Spawn Point_6"), NodePath("Enemy Group Spawn Point_7"), NodePath("Enemy Group Spawn Point_8"), NodePath("Enemy Group Spawn Point_9"), NodePath("Enemy Group Spawn Point_10"), NodePath("Enemy Group Spawn Point_11"), NodePath("Enemy Group Spawn Point_12"), NodePath("Enemy Group Spawn Point_13"), NodePath("Enemy Group Spawn Point_14"), NodePath("Enemy Group Spawn Point_15"), NodePath("Enemy Group Spawn Point_16"), NodePath("Enemy Group Spawn Point_17"), NodePath("Enemy Group Spawn Point_18"), NodePath("Enemy Group Spawn Point_19"), NodePath("Enemy Group Spawn Point_20"), NodePath("Enemy Group Spawn Point_21"), NodePath("Enemy Group Spawn Point_22"), NodePath("Enemy Group Spawn Point_23"), NodePath("Enemy Group Spawn Point_24") ]
 
 [node name="Enemy Group Spawn Point_1" parent="Game World/Enemy Spawn Points" instance=ExtResource( 4 )]
