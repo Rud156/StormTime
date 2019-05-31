@@ -86,6 +86,7 @@ namespace StormTime.Enemy.Groups
                 enemyColors[GD.Randi() % enemyColors.Length],
                 enemyColors[GD.Randi() % enemyColors.Length]
             );
+            enemyInstance.SetParentEnemyGroup(this);
 
             _currentEnemyTypeCount += 1;
             if (_currentEnemyTypeCount >= _enemyTypeCount[_currentEnemyTypeIndex])
@@ -134,6 +135,14 @@ namespace StormTime.Enemy.Groups
 
             GD.Print("Created All Enemies. Wowser!!!");
             StartEnemiesSpawn();
+        }
+
+        public void SetPlayerAsHostile(bool playerHostile = true)
+        {
+            foreach (Individuals.Enemy enemy in _groupEnemies)
+            {
+                enemy.SetPlayerHostileState(playerHostile);
+            }
         }
 
         #endregion

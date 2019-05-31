@@ -2,6 +2,8 @@ using Godot;
 using System.Collections.Generic;
 using StormTime.Player.Data;
 using StormTime.Utils;
+using StormTime.Enemy.Groups;
+using System;
 
 namespace StormTime.Enemy.Individuals
 {
@@ -34,6 +36,7 @@ namespace StormTime.Enemy.Individuals
         }
 
         protected EnemyState _enemyState;
+        protected EnemyGroup _parentEnemyGroup;
 
         // Distances Squared
         protected float _playerTargetSqDst;
@@ -219,13 +222,23 @@ namespace StormTime.Enemy.Individuals
             _enemySprite.SetSelfModulate(_enemyColor);
         }
 
-        public void SetPlayerHostileState(bool playerHostile) => _playerHostile = playerHostile;
+        public void SetParentEnemyGroup(EnemyGroup enemyGroup) =>
+            _parentEnemyGroup = enemyGroup;
 
-        protected void MoveToTowardsTarget(Vector2 targetPosition)
+        public void BulletCollisionNotification(bool isPlayerBullet)
         {
-            Vector2 directionVector = (targetPosition - GetGlobalPosition()).Normalized();
-            MoveAndSlide(directionVector * movementSpeed);
+            if (isPlayerBullet)
+            {
+                EmitOnHostileOnPlayerAttack();
+            }
         }
+
+        public void SetPlayerHostileState(bool playerHostile = true) => _playerHostile = playerHostile;
+
+        public void EmitOnHostileOnPlayerAttack() => _parentEnemyGroup.SetPlayerAsHostile();
+
+        protected void MoveToTowardsTarget(Vector2 targetPosition) =>
+            MoveToTowardsTarget(targetPosition, movementSpeed);
 
         protected void MoveToTowardsTarget(Vector2 targetPosition, float speed)
         {
@@ -243,7 +256,7 @@ namespace StormTime.Enemy.Individuals
             {
                 return;
             }
-            
+
             _enemyState = enemyState;
         }
 

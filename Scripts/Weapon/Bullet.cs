@@ -37,6 +37,7 @@ namespace StormTime.Weapon
                 if (collision != null)
                 {
                     SpawnBulletExplosion();
+                    NotifyCollider(collision.Collider);
                 }
 
                 DestroyBullet();
@@ -53,6 +54,16 @@ namespace StormTime.Weapon
 
         private void DestroyBullet() => GetParent().RemoveChild(this);
 
+        #region Events
+
+        private void NotifyCollider(Godot.Object collider) =>
+            collider.CallDeferred("BulletCollisionNotification", !(this is EnemyBullet));
+
+        #endregion
+
+
+        #region Particle Effects
+
         private void SpawnBulletExplosion()
         {
             Node2D bulletExplosionInstance = (Node2D)bulletExplosionPrefab.Instance();
@@ -61,12 +72,14 @@ namespace StormTime.Weapon
             bulletExplosionInstance.SetGlobalPosition(GetGlobalPosition());
         }
 
-        protected virtual void SpawnBulletTrail()
+        private void SpawnBulletTrail()
         {
             Node2D bulletTrailInstance = (Node2D)bulletTrailPrefab.Instance();
             GetParent().AddChild(bulletTrailInstance);
 
             bulletTrailInstance.SetGlobalPosition(GetGlobalPosition());
         }
+
+        #endregion
     }
 }

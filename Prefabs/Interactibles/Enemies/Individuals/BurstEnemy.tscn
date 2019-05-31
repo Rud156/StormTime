@@ -48,6 +48,7 @@ shape = SubResource( 1 )
 occluder = SubResource( 2 )
 
 [node name="Launch Points" type="Node2D" parent="."]
+editor/display_folded = true
 
 [node name="LaunchPoint_1" type="Node2D" parent="Launch Points"]
 position = Vector2( 70, 0 )
