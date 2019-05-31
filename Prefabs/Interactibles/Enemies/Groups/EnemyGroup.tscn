@@ -12,27 +12,28 @@
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 150.838, 143.113 )
 
-[sub_resource type="Gradient" id=5]
+[sub_resource type="Gradient" id=2]
 offsets = PoolRealArray( 0, 0.184211, 0.798246, 1 )
 colors = PoolColorArray( 1, 0.513726, 0, 0, 1, 0.513726, 0, 1, 1, 0, 0, 1, 1, 0, 0, 0 )
 
-[sub_resource type="GradientTexture" id=6]
-gradient = SubResource( 5 )
+[sub_resource type="GradientTexture" id=3]
+gradient = SubResource( 2 )
 
-[sub_resource type="Curve" id=3]
-_data = [ Vector2( 0, 0 ), 0.0, 1.54569, 0, 0, Vector2( 1, 1 ), 0.0, 0.0, 0, 0 ]
+[sub_resource type="Curve" id=4]
+_data = [ Vector2( 0, 0 ), 0.0, -0.0613961, 0, 0, Vector2( 1, 1 ), 2.25543, 0.0, 0, 0 ]
 
-[sub_resource type="CurveTexture" id=4]
-curve = SubResource( 3 )
+[sub_resource type="CurveTexture" id=5]
+curve = SubResource( 4 )
 
-[sub_resource type="ParticlesMaterial" id=2]
+[sub_resource type="ParticlesMaterial" id=6]
 flag_disable_z = true
 gravity = Vector3( 0, 0, 0 )
+angular_velocity = -1.0
 orbit_velocity = 0.0
 orbit_velocity_random = 0.0
 scale = 5.0
-scale_curve = SubResource( 4 )
-color_ramp = SubResource( 6 )
+scale_curve = SubResource( 5 )
+color_ramp = SubResource( 3 )
 
 [node name="Enemy Group" type="Node2D"]
 z_index = 1
@@ -121,9 +122,10 @@ shape = SubResource( 1 )
 
 [node name="Interaction Particles" type="Particles2D" parent="Interaction Area"]
 amount = 2
-lifetime = 2.0
-process_material = SubResource( 2 )
+lifetime = 7.0
+process_material = SubResource( 6 )
 texture = ExtResource( 7 )
 
 [node name="Light2D" type="Light2D" parent="."]
+position = Vector2( 0, 1.63699 )
 texture = ExtResource( 8 )
