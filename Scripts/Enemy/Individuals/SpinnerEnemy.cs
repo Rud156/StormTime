@@ -34,15 +34,16 @@ namespace StormTime.Enemy.Individuals
 
         private void ShootBullets()
         {
+
             float startRotation = 0;
             float rotationIncrementAmount = 360 / _launchPoints.Count;
 
             foreach (Node2D launchPoint in _launchPoints)
             {
                 EnemyBullet bulletInstance = (EnemyBullet)enemyBulletPrefab.Instance();
-                bulletInstance.SetBulletColor(_bulletColor); // This is done as _Ready is called as soon as the Child is added to the tree
                 GetParent().AddChild(bulletInstance);
 
+                bulletInstance.SetBulletColor(_bulletColor);
                 bulletInstance.SetGlobalPosition(launchPoint.GetGlobalPosition());
 
                 float rotation = GetRotationDegrees() + startRotation - 90;

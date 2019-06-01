@@ -51,6 +51,9 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Scripts\Camera\CameraFollowTarget.cs" />
+    <Compile Include="Scripts\Effects\EnemyDeathParticleCleaner.cs" />
+    <Compile Include="Scripts\Effects\ParticleActivator.cs" />
+    <Compile Include="Scripts\Effects\ParticlesCleaner.cs" />
     <Compile Include="Scripts\Enemy\Individuals\BurstEnemy.cs" />
     <Compile Include="Scripts\Enemy\Individuals\Enemy.cs" />
     <Compile Include="Scripts\Enemy\Groups\EnemyGroup.cs" />
@@ -70,8 +73,6 @@
     <Compile Include="Scripts\Utils\VectorHelpers.cs" />
     <Compile Include="Scripts\Weapon\Bullet.cs" />
     <Compile Include="Scripts\Weapon\EnemyBullet.cs" />
-    <Compile Include="Scripts\Weapon\ParticleActivator.cs" />
-    <Compile Include="Scripts\Weapon\ParticlesCleaner.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Scenes\" />

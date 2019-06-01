@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Godot;
+using StormTime.Effects;
 
 namespace StormTime.Enemy.Groups
 {
@@ -25,6 +26,7 @@ namespace StormTime.Enemy.Groups
 
         private Particles2D _interactionParticles;
         private Sprite _interactionSprite;
+        private GradientTexture _spawnGradientTexture;
 
         private int _currentEnemyTypeIndex;
         private int _currentEnemyTypeCount;
@@ -76,17 +78,7 @@ namespace StormTime.Enemy.Groups
                 return;
             }
 
-            Individuals.Enemy enemyInstance = (Individuals.Enemy)enemyTypes[_currentEnemyTypeIndex].Instance();
-            _groupEnemies.Add(enemyInstance);
-            AddChild(enemyInstance);
-
-            Node2D spawnPoint = _spawnPoints[(int)(GD.Randi() % _spawnPoints.Count)];
-            enemyInstance.SetGlobalPosition(spawnPoint.GetGlobalPosition());
-            enemyInstance.SetEnemyColors(
-                enemyColors[GD.Randi() % enemyColors.Length],
-                enemyColors[GD.Randi() % enemyColors.Length]
-            );
-            enemyInstance.SetParentEnemyGroup(this);
+            SpawnEnemy();
 
             _currentEnemyTypeCount += 1;
             if (_currentEnemyTypeCount >= _enemyTypeCount[_currentEnemyTypeIndex])
@@ -96,12 +88,33 @@ namespace StormTime.Enemy.Groups
             }
         }
 
+        #region Utility Functions
+
+        private void SpawnEnemy()
+        {
+            Individuals.Enemy enemyInstance = (Individuals.Enemy)enemyTypes[_currentEnemyTypeIndex].Instance();
+            AddChild(enemyInstance);
+            _groupEnemies.Add(enemyInstance);
+
+            Node2D spawnPoint = _spawnPoints[(int)(GD.Randi() % _spawnPoints.Count)];
+            enemyInstance.SetGlobalPosition(spawnPoint.GetGlobalPosition());
+            enemyInstance.SetEnemyColors(
+                enemyColors[GD.Randi() % enemyColors.Length],
+                enemyColors[GD.Randi() % enemyColors.Length]
+            );
+            enemyInstance.SetParentEnemyGroup(this);
+        }
+
+        #endregion
+
         #region External Functions
 
         public void SetEnemyGroupColors(Color spriteColor, GradientTexture particlesGradient)
         {
             _interactionSprite.SelfModulate = spriteColor;
             _interactionParticles.ProcessMaterial.Set("color_ramp", particlesGradient);
+
+            _spawnGradientTexture = particlesGradient;
         }
 
         public void ActivateEnemySpawning(int maxDangerAmount)

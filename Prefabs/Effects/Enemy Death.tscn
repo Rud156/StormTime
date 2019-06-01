@@ -1,0 +1,86 @@
+[gd_scene load_steps=16 format=2]
+
+[ext_resource path="res://Scripts/Effects/EnemyDeathParticleCleaner.cs" type="Script" id=1]
+[ext_resource path="res://Scripts/Effects/ParticleActivator.cs" type="Script" id=2]
+[ext_resource path="res://Textures/RingFadeOut.png" type="Texture" id=3]
+
+[sub_resource type="Gradient" id=1]
+offsets = PoolRealArray( 0, 0.162281, 0.828947, 1 )
+colors = PoolColorArray( 1, 0.72549, 0, 0, 1, 0.72549, 0, 1, 0, 1, 0.953125, 1, 1, 1, 1, 0 )
+
+[sub_resource type="GradientTexture" id=2]
+gradient = SubResource( 1 )
+
+[sub_resource type="Curve" id=3]
+max_value = 100.0
+_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 0.790236, 45.16 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=4]
+curve = SubResource( 3 )
+
+[sub_resource type="Curve" id=5]
+_data = [ Vector2( 0, 0 ), 0.0, 7.58272, 0, 0, Vector2( 0.193751, 1 ), 0.0, 0.0, 0, 0, Vector2( 0.806249, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), -6.61653, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=6]
+curve = SubResource( 5 )
+
+[sub_resource type="ParticlesMaterial" id=7]
+flag_disable_z = true
+spread = 180.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 500.0
+initial_velocity_random = 1.0
+angular_velocity = 1.0
+orbit_velocity = 0.0
+orbit_velocity_random = 1.0
+linear_accel = 76.69
+damping = 750.0
+damping_curve = SubResource( 4 )
+scale = 21.0
+scale_random = 1.0
+scale_curve = SubResource( 6 )
+color_ramp = SubResource( 2 )
+
+[sub_resource type="Gradient" id=8]
+offsets = PoolRealArray( 0, 0.166667, 0.798246, 1 )
+colors = PoolColorArray( 1, 0, 0, 0, 1, 0, 0, 1, 0.592157, 1, 0, 1, 0.592157, 1, 0, 0 )
+
+[sub_resource type="GradientTexture" id=9]
+gradient = SubResource( 8 )
+
+[sub_resource type="Curve" id=10]
+_data = [ Vector2( 0, 0 ), 0.0, 0.0, 0, 0, Vector2( 1, 1 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=11]
+curve = SubResource( 10 )
+
+[sub_resource type="ParticlesMaterial" id=12]
+flag_disable_z = true
+gravity = Vector3( 0, 0, 0 )
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+scale = 3.0
+scale_curve = SubResource( 11 )
+color_ramp = SubResource( 9 )
+
+[node name="Enemy Death" type="Node2D"]
+script = ExtResource( 1 )
+cleanupWaitTime = 1.5
+_deathEffect_1_NodePath = NodePath("Enemy Death Effect_1")
+_deathEffect_2_NodePath = NodePath("Enemy Death Effect_2")
+
+[node name="Enemy Death Effect_1" type="Particles2D" parent="."]
+emitting = false
+amount = 250
+one_shot = true
+explosiveness = 0.5
+process_material = SubResource( 7 )
+script = ExtResource( 2 )
+
+[node name="Enemy Death Effect_2" type="Particles2D" parent="."]
+emitting = false
+amount = 5
+one_shot = true
+process_material = SubResource( 12 )
+texture = ExtResource( 3 )
+script = ExtResource( 2 )

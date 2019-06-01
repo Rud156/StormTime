@@ -48,7 +48,6 @@ gradient = SubResource( 7 )
 [node name="Bullets Holder" type="Node2D" parent="Game World"]
 
 [node name="Enemy Spawn Points" type="Node2D" parent="Game World"]
-editor/display_folded = true
 position = Vector2( 0, 1 )
 script = ExtResource( 2 )
 enemyGroupPrefab = ExtResource( 3 )
@@ -59,7 +58,7 @@ enemyGroupColors = PoolColorArray( 1, 0.537255, 0, 1, 0.517647, 0, 1, 1, 0, 1, 0
 worldSpawnNodePaths = [ NodePath("Enemy Group Spawn Point_1"), NodePath("Enemy Group Spawn Point_2"), NodePath("Enemy Group Spawn Point_3"), NodePath("Enemy Group Spawn Point_4"), NodePath("Enemy Group Spawn Point_5"), NodePath("Enemy Group Spawn Point_6"), NodePath("Enemy Group Spawn Point_7"), NodePath("Enemy Group Spawn Point_8"), NodePath("Enemy Group Spawn Point_9"), NodePath("Enemy Group Spawn Point_10"), NodePath("Enemy Group Spawn Point_11"), NodePath("Enemy Group Spawn Point_12"), NodePath("Enemy Group Spawn Point_13"), NodePath("Enemy Group Spawn Point_14"), NodePath("Enemy Group Spawn Point_15"), NodePath("Enemy Group Spawn Point_16"), NodePath("Enemy Group Spawn Point_17"), NodePath("Enemy Group Spawn Point_18"), NodePath("Enemy Group Spawn Point_19"), NodePath("Enemy Group Spawn Point_20"), NodePath("Enemy Group Spawn Point_21"), NodePath("Enemy Group Spawn Point_22"), NodePath("Enemy Group Spawn Point_23"), NodePath("Enemy Group Spawn Point_24") ]
 
 [node name="Enemy Group Spawn Point_1" parent="Game World/Enemy Spawn Points" instance=ExtResource( 4 )]
-position = Vector2( -1480.7, 1420.22 )
+position = Vector2( -1968.31, 1793.88 )
 maxEnemyDangerLevel = 1
 
 [node name="Enemy Group Spawn Point_2" parent="Game World/Enemy Spawn Points" instance=ExtResource( 4 )]

@@ -18,6 +18,10 @@ namespace StormTime.Weapon
             _bulletSprite.SelfModulate = _bulletColor;
         }
 
-        public void SetBulletColor(Color color) => _bulletColor = color;
+        public void SetBulletColor(Color color)
+        {
+            _bulletColor = color;
+            _bulletSprite.SelfModulate = color;
+        }
     }
 }

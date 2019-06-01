@@ -1,6 +1,6 @@
 using Godot;
 
-namespace StormTime.Weapon
+namespace StormTime.Effects
 {
     public class ParticleActivator : Particles2D
     {
