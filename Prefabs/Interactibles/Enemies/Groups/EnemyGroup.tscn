@@ -1,14 +1,12 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Scripts/Enemy/Groups/EnemyGroup.cs" type="Script" id=1]
-[ext_resource path="res://Prefabs/Effects/Enemy Death.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Prefabs/Interactibles/Enemies/Individuals/BurstEnemy.tscn" type="PackedScene" id=3]
-[ext_resource path="res://Prefabs/Interactibles/Enemies/Individuals/SpinnerEnemy.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Prefabs/Interactibles/Enemies/Individuals/SlasherEnemy.tscn" type="PackedScene" id=5]
-[ext_resource path="res://Scripts/Enemy/Groups/EnemyGroupPlayerInteraction.cs" type="Script" id=6]
-[ext_resource path="res://Textures/RingFadeOut.png" type="Texture" id=7]
-[ext_resource path="res://Textures/Star2.png" type="Texture" id=8]
-
+[ext_resource path="res://Prefabs/Interactibles/Enemies/Individuals/BurstEnemy.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Prefabs/Interactibles/Enemies/Individuals/SpinnerEnemy.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Prefabs/Interactibles/Enemies/Individuals/SlasherEnemy.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Scripts/Enemy/Groups/EnemyGroupPlayerInteraction.cs" type="Script" id=5]
+[ext_resource path="res://Textures/RingFadeOut.png" type="Texture" id=6]
+[ext_resource path="res://Textures/Star2.png" type="Texture" id=7]
 
 [sub_resource type="Gradient" id=1]
 offsets = PoolRealArray( 0, 0.804734, 1 )
@@ -25,8 +23,9 @@ curve = SubResource( 3 )
 
 [sub_resource type="ParticlesMaterial" id=5]
 flag_disable_z = true
+spread = 0.0
 gravity = Vector3( 0, 0, 0 )
-angular_velocity = -1.0
+angular_velocity = 0.0
 orbit_velocity = 0.0
 orbit_velocity_random = 0.0
 scale = 5.0
@@ -41,9 +40,8 @@ z_index = 1
 script = ExtResource( 1 )
 interactionParticlesNodePath = NodePath("Interaction Area/Interaction Particles")
 interactionSpriteNodePath = NodePath("Interaction Area/Interaction Sprite")
-enemySpawnEffectPrefab = ExtResource( 2 )
 enemyColors = PoolColorArray( 0.517647, 0, 1, 1, 1, 0, 0, 1, 0, 1, 0, 1, 0, 0, 1, 1 )
-enemyTypes = [ ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ) ]
+enemyTypes = [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ) ]
 enemyDangerValues = PoolIntArray( 1, 1, 3 )
 spawnPointsNodePaths = [ NodePath("Spawn Points/SpawnPoint_1"), NodePath("Spawn Points/SpawnPoint_2"), NodePath("Spawn Points/SpawnPoint_3"), NodePath("Spawn Points/SpawnPoint_4"), NodePath("Spawn Points/SpawnPoint_5"), NodePath("Spawn Points/SpawnPoint_6"), NodePath("Spawn Points/SpawnPoint_7"), NodePath("Spawn Points/SpawnPoint_8"), NodePath("Spawn Points/SpawnPoint_9"), NodePath("Spawn Points/SpawnPoint_10"), NodePath("Spawn Points/SpawnPoint_11"), NodePath("Spawn Points/SpawnPoint_12"), NodePath("Spawn Points/SpawnPoint_13"), NodePath("Spawn Points/SpawnPoint_14"), NodePath("Spawn Points/SpawnPoint_15"), NodePath("Spawn Points/SpawnPoint_16"), NodePath("Spawn Points/SpawnPoint_17"), NodePath("Spawn Points/SpawnPoint_18"), NodePath("Spawn Points/SpawnPoint_19"), NodePath("Spawn Points/SpawnPoint_20") ]
 
@@ -111,19 +109,19 @@ position = Vector2( 355, -180 )
 position = Vector2( -580, 85 )
 
 [node name="Interaction Area" type="Area2D" parent="."]
-script = ExtResource( 6 )
+script = ExtResource( 5 )
 
 [node name="Interaction Particles" type="Particles2D" parent="Interaction Area"]
 z_index = -12
 amount = 2
 lifetime = 5.0
 process_material = SubResource( 5 )
-texture = ExtResource( 7 )
+texture = ExtResource( 6 )
 
 [node name="Interaction Sprite" type="Sprite" parent="Interaction Area"]
-self_modulate = Color( 1, 0, 0.678431, 1 )
+self_modulate = Color( 1, 0, 0.678431, 0.392157 )
 scale = Vector2( 0.5, 0.5 )
-texture = ExtResource( 8 )
+texture = ExtResource( 7 )
 
 [node name="Interaction Collision" type="CollisionShape2D" parent="Interaction Area"]
 shape = SubResource( 6 )

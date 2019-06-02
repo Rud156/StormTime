@@ -1,4 +1,3 @@
-using System;
 using Godot;
 using StormTime.Player.Movement;
 using StormTime.Utils;
@@ -28,15 +27,7 @@ namespace StormTime.Enemy.Groups
             base.Connect("body_exited", this, "HandlePlayerExit");
         }
 
-        public override void _Process(float delta)
-        {
-            if (!_playerIsInside)
-            {
-                return;
-            }
-
-            CheckPlayerInteraction(delta);
-        }
+        public override void _Process(float delta) => CheckPlayerInteraction(delta);
 
         private void CheckPlayerInteraction(float delta)
         {
@@ -64,22 +55,34 @@ namespace StormTime.Enemy.Groups
 
         private void HandlePlayerInteractionNotActive(float delta)
         {
+            if (!_playerIsInside)
+            {
+                return;
+            }
 
+            if (Input.IsActionJustPressed(SceneControls.Interact))
+            {
+                _playerController.SetLerpPosition(GetGlobalPosition());
+                _playerController.SetPlayerState(PlayerController.PlayerState.PlayerFloatingMovement);
+                SetPlayerInteractionState(PlayerInteractionState.Active);
+            }
         }
 
         private void HandlePlayerInteractionActive(float delta)
         {
-
+            // TODO: Implement Dialogue Interaction Logic Here...
         }
 
         private void HandlePlayerInteractionEnding(float delta)
         {
-
+            SetPlayerInteractionState(PlayerInteractionState.Completed);
+            _playerController.SetPlayerState(PlayerController.PlayerState.PlayerInControlMovement);
         }
 
         private void HandlePlayerInteractionComplete(float delta)
         {
-
+            // TODO: Make sure that the player cannot interact with the
+            // world anymore...
         }
 
         #endregion

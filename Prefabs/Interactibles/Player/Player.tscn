@@ -15,6 +15,12 @@ __meta__ = {
 "_edit_group_": true
 }
 movementSpeed = 250.0
+defaultScaleAmount = 0.3
+minScaleAmount = 0.2
+maxScaleAmount = 0.7
+scaleChangeFrequency = 7.0
+rotationRate = 30.0
+lerpVelocity = 7.0
 
 [node name="Shadow Sprite" type="Sprite" parent="."]
 light_mask = 2

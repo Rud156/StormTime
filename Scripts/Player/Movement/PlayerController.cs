@@ -1,4 +1,3 @@
-using System;
 using Godot;
 using StormTime.Player.Data;
 using StormTime.Utils;
@@ -14,8 +13,8 @@ namespace StormTime.Player.Movement
         [Export] public float minScaleAmount;
         [Export] public float maxScaleAmount;
         [Export] public float scaleChangeFrequency;
-        [Export] public float scaleChangeAmplitude;
         [Export] public float rotationRate;
+        [Export] public float lerpVelocity;
 
         public enum PlayerState
         {
@@ -26,11 +25,17 @@ namespace StormTime.Player.Movement
         private PlayerState _playerState;
         private Vector2 _movement;
 
+        private Vector2 _targetScale;
+        private Vector2 _lerpPosition;
+
         private float _playerTime;
 
         public override void _Ready()
         {
             _movement = new Vector2();
+            _targetScale = Vector2.One * defaultScaleAmount;
+            _lerpPosition = new Vector2();
+
             SetPlayerState(PlayerState.PlayerInControlMovement);
         }
 
@@ -38,6 +43,8 @@ namespace StormTime.Player.Movement
 
         public override void _PhysicsProcess(float delta)
         {
+            SetScale(GetScale().LinearInterpolate(_targetScale, lerpVelocity * delta));
+
             switch (_playerState)
             {
                 case PlayerState.PlayerInControlMovement:
@@ -62,6 +69,7 @@ namespace StormTime.Player.Movement
         {
             ConstantRotatePlayer(delta);
             FloatingScaleChange(delta);
+            LerpPlayerToPosition(delta);
         }
 
         #region Player Control Movement
@@ -100,12 +108,14 @@ namespace StormTime.Player.Movement
 
         private void FloatingScaleChange(float delta)
         {
-            float scaleMultiplier = Mathf.Sin(scaleChangeFrequency * delta) * scaleChangeAmplitude;
+            float scaleMultiplier = Mathf.Sin(scaleChangeFrequency * _playerTime);
             float scaleAmount = ExtensionFunctions.Map(scaleMultiplier, -1, 1,
                 minScaleAmount, maxScaleAmount);
 
-            SetScale(Vector2.One * scaleAmount);
+            _targetScale = Vector2.One * scaleAmount;
         }
+
+        private void LerpPlayerToPosition(float delta) => SetGlobalPosition(GetGlobalPosition().LinearInterpolate(_lerpPosition, lerpVelocity * delta));
 
         #endregion
 
@@ -113,7 +123,9 @@ namespace StormTime.Player.Movement
 
         #region External Functions
 
-        public void ResetSizeDefaults() => SetScale(Vector2.One * defaultScaleAmount);
+        public void ResetSizeDefaults() => _targetScale = Vector2.One * defaultScaleAmount;
+
+        public void SetLerpPosition(Vector2 position) => _lerpPosition = position;
 
         public void SetPlayerState(PlayerState playerState)
         {
