@@ -9,14 +9,14 @@ public class PlayerShooting : Node
     [Export] public PackedScene playerBulletPrefab;
 
     private Node2D _playerBulletHolder;
-    private PlayerMovement _playerRoot;
+    private PlayerController _playerRoot;
 
     public override void _Ready()
     {
         base._Ready();
 
         _playerBulletHolder = GetNode<Node2D>(_playerBulletHolderNodePath);
-        _playerRoot = GetParent<PlayerMovement>();
+        _playerRoot = GetParent<PlayerController>();
     }
 
     public override void _Process(float delta)

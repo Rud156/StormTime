@@ -4,7 +4,7 @@ using StormTime.Utils;
 
 namespace StormTime.Player.Movement
 {
-    public class PlayerMovement : KinematicBody2D
+    public class PlayerController : KinematicBody2D
     {
         [Export] public float movementSpeed;
 
