@@ -50,13 +50,6 @@ namespace StormTime.Enemy.Groups
             }
         }
 
-        private void StartEnemiesSpawn()
-        {
-            _spawnEnemies = true;
-            _currentEnemyTypeIndex = 0;
-            _currentEnemyTypeCount = 0;
-        }
-
         public override void _Process(float delta)
         {
             if (!_spawnEnemies)
@@ -64,6 +57,20 @@ namespace StormTime.Enemy.Groups
                 return;
             }
 
+            CountAndSpawnEnemies();
+        }
+
+        #region Utility Functions
+
+        private void StartEnemiesSpawn()
+        {
+            _spawnEnemies = true;
+            _currentEnemyTypeIndex = 0;
+            _currentEnemyTypeCount = 0;
+        }
+
+        private void CountAndSpawnEnemies()
+        {
             if (_currentEnemyTypeIndex >= _enemyTypeCount.Count)
             {
                 _spawnEnemies = false;
@@ -87,8 +94,6 @@ namespace StormTime.Enemy.Groups
                 _currentEnemyTypeCount = 0;
             }
         }
-
-        #region Utility Functions
 
         private void SpawnEnemy()
         {

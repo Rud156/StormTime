@@ -1,3 +1,4 @@
+using System;
 using Godot;
 using StormTime.Player.Data;
 using StormTime.Utils;
@@ -7,14 +8,63 @@ namespace StormTime.Player.Movement
     public class PlayerController : KinematicBody2D
     {
         [Export] public float movementSpeed;
+        [Export] public float defaultScaleAmount;
 
+        // Float Effects
+        [Export] public float minScaleAmount;
+        [Export] public float maxScaleAmount;
+        [Export] public float scaleChangeFrequency;
+        [Export] public float scaleChangeAmplitude;
+        [Export] public float rotationRate;
+
+        public enum PlayerState
+        {
+            PlayerInControlMovement,
+            PlayerFloatingMovement
+        }
+
+        private PlayerState _playerState;
         private Vector2 _movement;
 
-        public override void _Ready() => _movement = new Vector2();
+        private float _playerTime;
 
-        public override void _Process(float delta) => RotatePlayer(delta);
+        public override void _Ready()
+        {
+            _movement = new Vector2();
+            SetPlayerState(PlayerState.PlayerInControlMovement);
+        }
 
-        public override void _PhysicsProcess(float delta) => MovePlayer(delta);
+        public override void _Process(float delta) => _playerTime += delta;
+
+        public override void _PhysicsProcess(float delta)
+        {
+            switch (_playerState)
+            {
+                case PlayerState.PlayerInControlMovement:
+                    HandlePlayerControlMovement(delta);
+                    break;
+
+                case PlayerState.PlayerFloatingMovement:
+                    HandlePlayerFloatingMovement(delta);
+                    break;
+            }
+        }
+
+        #region Player Controls
+
+        private void HandlePlayerControlMovement(float delta)
+        {
+            RotatePlayer(delta);
+            MovePlayer(delta);
+        }
+
+        private void HandlePlayerFloatingMovement(float delta)
+        {
+            ConstantRotatePlayer(delta);
+            FloatingScaleChange(delta);
+        }
+
+        #region Player Control Movement
 
         private void RotatePlayer(float delta)
         {
@@ -41,5 +91,40 @@ namespace StormTime.Player.Movement
             _movement = MoveAndSlide(_movement);
             PlayerVariables.PlayerPosition = GetGlobalPosition();
         }
+
+        #endregion
+
+        #region Player Floating Movement
+
+        private void ConstantRotatePlayer(float delta) => Rotate(Mathf.Deg2Rad(rotationRate * delta));
+
+        private void FloatingScaleChange(float delta)
+        {
+            float scaleMultiplier = Mathf.Sin(scaleChangeFrequency * delta) * scaleChangeAmplitude;
+            float scaleAmount = ExtensionFunctions.Map(scaleMultiplier, -1, 1,
+                minScaleAmount, maxScaleAmount);
+
+            SetScale(Vector2.One * scaleAmount);
+        }
+
+        #endregion
+
+        #endregion
+
+        #region External Functions
+
+        public void ResetSizeDefaults() => SetScale(Vector2.One * defaultScaleAmount);
+
+        public void SetPlayerState(PlayerState playerState)
+        {
+            if (_playerState == playerState)
+            {
+                return;
+            }
+
+            _playerState = playerState;
+        }
+
+        #endregion
     }
 }
