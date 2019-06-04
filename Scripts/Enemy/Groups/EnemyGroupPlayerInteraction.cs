@@ -81,8 +81,7 @@ namespace StormTime.Enemy.Groups
 
         private void HandlePlayerInteractionComplete(float delta)
         {
-            // TODO: Make sure that the player cannot interact with the
-            // world anymore...
+            // TODO: Make sure that the player cannot interact with the world anymore...
         }
 
         #endregion
