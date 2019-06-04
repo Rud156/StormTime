@@ -1,9 +1,11 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Prefabs/UI/Default Theme.tres" type="Theme" id=1]
 [ext_resource path="res://Scripts/UI/FPSLabel.cs" type="Script" id=2]
 [ext_resource path="res://Scripts/UI/DialogueManager.cs" type="Script" id=3]
-[ext_resource path="res://Textures/RingFadeOut.png" type="Texture" id=4]
+[ext_resource path="res://Prefabs/UI/DialogueIntermediate.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Prefabs/UI/DialogueMain.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Textures/RingFadeOut.png" type="Texture" id=6]
 
 [node name="GUI" type="Control"]
 light_mask = 2
@@ -33,6 +35,7 @@ valign = 1
 script = ExtResource( 2 )
 
 [node name="Dialogue Panel" type="Panel" parent="."]
+visible = false
 self_modulate = Color( 1, 1, 1, 0.392157 )
 anchor_top = 1.0
 anchor_right = 1.0
@@ -40,6 +43,10 @@ anchor_bottom = 1.0
 margin_top = -170.0
 margin_bottom = -50.0
 script = ExtResource( 3 )
+leftContainerNodePath = NodePath("Left Container")
+rightContainerNodePath = NodePath("Right Container")
+dialogueIntermediatePrefab = ExtResource( 4 )
+dialogueMainPrefab = ExtResource( 5 )
 
 [node name="Dialogue Center" type="TextureRect" parent="Dialogue Panel"]
 anchor_left = 0.5
@@ -53,7 +60,7 @@ margin_bottom = 49.5
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_stretch_ratio = 0.0
-texture = ExtResource( 4 )
+texture = ExtResource( 6 )
 expand = true
 stretch_mode = 1
 
