@@ -2,7 +2,7 @@
 
 [ext_resource path="res://Prefabs/UI/Default Theme.tres" type="Theme" id=1]
 [ext_resource path="res://Scripts/UI/FPSLabel.cs" type="Script" id=2]
-[ext_resource path="res://Scripts/UI/DialogueManager.cs" type="Script" id=3]
+[ext_resource path="res://Scripts/UI/DialogueUiManager.cs" type="Script" id=3]
 [ext_resource path="res://Prefabs/UI/DialogueIntermediate.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Prefabs/UI/DialogueMain.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Textures/RingFadeOut.png" type="Texture" id=6]

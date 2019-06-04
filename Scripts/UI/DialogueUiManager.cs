@@ -3,7 +3,7 @@ using Godot;
 
 namespace StormTime.UI
 {
-    public class DialogueManager : Panel
+    public class DialogueUiManager : Panel
     {
         [Export] public NodePath leftContainerNodePath;
         [Export] public NodePath rightContainerNodePath;
