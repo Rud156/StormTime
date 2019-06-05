@@ -49,6 +49,11 @@ namespace StormTime.UI
 
         }
 
+        public void ClearDialogueQuestionAndOptions()
+        {
+
+        }
+
         public void SetupDialogueStates(int playerWinCount, int groupWinCount)
         {
             #region Left Container

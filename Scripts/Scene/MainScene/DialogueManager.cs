@@ -38,9 +38,12 @@ namespace StormTime.Scene.MainScene
 
         private Dictionary<int, DialogueStructure> _dialogues;
 
+        // All Dialogues
         private List<int> _startDialogues;
         private List<int> _currentStartDialogues;
+        private float _currentDialogueWaitTime = -1;
 
+        // OnGoing Dialogue
         private bool _dialogueSequenceStarted;
         private DialogueStructure _onGoingDialogue;
         private EnemyGroup _enemyGroupInteractedWith;
@@ -79,7 +82,7 @@ namespace StormTime.Scene.MainScene
             //DialogueUiManager.Instance.SetupDialogueStates();
 
             _onGoingDialogue = _dialogues[randomDialogueIndex];
-            ActivateNextDialogueSet(_onGoingDialogue);
+            _currentDialogueWaitTime = initialDialogueStartDelay;
         }
 
         public override void _Process(float delta)
@@ -87,6 +90,17 @@ namespace StormTime.Scene.MainScene
             if (!_dialogueSequenceStarted)
             {
                 return;
+            }
+
+            if (_currentDialogueWaitTime > 0)
+            {
+                _currentDialogueWaitTime -= delta;
+
+                if (_currentDialogueWaitTime <= 0)
+                {
+                    ActivateNextDialogueSet(_onGoingDialogue);
+                    _currentDialogueWaitTime = -1;
+                }
             }
 
             int dialogueIndexPressed = -1;
@@ -121,10 +135,6 @@ namespace StormTime.Scene.MainScene
                 else
                 {
                     dialogueInteractionOver = DialogueUiManager.Instance.IncrementGroupWin();
-                    if (dialogueInteractionOver)
-                    {
-                        playerWon = false;
-                    }
                 }
 
                 if (dialogueInteractionOver)
@@ -146,7 +156,8 @@ namespace StormTime.Scene.MainScene
                 else
                 {
                     _onGoingDialogue = _dialogues[selectedAnswer.nextInIndex];
-                    ActivateNextDialogueSet(_onGoingDialogue);
+                    _currentDialogueWaitTime = dialogueChangeDelay;
+                    // TODO: Clear Dialogue States
                 }
             }
         }
