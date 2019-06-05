@@ -5,10 +5,8 @@ namespace StormTime.UI
 {
     public class DialogueUiManager : Panel
     {
-        [Export] public NodePath leftContainerNodePath;
-        [Export] public NodePath rightContainerNodePath;
-        [Export] public PackedScene dialogueIntermediatePrefab;
-        [Export] public PackedScene dialogueMainPrefab;
+        private PackedScene _dialogueIntermediatePrefab;
+        private PackedScene _dialogueMainPrefab;
 
         private Control _leftContainer;
         private Control _rightContainer;
@@ -20,18 +18,68 @@ namespace StormTime.UI
 
         public override void _Ready()
         {
-            _leftContainer = GetNode<Control>(leftContainerNodePath);
-            _rightContainer = GetNode<Control>(rightContainerNodePath);
-
             _leftContainerDialogueIntermediates = new List<DialogueIntermediate>();
             _rightContainerDialogueIntermediates = new List<DialogueIntermediate>();
+
+            if (Instance == null)
+            {
+                Instance = this;
+            }
+        }
+
+        public void Init(Control leftContainer, Control rightContainer,
+            PackedScene dialogueIntermediatePrefab, PackedScene dialogueMainPrefab)
+        {
+            _dialogueIntermediatePrefab = dialogueIntermediatePrefab;
+            _dialogueMainPrefab = dialogueMainPrefab;
+
+            _leftContainer = leftContainer;
+            _rightContainer = rightContainer;
         }
 
         #region External Functions
 
         public void SetupDialogueStates(int playerWinCount, int groupWinCount)
         {
-            #region Cleanup
+            #region Left Container
+
+            _leftCounter = 0;
+
+            Control leftDialogueMainInstance = (Control)_dialogueMainPrefab.Instance();
+            _leftContainer.AddChild(leftDialogueMainInstance);
+
+            for (int i = 0; i < playerWinCount; i++)
+            {
+                DialogueIntermediate leftDialogueIntermediateInstance =
+                    (DialogueIntermediate)_dialogueIntermediatePrefab.Instance();
+                _leftContainerDialogueIntermediates.Add(leftDialogueIntermediateInstance);
+                _leftContainer.AddChild(leftDialogueIntermediateInstance);
+            }
+
+            #endregion
+
+            #region Right Container
+
+            _rightCounter = groupWinCount - 1;
+
+            for (int i = 0; i < groupWinCount; i++)
+            {
+                DialogueIntermediate rightDialogueIntermediateInstance =
+                    (DialogueIntermediate)_dialogueIntermediatePrefab.Instance();
+                _rightContainerDialogueIntermediates.Add(rightDialogueIntermediateInstance);
+                _rightContainer.AddChild(rightDialogueIntermediateInstance);
+            }
+
+            Control rightDialogueMainInstance = (Control)_dialogueMainPrefab.Instance();
+            _rightContainer.AddChild(rightDialogueMainInstance);
+
+            #endregion
+        }
+
+        public void ClearDialogueStates()
+        {
+            _leftContainerDialogueIntermediates.Clear();
+            _rightContainerDialogueIntermediates.Clear();
 
             for (int i = 0; i < _leftContainer.GetChildCount(); i++)
             {
@@ -42,44 +90,6 @@ namespace StormTime.UI
             {
                 _rightContainer.GetChild(i).QueueFree();
             }
-
-            #endregion
-
-            #region Left Container
-
-            _leftContainerDialogueIntermediates.Clear();
-            _leftCounter = 0;
-
-            Control leftDialogueMainInstance = (Control)dialogueMainPrefab.Instance();
-            _leftContainer.AddChild(leftDialogueMainInstance);
-
-            for (int i = 0; i < playerWinCount; i++)
-            {
-                DialogueIntermediate leftDialogueIntermediateInstance =
-                    (DialogueIntermediate)dialogueIntermediatePrefab.Instance();
-                _leftContainerDialogueIntermediates.Add(leftDialogueIntermediateInstance);
-                _leftContainer.AddChild(leftDialogueIntermediateInstance);
-            }
-
-            #endregion
-
-            #region Right Container
-
-            _rightContainerDialogueIntermediates.Clear();
-            _rightCounter = groupWinCount - 1;
-
-            for (int i = 0; i < groupWinCount; i++)
-            {
-                DialogueIntermediate rightDialogueIntermediateInstance =
-                    (DialogueIntermediate)dialogueIntermediatePrefab.Instance();
-                _rightContainerDialogueIntermediates.Add(rightDialogueIntermediateInstance);
-                _rightContainer.AddChild(rightDialogueIntermediateInstance);
-            }
-
-            Control rightDialogueMainInstance = (Control)dialogueMainPrefab.Instance();
-            _rightContainer.AddChild(rightDialogueMainInstance);
-
-            #endregion
         }
 
         public bool IncrementPlayerWin()
@@ -101,6 +111,12 @@ namespace StormTime.UI
         public void DisplayDialoguePanel() => Visible = true;
 
         public void HideDialoguePanel() => Visible = false;
+
+        #endregion
+
+        #region Singleton
+
+        public static DialogueUiManager Instance;
 
         #endregion
     }
