@@ -1,15 +1,16 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=20 format=2]
 
-[ext_resource path="res://Prefabs/WorldElements/World.tscn" type="PackedScene" id=1]
-[ext_resource path="res://Scripts/Enemy/Groups/EnemySpawner.cs" type="Script" id=2]
-[ext_resource path="res://Prefabs/Interactibles/Enemies/Groups/EnemyGroup.tscn" type="PackedScene" id=3]
-[ext_resource path="res://Prefabs/Interactibles/Enemies/Groups/Enemy Group Spawn Point.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Prefabs/Interactibles/Player/Player.tscn" type="PackedScene" id=5]
-[ext_resource path="res://Scripts/Player/Shooting/PlayerShooting.cs" type="Script" id=6]
-[ext_resource path="res://Prefabs/Interactibles/Bullets/Bullet.tscn" type="PackedScene" id=7]
-[ext_resource path="res://Textures/light.png" type="Texture" id=8]
-[ext_resource path="res://Scripts/Camera/CameraFollowTarget.cs" type="Script" id=9]
-[ext_resource path="res://Prefabs/UI/GUI.tscn" type="PackedScene" id=10]
+[ext_resource path="res://Scripts/Scene/MainScene/DialogueManager.cs" type="Script" id=1]
+[ext_resource path="res://Prefabs/WorldElements/World.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Scripts/Enemy/Groups/EnemySpawner.cs" type="Script" id=3]
+[ext_resource path="res://Prefabs/Interactibles/Enemies/Groups/EnemyGroup.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Prefabs/Interactibles/Enemies/Groups/Enemy Group Spawn Point.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Prefabs/Interactibles/Player/Player.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Scripts/Player/Shooting/PlayerShooting.cs" type="Script" id=7]
+[ext_resource path="res://Prefabs/Interactibles/Bullets/Bullet.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Textures/light.png" type="Texture" id=9]
+[ext_resource path="res://Scripts/Camera/CameraFollowTarget.cs" type="Script" id=10]
+[ext_resource path="res://Prefabs/UI/GUI.tscn" type="PackedScene" id=11]
 
 [sub_resource type="Gradient" id=1]
 offsets = PoolRealArray( 0, 0.856481, 1 )
@@ -43,130 +44,137 @@ gradient = SubResource( 7 )
 
 [node name="Game World" type="Node2D" parent="."]
 
-[node name="World" parent="Game World" instance=ExtResource( 1 )]
+[node name="Managers" type="Node" parent="Game World"]
+
+[node name="Dialogue Manager" type="Node" parent="Game World/Managers"]
+script = ExtResource( 1 )
+dialogueChangeDelay = 0.3
+initialDialogueStartDelay = 0.3
+
+[node name="World" parent="Game World" instance=ExtResource( 2 )]
 
 [node name="Bullets Holder" type="Node2D" parent="Game World"]
 
 [node name="Enemy Spawn Points" type="Node2D" parent="Game World"]
 editor/display_folded = true
 position = Vector2( 0, 1 )
-script = ExtResource( 2 )
-enemyGroupPrefab = ExtResource( 3 )
+script = ExtResource( 3 )
+enemyGroupPrefab = ExtResource( 4 )
 minEnemyGroupsToSpawn = 18
 maxEnemyGroupsToSpawn = 22
 enemyGroupGradients = [ SubResource( 2 ), SubResource( 4 ), SubResource( 6 ), SubResource( 8 ) ]
 enemyGroupColors = PoolColorArray( 1, 0.537255, 0, 0.392157, 0.517647, 0, 1, 0.392157, 0, 1, 0.670588, 0.392157, 1, 0, 0.607843, 0.392157 )
 worldSpawnNodePaths = [ NodePath("Enemy Group Spawn Point_1"), NodePath("Enemy Group Spawn Point_2"), NodePath("Enemy Group Spawn Point_3"), NodePath("Enemy Group Spawn Point_4"), NodePath("Enemy Group Spawn Point_5"), NodePath("Enemy Group Spawn Point_6"), NodePath("Enemy Group Spawn Point_7"), NodePath("Enemy Group Spawn Point_8"), NodePath("Enemy Group Spawn Point_9"), NodePath("Enemy Group Spawn Point_10"), NodePath("Enemy Group Spawn Point_11"), NodePath("Enemy Group Spawn Point_12"), NodePath("Enemy Group Spawn Point_13"), NodePath("Enemy Group Spawn Point_14"), NodePath("Enemy Group Spawn Point_15"), NodePath("Enemy Group Spawn Point_16"), NodePath("Enemy Group Spawn Point_17"), NodePath("Enemy Group Spawn Point_18"), NodePath("Enemy Group Spawn Point_19"), NodePath("Enemy Group Spawn Point_20"), NodePath("Enemy Group Spawn Point_21"), NodePath("Enemy Group Spawn Point_22"), NodePath("Enemy Group Spawn Point_23"), NodePath("Enemy Group Spawn Point_24") ]
 
-[node name="Enemy Group Spawn Point_1" parent="Game World/Enemy Spawn Points" instance=ExtResource( 4 )]
+[node name="Enemy Group Spawn Point_1" parent="Game World/Enemy Spawn Points" instance=ExtResource( 5 )]
 position = Vector2( -1968.31, 1793.88 )
 maxEnemyDangerLevel = 1
 
-[node name="Enemy Group Spawn Point_2" parent="Game World/Enemy Spawn Points" instance=ExtResource( 4 )]
+[node name="Enemy Group Spawn Point_2" parent="Game World/Enemy Spawn Points" instance=ExtResource( 5 )]
 position = Vector2( -596.247, 1639.09 )
 maxEnemyDangerLevel = 1
 
-[node name="Enemy Group Spawn Point_3" parent="Game World/Enemy Spawn Points" instance=ExtResource( 4 )]
+[node name="Enemy Group Spawn Point_3" parent="Game World/Enemy Spawn Points" instance=ExtResource( 5 )]
 position = Vector2( -1341.42, 178.406 )
 maxEnemyDangerLevel = 2
 
-[node name="Enemy Group Spawn Point_4" parent="Game World/Enemy Spawn Points" instance=ExtResource( 4 )]
+[node name="Enemy Group Spawn Point_4" parent="Game World/Enemy Spawn Points" instance=ExtResource( 5 )]
 position = Vector2( -1188.56, -1588.99 )
 maxEnemyDangerLevel = 4
 
-[node name="Enemy Group Spawn Point_5" parent="Game World/Enemy Spawn Points" instance=ExtResource( 4 )]
+[node name="Enemy Group Spawn Point_5" parent="Game World/Enemy Spawn Points" instance=ExtResource( 5 )]
 position = Vector2( -1159.9, -690.96 )
 maxEnemyDangerLevel = 3
 
-[node name="Enemy Group Spawn Point_6" parent="Game World/Enemy Spawn Points" instance=ExtResource( 4 )]
+[node name="Enemy Group Spawn Point_6" parent="Game World/Enemy Spawn Points" instance=ExtResource( 5 )]
 position = Vector2( -137.68, -1569.88 )
 maxEnemyDangerLevel = 3
 
-[node name="Enemy Group Spawn Point_7" parent="Game World/Enemy Spawn Points" instance=ExtResource( 4 )]
+[node name="Enemy Group Spawn Point_7" parent="Game World/Enemy Spawn Points" instance=ExtResource( 5 )]
 position = Vector2( -195.001, -643.193 )
 maxEnemyDangerLevel = 2
 
-[node name="Enemy Group Spawn Point_8" parent="Game World/Enemy Spawn Points" instance=ExtResource( 4 )]
+[node name="Enemy Group Spawn Point_8" parent="Game World/Enemy Spawn Points" instance=ExtResource( 5 )]
 position = Vector2( 387.761, 1611.43 )
 maxEnemyDangerLevel = 4
 
-[node name="Enemy Group Spawn Point_9" parent="Game World/Enemy Spawn Points" instance=ExtResource( 4 )]
+[node name="Enemy Group Spawn Point_9" parent="Game World/Enemy Spawn Points" instance=ExtResource( 5 )]
 position = Vector2( 2222.03, 1601.87 )
 maxEnemyDangerLevel = 5
 
-[node name="Enemy Group Spawn Point_10" parent="Game World/Enemy Spawn Points" instance=ExtResource( 4 )]
+[node name="Enemy Group Spawn Point_10" parent="Game World/Enemy Spawn Points" instance=ExtResource( 5 )]
 position = Vector2( 1400.43, 1554.11 )
 maxEnemyDangerLevel = 3
 
-[node name="Enemy Group Spawn Point_11" parent="Game World/Enemy Spawn Points" instance=ExtResource( 4 )]
+[node name="Enemy Group Spawn Point_11" parent="Game World/Enemy Spawn Points" instance=ExtResource( 5 )]
 position = Vector2( 1515.07, 474.563 )
 maxEnemyDangerLevel = 4
 
-[node name="Enemy Group Spawn Point_12" parent="Game World/Enemy Spawn Points" instance=ExtResource( 4 )]
+[node name="Enemy Group Spawn Point_12" parent="Game World/Enemy Spawn Points" instance=ExtResource( 5 )]
 position = Vector2( -1570.05, -1635.48 )
 maxEnemyDangerLevel = 5
 
-[node name="Enemy Group Spawn Point_13" parent="Game World/Enemy Spawn Points" instance=ExtResource( 4 )]
+[node name="Enemy Group Spawn Point_13" parent="Game World/Enemy Spawn Points" instance=ExtResource( 5 )]
 position = Vector2( -691.781, 522.331 )
 maxEnemyDangerLevel = 2
 
-[node name="Enemy Group Spawn Point_14" parent="Game World/Enemy Spawn Points" instance=ExtResource( 4 )]
+[node name="Enemy Group Spawn Point_14" parent="Game World/Enemy Spawn Points" instance=ExtResource( 5 )]
 position = Vector2( 1066.06, -547.658 )
 maxEnemyDangerLevel = 7
 
-[node name="Enemy Group Spawn Point_15" parent="Game World/Enemy Spawn Points" instance=ExtResource( 4 )]
+[node name="Enemy Group Spawn Point_15" parent="Game World/Enemy Spawn Points" instance=ExtResource( 5 )]
 position = Vector2( 1018.29, -1617.65 )
 maxEnemyDangerLevel = 3
 
-[node name="Enemy Group Spawn Point_16" parent="Game World/Enemy Spawn Points" instance=ExtResource( 4 )]
+[node name="Enemy Group Spawn Point_16" parent="Game World/Enemy Spawn Points" instance=ExtResource( 5 )]
 position = Vector2( 2030.96, -796.048 )
 maxEnemyDangerLevel = 7
 
-[node name="Enemy Group Spawn Point_17" parent="Game World/Enemy Spawn Points" instance=ExtResource( 4 )]
+[node name="Enemy Group Spawn Point_17" parent="Game World/Enemy Spawn Points" instance=ExtResource( 5 )]
 position = Vector2( 2317.56, -1617.65 )
 maxEnemyDangerLevel = 7
 
-[node name="Enemy Group Spawn Point_18" parent="Game World/Enemy Spawn Points" instance=ExtResource( 4 )]
+[node name="Enemy Group Spawn Point_18" parent="Game World/Enemy Spawn Points" instance=ExtResource( 5 )]
 position = Vector2( 2661.49, -901.137 )
 maxEnemyDangerLevel = 7
 
-[node name="Enemy Group Spawn Point_19" parent="Game World/Enemy Spawn Points" instance=ExtResource( 4 )]
+[node name="Enemy Group Spawn Point_19" parent="Game World/Enemy Spawn Points" instance=ExtResource( 5 )]
 position = Vector2( 2260.24, 646.526 )
 maxEnemyDangerLevel = 6
 
-[node name="Enemy Group Spawn Point_20" parent="Game World/Enemy Spawn Points" instance=ExtResource( 4 )]
+[node name="Enemy Group Spawn Point_20" parent="Game World/Enemy Spawn Points" instance=ExtResource( 5 )]
 position = Vector2( 2745.43, 1305.72 )
 maxEnemyDangerLevel = 7
 
-[node name="Enemy Group Spawn Point_21" parent="Game World/Enemy Spawn Points" instance=ExtResource( 4 )]
+[node name="Enemy Group Spawn Point_21" parent="Game World/Enemy Spawn Points" instance=ExtResource( 5 )]
 position = Vector2( 2680.59, 465.01 )
 maxEnemyDangerLevel = 9
 
-[node name="Enemy Group Spawn Point_22" parent="Game World/Enemy Spawn Points" instance=ExtResource( 4 )]
+[node name="Enemy Group Spawn Point_22" parent="Game World/Enemy Spawn Points" instance=ExtResource( 5 )]
 position = Vector2( 1505.52, -442.57 )
 maxEnemyDangerLevel = 5
 
-[node name="Enemy Group Spawn Point_23" parent="Game World/Enemy Spawn Points" instance=ExtResource( 4 )]
+[node name="Enemy Group Spawn Point_23" parent="Game World/Enemy Spawn Points" instance=ExtResource( 5 )]
 position = Vector2( 2737.11, -1859.52 )
 maxEnemyDangerLevel = 9
 
-[node name="Enemy Group Spawn Point_24" parent="Game World/Enemy Spawn Points" instance=ExtResource( 4 )]
+[node name="Enemy Group Spawn Point_24" parent="Game World/Enemy Spawn Points" instance=ExtResource( 5 )]
 position = Vector2( 251.291, -1110.76 )
 maxEnemyDangerLevel = 8
 
-[node name="Player" parent="Game World" instance=ExtResource( 5 )]
+[node name="Player" parent="Game World" instance=ExtResource( 6 )]
 editor/display_folded = true
 position = Vector2( -2270, 2080 )
 scaleChangeFrequency = 1.0
 
 [node name="Player Shooter" type="Node2D" parent="Game World/Player"]
-script = ExtResource( 6 )
+script = ExtResource( 7 )
 _playerBulletHolderNodePath = NodePath("../../Bullets Holder")
-playerBulletPrefab = ExtResource( 7 )
+playerBulletPrefab = ExtResource( 8 )
 
 [node name="Scene Light" type="Light2D" parent="Game World/Player"]
 scale = Vector2( 66.6667, 66.6667 )
-texture = ExtResource( 8 )
+texture = ExtResource( 9 )
 energy = 1.5
 range_height = 7.0
 shadow_enabled = true
@@ -183,11 +191,11 @@ drag_margin_left = 0.1
 drag_margin_top = 0.1
 drag_margin_right = 0.1
 drag_margin_bottom = 0.1
-script = ExtResource( 9 )
+script = ExtResource( 10 )
 targetNode = NodePath("../Player")
 lockBottomLeftCorner = Vector2( -1900, 1890 )
 lockTopRightCorner = Vector2( 2945, -2000 )
 
 [node name="Canvas" type="CanvasLayer" parent="."]
 
-[node name="GUI" parent="Canvas" instance=ExtResource( 10 )]
+[node name="GUI" parent="Canvas" instance=ExtResource( 11 )]

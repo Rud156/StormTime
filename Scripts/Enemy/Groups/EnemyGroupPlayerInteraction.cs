@@ -6,6 +6,8 @@ namespace StormTime.Enemy.Groups
 {
     public class EnemyGroupPlayerInteraction : Area2D
     {
+        [Export] public NodePath parentGroupNodePath;
+
         private enum PlayerInteractionState
         {
             NotActive,
@@ -14,14 +16,16 @@ namespace StormTime.Enemy.Groups
             Completed
         }
 
+        private EnemyGroup _parentGroup;
+
         private PlayerInteractionState _playerInteractionState;
         private bool _playerIsInside;
         private PlayerController _playerController;
 
-
         public override void _Ready()
         {
             _playerIsInside = false;
+            _parentGroup = GetNode<EnemyGroup>(parentGroupNodePath);
 
             base.Connect("body_entered", this, "HandlePlayerEntry");
             base.Connect("body_exited", this, "HandlePlayerExit");

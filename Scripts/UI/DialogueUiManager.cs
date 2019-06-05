@@ -39,6 +39,16 @@ namespace StormTime.UI
 
         #region External Functions
 
+        public void SetDialogueQuestionsAndOptions(string question, string[] possibleAnswers)
+        {
+
+        }
+
+        public void ShowEndingDialogue(string dialogue)
+        {
+
+        }
+
         public void SetupDialogueStates(int playerWinCount, int groupWinCount)
         {
             #region Left Container
