@@ -1,0 +1,57 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Scripts/UI/DialogueKeyTextDisplay.cs" type="Script" id=1]
+[ext_resource path="res://Textures/White Pixel.png" type="Texture" id=2]
+[ext_resource path="res://Prefabs/UI/Default Theme.tres" type="Theme" id=3]
+
+[sub_resource type="DynamicFontData" id=1]
+font_path = "res://Fonts/Bangers.ttf"
+
+[sub_resource type="DynamicFont" id=2]
+size = 14
+use_mipmaps = true
+use_filter = true
+font_data = SubResource( 1 )
+
+[node name="Dialogue Text" type="Control"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -445.065
+margin_top = 113.88
+margin_right = -31.0645
+margin_bottom = 177.88
+script = ExtResource( 1 )
+keyTextNodePath = NodePath("Key/Key Letter")
+dialogueTextNodePath = NodePath("Label")
+
+[node name="Key" type="TextureRect" parent="."]
+margin_left = 10.45
+margin_top = 10.45
+margin_right = 50.45
+margin_bottom = 50.45
+texture = ExtResource( 2 )
+expand = true
+
+[node name="Key Letter" type="Label" parent="Key"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 3 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "A "
+align = 1
+valign = 1
+
+[node name="Label" type="Label" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 64.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_stretch_ratio = 0.0
+theme = ExtResource( 3 )
+custom_fonts/font = SubResource( 2 )
+text = "Hello. This is a test text to see how large text can be fit inside sdffffffff"
+align = 1
+valign = 1
+autowrap = true
