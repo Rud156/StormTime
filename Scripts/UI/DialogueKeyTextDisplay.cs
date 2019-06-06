@@ -16,10 +16,24 @@ namespace StormTime.UI
             _dialogueLabel = GetNode<Label>(dialogueTextNodePath);
         }
 
-        public void SetDialogueAndKey(string key, string dialogue)
+        public void SetAndDisplayDialogueAndKey(string key, string dialogue)
         {
             _keyTextLabel.SetText(key);
             _dialogueLabel.SetText(dialogue);
+
+            DisplayDialogue();
         }
+
+        public void ClearAndHideDialogueAndKey()
+        {
+            _keyTextLabel.SetText(string.Empty);
+            _dialogueLabel.SetText(string.Empty);
+
+            HideDialogue();
+        }
+
+        public void DisplayDialogue() => SetVisible(true);
+
+        public void HideDialogue() => SetVisible(false);
     }
 }

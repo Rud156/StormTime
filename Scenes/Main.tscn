@@ -48,6 +48,7 @@ gradient = SubResource( 7 )
 
 [node name="Dialogue Manager" type="Node" parent="Game World/Managers"]
 script = ExtResource( 1 )
+dialogueUiNodePath = NodePath("../../../Canvas/GUI/Dialogue Panel")
 dialogueChangeDelay = 0.3
 initialDialogueStartDelay = 0.3
 
@@ -199,3 +200,5 @@ lockTopRightCorner = Vector2( 2945, -2000 )
 [node name="Canvas" type="CanvasLayer" parent="."]
 
 [node name="GUI" parent="Canvas" instance=ExtResource( 11 )]
+
+[editable path="Canvas/GUI"]

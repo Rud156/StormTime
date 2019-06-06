@@ -26,7 +26,6 @@ ExtensionFunctions="*res://Scripts/Utils/ExtensionFunctions.cs"
 PlayerVariables="*res://Scripts/Player/Data/PlayerVariables.cs"
 VectorHelpers="*res://Scripts/Utils/VectorHelpers.cs"
 TagManager="*res://Scripts/Utils/TagManager.cs"
-DialogueUiManager="*res://Scripts/UI/DialogueUiManager.cs"
 
 [display]
 

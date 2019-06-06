@@ -68,7 +68,6 @@
     <Compile Include="Scripts\Player\Data\PlayerVariables.cs" />
     <Compile Include="Scripts\UI\DialogueIntermediate.cs" />
     <Compile Include="Scripts\UI\DialogueKeyTextDisplay.cs" />
-    <Compile Include="Scripts\UI\DialogueUiInitializer.cs" />
     <Compile Include="Scripts\UI\DialogueUiManager.cs" />
     <Compile Include="Scripts\UI\FPSLabel.cs" />
     <Compile Include="Scripts\Utils\ExtensionFunctions.cs" />

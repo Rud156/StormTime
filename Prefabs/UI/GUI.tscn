@@ -2,7 +2,7 @@
 
 [ext_resource path="res://Prefabs/UI/Default Theme.tres" type="Theme" id=1]
 [ext_resource path="res://Scripts/UI/FPSLabel.cs" type="Script" id=2]
-[ext_resource path="res://Scripts/UI/DialogueUiInitializer.cs" type="Script" id=3]
+[ext_resource path="res://Scripts/UI/DialogueUiManager.cs" type="Script" id=3]
 [ext_resource path="res://Prefabs/UI/DialogueIntermediate.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Prefabs/UI/DialogueMain.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Textures/RingFadeOut.png" type="Texture" id=6]
@@ -39,11 +39,16 @@ self_modulate = Color( 1, 1, 1, 0.392157 )
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_top = -350.0
+margin_top = -439.0
 margin_bottom = -50.0
 script = ExtResource( 3 )
 leftContainerNodePath = NodePath("Left Container")
 rightContainerNodePath = NodePath("Right Container")
+dialogueContainerNodePath = NodePath("Dialogue Container")
+dialogueQuestionNodePath = NodePath("Dialogue Question")
+dialogueKeyTextNodePaths = [ NodePath("Dialogue Container/A Dialogue Text"), NodePath("Dialogue Container/W Dialogue Text"), NodePath("Dialogue Container/D Dialogue Text") ]
+endingDialogueContainerNodePath = NodePath("Ending Dialogue Container")
+endingDialogueLabelNodePath = NodePath("Ending Dialogue Container/Ending Dialogue Text")
 dialogueIntermediatePackedScene = ExtResource( 4 )
 dialogueMainPackedScene = ExtResource( 5 )
 
@@ -81,24 +86,55 @@ anchor_bottom = 1.0
 margin_top = -120.0
 custom_constants/separation = 14
 
-[node name="Display Button Holder" type="Control" parent="Dialogue Panel"]
+[node name="Dialogue Container" type="Control" parent="Dialogue Panel"]
+editor/display_folded = true
+visible = false
 anchor_right = 1.0
-margin_bottom = 191.0
+margin_top = 90.8
+margin_bottom = 281.8
 
-[node name="A Dialogue Text" parent="Dialogue Panel/Display Button Holder" instance=ExtResource( 7 )]
+[node name="A Dialogue Text" parent="Dialogue Panel/Dialogue Container" instance=ExtResource( 7 )]
 margin_left = -462.0
 margin_top = 120.0
 margin_right = -47.9995
 margin_bottom = 184.0
+keyTextNodePath = NodePath("../../Dialogue Container/A Dialogue Text/Key/Key Letter")
+dialogueTextNodePath = NodePath("../../Dialogue Container/A Dialogue Text/Label")
 
-[node name="W Dialogue Text" parent="Dialogue Panel/Display Button Holder" instance=ExtResource( 7 )]
+[node name="W Dialogue Text" parent="Dialogue Panel/Dialogue Container" instance=ExtResource( 7 )]
 margin_left = -206.0
 margin_top = 30.0
 margin_right = 208.001
 margin_bottom = 94.0
+keyTextNodePath = NodePath("../../Dialogue Container/W Dialogue Text/Key/Key Letter")
+dialogueTextNodePath = NodePath("../../Dialogue Container/W Dialogue Text/Label")
 
-[node name="D Dialogue Text" parent="Dialogue Panel/Display Button Holder" instance=ExtResource( 7 )]
+[node name="D Dialogue Text" parent="Dialogue Panel/Dialogue Container" instance=ExtResource( 7 )]
 margin_left = 48.0
 margin_top = 120.0
 margin_right = 462.0
 margin_bottom = 184.0
+keyTextNodePath = NodePath("../../Dialogue Container/D Dialogue Text/Key/Key Letter")
+dialogueTextNodePath = NodePath("../../Dialogue Container/D Dialogue Text/Label")
+
+[node name="Ending Dialogue Container" type="Control" parent="Dialogue Panel"]
+visible = false
+anchor_right = 1.0
+margin_bottom = 190.0
+
+[node name="Ending Dialogue Text" type="Label" parent="Dialogue Panel/Ending Dialogue Container"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 1 )
+align = 1
+valign = 1
+
+[node name="Dialogue Question" type="Label" parent="Dialogue Panel"]
+visible = false
+anchor_right = 1.0
+margin_left = 35.0
+margin_right = -35.0
+margin_bottom = 92.0
+theme = ExtResource( 1 )
+align = 1
+valign = 1
