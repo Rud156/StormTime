@@ -57,6 +57,7 @@ initialDialogueStartDelay = 0.3
 [node name="Bullets Holder" type="Node2D" parent="Game World"]
 
 [node name="Enemy Spawn Points" type="Node2D" parent="Game World"]
+editor/display_folded = true
 position = Vector2( 0, 1 )
 script = ExtResource( 3 )
 enemyGroupPrefab = ExtResource( 4 )
@@ -165,6 +166,7 @@ maxEnemyDangerLevel = 8
 [node name="Player" parent="Game World" instance=ExtResource( 6 )]
 position = Vector2( -2270, 2080 )
 scaleChangeFrequency = 1.0
+playerShootingNodePath = NodePath("Player Shooter")
 
 [node name="Player Shooter" type="Node2D" parent="Game World/Player"]
 script = ExtResource( 7 )

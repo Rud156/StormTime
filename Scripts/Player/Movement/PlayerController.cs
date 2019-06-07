@@ -1,5 +1,6 @@
 using Godot;
 using StormTime.Player.Data;
+using StormTime.Player.Shooting;
 using StormTime.Utils;
 
 namespace StormTime.Player.Movement
@@ -16,11 +17,16 @@ namespace StormTime.Player.Movement
         [Export] public float rotationRate;
         [Export] public float lerpVelocity;
 
+        // Other Controls
+        [Export] public NodePath playerShootingNodePath;
+
         public enum PlayerState
         {
             PlayerInControlMovement,
             PlayerFloatingMovement
         }
+
+        private PlayerShooting _playerShooting;
 
         private PlayerState _playerState;
         private Vector2 _movement;
@@ -32,6 +38,8 @@ namespace StormTime.Player.Movement
 
         public override void _Ready()
         {
+            _playerShooting = GetNode<PlayerShooting>(playerShootingNodePath);
+
             _movement = new Vector2();
             _targetScale = Vector2.One * defaultScaleAmount;
             _lerpPosition = new Vector2();
@@ -126,6 +134,10 @@ namespace StormTime.Player.Movement
         public void ResetSizeDefaults() => _targetScale = Vector2.One * defaultScaleAmount;
 
         public void SetLerpPosition(Vector2 position) => _lerpPosition = position;
+
+        public void ActivateShooting() => _playerShooting.ActivateShooting();
+
+        public void DeActivateShooting() => _playerShooting.DeActivateShooting();
 
         public void SetPlayerState(PlayerState playerState)
         {

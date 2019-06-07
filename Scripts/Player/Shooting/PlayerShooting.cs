@@ -6,7 +6,7 @@ using StormTime.Weapon;
 
 namespace StormTime.Player.Shooting
 {
-    public class PlayerShooting : Node
+    public class PlayerShooting : Node2D
     {
         [Export] public NodePath _playerBulletHolderNodePath;
         [Export] public PackedScene playerBulletPrefab;
@@ -14,17 +14,21 @@ namespace StormTime.Player.Shooting
         private Node2D _playerBulletHolder;
         private PlayerController _playerRoot;
 
+        private bool _shootingActive;
+
         public override void _Ready()
         {
-            base._Ready();
-
+            _shootingActive = true;
             _playerBulletHolder = GetNode<Node2D>(_playerBulletHolderNodePath);
             _playerRoot = GetParent<PlayerController>();
         }
 
         public override void _Process(float delta)
         {
-            base._Process(delta);
+            if (!_shootingActive)
+            {
+                return;
+            }
 
             if (Input.IsActionJustPressed(SceneControls.Shoot))
             {
@@ -40,5 +44,13 @@ namespace StormTime.Player.Shooting
             bulletInstance.SetGlobalPosition(_playerRoot.GetGlobalPosition());
             bulletInstance.LaunchBullet(_playerRoot.GetTransform().x);
         }
+
+        #region External Functions
+
+        public void ActivateShooting() => _shootingActive = true;
+
+        public void DeActivateShooting() => _shootingActive = false;
+
+        #endregion
     }
 }

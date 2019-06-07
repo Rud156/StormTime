@@ -80,8 +80,6 @@ namespace StormTime.Scene.MainScene
             //LoadDialoguesFromFile();
         }
 
-        public void PrintHello() => GD.Print("Hello");
-
         private void LoadDialoguesFromFile()
         {
             File file = new File();

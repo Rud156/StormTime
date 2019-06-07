@@ -1,5 +1,6 @@
 using Godot;
 using StormTime.Player.Movement;
+using StormTime.Scene.MainScene;
 using StormTime.Utils;
 
 namespace StormTime.Enemy.Groups
@@ -68,6 +69,10 @@ namespace StormTime.Enemy.Groups
             {
                 _playerController.SetLerpPosition(GetGlobalPosition());
                 _playerController.SetPlayerState(PlayerController.PlayerState.PlayerFloatingMovement);
+                _playerController.DeActivateShooting();
+
+                DialogueManager.Instance.StartRandomDialogueInteraction(_parentGroup);
+
                 SetPlayerInteractionState(PlayerInteractionState.Active);
             }
         }
@@ -81,6 +86,7 @@ namespace StormTime.Enemy.Groups
         {
             SetPlayerInteractionState(PlayerInteractionState.Completed);
             _playerController.SetPlayerState(PlayerController.PlayerState.PlayerInControlMovement);
+            _playerController.ActivateShooting();
         }
 
         private void HandlePlayerInteractionComplete(float delta)
