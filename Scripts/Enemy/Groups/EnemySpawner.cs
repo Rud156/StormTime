@@ -1,5 +1,7 @@
+using System;
 using Godot;
 using System.Collections.Generic;
+using Object = Godot.Object;
 
 namespace StormTime.Enemy.Groups
 {
@@ -59,17 +61,22 @@ namespace StormTime.Enemy.Groups
 
         private void SpawnEnemyGroup()
         {
+            GD.Print($"Spawning Enemy Group: {_currentEnemyGroups}");
+
             int randomIndex = (int)(GD.Randi() % _availableWorldSpawnPoints.Count);
             EnemySpawnPoint spawnNode = _availableWorldSpawnPoints[randomIndex];
             Vector2 spawnPosition = spawnNode.GetGlobalPosition();
 
             EnemyGroup enemyGroupInstance = (EnemyGroup)enemyGroupPrefab.Instance();
             spawnNode.AddChild(enemyGroupInstance);
-            
+
+            GD.Print("Setting Colors");
             enemyGroupInstance.SetEnemyGroupColors(
-                enemyGroupColors[GD.Randi()% enemyGroupColors.Length],
-                (GradientTexture) enemyGroupGradients[(int)(GD.Randi()%enemyGroupGradients.Count)]
+                enemyGroupColors[GD.Randi() % enemyGroupColors.Length],
+                (GradientTexture)enemyGroupGradients[(int)(GD.Randi() % enemyGroupGradients.Count)]
             );
+            GD.Print("Colors Set");
+
             enemyGroupInstance.ActivateEnemySpawning(spawnNode.GetEnemyDangerLevel());
             enemyGroupInstance.SetGlobalPosition(spawnPosition);
 

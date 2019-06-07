@@ -110,6 +110,7 @@ position = Vector2( -580, 85 )
 
 [node name="Interaction Area" type="Area2D" parent="."]
 script = ExtResource( 5 )
+parentGroupNodePath = NodePath("..")
 
 [node name="Interaction Particles" type="Particles2D" parent="Interaction Area"]
 z_index = -12

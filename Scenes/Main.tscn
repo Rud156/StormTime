@@ -48,7 +48,7 @@ gradient = SubResource( 7 )
 
 [node name="Dialogue Manager" type="Node" parent="Game World/Managers"]
 script = ExtResource( 1 )
-dialogueUiNodePath = NodePath("../../../Canvas/GUI/Dialogue Panel")
+dialogueUiNodePath = NodePath("../../../CanvasLayer/GUI/Dialogue Panel")
 dialogueChangeDelay = 0.3
 initialDialogueStartDelay = 0.3
 
@@ -57,7 +57,6 @@ initialDialogueStartDelay = 0.3
 [node name="Bullets Holder" type="Node2D" parent="Game World"]
 
 [node name="Enemy Spawn Points" type="Node2D" parent="Game World"]
-editor/display_folded = true
 position = Vector2( 0, 1 )
 script = ExtResource( 3 )
 enemyGroupPrefab = ExtResource( 4 )
@@ -164,7 +163,6 @@ position = Vector2( 251.291, -1110.76 )
 maxEnemyDangerLevel = 8
 
 [node name="Player" parent="Game World" instance=ExtResource( 6 )]
-editor/display_folded = true
 position = Vector2( -2270, 2080 )
 scaleChangeFrequency = 1.0
 
@@ -197,8 +195,6 @@ targetNode = NodePath("../Player")
 lockBottomLeftCorner = Vector2( -1900, 1890 )
 lockTopRightCorner = Vector2( 2945, -2000 )
 
-[node name="Canvas" type="CanvasLayer" parent="."]
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="GUI" parent="Canvas" instance=ExtResource( 11 )]
-
-[editable path="Canvas/GUI"]
+[node name="GUI" parent="CanvasLayer" instance=ExtResource( 11 )]

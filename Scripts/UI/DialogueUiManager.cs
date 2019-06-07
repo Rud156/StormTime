@@ -38,22 +38,22 @@ namespace StormTime.UI
 
         public override void _Ready()
         {
-            _leftContainerDialogueIntermediates = new List<DialogueIntermediate>();
-            _rightContainerDialogueIntermediates = new List<DialogueIntermediate>();
-            _dialogueKeyTexts = new List<DialogueKeyTextDisplay>();
+            //_leftContainerDialogueIntermediates = new List<DialogueIntermediate>();
+            //_rightContainerDialogueIntermediates = new List<DialogueIntermediate>();
+            //_dialogueKeyTexts = new List<DialogueKeyTextDisplay>();
 
-            _leftContainer = GetNode<Control>(leftContainerNodePath);
-            _rightContainer = GetNode<Control>(rightContainerNodePath);
+            //_leftContainer = GetNode<Control>(leftContainerNodePath);
+            //_rightContainer = GetNode<Control>(rightContainerNodePath);
 
-            _endingDialogueContainer = GetNode<Control>(endingDialogueContainerNodePath);
-            _endingDialogueLabel = GetNode<Label>(endingDialogueLabelNodePath);
+            //_endingDialogueContainer = GetNode<Control>(endingDialogueContainerNodePath);
+            //_endingDialogueLabel = GetNode<Label>(endingDialogueLabelNodePath);
 
-            _dialogueContainer = GetNode<Control>(dialogueContainerNodePath);
-            _dialogueQuestion = GetNode<Label>(dialogueQuestionNodePath);
-            foreach (var dialogueKeyText in dialogueKeyTextNodePaths)
-            {
-                _dialogueKeyTexts.Add(GetNode<DialogueKeyTextDisplay>(dialogueKeyText));
-            }
+            //_dialogueContainer = GetNode<Control>(dialogueContainerNodePath);
+            //_dialogueQuestion = GetNode<Label>(dialogueQuestionNodePath);
+            //foreach (var dialogueKeyText in dialogueKeyTextNodePaths)
+            //{
+            //    _dialogueKeyTexts.Add(GetNode<DialogueKeyTextDisplay>(dialogueKeyText));
+            //}
         }
 
         #region External Functions

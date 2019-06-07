@@ -2,7 +2,7 @@ using Godot;
 
 namespace StormTime.UI
 {
-    public class DialogueKeyTextDisplay : Panel
+    public class DialogueKeyTextDisplay : Control
     {
         [Export] public NodePath keyTextNodePath;
         [Export] public NodePath dialogueTextNodePath;
@@ -12,8 +12,8 @@ namespace StormTime.UI
 
         public override void _Ready()
         {
-            _keyTextLabel = GetNode<Label>(keyTextNodePath);
-            _dialogueLabel = GetNode<Label>(dialogueTextNodePath);
+            //_keyTextLabel = GetNode<Label>(keyTextNodePath);
+            //_dialogueLabel = GetNode<Label>(dialogueTextNodePath);
         }
 
         public void SetAndDisplayDialogueAndKey(string key, string dialogue)

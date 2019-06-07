@@ -1,40 +1,44 @@
 using Godot;
 using StormTime.Player.Movement;
+using StormTime.Scene.MainScene;
 using StormTime.Utils;
 using StormTime.Weapon;
 
-public class PlayerShooting : Node
+namespace StormTime.Player.Shooting
 {
-    [Export] public NodePath _playerBulletHolderNodePath;
-    [Export] public PackedScene playerBulletPrefab;
-
-    private Node2D _playerBulletHolder;
-    private PlayerController _playerRoot;
-
-    public override void _Ready()
+    public class PlayerShooting : Node
     {
-        base._Ready();
+        [Export] public NodePath _playerBulletHolderNodePath;
+        [Export] public PackedScene playerBulletPrefab;
 
-        _playerBulletHolder = GetNode<Node2D>(_playerBulletHolderNodePath);
-        _playerRoot = GetParent<PlayerController>();
-    }
+        private Node2D _playerBulletHolder;
+        private PlayerController _playerRoot;
 
-    public override void _Process(float delta)
-    {
-        base._Process(delta);
-
-        if (Input.IsActionJustPressed(SceneControls.Shoot))
+        public override void _Ready()
         {
-            ShootBullet();
+            base._Ready();
+
+            _playerBulletHolder = GetNode<Node2D>(_playerBulletHolderNodePath);
+            _playerRoot = GetParent<PlayerController>();
         }
-    }
 
-    private void ShootBullet()
-    {
-        Bullet bulletInstance = (Bullet)playerBulletPrefab.Instance();
-        _playerBulletHolder.AddChild(bulletInstance);
+        public override void _Process(float delta)
+        {
+            base._Process(delta);
 
-        bulletInstance.SetGlobalPosition(_playerRoot.GetGlobalPosition());
-        bulletInstance.LaunchBullet(_playerRoot.GetTransform().x);
+            if (Input.IsActionJustPressed(SceneControls.Shoot))
+            {
+                ShootBullet();
+            }
+        }
+
+        private void ShootBullet()
+        {
+            Bullet bulletInstance = (Bullet)playerBulletPrefab.Instance();
+            _playerBulletHolder.AddChild(bulletInstance);
+
+            bulletInstance.SetGlobalPosition(_playerRoot.GetGlobalPosition());
+            bulletInstance.LaunchBullet(_playerRoot.GetTransform().x);
+        }
     }
 }

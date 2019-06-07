@@ -72,6 +72,18 @@ namespace StormTime.Scene.MainScene
 
             _dialogueSequenceStarted = false;
 
+            if (Instance == null)
+            {
+                Instance = this;
+            }
+
+            //LoadDialoguesFromFile();
+        }
+
+        public void PrintHello() => GD.Print("Hello");
+
+        private void LoadDialoguesFromFile()
+        {
             File file = new File();
             file.Open(DIALOGUE_PATH, (int)File.ModeFlags.Read);
 
@@ -240,6 +252,12 @@ namespace StormTime.Scene.MainScene
 
             _nextActionDisplayState = nextActionDisplayState;
         }
+
+        #endregion
+
+        #region Singleton
+
+        public static DialogueManager Instance;
 
         #endregion
     }

@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using Godot;
-using StormTime.Effects;
 
 namespace StormTime.Enemy.Groups
 {
@@ -31,16 +30,13 @@ namespace StormTime.Enemy.Groups
         private int _currentEnemyTypeIndex;
         private int _currentEnemyTypeCount;
         private bool _spawnEnemies;
-
-        public EnemyGroup()
+        
+        public override void _Ready()
         {
             _spawnPoints = new List<Node2D>();
             _enemyTypeCount = new List<int> { 0, 0, 0 };
             _groupEnemies = new List<Individuals.Enemy>();
-        }
 
-        public override void _Ready()
-        {
             _interactionSprite = GetNode<Sprite>(interactionSpriteNodePath);
             _interactionParticles = GetNode<Particles2D>(interactionParticlesNodePath);
 
