@@ -30,7 +30,9 @@ namespace StormTime.Enemy.Groups
         private int _currentEnemyTypeIndex;
         private int _currentEnemyTypeCount;
         private bool _spawnEnemies;
-        
+
+        private bool _playerHostile;
+
         public override void _Ready()
         {
             _spawnPoints = new List<Node2D>();
@@ -157,7 +159,11 @@ namespace StormTime.Enemy.Groups
             {
                 enemy.SetPlayerHostileState(playerHostile);
             }
+
+            _playerHostile = playerHostile;
         }
+
+        public bool IsPlayerHostile() => _playerHostile;
 
         #endregion
     }

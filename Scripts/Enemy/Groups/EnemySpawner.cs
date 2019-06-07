@@ -23,6 +23,8 @@ namespace StormTime.Enemy.Groups
 
         public override void _Ready()
         {
+            GD.Randomize();
+
             _worldSpawnPoints = new List<EnemySpawnPoint>();
             _availableWorldSpawnPoints = new List<EnemySpawnPoint>();
             _currentEnemyGroups = 0;
@@ -70,13 +72,11 @@ namespace StormTime.Enemy.Groups
             EnemyGroup enemyGroupInstance = (EnemyGroup)enemyGroupPrefab.Instance();
             spawnNode.AddChild(enemyGroupInstance);
 
-            GD.Print("Setting Colors");
             enemyGroupInstance.SetEnemyGroupColors(
                 enemyGroupColors[GD.Randi() % enemyGroupColors.Length],
                 (GradientTexture)enemyGroupGradients[(int)(GD.Randi() % enemyGroupGradients.Count)]
             );
-            GD.Print("Colors Set");
-
+            
             enemyGroupInstance.ActivateEnemySpawning(spawnNode.GetEnemyDangerLevel());
             enemyGroupInstance.SetGlobalPosition(spawnPosition);
 

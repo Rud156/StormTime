@@ -67,6 +67,11 @@ namespace StormTime.Enemy.Groups
 
             if (Input.IsActionJustPressed(SceneControls.Interact))
             {
+                if (_parentGroup.IsPlayerHostile())
+                {
+                    return;
+                }
+
                 _playerController.SetLerpPosition(GetGlobalPosition());
                 _playerController.SetPlayerState(PlayerController.PlayerState.PlayerFloatingMovement);
                 _playerController.DeActivateShooting();

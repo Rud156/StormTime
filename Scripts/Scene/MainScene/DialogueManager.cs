@@ -18,13 +18,13 @@ namespace StormTime.Scene.MainScene
             public string answer;
             public int nextInIndex;
             public bool isCorrectAnswer;
+            public int endingDialogueIndex;
         }
 
         private struct DialogueStructure
         {
             public string question;
             public DialogueAnswer[] dialogueAnswers;
-            public int endingDialogueIndex;
             public bool isEndingDialogue;
         }
 
@@ -166,7 +166,7 @@ namespace StormTime.Scene.MainScene
 
                 if (dialogueInteractionOver)
                 {
-                    _endingDialogue = _dialogues[_onGoingDialogue.endingDialogueIndex].question;
+                    _endingDialogue = _dialogues[_onGoingDialogue.dialogueAnswers[dialogueIndexPressed].endingDialogueIndex].question;
                     _currentDialogueWaitTime = dialogueChangeDelay;
                     SetNextActionDisplayState(NextActionDisplayState.ClearAndDisplayEnding);
                     _dialogueSequenceStarted = false;
