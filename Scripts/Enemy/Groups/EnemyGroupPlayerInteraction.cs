@@ -23,8 +23,11 @@ namespace StormTime.Enemy.Groups
         private bool _playerIsInside;
         private PlayerController _playerController;
 
+        private int _playerInteractionId;
+
         public override void _Ready()
         {
+            _playerInteractionId = -1;
             _playerIsInside = false;
             _parentGroup = GetNode<EnemyGroup>(parentGroupNodePath);
 
@@ -76,7 +79,14 @@ namespace StormTime.Enemy.Groups
                 _playerController.SetPlayerState(PlayerController.PlayerState.PlayerFloatingMovement);
                 _playerController.DeActivateShooting();
 
-                DialogueManager.Instance.StartRandomDialogueInteraction(_parentGroup);
+                if (_playerInteractionId == -1)
+                {
+                    DialogueManager.Instance.StartRandomDialogueInteraction(_parentGroup);
+                }
+                else
+                {
+                    DialogueManager.Instance.StartDialogueInteraction(_parentGroup, _playerInteractionId);
+                }
 
                 SetPlayerInteractionState(PlayerInteractionState.Active);
             }
@@ -124,6 +134,12 @@ namespace StormTime.Enemy.Groups
             _playerIsInside = false;
             _playerController = null;
         }
+
+        #endregion
+
+        #region External Functions
+
+        public void SetCustomPlayerInteractionId(int playerInteractionId) => _playerInteractionId = playerInteractionId;
 
         #endregion
 

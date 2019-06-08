@@ -16,6 +16,7 @@ namespace StormTime.Enemy.Groups
 
         private List<EnemySpawnPoint> _worldSpawnPoints;
         private List<EnemySpawnPoint> _availableWorldSpawnPoints;
+        private List<EnemyGroup> _enemyGroupsSpawned;
 
         private int _enemyGroupsToSpawn;
         private int _currentEnemyGroups;
@@ -27,6 +28,7 @@ namespace StormTime.Enemy.Groups
 
             _worldSpawnPoints = new List<EnemySpawnPoint>();
             _availableWorldSpawnPoints = new List<EnemySpawnPoint>();
+            _enemyGroupsSpawned = new List<EnemyGroup>();
             _currentEnemyGroups = 0;
             _enemyGroupsToSpawn = (int)(GD.Randi() % (maxEnemyGroupsToSpawn - minEnemyGroupsToSpawn)) + minEnemyGroupsToSpawn;
 
@@ -71,12 +73,13 @@ namespace StormTime.Enemy.Groups
 
             EnemyGroup enemyGroupInstance = (EnemyGroup)enemyGroupPrefab.Instance();
             spawnNode.AddChild(enemyGroupInstance);
+            _enemyGroupsSpawned.Add(enemyGroupInstance);
 
             enemyGroupInstance.SetEnemyGroupColors(
                 enemyGroupColors[GD.Randi() % enemyGroupColors.Length],
                 (GradientTexture)enemyGroupGradients[(int)(GD.Randi() % enemyGroupGradients.Count)]
             );
-            
+
             enemyGroupInstance.ActivateEnemySpawning(spawnNode.GetEnemyDangerLevel());
             enemyGroupInstance.SetGlobalPosition(spawnPosition);
 

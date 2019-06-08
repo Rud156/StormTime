@@ -7,6 +7,7 @@ namespace StormTime.Enemy.Groups
     {
         [Export] public NodePath interactionParticlesNodePath;
         [Export] public NodePath interactionSpriteNodePath;
+        [Export] public NodePath enemyPlayerInteractionNodePath;
         [Export] public Color[] enemyColors;
 
         /// <summary>
@@ -23,6 +24,7 @@ namespace StormTime.Enemy.Groups
         private List<int> _enemyTypeCount;
         private List<Individuals.Enemy> _groupEnemies;
 
+        private EnemyGroupPlayerInteraction _enemyGroupPlayerInteraction;
         private Particles2D _interactionParticles;
         private Sprite _interactionSprite;
         private GradientTexture _spawnGradientTexture;
@@ -38,6 +40,8 @@ namespace StormTime.Enemy.Groups
             _spawnPoints = new List<Node2D>();
             _enemyTypeCount = new List<int> { 0, 0, 0 };
             _groupEnemies = new List<Individuals.Enemy>();
+
+            _enemyGroupPlayerInteraction = GetNode<EnemyGroupPlayerInteraction>(enemyPlayerInteractionNodePath);
 
             _interactionSprite = GetNode<Sprite>(interactionSpriteNodePath);
             _interactionParticles = GetNode<Particles2D>(interactionParticlesNodePath);
@@ -111,6 +115,9 @@ namespace StormTime.Enemy.Groups
         #endregion
 
         #region External Functions
+
+        public void SetPlayerInteractionId(int playerInteractionId) =>
+            _enemyGroupPlayerInteraction.SetCustomPlayerInteractionId(playerInteractionId);
 
         public void SetEnemyGroupColors(Color spriteColor, GradientTexture particlesGradient)
         {

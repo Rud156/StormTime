@@ -16,26 +16,29 @@ namespace StormTime.Scene.MainScene
         private struct DialogueAnswer
         {
             public string answer;
-            public int nextInIndex;
+            public int nextReplyIndex;
             public bool isCorrectAnswer;
-            public int endingDialogueIndex;
+
+            public int endingDialogueIndex; // Forced Ending Dialogue
+            public int endType; // Can be Fetch Quests or Kill Quests or Something Else
         }
 
         private struct DialogueStructure
         {
             public string question;
-            public DialogueAnswer[] dialogueAnswers;
-            public bool isEndingDialogue;
+            public DialogueAnswer[] dialogueAnswers; // This will be empty in the case this is an Ending Dialogue
+            public bool isStartingDialogue; // Used to identify
+
+            public int enemyInteractionCount; // Set Initial Count from Dialogues as they will decide properties
+            public int playerInteractionCount; // Set Initial Count from Dialogues as they will decide properties
         }
 
         private enum NextActionDisplayState
         {
             ClearAll,
+            DisplayQuestionsAndAnswers,
             ClearQuestionsAndAnswers,
-            ClearQuestionsAndAnswersAndShowNext,
-            DisplayEnding,
-            ClearAndDisplayEnding,
-            DisplayQuestionsAndAnswers
+            DisplayEnding
         }
 
         #endregion
@@ -43,6 +46,7 @@ namespace StormTime.Scene.MainScene
         #region Exported Data
 
         [Export] public NodePath dialogueUiNodePath;
+        [Export] public NodePath enemySpawnerNodePath;
         [Export] public float dialogueChangeDelay;
         [Export] public float initialDialogueStartDelay;
 
@@ -97,7 +101,12 @@ namespace StormTime.Scene.MainScene
         public void StartRandomDialogueInteraction(EnemyGroup enemyGroup)
         {
             int randomDialogueIndex = _currentStartDialogues[(int)GD.Randi() % _currentStartDialogues.Count];
-            _currentStartDialogues.RemoveAt(randomDialogueIndex);
+            StartDialogueInteraction(enemyGroup, randomDialogueIndex);
+        }
+
+        public void StartDialogueInteraction(EnemyGroup enemyGroup, int dialogueIndex)
+        {
+            _currentStartDialogues.RemoveAt(dialogueIndex);
 
             _dialogueSequenceStarted = true;
             _enemyGroupInteractedWith = enemyGroup;
@@ -107,7 +116,7 @@ namespace StormTime.Scene.MainScene
             // TODO: Setup Dialogue States based on Player Reputation
             //DialogueUiManager.Instance.SetupDialogueStates();
 
-            _onGoingDialogue = _dialogues[randomDialogueIndex];
+            _onGoingDialogue = _dialogues[dialogueIndex];
             _currentDialogueWaitTime = initialDialogueStartDelay;
             SetNextActionDisplayState(NextActionDisplayState.DisplayQuestionsAndAnswers);
         }
@@ -168,7 +177,7 @@ namespace StormTime.Scene.MainScene
                 {
                     _endingDialogue = _dialogues[_onGoingDialogue.dialogueAnswers[dialogueIndexPressed].endingDialogueIndex].question;
                     _currentDialogueWaitTime = dialogueChangeDelay;
-                    SetNextActionDisplayState(NextActionDisplayState.ClearAndDisplayEnding);
+                    SetNextActionDisplayState(NextActionDisplayState.DisplayEnding);
                     _dialogueSequenceStarted = false;
 
                     if (playerWon)
@@ -182,9 +191,9 @@ namespace StormTime.Scene.MainScene
                 }
                 else
                 {
-                    _onGoingDialogue = _dialogues[selectedAnswer.nextInIndex];
+                    _onGoingDialogue = _dialogues[selectedAnswer.nextReplyIndex];
                     _currentDialogueWaitTime = dialogueChangeDelay;
-                    SetNextActionDisplayState(NextActionDisplayState.ClearQuestionsAndAnswersAndShowNext);
+                    SetNextActionDisplayState(NextActionDisplayState.DisplayQuestionsAndAnswers);
                 }
             }
         }
@@ -203,20 +212,8 @@ namespace StormTime.Scene.MainScene
                     _dialogueUiManager.ClearDialogueQuestionAndOptions();
                     break;
 
-                case NextActionDisplayState.ClearQuestionsAndAnswersAndShowNext:
-                    _dialogueUiManager.ClearDialogueQuestionAndOptions();
-                    _currentDialogueWaitTime = dialogueChangeDelay;
-                    SetNextActionDisplayState(NextActionDisplayState.DisplayQuestionsAndAnswers);
-                    break;
-
                 case NextActionDisplayState.DisplayEnding:
-                    _dialogueUiManager.ShowEndingDialogue(_endingDialogue);
-                    break;
-
-                case NextActionDisplayState.ClearAndDisplayEnding:
-                    _dialogueUiManager.ClearDialogueQuestionAndOptions();
-                    _currentDialogueWaitTime = dialogueChangeDelay;
-                    SetNextActionDisplayState(NextActionDisplayState.DisplayEnding);
+                    _dialogueUiManager.ClearAndShowSingleDelayed(_endingDialogue, dialogueChangeDelay);
                     break;
 
                 case NextActionDisplayState.DisplayQuestionsAndAnswers:
@@ -238,7 +235,7 @@ namespace StormTime.Scene.MainScene
                 answers[i] = dialogue.dialogueAnswers[i].answer;
             }
 
-            _dialogueUiManager.SetDialogueQuestionsAndOptions(question, answers);
+            _dialogueUiManager.ClearAndShowDialogOptionsDelayed(question, answers, dialogueChangeDelay);
         }
 
         private void SetNextActionDisplayState(NextActionDisplayState nextActionDisplayState)

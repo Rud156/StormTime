@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Godot;
 
@@ -36,31 +37,90 @@ namespace StormTime.UI
         private List<DialogueIntermediate> _rightContainerDialogueIntermediates;
         private int _rightCounter;
 
+        private enum DisplayState
+        {
+            None,
+            ClearAndDisplayQA,
+            ClearAndDisplaySingle,
+            DisplayQA,
+            DisplaySingle,
+        }
+
+        private DisplayState _displayState;
+        private float _delayTimer;
+        private float _originalDelayTimer;
+        private string _question;
+        private string[] _possibleAnswers;
+
         public override void _Ready()
         {
-            //_leftContainerDialogueIntermediates = new List<DialogueIntermediate>();
-            //_rightContainerDialogueIntermediates = new List<DialogueIntermediate>();
-            //_dialogueKeyTexts = new List<DialogueKeyTextDisplay>();
+            _leftContainerDialogueIntermediates = new List<DialogueIntermediate>();
+            _rightContainerDialogueIntermediates = new List<DialogueIntermediate>();
+            _dialogueKeyTexts = new List<DialogueKeyTextDisplay>();
 
-            //_leftContainer = GetNode<Control>(leftContainerNodePath);
-            //_rightContainer = GetNode<Control>(rightContainerNodePath);
+            _leftContainer = GetNode<Control>(leftContainerNodePath);
+            _rightContainer = GetNode<Control>(rightContainerNodePath);
 
-            //_endingDialogueContainer = GetNode<Control>(endingDialogueContainerNodePath);
-            //_endingDialogueLabel = GetNode<Label>(endingDialogueLabelNodePath);
+            _endingDialogueContainer = GetNode<Control>(endingDialogueContainerNodePath);
+            _endingDialogueLabel = GetNode<Label>(endingDialogueLabelNodePath);
 
-            //_dialogueContainer = GetNode<Control>(dialogueContainerNodePath);
-            //_dialogueQuestion = GetNode<Label>(dialogueQuestionNodePath);
-            //foreach (var dialogueKeyText in dialogueKeyTextNodePaths)
-            //{
-            //    _dialogueKeyTexts.Add(GetNode<DialogueKeyTextDisplay>(dialogueKeyText));
-            //}
+            _dialogueContainer = GetNode<Control>(dialogueContainerNodePath);
+            _dialogueQuestion = GetNode<Label>(dialogueQuestionNodePath);
+            foreach (var dialogueKeyText in dialogueKeyTextNodePaths)
+            {
+                _dialogueKeyTexts.Add(GetNode<DialogueKeyTextDisplay>(dialogueKeyText));
+            }
+        }
+
+        public override void _Process(float delta)
+        {
+            if (_delayTimer > 0)
+            {
+                _delayTimer -= delta;
+
+                if (_delayTimer <= 0)
+                {
+                    switch (_displayState)
+                    {
+                        case DisplayState.None:
+                            // Do nothing in this case
+                            // Only used for Idle State
+                            break;
+
+                        case DisplayState.ClearAndDisplayQA:
+                            ClearDialogueQuestionAndOptions();
+                            _delayTimer = _originalDelayTimer;
+                            SetDisplayState(DisplayState.DisplayQA);
+                            break;
+
+                        case DisplayState.ClearAndDisplaySingle:
+                            ClearSingleDialogue();
+                            _delayTimer = _originalDelayTimer;
+                            SetDisplayState(DisplayState.DisplaySingle);
+                            break;
+
+                        case DisplayState.DisplayQA:
+                            ShowDialogueQuestionsAndOptions(_question, _possibleAnswers);
+                            SetDisplayState(DisplayState.None);
+                            break;
+
+                        case DisplayState.DisplaySingle:
+                            ShowSingleDialogue(_question);
+                            SetDisplayState(DisplayState.None);
+                            break;
+
+                        default:
+                            throw new ArgumentOutOfRangeException();
+                    }
+                }
+            }
         }
 
         #region External Functions
 
         #region Dialogue Questions
 
-        public void SetDialogueQuestionsAndOptions(string question, string[] possibleAnswers)
+        public void ShowDialogueQuestionsAndOptions(string question, string[] possibleAnswers)
         {
             _dialogueQuestion.SetText(question);
             _dialogueQuestion.SetVisible(true);
@@ -98,11 +158,22 @@ namespace StormTime.UI
             }
         }
 
+        public void ClearAndShowDialogOptionsDelayed(string question, string[] possibleAnswers, float delayTime)
+        {
+            _delayTimer = delayTime;
+            _originalDelayTimer = delayTime;
+
+            _question = question;
+            _possibleAnswers = possibleAnswers;
+
+            SetDisplayState(DisplayState.ClearAndDisplayQA);
+        }
+
         #endregion
 
-        #region Ending Dialogue
+        #region Single Dialogue
 
-        public void ShowEndingDialogue(string dialogue)
+        public void ShowSingleDialogue(string dialogue)
         {
             ClearDialogueQuestionAndOptions();
 
@@ -110,10 +181,21 @@ namespace StormTime.UI
             _endingDialogueLabel.SetText(dialogue);
         }
 
-        public void ClearEndingDialogue()
+        public void ClearSingleDialogue()
         {
             _endingDialogueLabel.SetText(string.Empty);
             _endingDialogueContainer.SetVisible(false);
+        }
+
+        public void ClearAndShowSingleDelayed(string dialogue, float delayTimer)
+        {
+            _delayTimer = delayTimer;
+            _originalDelayTimer = delayTimer;
+
+            _question = dialogue;
+            _possibleAnswers = new string[0];
+
+            SetDisplayState(DisplayState.ClearAndDisplaySingle);
         }
 
         #endregion
@@ -194,7 +276,7 @@ namespace StormTime.UI
         public void ClearAndHideDialoguePanel()
         {
             ClearDialogueQuestionAndOptions();
-            ClearEndingDialogue();
+            ClearSingleDialogue();
             ClearDialogueStates();
 
             HideDialoguePanel();
@@ -203,6 +285,20 @@ namespace StormTime.UI
         public void DisplayDialoguePanel() => SetVisible(true);
 
         public void HideDialoguePanel() => SetVisible(false);
+
+        #endregion
+
+        #region State Management
+
+        private void SetDisplayState(DisplayState displayState)
+        {
+            if (displayState == _displayState)
+            {
+                return;
+            }
+
+            _displayState = displayState;
+        }
 
         #endregion
     }
