@@ -1,0 +1,193 @@
+[
+  {
+    "Dialogue": [
+      {
+        "Index": 0,
+        "Statement": "Hello, you look new here. What brought you to this place?",
+        "IsEnding": false,
+        "Answers": [
+          {
+            "Response": "Someone stole something from me. I followed them and I stumbled upon this place",
+            "IsCorrect": true,
+            "NextIndex": 1
+          },
+          {
+            "Response": "Someone stole something from me. I chased them here...",
+            "IsCorrect": true,
+            "NextIndex": 1
+          },
+          {
+            "Response": "My village was destroyed, wandering around, I stumbled upon this place. BTW have you seen a tiny square darting about the place?",
+            "IsCorrect": true,
+            "NextIndex": 1
+          }
+        ]
+      },
+      {
+        "Index": 1,
+        "Statement": "Sorry to hear that. If you ask Bob over there. He should know something about it",
+        "IsEnding": false,
+        "Answers": [
+          {
+            "Response": "I'll go ask him. But what is this place?",
+            "IsCorrect": true,
+            "NextIndex": 2
+          },
+          {
+            "Response": "How do I trust you?",
+            "IsCorrect": false,
+            "NextIndex": 4
+          },
+          {
+            "Response": "So these things happen a lot around here?",
+            "IsCorrect": true,
+            "NextIndex": 3
+          }
+        ]
+      },
+      {
+        "Index": 2,
+        "Statement": "Just a little hellhole of a place. People staying here have lost it. Fights are 2 a penny",
+        "IsEnding": false,
+        "Answers": [
+          {
+            "Response": "I'll be taking my leave and go find Bob as you said",
+            "IsCorrect": true,
+            "NextIndex": -1
+          },
+          {
+            "Response": "I'll be going now. But how can I trust you?",
+            "IsCorrect": false,
+            "NextIndex": 4
+          },
+          {
+            "Response": "I don't like the way you are describing this place...",
+            "IsCorrect": false,
+            "NextIndex": 5
+          }
+        ]
+      },
+      {
+        "Index": 3,
+        "Statement": "Not too often. Once in a while someone stumbles in. I've talked enough let me get back to what I was doing",
+        "IsEnding": true,
+        "Hostile": false
+      },
+      {
+        "Index": 4,
+        "Statement": "Well you'll just have to take my word for it. The way I see it there's no-one you can ask isn't it",
+        "IsEnding": false,
+        "Answers": [
+          {
+            "Answer": "I guess that leaves me with no choice... I'll be leaving now...",
+            "IsCorrect": true,
+            "NextIndex": -1,
+            "Hostile": false
+          },
+          {
+            "Answer": "I'll have to decide for myself...",
+            "IsCorrect": true,
+            "NextIndex": -1,
+            "Hostile": false
+          },
+          {
+            "Answer": "I don't like the way you are talking...",
+            "IsCorrect": false,
+            "NextIndex": 5
+          }
+        ]
+      },
+      {
+        "Index": 5,
+        "Statement": "You just turned the tables. I'm getting irritated by your talk. Get out before I too loose it",
+        "IsEnding": true,
+        "Hostile": false
+      }
+    ]
+  },
+  {
+    "Dialogue": [
+      {
+        "Index": 0,
+        "Statement": "Would you sit down and listen to a story from this old man...",
+        "IsEnding": false,
+        "Answers": [
+          {
+            "Answer": "No I don't have the patience to listen to you...",
+            "IsCorrect": false,
+            "NextIndex": 1
+          },
+          {
+            "Answer": "Let's hear it.",
+            "IsCorrect": true,
+            "NextIndex": 2
+          },
+          {
+            "Answer": "Don't you have anything else to do? Well let's here it anyway...",
+            "IsCorrect": false,
+            "NextIndex": 2
+          }
+        ]
+      },
+      {
+        "Index": 1,
+        "Statement": "You people don't know how to take things so slow. Let's see how good you are at defending yourself",
+        "IsEnding": true,
+        "Hostile": true
+      },
+      {
+        "Index": 2,
+        "Statement": "Ok. Here goes... Why did the chicken cross the road?",
+        "IsEnding": false,
+        "Answers": [
+          {
+            "Answer": "It had a dream",
+            "IsCorrect": true,
+            "NextIndex": 3
+          },
+          {
+            "Answer": "To get to the other side",
+            "IsCorrect": true,
+            "NextIndex": 3
+          },
+          {
+            "Answer": "Chickens at rest tend to stay at rest. Chickens in motion tend to cross the road",
+            "IsCorrect": false,
+            "NextIndex": 4
+          }
+        ]
+      },
+      {
+        "Index": 3,
+        "Statement": "Haha... Wisely chosen. You made my day.",
+        "IsEnding": true,
+        "Hostile": false
+      },
+      {
+        "Index": 4,
+        "Statement": "That's a weird answer. Anyway it was amusing. Have a good day",
+        "IsEnding": false,
+        "Answers": [
+          {
+            "Answer": "You wasted my time...",
+            "IsCorrect": false,
+            "NextIndex": -1,
+            "Hostile": true
+          },
+          {
+            "Answer": "You might think it was amusing but I don't have anytime for this",
+            "IsCorrect": false,
+            "NextIndex": -1,
+            "Hostile": true
+          },
+          {
+            "Answer": "Have a good day... But you just wasted time...",
+            "IsCorrect": false,
+            "NextIndex": -1,
+            "Hostile": false
+          }
+        ]
+      }
+    ]
+  }
+]
