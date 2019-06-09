@@ -1,6 +1,5 @@
 using Godot;
 using StormTime.Player.Movement;
-using StormTime.Scene.MainScene;
 using StormTime.Utils;
 
 namespace StormTime.Enemy.Groups
@@ -22,12 +21,9 @@ namespace StormTime.Enemy.Groups
         private PlayerInteractionState _playerInteractionState;
         private bool _playerIsInside;
         private PlayerController _playerController;
-
-        private int _playerInteractionId;
-
+        
         public override void _Ready()
         {
-            _playerInteractionId = -1;
             _playerIsInside = false;
             _parentGroup = GetNode<EnemyGroup>(parentGroupNodePath);
 
@@ -78,16 +74,7 @@ namespace StormTime.Enemy.Groups
                 _playerController.SetLerpPosition(GetGlobalPosition());
                 _playerController.SetPlayerState(PlayerController.PlayerState.PlayerFloatingMovement);
                 _playerController.DeActivateShooting();
-
-                if (_playerInteractionId == -1)
-                {
-                    DialogueManager.Instance.StartRandomDialogueInteraction(_parentGroup);
-                }
-                else
-                {
-                    DialogueManager.Instance.StartDialogueInteraction(_parentGroup, _playerInteractionId);
-                }
-
+                
                 SetPlayerInteractionState(PlayerInteractionState.Active);
             }
         }
@@ -139,8 +126,8 @@ namespace StormTime.Enemy.Groups
 
         #region External Functions
 
-        public void SetCustomPlayerInteractionId(int playerInteractionId) => _playerInteractionId = playerInteractionId;
 
+        
         #endregion
 
         #region Utility Functions

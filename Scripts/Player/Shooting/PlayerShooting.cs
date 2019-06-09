@@ -1,6 +1,5 @@
 using Godot;
 using StormTime.Player.Movement;
-using StormTime.Scene.MainScene;
 using StormTime.Utils;
 using StormTime.Weapon;
 

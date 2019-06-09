@@ -1,10 +1,7 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://Prefabs/UI/Default Theme.tres" type="Theme" id=1]
 [ext_resource path="res://Scripts/UI/FPSLabel.cs" type="Script" id=2]
-[ext_resource path="res://Scripts/UI/DialogueUiManager.cs" type="Script" id=3]
-[ext_resource path="res://Textures/RingFadeOut.png" type="Texture" id=4]
-[ext_resource path="res://Prefabs/UI/Dialogue Text.tscn" type="PackedScene" id=5]
 
 [node name="GUI" type="Control"]
 light_mask = 2
@@ -28,98 +25,3 @@ text = "FPS: 60"
 align = 1
 valign = 1
 script = ExtResource( 2 )
-
-[node name="Dialogue Panel" type="Panel" parent="."]
-visible = false
-self_modulate = Color( 1, 1, 1, 0.392157 )
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_top = -389.0
-script = ExtResource( 3 )
-
-[node name="Dialogue Center" type="TextureRect" parent="Dialogue Panel"]
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-margin_left = -49.5
-margin_top = -119.0
-margin_right = 49.5
-margin_bottom = -20.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_stretch_ratio = 0.0
-texture = ExtResource( 4 )
-expand = true
-stretch_mode = 1
-
-[node name="Left Container" type="HBoxContainer" parent="Dialogue Panel"]
-anchor_top = 1.0
-anchor_right = 0.446
-anchor_bottom = 1.0
-margin_top = -119.0
-margin_right = 0.29599
-custom_constants/separation = 14
-alignment = 2
-
-[node name="Right Container" type="HBoxContainer" parent="Dialogue Panel"]
-anchor_left = 0.55
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_top = -119.0
-margin_bottom = 1.0
-custom_constants/separation = 14
-
-[node name="Dialogue Container" type="Control" parent="Dialogue Panel"]
-editor/display_folded = true
-anchor_right = 1.0
-margin_top = 90.8
-margin_bottom = 281.8
-
-[node name="A Dialogue Text" parent="Dialogue Panel/Dialogue Container" instance=ExtResource( 5 )]
-margin_left = -462.0
-margin_top = 120.0
-margin_right = -47.9995
-margin_bottom = 184.0
-keyTextNodePath = null
-dialogueTextNodePath = null
-
-[node name="W Dialogue Text" parent="Dialogue Panel/Dialogue Container" instance=ExtResource( 5 )]
-margin_left = -206.0
-margin_top = 30.0
-margin_right = 208.001
-margin_bottom = 94.0
-keyTextNodePath = null
-dialogueTextNodePath = null
-
-[node name="D Dialogue Text" parent="Dialogue Panel/Dialogue Container" instance=ExtResource( 5 )]
-margin_left = 48.0
-margin_top = 120.0
-margin_right = 462.0
-margin_bottom = 184.0
-keyTextNodePath = null
-dialogueTextNodePath = null
-
-[node name="Ending Dialogue Container" type="Control" parent="Dialogue Panel"]
-visible = false
-anchor_right = 1.0
-margin_bottom = 190.0
-
-[node name="Ending Dialogue Text" type="Label" parent="Dialogue Panel/Ending Dialogue Container"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-theme = ExtResource( 1 )
-align = 1
-valign = 1
-
-[node name="Dialogue Question" type="Label" parent="Dialogue Panel"]
-visible = false
-anchor_right = 1.0
-margin_left = 35.0
-margin_right = -35.0
-margin_bottom = 92.0
-theme = ExtResource( 1 )
-align = 1
-valign = 1

@@ -115,10 +115,7 @@ namespace StormTime.Enemy.Groups
         #endregion
 
         #region External Functions
-
-        public void SetPlayerInteractionId(int playerInteractionId) =>
-            _enemyGroupPlayerInteraction.SetCustomPlayerInteractionId(playerInteractionId);
-
+        
         public void SetEnemyGroupColors(Color spriteColor, GradientTexture particlesGradient)
         {
             _interactionSprite.SelfModulate = spriteColor;

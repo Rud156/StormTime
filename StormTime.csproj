@@ -63,12 +63,8 @@
     <Compile Include="Scripts\Enemy\Individuals\SlasherEnemy.cs" />
     <Compile Include="Scripts\Enemy\Individuals\SpinnerEnemy.cs" />
     <Compile Include="Scripts\Player\Shooting\PlayerShooting.cs" />
-    <Compile Include="Scripts\Scene\MainScene\DialogueManager.cs" />
     <Compile Include="Scripts\Player\Movement\PlayerController.cs" />
     <Compile Include="Scripts\Player\Data\PlayerVariables.cs" />
-    <Compile Include="Scripts\UI\DialogueIntermediate.cs" />
-    <Compile Include="Scripts\UI\DialogueKeyTextDisplay.cs" />
-    <Compile Include="Scripts\UI\DialogueUiManager.cs" />
     <Compile Include="Scripts\UI\FPSLabel.cs" />
     <Compile Include="Scripts\Utils\ExtensionFunctions.cs" />
     <Compile Include="Scripts\Utils\SceneControls.cs" />
