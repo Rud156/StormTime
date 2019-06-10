@@ -1,6 +1,4 @@
 using Godot;
-using System;
-using StormTime.Utils;
 
 namespace StormTime.Weapon
 {
@@ -12,12 +10,19 @@ namespace StormTime.Weapon
         [Export] public float bulletSpeed;
         [Export] public float bulletLifeTime;
         [Export] public float bulletTrailTimer;
+        [Export] public float bulletDamageAmount;
 
         private Vector2 _launchVelocity;
         private float _currentBulletTimeLeft;
         private float _currentBulletTrailTimeLeft;
 
-        public override void _Ready() => _currentBulletTrailTimeLeft = bulletTrailTimer;
+        private float _currentDamageAmount;
+
+        public override void _Ready()
+        {
+            _currentBulletTrailTimeLeft = bulletTrailTimer;
+            _currentDamageAmount = bulletDamageAmount;
+        }
 
         public override void _Process(float delta)
         {
@@ -46,13 +51,29 @@ namespace StormTime.Weapon
             _currentBulletTimeLeft -= delta;
         }
 
+        #region External Functions
+
         public void LaunchBullet(Vector2 forwardVectorNormalized)
         {
             _launchVelocity = forwardVectorNormalized * bulletSpeed;
             _currentBulletTimeLeft = bulletLifeTime;
         }
 
+        public void LaunchBullet(Vector2 forwardVectorNormalized, float damageAmount)
+        {
+            _currentDamageAmount = damageAmount;
+            LaunchBullet(forwardVectorNormalized);
+        }
+
+        public float GetBulletDamage() => _currentDamageAmount;
+
+        #endregion
+
+        #region Utility Functions
+
         private void DestroyBullet() => GetParent().RemoveChild(this);
+
+        #endregion
 
         #region Events
 
@@ -60,8 +81,7 @@ namespace StormTime.Weapon
             collider.CallDeferred("BulletCollisionNotification", !(this is EnemyBullet));
 
         #endregion
-
-
+        
         #region Particle Effects
 
         private void SpawnBulletExplosion()

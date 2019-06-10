@@ -33,6 +33,7 @@ namespace StormTime.Enemy.Individuals
             Targeting,
             Attacking,
             Dead,
+            Frozen
         }
 
         protected EnemyState _enemyState;
@@ -47,6 +48,10 @@ namespace StormTime.Enemy.Individuals
         protected Vector2 _startPosition;
         protected Vector2 _targetPosition;
         protected bool _playerHostile;
+        
+        // Frozen Variables
+        protected float _frozenTimer;
+        protected EnemyState _previousStateBeforeFreezing;
 
         // Timer
         protected float _enemyTimer;
@@ -105,6 +110,10 @@ namespace StormTime.Enemy.Individuals
 
                 case EnemyState.Dead:
                     UpdateDead(delta);
+                    break;
+
+                case EnemyState.Frozen:
+                    UpdateFrozenEnemy(delta);
                     break;
             }
         }
@@ -200,6 +209,16 @@ namespace StormTime.Enemy.Individuals
             }
         }
 
+        protected void UpdateFrozenEnemy(float delta)
+        {
+            _frozenTimer -= delta;
+
+            if (_frozenTimer <= 0)
+            {
+                SetEnemyState(_previousStateBeforeFreezing);
+            }
+        }
+
         protected virtual void LaunchAttack() => _enemyTimer = attackTime;
 
         protected virtual void EndAttack() => _enemyTimer = 0;
@@ -211,7 +230,15 @@ namespace StormTime.Enemy.Individuals
 
         #endregion
 
-        #region Utility Functions
+        #region External Functions
+
+        public void FreezeEnemy(float freezeTime)
+        {
+            _frozenTimer = freezeTime;
+            _previousStateBeforeFreezing = _enemyState;
+
+            SetEnemyState(EnemyState.Frozen);
+        }
 
         public void SetEnemyColors(Color enemyColor, Color bulletColor)
         {
@@ -236,6 +263,10 @@ namespace StormTime.Enemy.Individuals
         public void SetPlayerHostileState(bool playerHostile = true) => _playerHostile = playerHostile;
 
         public void EmitOnHostileOnPlayerAttack() => _parentEnemyGroup.SetPlayerAsHostile();
+
+        #endregion
+
+        #region Utility Functions
 
         protected void MoveToTowardsTarget(Vector2 targetPosition) =>
             MoveToTowardsTarget(targetPosition, movementSpeed);

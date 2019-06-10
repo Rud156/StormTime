@@ -30,6 +30,7 @@ namespace StormTime.Player.Movement
 
         private PlayerState _playerState;
         private Vector2 _movement;
+        private float _currentMovementSpeed;
 
         private Vector2 _targetScale;
         private Vector2 _lerpPosition;
@@ -41,6 +42,7 @@ namespace StormTime.Player.Movement
             _playerShooting = GetNode<PlayerShooting>(playerShootingNodePath);
 
             _movement = new Vector2();
+            _currentMovementSpeed = movementSpeed;
             _targetScale = Vector2.One * defaultScaleAmount;
             _lerpPosition = new Vector2();
 
@@ -91,16 +93,16 @@ namespace StormTime.Player.Movement
         private void MovePlayer(float delta)
         {
             if (Input.IsActionPressed(SceneControls.Left))
-                _movement.x = -movementSpeed;
+                _movement.x = -_currentMovementSpeed;
             else if (Input.IsActionPressed(SceneControls.Right))
-                _movement.x = movementSpeed;
+                _movement.x = _currentMovementSpeed;
             else
                 _movement.x = 0;
 
             if (Input.IsActionPressed(SceneControls.Up))
-                _movement.y = -movementSpeed;
+                _movement.y = -_currentMovementSpeed;
             else if (Input.IsActionPressed(SceneControls.Down))
-                _movement.y = movementSpeed;
+                _movement.y = _currentMovementSpeed;
             else
                 _movement.y = 0;
 
