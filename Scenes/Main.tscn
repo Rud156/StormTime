@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://Prefabs/WorldElements/World.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scripts/Enemy/Groups/EnemySpawner.cs" type="Script" id=2]
@@ -8,8 +8,10 @@
 [ext_resource path="res://Scripts/Player/Shooting/PlayerShooting.cs" type="Script" id=6]
 [ext_resource path="res://Prefabs/Interactibles/Bullets/Bullet.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Textures/light.png" type="Texture" id=8]
-[ext_resource path="res://Scripts/Camera/CameraFollowTarget.cs" type="Script" id=9]
-[ext_resource path="res://Prefabs/UI/GUI.tscn" type="PackedScene" id=10]
+[ext_resource path="res://Scripts/Common/HealthSetter.cs" type="Script" id=9]
+[ext_resource path="res://Scripts/Common/HealthDisplay.cs" type="Script" id=10]
+[ext_resource path="res://Scripts/Camera/CameraFollowTarget.cs" type="Script" id=11]
+[ext_resource path="res://Prefabs/UI/GUI.tscn" type="PackedScene" id=12]
 
 [sub_resource type="Gradient" id=1]
 offsets = PoolRealArray( 0, 0.856481, 1 )
@@ -160,7 +162,6 @@ position = Vector2( 251.291, -1110.76 )
 maxEnemyDangerLevel = 8
 
 [node name="Player" parent="Game World" instance=ExtResource( 5 )]
-editor/display_folded = true
 position = Vector2( -2270, 2080 )
 scaleChangeFrequency = 1.0
 playerShootingNodePath = NodePath("Player Shooter")
@@ -180,6 +181,18 @@ shadow_gradient_length = 1.3
 shadow_filter = 3
 shadow_filter_smooth = 10.0
 
+[node name="Player Health" type="Node2D" parent="Game World/Player"]
+script = ExtResource( 9 )
+maxHealth = 100.0
+
+[node name="Health Display" type="Node2D" parent="Game World/Player/Player Health"]
+script = ExtResource( 10 )
+minHealthColor = Color( 1, 0, 0, 1 )
+halfHealthColor = Color( 1, 1, 0, 1 )
+maxHealthColor = Color( 0, 1, 0, 1 )
+healthProgressNodePath = NodePath("../../../../CanvasLayer/GUI/Player Health Panel/Player Health")
+healthSetterNodePath = NodePath("..")
+
 [node name="Player Camera" type="Camera2D" parent="Game World"]
 position = Vector2( 510, 300 )
 scale = Vector2( 0.3, 0.3 )
@@ -189,11 +202,14 @@ drag_margin_left = 0.1
 drag_margin_top = 0.1
 drag_margin_right = 0.1
 drag_margin_bottom = 0.1
-script = ExtResource( 9 )
+script = ExtResource( 11 )
 targetNode = NodePath("../Player")
 lockBottomLeftCorner = Vector2( -1900, 1890 )
 lockTopRightCorner = Vector2( 2945, -2000 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="GUI" parent="CanvasLayer" instance=ExtResource( 10 )]
+[node name="GUI" parent="CanvasLayer" instance=ExtResource( 12 )]
+editor/display_folded = true
+
+[editable path="CanvasLayer/GUI"]

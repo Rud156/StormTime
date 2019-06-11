@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Prefabs/UI/Default Theme.tres" type="Theme" id=1]
 [ext_resource path="res://Scripts/UI/FPSLabel.cs" type="Script" id=2]
 [ext_resource path="res://Scripts/UI/DialogueUiManager.cs" type="Script" id=3]
 [ext_resource path="res://Scripts/UI/TextTyper.cs" type="Script" id=4]
 [ext_resource path="res://Prefabs/UI/TyperDialogue.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Textures/White Pixel.png" type="Texture" id=6]
 
 [node name="GUI" type="Control"]
 light_mask = 2
@@ -31,6 +32,7 @@ valign = 1
 script = ExtResource( 2 )
 
 [node name="Dialogue Panel" type="Panel" parent="."]
+editor/display_folded = true
 self_modulate = Color( 1, 1, 1, 0.588235 )
 anchor_top = 1.0
 anchor_right = 1.0
@@ -60,6 +62,7 @@ script = ExtResource( 4 )
 characterDelay = 0.1
 
 [node name="Dialogue Options Holder" type="Control" parent="Dialogue Panel"]
+editor/display_folded = true
 anchor_right = 1.0
 anchor_bottom = 1.0
 
@@ -79,3 +82,23 @@ margin_left = 292.0
 margin_top = -175.0
 margin_right = 730.0
 margin_bottom = -117.0
+
+[node name="Player Health Panel" type="Panel" parent="."]
+margin_right = 400.0
+margin_bottom = 20.0
+
+[node name="Player Health" type="TextureProgress" parent="Player Health Panel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 10.0
+margin_top = 5.0
+margin_right = -10.0
+margin_bottom = -5.0
+grow_horizontal = 2
+grow_vertical = 2
+value = 49.0
+texture_under = ExtResource( 6 )
+texture_progress = ExtResource( 6 )
+tint_under = Color( 0.11673, 0.11673, 0.132813, 1 )
+tint_progress = Color( 0.12549, 1, 0, 1 )
+nine_patch_stretch = true

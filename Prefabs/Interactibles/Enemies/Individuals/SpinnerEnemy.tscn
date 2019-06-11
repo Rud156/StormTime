@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Scripts/Enemy/Individuals/SpinnerEnemy.cs" type="Script" id=1]
 [ext_resource path="res://Prefabs/Interactibles/Bullets/Enemy Bullet.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Textures/Blur Rectangle.png" type="Texture" id=3]
 [ext_resource path="res://Textures/Square_Shape_White.png" type="Texture" id=4]
+[ext_resource path="res://Textures/White Pixel.png" type="Texture" id=5]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 70, 70 )
@@ -11,7 +12,10 @@ extents = Vector2( 70, 70 )
 [sub_resource type="OccluderPolygon2D" id=2]
 polygon = PoolVector2Array( -66.6667, -66.6667, 66.6667, -66.6667, 66.6667, 66.6667, -66.6667, 66.6667 )
 
-[node name="SpinnerEnemy" type="KinematicBody2D"]
+[node name="Spinner Enemy Container" type="Node2D"]
+
+[node name="SpinnerEnemy" type="KinematicBody2D" parent="."]
+editor/display_folded = true
 scale = Vector2( 0.3, 0.3 )
 collision_layer = 4
 collision_mask = 3
@@ -31,29 +35,45 @@ rotationSwitchTime = 3.0
 enemyBulletPrefab = ExtResource( 2 )
 timeBetweenShot = 0.3
 
-[node name="Shadow Sprite" type="Sprite" parent="."]
+[node name="Shadow Sprite" type="Sprite" parent="SpinnerEnemy"]
 light_mask = 2
 scale = Vector2( 0.1, 0.3 )
 texture = ExtResource( 3 )
 
-[node name="Sprite" type="Sprite" parent="."]
+[node name="Sprite" type="Sprite" parent="SpinnerEnemy"]
 light_mask = 2
 texture = ExtResource( 4 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SpinnerEnemy"]
 shape = SubResource( 1 )
 
-[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+[node name="LightOccluder2D" type="LightOccluder2D" parent="SpinnerEnemy"]
 occluder = SubResource( 2 )
 
-[node name="Launch Points" type="Node2D" parent="."]
+[node name="Launch Points" type="Node2D" parent="SpinnerEnemy"]
 editor/display_folded = true
 
-[node name="LaunchPoint_1" type="Node2D" parent="Launch Points"]
+[node name="LaunchPoint_1" type="Node2D" parent="SpinnerEnemy/Launch Points"]
 position = Vector2( -50, -63 )
 scale = Vector2( 0.5, 0.5 )
 
-[node name="LaunchPoint_2" type="Node2D" parent="Launch Points"]
+[node name="LaunchPoint_2" type="Node2D" parent="SpinnerEnemy/Launch Points"]
 position = Vector2( 50, 63 )
 rotation = 3.14159
 scale = Vector2( 0.5, 0.5 )
+
+[node name="UI Display" type="Control" parent="."]
+margin_left = -35.0
+margin_top = -30.0
+margin_right = 35.0
+margin_bottom = -28.0
+
+[node name="Health Display" type="TextureProgress" parent="UI Display"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+value = 50.0
+texture_under = ExtResource( 5 )
+texture_progress = ExtResource( 5 )
+tint_under = Color( 0, 0, 0, 0.392157 )
+tint_progress = Color( 1, 0, 0, 1 )
+nine_patch_stretch = true

@@ -160,9 +160,17 @@ namespace StormTime.Enemy.Groups
             _sacrificialItems.Clear();
             string[] sacrificialItemDescriptions = new string[3];
 
+            HashSet<PlayerModifierTypes.SacrificialItem> currentSacrificialItems =
+                new HashSet<PlayerModifierTypes.SacrificialItem>();
+
             for (int i = 0; i < sacrificialItemDescriptions.Length; i++)
             {
-                _sacrificialItems.Add(PlayerModifierTypes.GetRandomSacrificialItem());
+                PlayerModifierTypes.SacrificialItem sacrificialItem = PlayerModifierTypes.GetRandomSacrificialItem();
+                while (currentSacrificialItems.Contains(sacrificialItem))
+                {
+                    sacrificialItem = PlayerModifierTypes.GetRandomSacrificialItem();
+                }
+                _sacrificialItems.Add(sacrificialItem);
                 sacrificialItemDescriptions[i] = PlayerModifierTypes.GetSacrificialItemDescription(_sacrificialItems[i]);
             }
 

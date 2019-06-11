@@ -48,7 +48,7 @@ namespace StormTime.Enemy.Individuals
         protected Vector2 _startPosition;
         protected Vector2 _targetPosition;
         protected bool _playerHostile;
-        
+
         // Frozen Variables
         protected float _frozenTimer;
         protected EnemyState _previousStateBeforeFreezing;
@@ -84,7 +84,10 @@ namespace StormTime.Enemy.Individuals
 
         public override void _Process(float delta)
         {
-            OverHeadCheckForEnemyState();
+            if (_enemyState != EnemyState.Frozen)
+            {
+                OverHeadCheckForEnemyState();
+            }
 
             switch (_enemyState)
             {
