@@ -1,6 +1,11 @@
+using System;
+using System.Collections.Generic;
 using Godot;
+using StormTime.Player.Modifiers;
 using StormTime.Player.Movement;
+using StormTime.UI;
 using StormTime.Utils;
+using Array = System.Array;
 
 namespace StormTime.Enemy.Groups
 {
@@ -21,9 +26,13 @@ namespace StormTime.Enemy.Groups
         private PlayerInteractionState _playerInteractionState;
         private bool _playerIsInside;
         private PlayerController _playerController;
-        
+
+        private List<PlayerModifierTypes.SacrificialItem> _sacrificialItems;
+
         public override void _Ready()
         {
+            _sacrificialItems = new List<PlayerModifierTypes.SacrificialItem>();
+
             _playerIsInside = false;
             _parentGroup = GetNode<EnemyGroup>(parentGroupNodePath);
 
@@ -64,24 +73,40 @@ namespace StormTime.Enemy.Groups
                 return;
             }
 
-            if (Input.IsActionJustPressed(SceneControls.Interact))
+            if (_parentGroup.IsPlayerHostile())
             {
-                if (_parentGroup.IsPlayerHostile())
-                {
-                    return;
-                }
-
-                _playerController.SetLerpPosition(GetGlobalPosition());
-                _playerController.SetPlayerState(PlayerController.PlayerState.PlayerFloatingMovement);
-                _playerController.DeActivateShooting();
-                
-                SetPlayerInteractionState(PlayerInteractionState.Active);
+                return;
             }
+
+            DisablePlayerAndShowDialogues();
+            SetPlayerInteractionState(PlayerInteractionState.Active);
         }
 
         private void HandlePlayerInteractionActive(float delta)
         {
-            // TODO: Implement Dialogue Interaction Logic Here...
+            PlayerModifierTypes.SacrificialItemInfo? itemInfo = null;
+            int itemIndex = -1;
+
+            if (Input.IsActionJustPressed(SceneControls.DialogueControl_1))
+            {
+                itemInfo = PlayerModifierTypes.GetSacrificialItemAffecter(_sacrificialItems[0]);
+                itemIndex = 0;
+            }
+            else if (Input.IsActionJustPressed(SceneControls.DialogueControl_2))
+            {
+                itemInfo = PlayerModifierTypes.GetSacrificialItemAffecter(_sacrificialItems[1]);
+                itemIndex = 1;
+            }
+            else if (Input.IsActionJustPressed(SceneControls.DialogueControl_3))
+            {
+                itemInfo = PlayerModifierTypes.GetSacrificialItemAffecter(_sacrificialItems[2]);
+                itemIndex = 2;
+            }
+
+            if (itemInfo != null)
+            {
+
+            }
         }
 
         private void HandlePlayerInteractionEnding(float delta)
@@ -124,13 +149,25 @@ namespace StormTime.Enemy.Groups
 
         #endregion
 
-        #region External Functions
-
-
-        
-        #endregion
-
         #region Utility Functions
+
+        private void DisablePlayerAndShowDialogues()
+        {
+            _playerController.SetLerpPosition(GetGlobalPosition());
+            _playerController.SetPlayerState(PlayerController.PlayerState.PlayerFloatingMovement);
+            _playerController.DeActivateShooting();
+
+            _sacrificialItems.Clear();
+            string[] sacrificialItemDescriptions = new string[3];
+
+            for (int i = 0; i < sacrificialItemDescriptions.Length; i++)
+            {
+                _sacrificialItems.Add(PlayerModifierTypes.GetRandomSacrificialItem());
+                sacrificialItemDescriptions[i] = PlayerModifierTypes.GetSacrificialItemDescription(_sacrificialItems[i]);
+            }
+
+            DialogueUiManager.instance.DisplayMultiDialogue(sacrificialItemDescriptions);
+        }
 
         private void SetPlayerInteractionState(PlayerInteractionState playerInteractionState)
         {

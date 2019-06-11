@@ -13,6 +13,8 @@ namespace StormTime.UI
         private StringBuilder _currentString;
         private float _currentTime;
 
+        private int _currentStringIndexCounter = -1;
+
         public override void _Ready()
         {
             _startTyping = false;
@@ -33,14 +35,15 @@ namespace StormTime.UI
 
                 if (_currentTime <= 0)
                 {
-                    if (_currentString.Length >= _displayString.Length)
+                    if (_currentStringIndexCounter >= _displayString.Length - 1)
                     {
                         _startTyping = false;
                     }
                     else
                     {
+                        _currentStringIndexCounter += 1;
                         _currentTime = characterDelay;
-                        _currentString.Append(_displayString[_currentString.Length + 1]);
+                        _currentString.Append(_displayString[_currentStringIndexCounter]);
                         SetText(_currentString.ToString());
                     }
                 }
@@ -53,8 +56,10 @@ namespace StormTime.UI
         {
             _displayString = displayString;
             _startTyping = true;
+
             _currentString.Clear();
             _currentTime = characterDelay;
+            _currentStringIndexCounter = -1;
         }
 
         public void ClearString()

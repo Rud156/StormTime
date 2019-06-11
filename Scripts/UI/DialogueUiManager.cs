@@ -9,11 +9,12 @@ namespace StormTime.UI
         [Export] public NodePath singleLineHolderNodePath;
         [Export] public NodePath multiDialogueHolderNodePath;
         [Export] public Godot.Collections.Array<NodePath> dialogueNodePaths;
+        [Export] public string[] multiDialogueKeys;
 
         public static DialogueUiManager instance;
 
         private Control _multiDialogueHolder;
-        private List<TextTyper> _dialogues;
+        private List<TyperDialogue> _dialogues;
 
         private Control _singleDialogueHolder;
         private TextTyper _singleDialogue;
@@ -21,10 +22,14 @@ namespace StormTime.UI
         public override void _Ready()
         {
             _multiDialogueHolder = GetNode<Control>(multiDialogueHolderNodePath);
-            _dialogues = new List<TextTyper>();
-            foreach (var dialogueNodePath in dialogueNodePaths)
+            _dialogues = new List<TyperDialogue>();
+            for (var i = 0; i < dialogueNodePaths.Count; i++)
             {
-                _dialogues.Add(GetNode<TextTyper>(dialogueNodePath));
+                var dialogueNodePath = dialogueNodePaths[i];
+                TyperDialogue typerDialogue = GetNode<TyperDialogue>(dialogueNodePath);
+
+                _dialogues.Add(typerDialogue);
+                typerDialogue.SetInteractionLabelString(multiDialogueKeys[i]);
             }
 
             _singleDialogueHolder = GetNode<Control>(singleLineHolderNodePath);
@@ -54,17 +59,18 @@ namespace StormTime.UI
             ClearAll();
 
             SetVisible(true);
+            _multiDialogueHolder.SetVisible(true);
             for (int i = 0; i < _dialogues.Count; i++)
             {
-                _dialogues[i].DisplayString(dialogues[i]);
+                _dialogues[i].GetTextTyper().DisplayString(dialogues[i]);
             }
         }
 
         public void ClearMultiDialogue()
         {
-            foreach (TextTyper textTyper in _dialogues)
+            foreach (TyperDialogue textTyper in _dialogues)
             {
-                textTyper.ClearString();
+                textTyper.GetTextTyper().ClearString();
             }
             _multiDialogueHolder.SetVisible(false);
             SetVisible(false);
@@ -83,9 +89,9 @@ namespace StormTime.UI
 
         private void ClearAll()
         {
-            foreach (TextTyper textTyper in _dialogues)
+            foreach (TyperDialogue textTyper in _dialogues)
             {
-                textTyper.ClearString();
+                textTyper.GetTextTyper().ClearString();
             }
             _multiDialogueHolder.SetVisible(false);
 
