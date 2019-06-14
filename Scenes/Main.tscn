@@ -162,6 +162,7 @@ position = Vector2( 251.291, -1110.76 )
 maxEnemyDangerLevel = 8
 
 [node name="Player" parent="Game World" instance=ExtResource( 5 )]
+editor/display_folded = true
 position = Vector2( -2270, 2080 )
 scaleChangeFrequency = 1.0
 playerShootingNodePath = NodePath("Player Shooter")

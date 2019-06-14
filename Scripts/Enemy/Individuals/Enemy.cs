@@ -11,6 +11,7 @@ namespace StormTime.Enemy.Individuals
     {
         // Enemy State
         [Export] public NodePath enemySpriteNodePath;
+        [Export] public NodePath rotationNodePath;
         [Export] public float explorationRadius;
         [Export] public float idleTime;
         [Export] public float minWanderingReachDistance;
@@ -56,8 +57,9 @@ namespace StormTime.Enemy.Individuals
         // Timer
         protected float _enemyTimer;
 
-        // Launch Points
+        // Launch Points and Rotation
         protected List<Node2D> _launchPoints;
+        protected Node2D _rotationNode;
 
         // Colors
         protected Color _enemyColor;
@@ -66,6 +68,8 @@ namespace StormTime.Enemy.Individuals
 
         public override void _Ready()
         {
+            _rotationNode = GetNode<Node2D>(rotationNodePath);
+
             _launchPoints = new List<Node2D>();
             foreach (NodePath launchPoint in launchPointsPath)
             {

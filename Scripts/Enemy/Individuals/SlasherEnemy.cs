@@ -36,7 +36,7 @@ namespace StormTime.Enemy.Individuals
                 _slasherEffect.SetEmitting(false);
             }
 
-            Rotate(Mathf.Deg2Rad(_currentRotationRate * delta));
+            _rotationNode.Rotate(Mathf.Deg2Rad(_currentRotationRate * delta));
         }
 
         protected override void LaunchAttack()

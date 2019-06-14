@@ -68,7 +68,7 @@ namespace StormTime.Enemy.Individuals
                 SetEnemyAttackState(EnemyAttackState.AttackAttacking);
             }
 
-            Rotate(Mathf.Deg2Rad(_currentRotationRate * delta * _forwardRotationDirection));
+            _rotationNode.Rotate(Mathf.Deg2Rad(_currentRotationRate * delta * _forwardRotationDirection));
         }
 
         private void UpdateAttackAttackingState(float delta)
@@ -109,7 +109,7 @@ namespace StormTime.Enemy.Individuals
                 bulletInstance.SetBulletColor(_bulletColor);
                 bulletInstance.SetGlobalPosition(launchPoint.GetGlobalPosition());
 
-                float rotation = GetRotationDegrees() + startRotation;
+                float rotation = _rotationNode.GetRotationDegrees() + startRotation;
                 float xVelocity = Mathf.Cos(Mathf.Deg2Rad(rotation));
                 float yVelocity = Mathf.Sin(Mathf.Deg2Rad(rotation));
                 Vector2 launchVector = new Vector2(xVelocity, yVelocity);

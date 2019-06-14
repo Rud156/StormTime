@@ -12,15 +12,13 @@ extents = Vector2( 70, 70 )
 [sub_resource type="OccluderPolygon2D" id=2]
 polygon = PoolVector2Array( 0, -66.6667, 50, -50, 66.6667, 0, 50, 50, 0, 66.6667, -50, 50, -66.6667, 0, -50, -50 )
 
-[node name="Burst Enemy Container" type="Node2D"]
-
-[node name="BurstEnemy" type="KinematicBody2D" parent="."]
-editor/display_folded = true
+[node name="BurstEnemy" type="KinematicBody2D"]
 scale = Vector2( 0.3, 0.3 )
 collision_layer = 4
 collision_mask = 3
 script = ExtResource( 1 )
-enemySpriteNodePath = NodePath("Sprite")
+enemySpriteNodePath = NodePath("Burst Enemy Container/Sprite")
+rotationNodePath = NodePath("Burst Enemy Container")
 explorationRadius = 200.0
 idleTime = 5.0
 minWanderingReachDistance = 5.0
@@ -29,52 +27,55 @@ playerAttackDistance = 150.0
 maxPlayerFollowDistance = 800.0
 movementSpeed = 250.0
 attackTime = 10.0
-launchPointsPath = [ NodePath("Launch Points/LaunchPoint_1"), NodePath("Launch Points/LaunchPoint_2"), NodePath("Launch Points/LaunchPoint_3"), NodePath("Launch Points/LaunchPoint_4") ]
+launchPointsPath = [ NodePath("Burst Enemy Container/Launch Points/LaunchPoint_1"), NodePath("Burst Enemy Container/Launch Points/LaunchPoint_2"), NodePath("Burst Enemy Container/Launch Points/LaunchPoint_3"), NodePath("Burst Enemy Container/Launch Points/LaunchPoint_4") ]
 rotationRate = 200.0
 rotationTime = 0.5
 rotationAttackCounts = 2.0
 timeDelayBetweenShots = 0.5
 enemyBulletPrefab = ExtResource( 2 )
 
-[node name="Shadow Sprite" type="Sprite" parent="BurstEnemy"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+
+[node name="Burst Enemy Container" type="Node2D" parent="."]
+
+[node name="Shadow Sprite" type="Sprite" parent="Burst Enemy Container"]
 light_mask = 2
 scale = Vector2( 0.175, 0.175 )
 texture = ExtResource( 3 )
 
-[node name="Sprite" type="Sprite" parent="BurstEnemy"]
+[node name="Sprite" type="Sprite" parent="Burst Enemy Container"]
 light_mask = 2
 texture = ExtResource( 4 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="BurstEnemy"]
-shape = SubResource( 1 )
-
-[node name="LightOccluder2D" type="LightOccluder2D" parent="BurstEnemy"]
-occluder = SubResource( 2 )
-
-[node name="Launch Points" type="Node2D" parent="BurstEnemy"]
+[node name="Launch Points" type="Node2D" parent="Burst Enemy Container"]
 editor/display_folded = true
 
-[node name="LaunchPoint_1" type="Node2D" parent="BurstEnemy/Launch Points"]
+[node name="LaunchPoint_1" type="Node2D" parent="Burst Enemy Container/Launch Points"]
 position = Vector2( 70, 0 )
 scale = Vector2( 0.3, 0.3 )
 
-[node name="LaunchPoint_2" type="Node2D" parent="BurstEnemy/Launch Points"]
+[node name="LaunchPoint_2" type="Node2D" parent="Burst Enemy Container/Launch Points"]
 position = Vector2( 0, 70 )
 scale = Vector2( 0.3, 0.3 )
 
-[node name="LaunchPoint_3" type="Node2D" parent="BurstEnemy/Launch Points"]
+[node name="LaunchPoint_3" type="Node2D" parent="Burst Enemy Container/Launch Points"]
 position = Vector2( -70, 0 )
 scale = Vector2( 0.3, 0.3 )
 
-[node name="LaunchPoint_4" type="Node2D" parent="BurstEnemy/Launch Points"]
+[node name="LaunchPoint_4" type="Node2D" parent="Burst Enemy Container/Launch Points"]
 position = Vector2( 0, -70 )
 scale = Vector2( 0.3, 0.3 )
 
+[node name="LightOccluder2D" type="LightOccluder2D" parent="Burst Enemy Container"]
+occluder = SubResource( 2 )
+
 [node name="UI Display" type="Control" parent="."]
-margin_left = -35.0
-margin_top = -30.0
-margin_right = 37.0
-margin_bottom = -28.0
+editor/display_folded = true
+margin_left = -125.0
+margin_top = -125.0
+margin_right = 125.0
+margin_bottom = -111.0
 
 [node name="Health Display" type="TextureProgress" parent="UI Display"]
 anchor_right = 1.0

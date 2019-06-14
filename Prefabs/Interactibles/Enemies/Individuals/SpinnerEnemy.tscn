@@ -12,15 +12,13 @@ extents = Vector2( 70, 70 )
 [sub_resource type="OccluderPolygon2D" id=2]
 polygon = PoolVector2Array( -66.6667, -66.6667, 66.6667, -66.6667, 66.6667, 66.6667, -66.6667, 66.6667 )
 
-[node name="Spinner Enemy Container" type="Node2D"]
-
-[node name="SpinnerEnemy" type="KinematicBody2D" parent="."]
-editor/display_folded = true
+[node name="SpinnerEnemy" type="KinematicBody2D"]
 scale = Vector2( 0.3, 0.3 )
 collision_layer = 4
 collision_mask = 3
 script = ExtResource( 1 )
-enemySpriteNodePath = NodePath("Sprite")
+enemySpriteNodePath = NodePath("Spinner Enemy Container/Sprite")
+rotationNodePath = NodePath("Spinner Enemy Container")
 explorationRadius = 200.0
 idleTime = 7.0
 minWanderingReachDistance = 5.0
@@ -29,44 +27,48 @@ playerAttackDistance = 150.0
 maxPlayerFollowDistance = 800.0
 movementSpeed = 200.0
 attackTime = 7.0
-launchPointsPath = [ NodePath("Launch Points/LaunchPoint_1"), NodePath("Launch Points/LaunchPoint_2") ]
+launchPointsPath = [ NodePath("Spinner Enemy Container/Launch Points/LaunchPoint_1"), NodePath("Spinner Enemy Container/Launch Points/LaunchPoint_2") ]
 rotationRate = 200.0
 rotationSwitchTime = 3.0
 enemyBulletPrefab = ExtResource( 2 )
 timeBetweenShot = 0.3
 
-[node name="Shadow Sprite" type="Sprite" parent="SpinnerEnemy"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+
+[node name="Spinner Enemy Container" type="Node2D" parent="."]
+editor/display_folded = true
+
+[node name="Shadow Sprite" type="Sprite" parent="Spinner Enemy Container"]
 light_mask = 2
 scale = Vector2( 0.1, 0.3 )
 texture = ExtResource( 3 )
 
-[node name="Sprite" type="Sprite" parent="SpinnerEnemy"]
+[node name="Sprite" type="Sprite" parent="Spinner Enemy Container"]
 light_mask = 2
 texture = ExtResource( 4 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="SpinnerEnemy"]
-shape = SubResource( 1 )
-
-[node name="LightOccluder2D" type="LightOccluder2D" parent="SpinnerEnemy"]
+[node name="LightOccluder2D" type="LightOccluder2D" parent="Spinner Enemy Container"]
 occluder = SubResource( 2 )
 
-[node name="Launch Points" type="Node2D" parent="SpinnerEnemy"]
+[node name="Launch Points" type="Node2D" parent="Spinner Enemy Container"]
 editor/display_folded = true
 
-[node name="LaunchPoint_1" type="Node2D" parent="SpinnerEnemy/Launch Points"]
+[node name="LaunchPoint_1" type="Node2D" parent="Spinner Enemy Container/Launch Points"]
 position = Vector2( -50, -63 )
 scale = Vector2( 0.5, 0.5 )
 
-[node name="LaunchPoint_2" type="Node2D" parent="SpinnerEnemy/Launch Points"]
+[node name="LaunchPoint_2" type="Node2D" parent="Spinner Enemy Container/Launch Points"]
 position = Vector2( 50, 63 )
 rotation = 3.14159
 scale = Vector2( 0.5, 0.5 )
 
 [node name="UI Display" type="Control" parent="."]
-margin_left = -35.0
-margin_top = -30.0
-margin_right = 35.0
-margin_bottom = -28.0
+editor/display_folded = true
+margin_left = -125.0
+margin_top = -125.0
+margin_right = 125.0
+margin_bottom = -111.0
 
 [node name="Health Display" type="TextureProgress" parent="UI Display"]
 anchor_right = 1.0
