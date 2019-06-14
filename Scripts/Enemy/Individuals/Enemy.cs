@@ -4,6 +4,8 @@ using StormTime.Player.Data;
 using StormTime.Utils;
 using StormTime.Enemy.Groups;
 using System;
+using StormTime.Common;
+using StormTime.Weapon;
 
 namespace StormTime.Enemy.Individuals
 {
@@ -12,6 +14,7 @@ namespace StormTime.Enemy.Individuals
         // Enemy State
         [Export] public NodePath enemySpriteNodePath;
         [Export] public NodePath rotationNodePath;
+        [Export] public NodePath enemyHealthSetterNodePath;
         [Export] public float explorationRadius;
         [Export] public float idleTime;
         [Export] public float minWanderingReachDistance;
@@ -66,9 +69,12 @@ namespace StormTime.Enemy.Individuals
         protected Color _bulletColor;
         protected Sprite _enemySprite;
 
+        private HealthSetter _enemyHealthSetter;
+
         public override void _Ready()
         {
             _rotationNode = GetNode<Node2D>(rotationNodePath);
+            _enemyHealthSetter = GetNode<HealthSetter>(enemyHealthSetterNodePath);
 
             _launchPoints = new List<Node2D>();
             foreach (NodePath launchPoint in launchPointsPath)
@@ -239,6 +245,20 @@ namespace StormTime.Enemy.Individuals
 
         #region External Functions
 
+        // Event Function from Bullet Collision
+        public void BulletCollisionNotification(object bullet)
+        {
+            bool isPlayerBullet = !(bullet is EnemyBullet);
+
+            if (isPlayerBullet)
+            {
+                EmitOnHostileOnPlayerAttack();
+
+                float damageAmount = ((Bullet)bullet).GetBulletDamage();
+                _enemyHealthSetter.SubtractHealth(damageAmount);
+            }
+        }
+
         public void FreezeEnemy(float freezeTime)
         {
             _frozenTimer = freezeTime;
@@ -258,14 +278,6 @@ namespace StormTime.Enemy.Individuals
 
         public void SetParentEnemyGroup(EnemyGroup enemyGroup) =>
             _parentEnemyGroup = enemyGroup;
-
-        public void BulletCollisionNotification(bool isPlayerBullet)
-        {
-            if (isPlayerBullet)
-            {
-                EmitOnHostileOnPlayerAttack();
-            }
-        }
 
         public void SetPlayerHostileState(bool playerHostile = true) => _playerHostile = playerHostile;
 

@@ -1,7 +1,9 @@
 using Godot;
+using StormTime.Common;
 using StormTime.Player.Data;
 using StormTime.Player.Shooting;
 using StormTime.Utils;
+using StormTime.Weapon;
 
 namespace StormTime.Player.Movement
 {
@@ -19,6 +21,7 @@ namespace StormTime.Player.Movement
 
         // Other Controls
         [Export] public NodePath playerShootingNodePath;
+        [Export] public NodePath playerHealthSetterNodePath;
 
         public enum PlayerState
         {
@@ -27,6 +30,7 @@ namespace StormTime.Player.Movement
         }
 
         private PlayerShooting _playerShooting;
+        private HealthSetter _playerHealthSetter;
 
         private PlayerState _playerState;
         private Vector2 _movement;
@@ -40,6 +44,7 @@ namespace StormTime.Player.Movement
         public override void _Ready()
         {
             _playerShooting = GetNode<PlayerShooting>(playerShootingNodePath);
+            _playerHealthSetter = GetNode<HealthSetter>(playerHealthSetterNodePath);
 
             _movement = new Vector2();
             _currentMovementSpeed = movementSpeed;
@@ -132,6 +137,17 @@ namespace StormTime.Player.Movement
         #endregion
 
         #region External Functions
+
+        public void BulletCollisionNotification(object bullet)
+        {
+            bool isPlayerBullet = !(bullet is EnemyBullet);
+
+            if (!isPlayerBullet)
+            {
+                float damageAmount = ((Bullet)bullet).GetBulletDamage();
+                _playerHealthSetter.SubtractHealth(damageAmount);
+            }
+        }
 
         public void ResetSizeDefaults() => _targetScale = Vector2.One * defaultScaleAmount;
 

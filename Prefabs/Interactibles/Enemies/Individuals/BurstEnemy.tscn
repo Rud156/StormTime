@@ -1,10 +1,12 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Scripts/Enemy/Individuals/BurstEnemy.cs" type="Script" id=1]
 [ext_resource path="res://Prefabs/Interactibles/Bullets/Enemy Bullet.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Textures/light.png" type="Texture" id=3]
 [ext_resource path="res://Textures/Circle_Shape_White.png" type="Texture" id=4]
-[ext_resource path="res://Textures/White Pixel.png" type="Texture" id=5]
+[ext_resource path="res://Scripts/Common/HealthSetter.cs" type="Script" id=5]
+[ext_resource path="res://Scripts/Common/HealthDisplay.cs" type="Script" id=6]
+[ext_resource path="res://Textures/White Pixel.png" type="Texture" id=7]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 70, 70 )
@@ -19,6 +21,7 @@ collision_mask = 3
 script = ExtResource( 1 )
 enemySpriteNodePath = NodePath("Burst Enemy Container/Sprite")
 rotationNodePath = NodePath("Burst Enemy Container")
+enemyHealthSetterNodePath = NodePath("Enemy Health")
 explorationRadius = 200.0
 idleTime = 5.0
 minWanderingReachDistance = 5.0
@@ -38,6 +41,7 @@ enemyBulletPrefab = ExtResource( 2 )
 shape = SubResource( 1 )
 
 [node name="Burst Enemy Container" type="Node2D" parent="."]
+editor/display_folded = true
 
 [node name="Shadow Sprite" type="Sprite" parent="Burst Enemy Container"]
 light_mask = 2
@@ -70,8 +74,19 @@ scale = Vector2( 0.3, 0.3 )
 [node name="LightOccluder2D" type="LightOccluder2D" parent="Burst Enemy Container"]
 occluder = SubResource( 2 )
 
+[node name="Enemy Health" type="Node2D" parent="."]
+script = ExtResource( 5 )
+maxHealth = 75.0
+
+[node name="Enemy Health Display" type="Node2D" parent="Enemy Health"]
+script = ExtResource( 6 )
+minHealthColor = Color( 1, 0, 0, 1 )
+halfHealthColor = Color( 0, 0.976471, 1, 1 )
+maxHealthColor = Color( 0.803922, 0, 1, 1 )
+healthProgressNodePath = NodePath("../../UI Display/Health Display")
+healthSetterNodePath = NodePath("..")
+
 [node name="UI Display" type="Control" parent="."]
-editor/display_folded = true
 margin_left = -125.0
 margin_top = -125.0
 margin_right = 125.0
@@ -82,8 +97,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 margin_right = -2.0
 value = 50.0
-texture_under = ExtResource( 5 )
-texture_progress = ExtResource( 5 )
+texture_under = ExtResource( 7 )
+texture_progress = ExtResource( 7 )
 tint_under = Color( 0, 0, 0, 0.392157 )
 tint_progress = Color( 1, 0, 0, 1 )
 nine_patch_stretch = true

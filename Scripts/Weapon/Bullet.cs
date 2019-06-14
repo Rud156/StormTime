@@ -78,7 +78,7 @@ namespace StormTime.Weapon
         #region Events
 
         private void NotifyCollider(Godot.Object collider) =>
-            collider.CallDeferred("BulletCollisionNotification", !(this is EnemyBullet));
+            collider.CallDeferred("BulletCollisionNotification", this);
 
         #endregion
         

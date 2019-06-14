@@ -34,7 +34,6 @@ namespace StormTime.Enemy.Individuals
 
         private void ShootBullets()
         {
-
             float startRotation = 0;
             float rotationIncrementAmount = (float)360 / _launchPoints.Count;
 

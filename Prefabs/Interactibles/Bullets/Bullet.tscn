@@ -19,6 +19,7 @@ bulletExplosionPrefab = ExtResource( 3 )
 bulletSpeed = 2000.0
 bulletLifeTime = 1.0
 bulletTrailTimer = 0.04
+bulletDamageAmount = 20.0
 
 [node name="Sprite" type="Sprite" parent="."]
 self_modulate = Color( 1, 0.631373, 0, 1 )
