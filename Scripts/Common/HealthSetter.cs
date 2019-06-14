@@ -41,17 +41,22 @@ namespace StormTime.Common
             HandleHealthChange();
         }
 
+        public void SetMaxHealth(float amount)
+        {
+            _maxHealth = amount;
+
+            HandleHealthChange();
+        }
+
         public float GetCurrentHealth() => _currentHealth;
 
         public float GetMaxHealth() => _maxHealth;
-
-        public void SetMaxHealth(float amount) => _maxHealth = amount;
 
         #endregion
 
         #region Utility Functions
 
-        public void HandleHealthChange() => healthChanged?.Invoke(_currentHealth, _maxHealth);
+        private void HandleHealthChange() => healthChanged?.Invoke(_currentHealth, _maxHealth);
 
         #endregion
     }

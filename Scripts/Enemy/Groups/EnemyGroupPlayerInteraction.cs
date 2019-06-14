@@ -1,11 +1,9 @@
-using System;
 using System.Collections.Generic;
 using Godot;
 using StormTime.Player.Modifiers;
 using StormTime.Player.Movement;
 using StormTime.UI;
 using StormTime.Utils;
-using Array = System.Array;
 
 namespace StormTime.Enemy.Groups
 {
@@ -103,17 +101,22 @@ namespace StormTime.Enemy.Groups
                 itemIndex = 2;
             }
 
-            if (itemInfo != null)
+            if (itemInfo.HasValue)
             {
-
+                _playerController.HandleSacrificialItemInfluence(itemInfo.Value);
+                SetPlayerInteractionState(PlayerInteractionState.Ending);
             }
         }
 
         private void HandlePlayerInteractionEnding(float delta)
         {
             SetPlayerInteractionState(PlayerInteractionState.Completed);
+            ClearDialogues();
+
             _playerController.SetPlayerState(PlayerController.PlayerState.PlayerInControlMovement);
             _playerController.ActivateShooting();
+            _playerController.ResetSizeDefaults();
+
         }
 
         private void HandlePlayerInteractionComplete(float delta)
@@ -170,12 +173,17 @@ namespace StormTime.Enemy.Groups
                 {
                     sacrificialItem = PlayerModifierTypes.GetRandomSacrificialItem();
                 }
+
                 _sacrificialItems.Add(sacrificialItem);
+                currentSacrificialItems.Add(sacrificialItem);
+
                 sacrificialItemDescriptions[i] = PlayerModifierTypes.GetSacrificialItemDescription(_sacrificialItems[i]);
             }
 
             DialogueUiManager.instance.DisplayMultiDialogue(sacrificialItemDescriptions);
         }
+
+        private void ClearDialogues() => DialogueUiManager.instance.ClearMultiDialogue();
 
         private void SetPlayerInteractionState(PlayerInteractionState playerInteractionState)
         {

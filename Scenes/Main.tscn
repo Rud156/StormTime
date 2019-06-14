@@ -192,6 +192,7 @@ minHealthColor = Color( 1, 0, 0, 1 )
 halfHealthColor = Color( 1, 1, 0, 1 )
 maxHealthColor = Color( 0, 1, 0, 1 )
 healthProgressNodePath = NodePath("../../../../CanvasLayer/GUI/Player Health Panel/Player Health")
+healthLabelDisplayNodePath = NodePath("../../../../CanvasLayer/GUI/Player Health Panel/Player Health Label")
 healthSetterNodePath = NodePath("..")
 
 [node name="Player Camera" type="Camera2D" parent="Game World"]
@@ -211,6 +212,5 @@ lockTopRightCorner = Vector2( 2945, -2000 )
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="GUI" parent="CanvasLayer" instance=ExtResource( 12 )]
-editor/display_folded = true
 
 [editable path="CanvasLayer/GUI"]

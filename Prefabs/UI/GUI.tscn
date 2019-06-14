@@ -72,7 +72,6 @@ editor/display_folded = true
 [node name="Dialogue_2" parent="Dialogue Panel/Dialogue Options Holder" instance=ExtResource( 5 )]
 editor/display_folded = true
 margin_left = 530.0
-margin_top = -100.0
 margin_right = 968.0
 margin_bottom = -42.0002
 
@@ -102,3 +101,13 @@ texture_progress = ExtResource( 6 )
 tint_under = Color( 0.11673, 0.11673, 0.132813, 1 )
 tint_progress = Color( 0.12549, 1, 0, 1 )
 nine_patch_stretch = true
+
+[node name="Player Health Label" type="Label" parent="Player Health Panel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 20.95
+margin_bottom = 20.95
+theme = ExtResource( 1 )
+text = "100 / 100"
+align = 1
+valign = 1

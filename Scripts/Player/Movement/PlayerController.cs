@@ -1,6 +1,8 @@
+using System;
 using Godot;
 using StormTime.Common;
 using StormTime.Player.Data;
+using StormTime.Player.Modifiers;
 using StormTime.Player.Shooting;
 using StormTime.Utils;
 using StormTime.Weapon;
@@ -150,6 +152,35 @@ namespace StormTime.Player.Movement
         }
 
         public void ResetSizeDefaults() => _targetScale = Vector2.One * defaultScaleAmount;
+
+        public void HandleSacrificialItemInfluence(PlayerModifierTypes.SacrificialItemInfo sacrificialItemInfo)
+        {
+            switch (sacrificialItemInfo.sacrificialItem)
+            {
+                case PlayerModifierTypes.SacrificialItem.SpeedSacrificeHealthBoost:
+                    float speedLossAmount = _currentMovementSpeed * sacrificialItemInfo.reducedPercent / 100;
+                    _currentMovementSpeed -= speedLossAmount;
+                    float maxHealthIncrease =
+                        _playerHealthSetter.GetMaxHealth() * sacrificialItemInfo.increasedPercent / 100;
+                    _playerHealthSetter.SetMaxHealth(_playerHealthSetter.GetMaxHealth() + maxHealthIncrease);
+                    break;
+
+                case PlayerModifierTypes.SacrificialItem.SpeedSacrificeDamageIncrease:
+                    break;
+
+                case PlayerModifierTypes.SacrificialItem.HealthSacrificeDamageIncrease:
+                    break;
+
+                case PlayerModifierTypes.SacrificialItem.ShootTimeSacrificeDamageIncrease:
+                    break;
+
+                case PlayerModifierTypes.SacrificialItem.HealthSacrificeSpeedIncrease:
+                    break;
+
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
 
         public void SetLerpPosition(Vector2 position) => _lerpPosition = position;
 

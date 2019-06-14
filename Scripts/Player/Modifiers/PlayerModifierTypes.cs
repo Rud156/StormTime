@@ -29,8 +29,9 @@ namespace StormTime.Player.Modifiers
 
         public struct SacrificialItemInfo
         {
-            public int affecter;
-            public int affected;
+            public SacrificialItem sacrificialItem;
+            public int increasedPercent;
+            public int reducedPercent;
         }
 
         public static SacrificialItem GetRandomSacrificialItem()
@@ -70,36 +71,41 @@ namespace StormTime.Player.Modifiers
                 case SacrificialItem.SpeedSacrificeHealthBoost:
                     return new SacrificialItemInfo()
                     {
-                        affected = 20,
-                        affecter = 10
+                        sacrificialItem = SacrificialItem.SpeedSacrificeHealthBoost,
+                        reducedPercent = 20,
+                        increasedPercent = 10
                     };
 
                 case SacrificialItem.SpeedSacrificeDamageIncrease:
                     return new SacrificialItemInfo()
                     {
-                        affected = 20,
-                        affecter = 15
+                        sacrificialItem = SacrificialItem.SpeedSacrificeDamageIncrease,
+                        reducedPercent = 20,
+                        increasedPercent = 20
                     };
 
                 case SacrificialItem.HealthSacrificeDamageIncrease:
                     return new SacrificialItemInfo()
                     {
-                        affected = 10,
-                        affecter = 15
+                        sacrificialItem = SacrificialItem.HealthSacrificeDamageIncrease,
+                        reducedPercent = 10,
+                        increasedPercent = 30
                     };
 
                 case SacrificialItem.ShootTimeSacrificeDamageIncrease:
                     return new SacrificialItemInfo()
                     {
-                        affected = 10,
-                        affecter = 10
+                        sacrificialItem = SacrificialItem.ShootTimeSacrificeDamageIncrease,
+                        reducedPercent = 10,
+                        increasedPercent = 25
                     };
 
                 case SacrificialItem.HealthSacrificeSpeedIncrease:
                     return new SacrificialItemInfo()
                     {
-                        affected = 10,
-                        affecter = 20
+                        sacrificialItem = SacrificialItem.HealthSacrificeSpeedIncrease,
+                        reducedPercent = 10,
+                        increasedPercent = 20
                     };
 
                 default:

@@ -54,6 +54,13 @@ namespace StormTime.UI
             _singleDialogue.DisplayString(dialogue);
         }
 
+        public void ClearSingleDialogue()
+        {
+            _singleDialogue.ClearString();
+            _singleDialogueHolder.SetVisible(false);
+            SetVisible(false);
+        }
+
         public void DisplayMultiDialogue(string[] dialogues)
         {
             ClearAll();
@@ -73,13 +80,6 @@ namespace StormTime.UI
                 textTyper.GetTextTyper().ClearString();
             }
             _multiDialogueHolder.SetVisible(false);
-            SetVisible(false);
-        }
-
-        public void ClearSingleDialogue()
-        {
-            _singleDialogue.ClearString();
-            _singleDialogueHolder.SetVisible(false);
             SetVisible(false);
         }
 

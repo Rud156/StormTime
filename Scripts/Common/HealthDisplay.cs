@@ -8,9 +8,11 @@ namespace StormTime.Common
         [Export] public Color halfHealthColor;
         [Export] public Color maxHealthColor;
         [Export] public NodePath healthProgressNodePath;
+        [Export] public NodePath healthLabelDisplayNodePath;
         [Export] public NodePath healthSetterNodePath;
 
         private TextureProgress _healthProgress;
+        private Label _healthLabel;
         private HealthSetter _healthSetter;
 
         private float _maxHealth;
@@ -18,6 +20,11 @@ namespace StormTime.Common
 
         public override void _Ready()
         {
+            if (healthLabelDisplayNodePath != null)
+            {
+                _healthLabel = GetNode<Label>(healthLabelDisplayNodePath);
+            }
+
             _healthProgress = GetNode<TextureProgress>(healthProgressNodePath);
             _healthSetter = GetNode<HealthSetter>(healthSetterNodePath);
 
@@ -33,6 +40,8 @@ namespace StormTime.Common
 
             _healthProgress.SetMax(_maxHealth);
             _healthProgress.SetValue(_currentHealth);
+
+            _healthLabel?.SetText($"{currentHealth} / {maxHealth}");
 
             float healthRatio = _currentHealth / _maxHealth;
             _healthProgress.SetTintProgress(healthRatio <= 0.5f
