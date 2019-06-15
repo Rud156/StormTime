@@ -32,7 +32,7 @@ scale_curve = SubResource( 4 )
 color_ramp = SubResource( 2 )
 
 [sub_resource type="RectangleShape2D" id=6]
-extents = Vector2( 150.838, 143.113 )
+extents = Vector2( 200, 200 )
 
 [node name="Enemy Group" type="Node2D"]
 z_index = 1
@@ -40,6 +40,7 @@ script = ExtResource( 1 )
 interactionParticlesNodePath = NodePath("Interaction Area/Interaction Particles")
 interactionSpriteNodePath = NodePath("Interaction Area/Interaction Sprite")
 enemyPlayerInteractionNodePath = NodePath("Interaction Area")
+shopSettingPercent = 0.9
 enemyColors = PoolColorArray( 0.517647, 0, 1, 1, 1, 0, 0, 1, 0, 1, 0, 1, 0, 0, 1, 1 )
 enemyTypes = [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ) ]
 enemyDangerValues = PoolIntArray( 1, 1, 3 )

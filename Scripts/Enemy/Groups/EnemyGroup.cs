@@ -8,6 +8,7 @@ namespace StormTime.Enemy.Groups
         [Export] public NodePath interactionParticlesNodePath;
         [Export] public NodePath interactionSpriteNodePath;
         [Export] public NodePath enemyPlayerInteractionNodePath;
+        [Export] public float shopSettingPercent;
         [Export] public Color[] enemyColors;
 
         /// <summary>
@@ -41,14 +42,18 @@ namespace StormTime.Enemy.Groups
             _enemyTypeCount = new List<int> { 0, 0, 0 };
             _groupEnemies = new List<Individuals.Enemy>();
 
-            _enemyGroupPlayerInteraction = GetNode<EnemyGroupPlayerInteraction>(enemyPlayerInteractionNodePath);
-
             _interactionSprite = GetNode<Sprite>(interactionSpriteNodePath);
             _interactionParticles = GetNode<Particles2D>(interactionParticlesNodePath);
 
             foreach (NodePath spawnPoint in spawnPointsNodePaths)
             {
                 _spawnPoints.Add(GetNode<Node2D>(spawnPoint));
+            }
+
+            _enemyGroupPlayerInteraction = GetNode<EnemyGroupPlayerInteraction>(enemyPlayerInteractionNodePath);
+            if (GD.Randf() < shopSettingPercent)
+            {
+                _enemyGroupPlayerInteraction.SetAsShop();
             }
         }
 

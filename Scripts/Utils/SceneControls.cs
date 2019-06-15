@@ -14,7 +14,7 @@ namespace StormTime.Utils
         public const string ShootSpecial = "ui_special_shoot";
 
         public const string DialogueControl_1 = "ui_a";
-        public const string DialogueControl_2 = "ui_w";
-        public const string DialogueControl_3 = "ui_d";
+        public const string DialogueControl_2 = "ui_d";
+        public const string DialogueControl_3 = "ui_w";
     }
 }

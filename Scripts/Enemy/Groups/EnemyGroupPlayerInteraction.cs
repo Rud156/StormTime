@@ -20,16 +20,19 @@ namespace StormTime.Enemy.Groups
         }
 
         private EnemyGroup _parentGroup;
+        private bool _isShop;
 
         private PlayerInteractionState _playerInteractionState;
         private bool _playerIsInside;
         private PlayerController _playerController;
 
         private List<PlayerModifierTypes.SacrificialItem> _sacrificialItems;
+        private List<PlayerModifierTypes.ShopItem> _shopItems;
 
         public override void _Ready()
         {
             _sacrificialItems = new List<PlayerModifierTypes.SacrificialItem>();
+            _shopItems = new List<PlayerModifierTypes.ShopItem>();
 
             _playerIsInside = false;
             _parentGroup = GetNode<EnemyGroup>(parentGroupNodePath);
@@ -82,29 +85,13 @@ namespace StormTime.Enemy.Groups
 
         private void HandlePlayerInteractionActive(float delta)
         {
-            PlayerModifierTypes.SacrificialItemInfo? itemInfo = null;
-            int itemIndex = -1;
-
-            if (Input.IsActionJustPressed(SceneControls.DialogueControl_1))
+            if (_isShop)
             {
-                itemInfo = PlayerModifierTypes.GetSacrificialItemAffecter(_sacrificialItems[0]);
-                itemIndex = 0;
+                HandleShopPlayerInteraction();
             }
-            else if (Input.IsActionJustPressed(SceneControls.DialogueControl_2))
+            else
             {
-                itemInfo = PlayerModifierTypes.GetSacrificialItemAffecter(_sacrificialItems[1]);
-                itemIndex = 1;
-            }
-            else if (Input.IsActionJustPressed(SceneControls.DialogueControl_3))
-            {
-                itemInfo = PlayerModifierTypes.GetSacrificialItemAffecter(_sacrificialItems[2]);
-                itemIndex = 2;
-            }
-
-            if (itemInfo.HasValue)
-            {
-                _playerController.HandleSacrificialItemInfluence(itemInfo.Value);
-                SetPlayerInteractionState(PlayerInteractionState.Ending);
+                HandleSacrificialItemPlayerInteraction();
             }
         }
 
@@ -160,6 +147,78 @@ namespace StormTime.Enemy.Groups
             _playerController.SetPlayerState(PlayerController.PlayerState.PlayerFloatingMovement);
             _playerController.DeActivateShooting();
 
+            if (_isShop)
+            {
+                ShowShopItemDialogues();
+            }
+            else
+            {
+                ShowSacrificialItemDialogues();
+            }
+        }
+
+        #region Shop Interactions
+
+        private void ShowShopItemDialogues()
+        {
+            _shopItems.Clear();
+            string[] shopItemDescriptions = new string[3];
+
+            HashSet<PlayerModifierTypes.ShopItem> currentShopItems = new HashSet<PlayerModifierTypes.ShopItem>();
+
+            for (int i = 0; i < shopItemDescriptions.Length; i++)
+            {
+                PlayerModifierTypes.ShopItem shopItem = PlayerModifierTypes.GetRandomShopItem();
+                while (currentShopItems.Contains(shopItem))
+                {
+                    shopItem = PlayerModifierTypes.GetRandomShopItem();
+                }
+
+                _shopItems.Add(shopItem);
+                currentShopItems.Add(shopItem);
+
+                shopItemDescriptions[i] = PlayerModifierTypes.GetShopItemDescription(shopItem);
+            }
+
+            DialogueUiManager.instance.DisplayMultiDialogue(shopItemDescriptions);
+        }
+
+        private void HandleShopPlayerInteraction()
+        {
+            PlayerModifierTypes.ShopItemInfo? shopItemInfo = null;
+            int itemIndex = -1;
+
+            if (Input.IsActionJustPressed(SceneControls.DialogueControl_1))
+            {
+                shopItemInfo = PlayerModifierTypes.GetShopItem(_shopItems[0]);
+                itemIndex = 0;
+            }
+            else if (Input.IsActionJustPressed(SceneControls.DialogueControl_2))
+            {
+                shopItemInfo = PlayerModifierTypes.GetShopItem(_shopItems[1]);
+                itemIndex = 1;
+            }
+            else if (Input.IsActionJustPressed(SceneControls.DialogueControl_3))
+            {
+                shopItemInfo = PlayerModifierTypes.GetShopItem(_shopItems[2]);
+                itemIndex = 2;
+            }
+
+            if (shopItemInfo.HasValue)
+            {
+                // TODO: So Something With Shop Items
+                SetPlayerInteractionState(PlayerInteractionState.Ending);
+            }
+        }
+
+        #endregion
+
+        #region Sacrificial Item Interactions
+
+        private void ShowSacrificialItemDialogues()
+        {
+            // TODO: Make Player Hostile After This...
+
             _sacrificialItems.Clear();
             string[] sacrificialItemDescriptions = new string[3];
 
@@ -183,6 +242,36 @@ namespace StormTime.Enemy.Groups
             DialogueUiManager.instance.DisplayMultiDialogue(sacrificialItemDescriptions);
         }
 
+        private void HandleSacrificialItemPlayerInteraction()
+        {
+            PlayerModifierTypes.SacrificialItemInfo? itemInfo = null;
+            int itemIndex = -1;
+
+            if (Input.IsActionJustPressed(SceneControls.DialogueControl_1))
+            {
+                itemInfo = PlayerModifierTypes.GetSacrificialItemAffecter(_sacrificialItems[0]);
+                itemIndex = 0;
+            }
+            else if (Input.IsActionJustPressed(SceneControls.DialogueControl_2))
+            {
+                itemInfo = PlayerModifierTypes.GetSacrificialItemAffecter(_sacrificialItems[1]);
+                itemIndex = 1;
+            }
+            else if (Input.IsActionJustPressed(SceneControls.DialogueControl_3))
+            {
+                itemInfo = PlayerModifierTypes.GetSacrificialItemAffecter(_sacrificialItems[2]);
+                itemIndex = 2;
+            }
+
+            if (itemInfo.HasValue)
+            {
+                _playerController.HandleSacrificialItemInfluence(itemInfo.Value);
+                SetPlayerInteractionState(PlayerInteractionState.Ending);
+            }
+        }
+
+        #endregion
+
         private void ClearDialogues() => DialogueUiManager.instance.ClearMultiDialogue();
 
         private void SetPlayerInteractionState(PlayerInteractionState playerInteractionState)
@@ -194,6 +283,12 @@ namespace StormTime.Enemy.Groups
 
             _playerInteractionState = playerInteractionState;
         }
+
+        #endregion
+
+        #region External Functions
+
+        public void SetAsShop() => _isShop = true;
 
         #endregion
     }

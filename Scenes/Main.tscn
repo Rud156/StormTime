@@ -184,7 +184,6 @@ shadow_filter = 3
 shadow_filter_smooth = 10.0
 
 [node name="Player Health" type="Node2D" parent="Game World/Player"]
-editor/display_folded = true
 script = ExtResource( 9 )
 maxHealth = 100.0
 

@@ -117,7 +117,19 @@ namespace StormTime.Player.Modifiers
 
         #region Shop Items
 
-        public const float HealthPotionPercentMultiplier = 40;
+        private const float HealthPotionIncrease = 40;
+
+        public struct ShopItemInfo
+        {
+            public ShopItem shopItem;
+            public float valueChange;
+        }
+
+        public static ShopItem GetRandomShopItem()
+        {
+            Array shopValues = Enum.GetValues(typeof(ShopItem));
+            return (ShopItem)shopValues.GetValue(GD.Randi() % shopValues.Length);
+        }
 
         public static string GetShopItemDescription(ShopItem shopItem)
         {
@@ -137,6 +149,47 @@ namespace StormTime.Player.Modifiers
 
                 case ShopItem.BulletsFreezeEnemy:
                     return "Bullets temporarily freeze enemies randomly";
+
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(shopItem), shopItem, null);
+            }
+        }
+
+        public static ShopItemInfo GetShopItem(ShopItem shopItem)
+        {
+            switch (shopItem)
+            {
+                case ShopItem.HealthPotion:
+                    return new ShopItemInfo()
+                    {
+                        shopItem = shopItem,
+                        valueChange = HealthPotionIncrease
+                    };
+
+                case ShopItem.BulletsFreezeEnemy:
+                    return new ShopItemInfo()
+                    {
+                        shopItem = shopItem
+                    };
+
+                case ShopItem.ShotGun:
+                    return new ShopItemInfo()
+                    {
+                        shopItem = shopItem
+                    };
+
+                case ShopItem.ChargeGun:
+                    return new ShopItemInfo()
+                    {
+                        shopItem = shopItem
+                    };
+
+
+                case ShopItem.Shield:
+                    return new ShopItemInfo()
+                    {
+                        shopItem = shopItem
+                    };
 
                 default:
                     throw new ArgumentOutOfRangeException(nameof(shopItem), shopItem, null);
