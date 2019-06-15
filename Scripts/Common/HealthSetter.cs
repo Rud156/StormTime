@@ -8,10 +8,14 @@ namespace StormTime.Common
 
         private float _maxHealth;
         private float _currentHealth;
+        private bool _zeroHealthEventFired;
 
         public delegate void HealthChanged(float currentHealth, float maxHealth);
 
+        public delegate void ZeroHealth();
+
         public HealthChanged healthChanged;
+        public ZeroHealth zeroHealth;
 
         public override void _Ready()
         {
@@ -61,7 +65,16 @@ namespace StormTime.Common
 
         #region Utility Functions
 
-        private void HandleHealthChange() => healthChanged?.Invoke(_currentHealth, _maxHealth);
+        private void HandleHealthChange()
+        {
+            healthChanged?.Invoke(_currentHealth, _maxHealth);
+
+            if (_currentHealth <= 0 && !_zeroHealthEventFired)
+            {
+                zeroHealth?.Invoke();
+                _zeroHealthEventFired = true;
+            }
+        }
 
         #endregion
     }

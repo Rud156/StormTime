@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using StormTime.Player.Data;
 using StormTime.Utils;
 using StormTime.Enemy.Groups;
-using System;
 using StormTime.Common;
+using StormTime.Effects;
 using StormTime.Weapon;
 
 namespace StormTime.Enemy.Individuals
@@ -15,6 +15,7 @@ namespace StormTime.Enemy.Individuals
         [Export] public NodePath enemySpriteNodePath;
         [Export] public NodePath rotationNodePath;
         [Export] public NodePath enemyHealthSetterNodePath;
+        [Export] public PackedScene enemyDeathEffectPrefab;
         [Export] public float explorationRadius;
         [Export] public float idleTime;
         [Export] public float minWanderingReachDistance;
@@ -75,6 +76,7 @@ namespace StormTime.Enemy.Individuals
         {
             _rotationNode = GetNode<Node2D>(rotationNodePath);
             _enemyHealthSetter = GetNode<HealthSetter>(enemyHealthSetterNodePath);
+            _enemyHealthSetter.zeroHealth += HandleHealthZero;
 
             _launchPoints = new List<Node2D>();
             foreach (NodePath launchPoint in launchPointsPath)
@@ -299,6 +301,16 @@ namespace StormTime.Enemy.Individuals
         protected void LookAtTarget(Vector2 target) => LookAt(target);
 
         protected Vector2 GetNewPositionForIdling() => VectorHelpers.Random2D() * explorationRadius;
+
+        protected void HandleHealthZero()
+        {
+            EnemyDeathParticleCleaner deathEffectInstance = (EnemyDeathParticleCleaner)enemyDeathEffectPrefab.Instance();
+            GetParent().AddChild(deathEffectInstance);
+
+            deathEffectInstance.SetEffectGradient(_parentEnemyGroup.GetGroupGradientTexture());
+            deathEffectInstance.SetGlobalPosition(GetGlobalPosition());
+            GetParent().RemoveChild(this);
+        }
 
         protected void SetEnemyState(EnemyState enemyState)
         {

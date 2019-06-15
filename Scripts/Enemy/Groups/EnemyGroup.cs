@@ -115,7 +115,7 @@ namespace StormTime.Enemy.Groups
         #endregion
 
         #region External Functions
-        
+
         public void SetEnemyGroupColors(Color spriteColor, GradientTexture particlesGradient)
         {
             _interactionSprite.SelfModulate = spriteColor;
@@ -156,6 +156,8 @@ namespace StormTime.Enemy.Groups
             GD.Print("Created All Enemies. Wowser!!!");
             StartEnemiesSpawn();
         }
+
+        public GradientTexture GetGroupGradientTexture() => _spawnGradientTexture;
 
         public void SetPlayerAsHostile(bool playerHostile = true)
         {

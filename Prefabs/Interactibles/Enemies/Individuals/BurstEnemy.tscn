@@ -1,12 +1,13 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Scripts/Enemy/Individuals/BurstEnemy.cs" type="Script" id=1]
-[ext_resource path="res://Prefabs/Interactibles/Bullets/Enemy Bullet.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Textures/light.png" type="Texture" id=3]
-[ext_resource path="res://Textures/Circle_Shape_White.png" type="Texture" id=4]
-[ext_resource path="res://Scripts/Common/HealthSetter.cs" type="Script" id=5]
-[ext_resource path="res://Scripts/Common/HealthDisplay.cs" type="Script" id=6]
-[ext_resource path="res://Textures/White Pixel.png" type="Texture" id=7]
+[ext_resource path="res://Prefabs/Effects/Enemy Death.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Prefabs/Interactibles/Bullets/Enemy Bullet.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Textures/light.png" type="Texture" id=4]
+[ext_resource path="res://Textures/Circle_Shape_White.png" type="Texture" id=5]
+[ext_resource path="res://Scripts/Common/HealthSetter.cs" type="Script" id=6]
+[ext_resource path="res://Scripts/Common/HealthDisplay.cs" type="Script" id=7]
+[ext_resource path="res://Textures/White Pixel.png" type="Texture" id=8]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 70, 70 )
@@ -22,6 +23,7 @@ script = ExtResource( 1 )
 enemySpriteNodePath = NodePath("Burst Enemy Container/Sprite")
 rotationNodePath = NodePath("Burst Enemy Container")
 enemyHealthSetterNodePath = NodePath("Enemy Health")
+enemyDeathEffectPrefab = ExtResource( 2 )
 explorationRadius = 200.0
 idleTime = 5.0
 minWanderingReachDistance = 5.0
@@ -35,7 +37,7 @@ rotationRate = 200.0
 rotationTime = 0.5
 rotationAttackCounts = 2.0
 timeDelayBetweenShots = 0.5
-enemyBulletPrefab = ExtResource( 2 )
+enemyBulletPrefab = ExtResource( 3 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
@@ -46,11 +48,11 @@ editor/display_folded = true
 [node name="Shadow Sprite" type="Sprite" parent="Burst Enemy Container"]
 light_mask = 2
 scale = Vector2( 0.175, 0.175 )
-texture = ExtResource( 3 )
+texture = ExtResource( 4 )
 
 [node name="Sprite" type="Sprite" parent="Burst Enemy Container"]
 light_mask = 2
-texture = ExtResource( 4 )
+texture = ExtResource( 5 )
 
 [node name="Launch Points" type="Node2D" parent="Burst Enemy Container"]
 editor/display_folded = true
@@ -75,11 +77,11 @@ scale = Vector2( 0.3, 0.3 )
 occluder = SubResource( 2 )
 
 [node name="Enemy Health" type="Node2D" parent="."]
-script = ExtResource( 5 )
+script = ExtResource( 6 )
 maxHealth = 75.0
 
 [node name="Enemy Health Display" type="Node2D" parent="Enemy Health"]
-script = ExtResource( 6 )
+script = ExtResource( 7 )
 minHealthColor = Color( 1, 0, 0, 1 )
 halfHealthColor = Color( 0, 0.976471, 1, 1 )
 maxHealthColor = Color( 0.803922, 0, 1, 1 )
@@ -97,8 +99,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 margin_right = -2.0
 value = 50.0
-texture_under = ExtResource( 7 )
-texture_progress = ExtResource( 7 )
+texture_under = ExtResource( 8 )
+texture_progress = ExtResource( 8 )
 tint_under = Color( 0, 0, 0, 0.392157 )
 tint_progress = Color( 1, 0, 0, 1 )
 nine_patch_stretch = true

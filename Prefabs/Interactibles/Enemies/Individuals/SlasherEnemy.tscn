@@ -1,12 +1,13 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Scripts/Enemy/Individuals/SlasherEnemy.cs" type="Script" id=1]
-[ext_resource path="res://Textures/Blur Rectangle.png" type="Texture" id=2]
-[ext_resource path="res://Textures/Slash_Shape_White.png" type="Texture" id=3]
-[ext_resource path="res://Prefabs/Effects/Slash GB.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Scripts/Common/HealthSetter.cs" type="Script" id=5]
-[ext_resource path="res://Scripts/Common/HealthDisplay.cs" type="Script" id=6]
-[ext_resource path="res://Textures/White Pixel.png" type="Texture" id=7]
+[ext_resource path="res://Prefabs/Effects/Enemy Death.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Textures/Blur Rectangle.png" type="Texture" id=3]
+[ext_resource path="res://Textures/Slash_Shape_White.png" type="Texture" id=4]
+[ext_resource path="res://Prefabs/Effects/Slash GB.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Scripts/Common/HealthSetter.cs" type="Script" id=6]
+[ext_resource path="res://Scripts/Common/HealthDisplay.cs" type="Script" id=7]
+[ext_resource path="res://Textures/White Pixel.png" type="Texture" id=8]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 60, 56.6667 )
@@ -22,6 +23,7 @@ script = ExtResource( 1 )
 enemySpriteNodePath = NodePath("Slasher Enemy Container/Sprite")
 rotationNodePath = NodePath("Slasher Enemy Container")
 enemyHealthSetterNodePath = NodePath("Enemy Health")
+enemyDeathEffectPrefab = ExtResource( 2 )
 explorationRadius = 100.0
 idleTime = 3.0
 minWanderingReachDistance = 5.0
@@ -49,13 +51,13 @@ editor/display_folded = true
 light_mask = 2
 position = Vector2( 0.0994987, 1.90735e-006 )
 scale = Vector2( 0.06, 0.2 )
-texture = ExtResource( 2 )
+texture = ExtResource( 3 )
 
 [node name="Sprite" type="Sprite" parent="Slasher Enemy Container"]
 light_mask = 2
-texture = ExtResource( 3 )
+texture = ExtResource( 4 )
 
-[node name="Slash Effect" parent="Slasher Enemy Container" instance=ExtResource( 4 )]
+[node name="Slash Effect" parent="Slasher Enemy Container" instance=ExtResource( 5 )]
 scale = Vector2( 7, 7 )
 
 [node name="Launch Points" type="Node2D" parent="Slasher Enemy Container"]
@@ -78,11 +80,11 @@ position = Vector2( 60.199, -34 )
 scale = Vector2( 0.3, 0.3 )
 
 [node name="Enemy Health" type="Node2D" parent="."]
-script = ExtResource( 5 )
+script = ExtResource( 6 )
 maxHealth = 50.0
 
 [node name="Enemy Health Display" type="Node2D" parent="Enemy Health"]
-script = ExtResource( 6 )
+script = ExtResource( 7 )
 minHealthColor = Color( 1, 0, 0, 1 )
 halfHealthColor = Color( 1, 0.866667, 0, 1 )
 maxHealthColor = Color( 0, 0.109804, 1, 1 )
@@ -99,8 +101,8 @@ margin_bottom = -111.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 value = 50.0
-texture_under = ExtResource( 7 )
-texture_progress = ExtResource( 7 )
+texture_under = ExtResource( 8 )
+texture_progress = ExtResource( 8 )
 tint_under = Color( 0, 0, 0, 0.392157 )
 tint_progress = Color( 1, 0, 0, 1 )
 nine_patch_stretch = true

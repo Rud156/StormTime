@@ -171,7 +171,7 @@ playerHealthSetterNodePath = NodePath("Player Health")
 script = ExtResource( 6 )
 playerBulletHolderNodePath = NodePath("../../Bullets Holder")
 playerBulletPrefab = ExtResource( 7 )
-shootDelay = 0.1
+shootDelay = 0.3
 
 [node name="Scene Light" type="Light2D" parent="Game World/Player"]
 scale = Vector2( 66.6667, 66.6667 )
@@ -212,7 +212,9 @@ lockBottomLeftCorner = Vector2( -1900, 1890 )
 lockTopRightCorner = Vector2( 2945, -2000 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+editor/display_folded = true
 
 [node name="GUI" parent="CanvasLayer" instance=ExtResource( 12 )]
+editor/display_folded = true
 
 [editable path="CanvasLayer/GUI"]
