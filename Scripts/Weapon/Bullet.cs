@@ -67,6 +67,8 @@ namespace StormTime.Weapon
 
         public float GetBulletDamage() => _currentDamageAmount;
 
+        public void SetBulletDamage(float damageAmount) => _currentDamageAmount = damageAmount;
+
         #endregion
 
         #region Utility Functions
@@ -77,11 +79,11 @@ namespace StormTime.Weapon
 
         #region Events
 
-        private void NotifyCollider(Godot.Object collider) =>
+        private void NotifyCollider(Object collider) =>
             collider.CallDeferred("BulletCollisionNotification", this);
 
         #endregion
-        
+
         #region Particle Effects
 
         private void SpawnBulletExplosion()

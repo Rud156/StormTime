@@ -158,23 +158,55 @@ namespace StormTime.Player.Movement
             switch (sacrificialItemInfo.sacrificialItem)
             {
                 case PlayerModifierTypes.SacrificialItem.SpeedSacrificeHealthBoost:
-                    float speedLossAmount = _currentMovementSpeed * sacrificialItemInfo.reducedPercent / 100;
-                    _currentMovementSpeed -= speedLossAmount;
-                    float maxHealthIncrease =
-                        _playerHealthSetter.GetMaxHealth() * sacrificialItemInfo.increasedPercent / 100;
-                    _playerHealthSetter.SetMaxHealth(_playerHealthSetter.GetMaxHealth() + maxHealthIncrease);
+                    {
+                        float speedLossAmount = _currentMovementSpeed * sacrificialItemInfo.reducedPercent / 100;
+                        _currentMovementSpeed -= speedLossAmount;
+
+                        float maxHealthIncrease =
+                            _playerHealthSetter.GetMaxHealth() * sacrificialItemInfo.increasedPercent / 100;
+
+                        _playerHealthSetter.SetMaxHealth(_playerHealthSetter.GetMaxHealth() + maxHealthIncrease);
+                    }
                     break;
 
                 case PlayerModifierTypes.SacrificialItem.SpeedSacrificeDamageIncrease:
+                    {
+                        float speedLossAmount = _currentMovementSpeed * sacrificialItemInfo.reducedPercent / 100;
+                        _currentMovementSpeed -= speedLossAmount;
+
+                        _playerShooting.AddToDamageDifferencePercent(sacrificialItemInfo.increasedPercent);
+                    }
                     break;
 
                 case PlayerModifierTypes.SacrificialItem.HealthSacrificeDamageIncrease:
+                    {
+                        float healthLossAmount =
+                            _playerHealthSetter.GetMaxHealth() * sacrificialItemInfo.reducedPercent / 100;
+                        _playerHealthSetter.SetMaxHealth(_playerHealthSetter.GetMaxHealth() - healthLossAmount);
+
+                        _playerShooting.AddToDamageDifferencePercent(sacrificialItemInfo.increasedPercent);
+                    }
                     break;
 
                 case PlayerModifierTypes.SacrificialItem.ShootTimeSacrificeDamageIncrease:
+                    {
+                        float shootingTimeIncrease = _playerShooting.GetCurrentShootingDelay() *
+                                                     sacrificialItemInfo.reducedPercent / 100;
+                        _playerShooting.SetCurrentShootingDelay(_playerShooting.GetCurrentShootingDelay() + shootingTimeIncrease);
+
+                        _playerShooting.AddToDamageDifferencePercent(sacrificialItemInfo.increasedPercent);
+                    }
                     break;
 
                 case PlayerModifierTypes.SacrificialItem.HealthSacrificeSpeedIncrease:
+                    {
+                        float healthLossAmount =
+                            _playerHealthSetter.GetMaxHealth() * sacrificialItemInfo.reducedPercent / 100;
+                        _playerHealthSetter.SetMaxHealth(_playerHealthSetter.GetMaxHealth() - healthLossAmount);
+
+                        float speedIncrease = _currentMovementSpeed * sacrificialItemInfo.increasedPercent / 100;
+                        _currentMovementSpeed += speedIncrease;
+                    }
                     break;
 
                 default:

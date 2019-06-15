@@ -13,7 +13,7 @@ namespace StormTime.Common
 
         private TextureProgress _healthProgress;
         private Label _healthLabel;
-        private HealthSetter _healthSetter;
+        private HealthSetter _healthSetter; // TODO: Remove this later on...
 
         private float _maxHealth;
         private float _currentHealth;

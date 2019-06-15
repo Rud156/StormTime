@@ -169,8 +169,9 @@ playerHealthSetterNodePath = NodePath("Player Health")
 
 [node name="Player Shooter" type="Node2D" parent="Game World/Player"]
 script = ExtResource( 6 )
-_playerBulletHolderNodePath = NodePath("../../Bullets Holder")
+playerBulletHolderNodePath = NodePath("../../Bullets Holder")
 playerBulletPrefab = ExtResource( 7 )
+shootDelay = 0.1
 
 [node name="Scene Light" type="Light2D" parent="Game World/Player"]
 scale = Vector2( 66.6667, 66.6667 )
@@ -183,6 +184,7 @@ shadow_filter = 3
 shadow_filter_smooth = 10.0
 
 [node name="Player Health" type="Node2D" parent="Game World/Player"]
+editor/display_folded = true
 script = ExtResource( 9 )
 maxHealth = 100.0
 

@@ -45,6 +45,11 @@ namespace StormTime.Common
         {
             _maxHealth = amount;
 
+            if (_currentHealth >= _maxHealth)
+            {
+                _currentHealth = _maxHealth;
+            }
+
             HandleHealthChange();
         }
 
