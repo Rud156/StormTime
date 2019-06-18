@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Prefabs/UI/Default Theme.tres" type="Theme" id=1]
 [ext_resource path="res://Scripts/UI/FPSLabel.cs" type="Script" id=2]
@@ -6,11 +6,49 @@
 [ext_resource path="res://Scripts/UI/TextTyper.cs" type="Script" id=4]
 [ext_resource path="res://Prefabs/UI/TyperDialogue.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Textures/White Pixel.png" type="Texture" id=6]
+[ext_resource path="res://Textures/Flame Sprite Sheet Animation.png" type="Texture" id=7]
+
+[sub_resource type="Animation" id=2]
+resource_name = "Action"
+length = 0.65
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3, 4, 5, 6 ]
+}
+
+[sub_resource type="Animation" id=1]
+resource_name = "Idle"
+length = 0.1
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 0 ]
+}
 
 [node name="GUI" type="Control"]
 light_mask = 2
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_left = 1.78484
+margin_top = -3.3701
+margin_right = 1.78479
+margin_bottom = -3.37012
 
 [node name="FPS Panel" type="Panel" parent="."]
 editor/display_folded = true
@@ -83,8 +121,12 @@ margin_right = 730.0
 margin_bottom = -117.0
 
 [node name="Player Health Panel" type="Panel" parent="."]
+editor/display_folded = true
 margin_right = 400.0
 margin_bottom = 20.0
+__meta__ = {
+"_edit_group_": true
+}
 
 [node name="Player Health" type="TextureProgress" parent="Player Health Panel"]
 anchor_right = 1.0
@@ -102,12 +144,29 @@ tint_under = Color( 0.11673, 0.11673, 0.132813, 1 )
 tint_progress = Color( 0.12549, 1, 0, 1 )
 nine_patch_stretch = true
 
-[node name="Player Health Label" type="Label" parent="Player Health Panel"]
+[node name="Player Souls Panel" type="Panel" parent="."]
+margin_top = 20.0
+margin_right = 153.0
+margin_bottom = 57.0
+
+[node name="Player Souls Sprite Animation" type="Sprite" parent="Player Souls Panel"]
+editor/display_folded = true
+position = Vector2( 24.2657, 13.0578 )
+scale = Vector2( 1.55981, 1.54051 )
+texture = ExtResource( 7 )
+hframes = 7
+
+[node name="Player Souls Animation" type="AnimationPlayer" parent="Player Souls Panel/Player Souls Sprite Animation"]
+autoplay = "Idle"
+anims/Action = SubResource( 2 )
+anims/Idle = SubResource( 1 )
+
+[node name="Player Souls Text" type="Label" parent="Player Souls Panel"]
+anchor_left = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_top = 20.95
-margin_bottom = 20.95
+margin_left = -106.0
+margin_right = -8.0
 theme = ExtResource( 1 )
-text = "100 / 100"
-align = 1
+text = "X  20"
 valign = 1

@@ -162,6 +162,7 @@ position = Vector2( 251.291, -1110.76 )
 maxEnemyDangerLevel = 8
 
 [node name="Player" parent="Game World" instance=ExtResource( 5 )]
+editor/display_folded = true
 position = Vector2( -2270, 2080 )
 scaleChangeFrequency = 1.0
 playerShootingNodePath = NodePath("Player Shooter")
@@ -193,7 +194,6 @@ minHealthColor = Color( 1, 0, 0, 1 )
 halfHealthColor = Color( 1, 1, 0, 1 )
 maxHealthColor = Color( 0, 1, 0, 1 )
 healthProgressNodePath = NodePath("../../../../CanvasLayer/GUI/Player Health Panel/Player Health")
-healthLabelDisplayNodePath = NodePath("../../../../CanvasLayer/GUI/Player Health Panel/Player Health Label")
 healthSetterNodePath = NodePath("..")
 
 [node name="Player Camera" type="Camera2D" parent="Game World"]
@@ -211,7 +211,9 @@ lockBottomLeftCorner = Vector2( -1900, 1890 )
 lockTopRightCorner = Vector2( 2945, -2000 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+editor/display_folded = true
 
 [node name="GUI" parent="CanvasLayer" instance=ExtResource( 12 )]
+editor/display_folded = true
 
 [editable path="CanvasLayer/GUI"]

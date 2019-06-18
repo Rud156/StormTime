@@ -65,6 +65,7 @@
     <Compile Include="Scripts\Enemy\Individuals\SlasherEnemy.cs" />
     <Compile Include="Scripts\Enemy\Individuals\SpinnerEnemy.cs" />
     <Compile Include="Scripts\Enemy\Individuals\WheelEnemy.cs" />
+    <Compile Include="Scripts\Player\Modifiers\PlayerModifierSoulsManager.cs" />
     <Compile Include="Scripts\Player\Modifiers\PlayerModifierTypes.cs" />
     <Compile Include="Scripts\Player\Shooting\PlayerShooting.cs" />
     <Compile Include="Scripts\Player\Movement\PlayerController.cs" />
