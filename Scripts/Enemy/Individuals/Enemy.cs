@@ -70,7 +70,7 @@ namespace StormTime.Enemy.Individuals
         protected Color _bulletColor;
         protected Sprite _enemySprite;
 
-        private HealthSetter _enemyHealthSetter;
+        protected HealthSetter _enemyHealthSetter;
 
         public override void _Ready()
         {
@@ -93,6 +93,8 @@ namespace StormTime.Enemy.Individuals
 
             SetEnemyState(EnemyState.Idling);
         }
+
+        public override void _ExitTree() => _enemyHealthSetter.zeroHealth -= HandleHealthZero;
 
         public override void _Process(float delta)
         {

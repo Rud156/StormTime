@@ -99,7 +99,7 @@ namespace StormTime.Enemy.Individuals
         private void ShootBullets()
         {
             float startRotation = 0;
-            float rotationIncrementAmount = 360 / _launchPoints.Count;
+            float rotationIncrementAmount = 360.0f / _launchPoints.Count;
 
             foreach (Node2D launchPoint in _launchPoints)
             {

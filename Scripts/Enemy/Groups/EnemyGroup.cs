@@ -39,7 +39,11 @@ namespace StormTime.Enemy.Groups
         public override void _Ready()
         {
             _spawnPoints = new List<Node2D>();
-            _enemyTypeCount = new List<int> { 0, 0, 0 };
+            _enemyTypeCount = new List<int>();
+            for (int i = 0; i < enemyTypes.Count; i++)
+            {
+                _enemyTypeCount.Add(0);
+            }
             _groupEnemies = new List<Individuals.Enemy>();
 
             _interactionSprite = GetNode<Sprite>(interactionSpriteNodePath);

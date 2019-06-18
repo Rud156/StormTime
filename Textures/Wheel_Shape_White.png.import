@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Square_Shape_3.png-4ee2e33a4d25fbcdc296726d1f76e832.stex"
+path="res://.import/Wheel_Shape_White.png-9593c49fb5c593c663df22342c507246.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Textures/Square_Shape_3.png"
-dest_files=[ "res://.import/Square_Shape_3.png-4ee2e33a4d25fbcdc296726d1f76e832.stex" ]
+source_file="res://Textures/Wheel_Shape_White.png"
+dest_files=[ "res://.import/Wheel_Shape_White.png-9593c49fb5c593c663df22342c507246.stex" ]
 
 [params]
 

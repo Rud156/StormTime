@@ -31,6 +31,8 @@ namespace StormTime.Common
             _healthSetter.healthChanged += HandleHealthChanged;
         }
 
+        public override void _ExitTree() => _healthSetter.healthChanged -= HandleHealthChanged;
+
         #region Utility Functions
 
         private void HandleHealthChanged(float currentHealth, float maxHealth)

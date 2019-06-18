@@ -1,0 +1,121 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://Scripts/Enemy/Individuals/WheelEnemy.cs" type="Script" id=1]
+[ext_resource path="res://Prefabs/Effects/Enemy Death.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Prefabs/Interactibles/Bullets/Enemy Bullet.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Textures/light.png" type="Texture" id=4]
+[ext_resource path="res://Textures/Wheel_Shape_White.png" type="Texture" id=5]
+[ext_resource path="res://Scripts/Common/HealthSetter.cs" type="Script" id=6]
+[ext_resource path="res://Scripts/Common/HealthDisplay.cs" type="Script" id=7]
+[ext_resource path="res://Textures/White Pixel.png" type="Texture" id=8]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 70, 70 )
+
+[sub_resource type="OccluderPolygon2D" id=2]
+polygon = PoolVector2Array( 0, -66.6667, 50, -50, 66.6667, 0, 50, 50, 0, 66.6667, -50, 50, -66.6667, 0, -50, -50 )
+
+[node name="WheelEnemy" type="KinematicBody2D"]
+scale = Vector2( 0.3, 0.3 )
+collision_layer = 4
+collision_mask = 3
+script = ExtResource( 1 )
+enemySpriteNodePath = NodePath("Wheel Enemy Container/Sprite")
+rotationNodePath = NodePath("Wheel Enemy Container")
+enemyHealthSetterNodePath = NodePath("Enemy Health")
+enemyDeathEffectPrefab = ExtResource( 2 )
+explorationRadius = 200.0
+idleTime = 5.0
+minWanderingReachDistance = 10.0
+playerTargetDistance = 500.0
+playerAttackDistance = 100.0
+maxPlayerFollowDistance = 800.0
+movementSpeed = 250.0
+attackTime = 5.0
+launchPointsPath = [ NodePath("Wheel Enemy Container/Launch Points/LaunchPoint_1"), NodePath("Wheel Enemy Container/Launch Points/LaunchPoint_2"), NodePath("Wheel Enemy Container/Launch Points/LaunchPoint_3"), NodePath("Wheel Enemy Container/Launch Points/LaunchPoint_4"), NodePath("Wheel Enemy Container/Launch Points/LaunchPoint_5"), NodePath("Wheel Enemy Container/Launch Points/LaunchPoint_6"), NodePath("Wheel Enemy Container/Launch Points/LaunchPoint_7"), NodePath("Wheel Enemy Container/Launch Points/LaunchPoint_8") ]
+rotationRate = 200.0
+lowHealthRotationRate = 400.0
+lowHealthActivatorRatio = 0.3
+totalShotCount = 10.0
+enemyBulletPrefab = ExtResource( 3 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+
+[node name="Wheel Enemy Container" type="Node2D" parent="."]
+
+[node name="Shadow Sprite" type="Sprite" parent="Wheel Enemy Container"]
+light_mask = 2
+scale = Vector2( 0.175, 0.175 )
+texture = ExtResource( 4 )
+
+[node name="Sprite" type="Sprite" parent="Wheel Enemy Container"]
+light_mask = 2
+texture = ExtResource( 5 )
+
+[node name="Launch Points" type="Node2D" parent="Wheel Enemy Container"]
+editor/display_folded = true
+
+[node name="LaunchPoint_1" type="Node2D" parent="Wheel Enemy Container/Launch Points"]
+position = Vector2( 70, 0 )
+scale = Vector2( 0.3, 0.3 )
+
+[node name="LaunchPoint_2" type="Node2D" parent="Wheel Enemy Container/Launch Points"]
+position = Vector2( 0, 70 )
+scale = Vector2( 0.3, 0.3 )
+
+[node name="LaunchPoint_3" type="Node2D" parent="Wheel Enemy Container/Launch Points"]
+position = Vector2( -70, 0 )
+scale = Vector2( 0.3, 0.3 )
+
+[node name="LaunchPoint_4" type="Node2D" parent="Wheel Enemy Container/Launch Points"]
+position = Vector2( 0, -70 )
+scale = Vector2( 0.3, 0.3 )
+
+[node name="LaunchPoint_5" type="Node2D" parent="Wheel Enemy Container/Launch Points"]
+position = Vector2( -50, 50 )
+scale = Vector2( 0.3, 0.3 )
+
+[node name="LaunchPoint_6" type="Node2D" parent="Wheel Enemy Container/Launch Points"]
+position = Vector2( 50, -50 )
+scale = Vector2( 0.3, 0.3 )
+
+[node name="LaunchPoint_7" type="Node2D" parent="Wheel Enemy Container/Launch Points"]
+position = Vector2( 50, 50 )
+scale = Vector2( 0.3, 0.3 )
+
+[node name="LaunchPoint_8" type="Node2D" parent="Wheel Enemy Container/Launch Points"]
+position = Vector2( -50, -50 )
+scale = Vector2( 0.3, 0.3 )
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="Wheel Enemy Container"]
+occluder = SubResource( 2 )
+
+[node name="Enemy Health" type="Node2D" parent="."]
+script = ExtResource( 6 )
+maxHealth = 75.0
+
+[node name="Enemy Health Display" type="Node2D" parent="Enemy Health"]
+script = ExtResource( 7 )
+minHealthColor = Color( 1, 0, 0, 1 )
+halfHealthColor = Color( 0, 0.976471, 1, 1 )
+maxHealthColor = Color( 0.803922, 0, 1, 1 )
+healthProgressNodePath = NodePath("../../../WheelEnemy/UI Display/Health Display")
+healthSetterNodePath = NodePath("../../../WheelEnemy/Enemy Health")
+
+[node name="UI Display" type="Control" parent="."]
+margin_left = -125.0
+margin_top = -125.0
+margin_right = 125.0
+margin_bottom = -111.0
+
+[node name="Health Display" type="TextureProgress" parent="UI Display"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = -2.0
+value = 50.0
+texture_under = ExtResource( 8 )
+texture_progress = ExtResource( 8 )
+tint_under = Color( 0, 0, 0, 0.392157 )
+tint_progress = Color( 1, 0, 0, 1 )
+nine_patch_stretch = true
