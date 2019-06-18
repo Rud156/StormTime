@@ -1,5 +1,5 @@
 using Godot;
-using StormTime.Common;
+using StormTime.Utils;
 using StormTime.Weapon;
 
 namespace StormTime.Enemy.Individuals
@@ -26,6 +26,7 @@ namespace StormTime.Enemy.Individuals
             base._Ready();
 
             _enemyHealthSetter.healthChanged += SetHealthBasedRotation;
+            SetHealthBasedRotation(_enemyHealthSetter.GetCurrentHealth(), _enemyHealthSetter.GetMaxHealth());
         }
 
         public override void _ExitTree() => _enemyHealthSetter.healthChanged -= SetHealthBasedRotation;
@@ -52,7 +53,7 @@ namespace StormTime.Enemy.Individuals
             base.LaunchAttack();
 
             _shootingTimer = 0;
-            _timeBetweenShots = Mathf.FloorToInt(_enemyTimer / totalShotCount);
+            _timeBetweenShots = attackTime / totalShotCount;
         }
 
         #region Enemy Attack Utilities
@@ -62,15 +63,13 @@ namespace StormTime.Enemy.Individuals
 
         private void ShootBullets()
         {
-            float startRotation = 0;
+            float startRotation = 45;
             float rotationIncrementAmount = 360.0f / _launchPoints.Count;
 
             foreach (Node2D launchPoint in _launchPoints)
             {
                 EnemyBullet bulletInstance = (EnemyBullet)enemyBulletPrefab.Instance();
                 GetParent().AddChild(bulletInstance);
-
-                bulletInstance.SetBulletColor(_bulletColor);
 
                 bulletInstance.SetBulletColor(_bulletColor);
                 bulletInstance.SetGlobalPosition(launchPoint.GetGlobalPosition());

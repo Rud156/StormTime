@@ -29,6 +29,7 @@ namespace StormTime.Common
             _healthSetter = GetNode<HealthSetter>(healthSetterNodePath);
 
             _healthSetter.healthChanged += HandleHealthChanged;
+            HandleHealthChanged(_healthSetter.GetCurrentHealth(), _healthSetter.GetMaxHealth());
         }
 
         public override void _ExitTree() => _healthSetter.healthChanged -= HandleHealthChanged;
