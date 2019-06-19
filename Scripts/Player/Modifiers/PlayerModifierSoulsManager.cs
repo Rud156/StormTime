@@ -41,13 +41,19 @@ namespace StormTime.Player.Modifiers
 
         public void DecrementSouls(int amount)
         {
-            _currentSoulsAmount += amount;
+            _currentSoulsAmount -= amount;
+
+            if (_currentSoulsAmount <= 0)
+            {
+                // TODO: Kill Player or Do Something
+            }
+
             HandleSoulsChange();
         }
 
         public void IncrementSouls(int amount)
         {
-            _currentSoulsAmount = amount;
+            _currentSoulsAmount += amount;
             HandleSoulsChange();
         }
 

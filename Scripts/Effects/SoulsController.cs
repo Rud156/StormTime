@@ -20,7 +20,7 @@ namespace StormTime.Effects
             _soulParticles = GetNode<Particles2D>(soulParticleNodePath);
             _soulAreaCollision = GetNode<Area2D>(soulAreaCollisionNodePath);
 
-            _soulAreaCollision.Connect("body_entered", _soulAreaCollision, nameof(HandleBodyEntered));
+            _soulAreaCollision.Connect("body_entered", this, nameof(HandleBodyEntered));
         }
 
         #region Utility Functions
@@ -32,6 +32,11 @@ namespace StormTime.Effects
                 return;
             }
 
+            CallDeferred(nameof(RemoveSoulFromWorld));
+        }
+
+        public void RemoveSoulFromWorld()
+        {
             PlayerModifierSoulsManager.instance.IncrementSouls(1);
             GetParent().RemoveChild(this);
         }

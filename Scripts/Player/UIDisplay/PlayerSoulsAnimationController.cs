@@ -15,9 +15,9 @@ namespace StormTime.Player.UIDisplay
 
         #region External Functions
 
-        public void PlayIdleAnimation() => _stateMachine.Travel(IdleAnimationPath);
+        public void PlayIdleAnimation() => _stateMachine?.Travel(IdleAnimationPath);
 
-        public void PlayActionAnimation() => _stateMachine.Travel(ActionAnimationPath);
+        public void PlayActionAnimation() => _stateMachine?.Travel(ActionAnimationPath);
 
         #endregion
     }

@@ -77,6 +77,7 @@ namespace StormTime.Enemy.Individuals
         protected Sprite _enemySprite;
 
         protected HealthSetter _enemyHealthSetter;
+        protected int _currentSoulCount;
 
         public override void _Ready()
         {
@@ -143,6 +144,10 @@ namespace StormTime.Enemy.Individuals
 
         private void OverHeadCheckForEnemyState()
         {
+            if (_enemyState == EnemyState.Dead)
+            {
+                return;
+            }
 
             if (_playerHostile)
             {
@@ -248,7 +253,21 @@ namespace StormTime.Enemy.Individuals
 
         protected void UpdateDead(float delta)
         {
-            // TODO: Play some effect or something here...
+            SpawnSoul();
+            _currentSoulCount -= 1;
+
+            if (_currentSoulCount <= 0)
+            {
+
+                EnemyDeathParticleCleaner deathEffectInstance =
+                    (EnemyDeathParticleCleaner)enemyDeathEffectPrefab.Instance();
+                GetParent().AddChild(deathEffectInstance);
+
+                deathEffectInstance.SetEffectGradient(_parentEnemyGroup.GetGroupGradientTexture());
+                deathEffectInstance.SetGlobalPosition(GetGlobalPosition());
+
+                GetParent().RemoveChild(this);
+            }
         }
 
         #endregion
@@ -312,30 +331,20 @@ namespace StormTime.Enemy.Individuals
 
         protected void HandleHealthZero()
         {
-            SpawnSouls();
-
-            EnemyDeathParticleCleaner deathEffectInstance = (EnemyDeathParticleCleaner)enemyDeathEffectPrefab.Instance();
-            GetParent().AddChild(deathEffectInstance);
-
-            deathEffectInstance.SetEffectGradient(_parentEnemyGroup.GetGroupGradientTexture());
-            deathEffectInstance.SetGlobalPosition(GetGlobalPosition());
-
-            GetParent().RemoveChild(this);
+            SetEnemyState(EnemyState.Dead);
+            _currentSoulCount = Mathf.FloorToInt((float)GD.RandRange(minSoulsAmount, maxSoulsAmount));
         }
 
-        protected void SpawnSouls()
+        protected void SpawnSoul()
         {
-            int soulsToSpawnCount = Mathf.FloorToInt((float)GD.RandRange(minSoulsAmount, maxSoulsAmount));
-            for (int i = 0; i < soulsToSpawnCount; i++)
-            {
-                SoulsController soulsControllerInstance = (SoulsController)soulsPrefab.Instance();
-                GetParent().AddChild(soulsControllerInstance);
+            SoulsController soulsControllerInstance = (SoulsController)soulsPrefab.Instance();
+            GetParent().AddChild(soulsControllerInstance);
 
-                soulsControllerInstance.SetSoulsColor(_enemyColor);
-                Vector2 randomVectorPosition = ExtensionFunctions.VectorRandomUnit();
-                randomVectorPosition *= randomVectorPosition;
-                soulsControllerInstance.SetGlobalPosition(GetGlobalPosition() + randomVectorPosition);
-            }
+            soulsControllerInstance.SetSoulsColor(_enemyColor);
+            Vector2 randomVectorPosition = ExtensionFunctions.VectorRandomUnit();
+            randomVectorPosition *= rangeMultiplier;
+            Vector2 soulsPosition = GetGlobalPosition() + randomVectorPosition;
+            soulsControllerInstance.SetGlobalPosition(soulsPosition);
         }
 
         protected void SetEnemyState(EnemyState enemyState)

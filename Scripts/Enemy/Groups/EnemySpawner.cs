@@ -1,4 +1,3 @@
-using System;
 using Godot;
 using System.Collections.Generic;
 using Object = Godot.Object;
@@ -24,7 +23,7 @@ namespace StormTime.Enemy.Groups
 
         public override void _Ready()
         {
-            //GD.Randomize();
+            GD.Randomize();
 
             _worldSpawnPoints = new List<EnemySpawnPoint>();
             _availableWorldSpawnPoints = new List<EnemySpawnPoint>();
