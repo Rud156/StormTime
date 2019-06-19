@@ -1,13 +1,14 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Scripts/Enemy/Individuals/SpinnerEnemy.cs" type="Script" id=1]
 [ext_resource path="res://Prefabs/Effects/Enemy Death.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Prefabs/Interactibles/Bullets/Enemy Bullet.tscn" type="PackedScene" id=3]
-[ext_resource path="res://Textures/Blur Rectangle.png" type="Texture" id=4]
-[ext_resource path="res://Textures/Square_Shape_White.png" type="Texture" id=5]
-[ext_resource path="res://Scripts/Common/HealthSetter.cs" type="Script" id=6]
-[ext_resource path="res://Scripts/Common/HealthDisplay.cs" type="Script" id=7]
-[ext_resource path="res://Textures/White Pixel.png" type="Texture" id=8]
+[ext_resource path="res://Prefabs/Interactibles/Player/PlayerSoul.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Prefabs/Interactibles/Bullets/Enemy Bullet.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Textures/Blur Rectangle.png" type="Texture" id=5]
+[ext_resource path="res://Textures/Square_Shape_White.png" type="Texture" id=6]
+[ext_resource path="res://Scripts/Common/HealthSetter.cs" type="Script" id=7]
+[ext_resource path="res://Scripts/Common/HealthDisplay.cs" type="Script" id=8]
+[ext_resource path="res://Textures/White Pixel.png" type="Texture" id=9]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 70, 70 )
@@ -33,9 +34,13 @@ maxPlayerFollowDistance = 800.0
 movementSpeed = 200.0
 attackTime = 7.0
 launchPointsPath = [ NodePath("Spinner Enemy Container/Launch Points/LaunchPoint_1"), NodePath("Spinner Enemy Container/Launch Points/LaunchPoint_2") ]
+soulsPrefab = ExtResource( 3 )
+minSoulsAmount = 1.0
+maxSoulsAmount = 5.0
+rangeMultiplier = 60.0
 rotationRate = 200.0
 rotationSwitchTime = 3.0
-enemyBulletPrefab = ExtResource( 3 )
+enemyBulletPrefab = ExtResource( 4 )
 timeBetweenShot = 0.3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -47,11 +52,11 @@ editor/display_folded = true
 [node name="Shadow Sprite" type="Sprite" parent="Spinner Enemy Container"]
 light_mask = 2
 scale = Vector2( 0.1, 0.3 )
-texture = ExtResource( 4 )
+texture = ExtResource( 5 )
 
 [node name="Sprite" type="Sprite" parent="Spinner Enemy Container"]
 light_mask = 2
-texture = ExtResource( 5 )
+texture = ExtResource( 6 )
 
 [node name="LightOccluder2D" type="LightOccluder2D" parent="Spinner Enemy Container"]
 occluder = SubResource( 2 )
@@ -69,11 +74,11 @@ rotation = 3.14159
 scale = Vector2( 0.5, 0.5 )
 
 [node name="Enemy Health" type="Node2D" parent="."]
-script = ExtResource( 6 )
+script = ExtResource( 7 )
 maxHealth = 75.0
 
 [node name="Enemy Health Display" type="Node2D" parent="Enemy Health"]
-script = ExtResource( 7 )
+script = ExtResource( 8 )
 minHealthColor = Color( 1, 0, 0, 1 )
 halfHealthColor = Color( 0, 0.368627, 1, 1 )
 maxHealthColor = Color( 0.0784314, 1, 0, 1 )
@@ -91,8 +96,8 @@ margin_bottom = -111.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 value = 50.0
-texture_under = ExtResource( 8 )
-texture_progress = ExtResource( 8 )
+texture_under = ExtResource( 9 )
+texture_progress = ExtResource( 9 )
 tint_under = Color( 0, 0, 0, 0.392157 )
 tint_progress = Color( 1, 0, 0, 1 )
 nine_patch_stretch = true

@@ -40,5 +40,11 @@ namespace StormTime.Utils
 
             return to;
         }
+
+        public static Vector2 VectorRandomUnit() =>
+            VectorFromAngle((float)GD.Randf() * Mathf.Tau);
+
+        public static Vector2 VectorFromAngle(float angle, float length = 1) =>
+            new Vector2(length * Mathf.Cos(angle), length * Mathf.Sin(angle));
     }
 }

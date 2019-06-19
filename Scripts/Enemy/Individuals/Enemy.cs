@@ -30,6 +30,12 @@ namespace StormTime.Enemy.Individuals
         [Export] public float attackTime;
         [Export] public Godot.Collections.Array<NodePath> launchPointsPath;
 
+        // Death Items
+        [Export] public PackedScene soulsPrefab;
+        [Export] public float minSoulsAmount;
+        [Export] public float maxSoulsAmount;
+        [Export] public float rangeMultiplier;
+
         protected enum EnemyState
         {
             Homing,
@@ -306,12 +312,30 @@ namespace StormTime.Enemy.Individuals
 
         protected void HandleHealthZero()
         {
+            SpawnSouls();
+
             EnemyDeathParticleCleaner deathEffectInstance = (EnemyDeathParticleCleaner)enemyDeathEffectPrefab.Instance();
             GetParent().AddChild(deathEffectInstance);
 
             deathEffectInstance.SetEffectGradient(_parentEnemyGroup.GetGroupGradientTexture());
             deathEffectInstance.SetGlobalPosition(GetGlobalPosition());
+
             GetParent().RemoveChild(this);
+        }
+
+        protected void SpawnSouls()
+        {
+            int soulsToSpawnCount = Mathf.FloorToInt((float)GD.RandRange(minSoulsAmount, maxSoulsAmount));
+            for (int i = 0; i < soulsToSpawnCount; i++)
+            {
+                SoulsController soulsControllerInstance = (SoulsController)soulsPrefab.Instance();
+                GetParent().AddChild(soulsControllerInstance);
+
+                soulsControllerInstance.SetSoulsColor(_enemyColor);
+                Vector2 randomVectorPosition = ExtensionFunctions.VectorRandomUnit();
+                randomVectorPosition *= randomVectorPosition;
+                soulsControllerInstance.SetGlobalPosition(GetGlobalPosition() + randomVectorPosition);
+            }
         }
 
         protected void SetEnemyState(EnemyState enemyState)

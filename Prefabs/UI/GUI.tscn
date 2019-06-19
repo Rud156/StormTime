@@ -173,6 +173,7 @@ margin_right = 153.0
 margin_bottom = 57.0
 
 [node name="Player Souls Sprite Animation" type="Sprite" parent="Player Souls Panel"]
+self_modulate = Color( 0, 0.505882, 1, 1 )
 position = Vector2( 24.2657, 13.0578 )
 scale = Vector2( 1.55981, 1.54051 )
 texture = ExtResource( 7 )

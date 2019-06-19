@@ -1,16 +1,27 @@
 using Godot;
+using StormTime.Player.UIDisplay;
 
 namespace StormTime.Player.Modifiers
 {
-    public class PlayerModifierSoulsManager : Node2D
+    public class PlayerModifierSoulsManager : Node
     {
         private const int InitialSouls = 10;
+
+        #region Export Fields
+
+        [Export] public NodePath soulsLabelNodePath;
+        [Export] public NodePath soulsAnimationControllerNodePath;
+
+        #endregion
 
         public delegate void HandleStatusChanged(int currentSouls);
 
         public HandleStatusChanged handleStatusChanged;
 
-        private int _currentSoulsSystem;
+        private Label _soulsLabel;
+        private PlayerSoulsAnimationController _soulsAnimationController;
+
+        private int _currentSoulsAmount;
 
         public override void _Ready()
         {
@@ -19,7 +30,10 @@ namespace StormTime.Player.Modifiers
                 instance = this;
             }
 
-            _currentSoulsSystem = InitialSouls;
+            _soulsLabel = GetNode<Label>(soulsLabelNodePath);
+            _soulsAnimationController = GetNode<PlayerSoulsAnimationController>(soulsAnimationControllerNodePath);
+            _currentSoulsAmount = InitialSouls;
+
             HandleSoulsChange();
         }
 
@@ -27,13 +41,13 @@ namespace StormTime.Player.Modifiers
 
         public void DecrementSouls(int amount)
         {
-            _currentSoulsSystem += amount;
+            _currentSoulsAmount += amount;
             HandleSoulsChange();
         }
 
         public void IncrementSouls(int amount)
         {
-            _currentSoulsSystem = amount;
+            _currentSoulsAmount = amount;
             HandleSoulsChange();
         }
 
@@ -41,7 +55,12 @@ namespace StormTime.Player.Modifiers
 
         #region Utility Functions
 
-        private void HandleSoulsChange() => handleStatusChanged?.Invoke(_currentSoulsSystem);
+        private void HandleSoulsChange()
+        {
+            _soulsAnimationController.PlayActionAnimation();
+            _soulsLabel.SetText($"X  {_currentSoulsAmount}");
+            handleStatusChanged?.Invoke(_currentSoulsAmount);
+        }
 
         #endregion
 

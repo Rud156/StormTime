@@ -37,8 +37,8 @@ namespace StormTime.Enemy.Groups
             _playerIsInside = false;
             _parentGroup = GetNode<EnemyGroup>(parentGroupNodePath);
 
-            base.Connect("body_entered", this, "HandlePlayerEntry");
-            base.Connect("body_exited", this, "HandlePlayerExit");
+            Connect("body_entered", this, nameof(HandlePlayerEntry));
+            Connect("body_exited", this, nameof(HandlePlayerExit));
         }
 
         public override void _Process(float delta) => CheckPlayerInteraction(delta);

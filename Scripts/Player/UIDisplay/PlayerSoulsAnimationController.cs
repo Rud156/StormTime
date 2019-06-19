@@ -1,5 +1,4 @@
 using Godot;
-using StormTime.Utils;
 
 namespace StormTime.Player.UIDisplay
 {
