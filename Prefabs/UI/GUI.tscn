@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://Prefabs/UI/Default Theme.tres" type="Theme" id=1]
 [ext_resource path="res://Scripts/UI/FPSLabel.cs" type="Script" id=2]
@@ -7,8 +7,9 @@
 [ext_resource path="res://Prefabs/UI/TyperDialogue.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Textures/White Pixel.png" type="Texture" id=6]
 [ext_resource path="res://Textures/Flame Sprite Sheet Animation.png" type="Texture" id=7]
+[ext_resource path="res://Scripts/Player/UIDisplay/PlayerSoulsAnimationController.cs" type="Script" id=8]
 
-[sub_resource type="Animation" id=2]
+[sub_resource type="Animation" id=1]
 resource_name = "Action"
 length = 0.65
 tracks/0/type = "value"
@@ -24,10 +25,8 @@ tracks/0/keys = {
 "values": [ 0, 1, 2, 3, 4, 5, 6 ]
 }
 
-[sub_resource type="Animation" id=1]
-resource_name = "Idle"
+[sub_resource type="Animation" id=2]
 length = 0.1
-loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:frame")
 tracks/0/interp = 1
@@ -40,6 +39,30 @@ tracks/0/keys = {
 "update": 1,
 "values": [ 0 ]
 }
+
+[sub_resource type="AnimationNodeAnimation" id=3]
+animation = "Action"
+
+[sub_resource type="AnimationNodeAnimation" id=4]
+animation = "Idle"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=5]
+switch_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=6]
+switch_mode = 2
+auto_advance = true
+
+[sub_resource type="AnimationNodeStateMachine" id=7]
+states/Action/node = SubResource( 3 )
+states/Action/position = Vector2( -182, -153 )
+states/Idle/node = SubResource( 4 )
+states/Idle/position = Vector2( -477, -153 )
+transitions = [ "Idle", "Action", SubResource( 5 ), "Action", "Idle", SubResource( 6 ) ]
+start_node = "Idle"
+graph_offset = Vector2( -674, -262 )
+
+[sub_resource type="AnimationNodeStateMachinePlayback" id=8]
 
 [node name="GUI" type="Control"]
 light_mask = 2
@@ -150,16 +173,21 @@ margin_right = 153.0
 margin_bottom = 57.0
 
 [node name="Player Souls Sprite Animation" type="Sprite" parent="Player Souls Panel"]
-editor/display_folded = true
 position = Vector2( 24.2657, 13.0578 )
 scale = Vector2( 1.55981, 1.54051 )
 texture = ExtResource( 7 )
 hframes = 7
 
 [node name="Player Souls Animation" type="AnimationPlayer" parent="Player Souls Panel/Player Souls Sprite Animation"]
-autoplay = "Idle"
-anims/Action = SubResource( 2 )
-anims/Idle = SubResource( 1 )
+anims/Action = SubResource( 1 )
+anims/Idle = SubResource( 2 )
+
+[node name="AnimationTree" type="AnimationTree" parent="Player Souls Panel/Player Souls Sprite Animation"]
+tree_root = SubResource( 7 )
+anim_player = NodePath("../Player Souls Animation")
+active = true
+parameters/playback = SubResource( 8 )
+script = ExtResource( 8 )
 
 [node name="Player Souls Text" type="Label" parent="Player Souls Panel"]
 anchor_left = 1.0
