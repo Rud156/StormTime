@@ -4,6 +4,7 @@ using StormTime.Common;
 using StormTime.Player.Data;
 using StormTime.Player.Modifiers;
 using StormTime.Player.Shooting;
+using StormTime.UI;
 using StormTime.Utils;
 using StormTime.Weapon;
 
@@ -25,6 +26,12 @@ namespace StormTime.Player.Movement
         [Export] public NodePath playerShootingNodePath;
         [Export] public NodePath playerHealthSetterNodePath;
 
+        // Souls Manager
+        [Export] public int lowSoulsCount = 5;
+        [Export] public float lowSoulsHealthDecrementRate;
+        [Export] public float lowHealthWarningPercent = 0.3f;
+        [Export] public Color lowHealthWarningColor;
+
         public enum PlayerState
         {
             PlayerInControlMovement,
@@ -43,6 +50,8 @@ namespace StormTime.Player.Movement
 
         private float _playerTime;
 
+        private bool _isSoulsLow;
+
         public override void _Ready()
         {
             _playerShooting = GetNode<PlayerShooting>(playerShootingNodePath);
@@ -54,6 +63,9 @@ namespace StormTime.Player.Movement
             _lerpPosition = new Vector2();
 
             SetPlayerState(PlayerState.PlayerInControlMovement);
+
+            _playerHealthSetter.healthChanged += HandleHeathChange;
+            PlayerModifierSoulsManager.instance.handleStatusChanged += HandleSoulsChange;
         }
 
         public override void _Process(float delta) => _playerTime += delta;
@@ -61,6 +73,7 @@ namespace StormTime.Player.Movement
         public override void _PhysicsProcess(float delta)
         {
             SetScale(GetScale().LinearInterpolate(_targetScale, lerpVelocity * delta));
+            DecrementHealthOnLowSouls(delta);
 
             switch (_playerState)
             {
@@ -228,6 +241,36 @@ namespace StormTime.Player.Movement
             }
 
             _playerState = playerState;
+        }
+
+        #endregion
+
+        #region Utility Functions
+
+        private void HandleHeathChange(float currentHealth, float maxHealth)
+        {
+            float heathRatio = currentHealth / maxHealth;
+            if (heathRatio <= lowHealthWarningPercent)
+            {
+                WarningManager.instance.StartWarning(this, lowHealthWarningColor);
+            }
+            else
+            {
+                WarningManager.instance.StopWarning(this);
+            }
+        }
+
+        private void HandleSoulsChange(int currentSouls) => _isSoulsLow = currentSouls <= lowSoulsCount;
+
+        private void DecrementHealthOnLowSouls(float delta)
+        {
+            if (!_isSoulsLow)
+            {
+                return;
+            }
+
+            float decrementAmount = lowSoulsHealthDecrementRate * delta;
+            _playerHealthSetter.SubtractHealth(decrementAmount);
         }
 
         #endregion

@@ -21,6 +21,8 @@ maxScaleAmount = 0.5
 scaleChangeFrequency = 7.0
 rotationRate = 30.0
 lerpVelocity = 7.0
+lowSoulsHealthDecrementRate = 1.0
+lowHealthWarningColor = Color( 1, 0, 0, 1 )
 
 [node name="Shadow Sprite" type="Sprite" parent="."]
 light_mask = 2

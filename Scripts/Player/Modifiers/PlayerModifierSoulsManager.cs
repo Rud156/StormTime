@@ -5,10 +5,9 @@ namespace StormTime.Player.Modifiers
 {
     public class PlayerModifierSoulsManager : Node
     {
-        private const int InitialSouls = 10;
-
         #region Export Fields
 
+        [Export] public int initialSoulsCount;
         [Export] public NodePath soulsLabelNodePath;
         [Export] public NodePath soulsAnimationControllerNodePath;
 
@@ -32,7 +31,7 @@ namespace StormTime.Player.Modifiers
 
             _soulsLabel = GetNode<Label>(soulsLabelNodePath);
             _soulsAnimationController = GetNode<PlayerSoulsAnimationController>(soulsAnimationControllerNodePath);
-            _currentSoulsAmount = InitialSouls;
+            _currentSoulsAmount = initialSoulsCount;
 
             HandleSoulsChange();
         }
@@ -43,9 +42,9 @@ namespace StormTime.Player.Modifiers
         {
             _currentSoulsAmount -= amount;
 
-            if (_currentSoulsAmount <= 0)
+            if (_currentSoulsAmount < 0)
             {
-                // TODO: Kill Player or Do Something
+                _currentSoulsAmount = 0;
             }
 
             HandleSoulsChange();
@@ -56,6 +55,10 @@ namespace StormTime.Player.Modifiers
             _currentSoulsAmount += amount;
             HandleSoulsChange();
         }
+
+        public bool HasSouls() => _currentSoulsAmount > 0;
+
+        public int GetSoulsCount() => _currentSoulsAmount;
 
         #endregion
 

@@ -1,4 +1,5 @@
 using Godot;
+using StormTime.Player.Modifiers;
 using StormTime.Player.Movement;
 using StormTime.Utils;
 using StormTime.Weapon;
@@ -10,6 +11,7 @@ namespace StormTime.Player.Shooting
         [Export] public NodePath playerBulletHolderNodePath;
         [Export] public PackedScene playerBulletPrefab;
         [Export] public float shootDelay;
+        [Export] public int shootSoulDecrementCount = 1;
 
         private Node2D _playerBulletHolder;
         private PlayerController _playerRoot;
@@ -62,6 +64,8 @@ namespace StormTime.Player.Shooting
             bulletInstance.LaunchBullet(_playerRoot.GetTransform().x);
 
             _currentShootTimeLeft = _currentShootDelay;
+
+            PlayerModifierSoulsManager.instance.DecrementSouls(shootSoulDecrementCount);
         }
 
         #region External Functions
