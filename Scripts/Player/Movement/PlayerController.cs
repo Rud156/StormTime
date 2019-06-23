@@ -227,6 +227,32 @@ namespace StormTime.Player.Movement
             }
         }
 
+        public void HandleShopItemInfluence(PlayerModifierTypes.ShopItemInfo shopItemInfo)
+        {
+            switch (shopItemInfo.shopItem)
+            {
+                case PlayerModifierTypes.ShopItem.HealthPotion:
+                    break;
+
+                case PlayerModifierTypes.ShopItem.BulletsFreezeEnemy:
+                    break;
+
+                case PlayerModifierTypes.ShopItem.ShotGun:
+                    _playerShooting.UnlockWeapon(PlayerShooting.WeaponType.Shotgun);
+                    break;
+
+                case PlayerModifierTypes.ShopItem.ChargeGun:
+                    _playerShooting.UnlockWeapon(PlayerShooting.WeaponType.ChargeGun);
+                    break;
+
+                case PlayerModifierTypes.ShopItem.Shield:
+                    break;
+
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
+
         public void SetLerpPosition(Vector2 position) => _lerpPosition = position;
 
         public void ActivateShooting() => _playerShooting.ActivateShooting();

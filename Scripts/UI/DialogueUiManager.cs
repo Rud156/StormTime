@@ -19,6 +19,9 @@ namespace StormTime.UI
         private Control _singleDialogueHolder;
         private TextTyper _singleDialogue;
 
+        private float _displayTimer;
+        private bool _displayTimerActive;
+
         public override void _Ready()
         {
             _multiDialogueHolder = GetNode<Control>(multiDialogueHolderNodePath);
@@ -43,7 +46,29 @@ namespace StormTime.UI
             }
         }
 
+        public override void _Process(float delta)
+        {
+            if (!_displayTimerActive)
+            {
+                return;
+            }
+
+            _displayTimer -= delta;
+            if (_displayTimer <= 0)
+            {
+                _displayTimerActive = false;
+                ClearAll();
+            }
+        }
+
         #region External Functions
+
+        public void DisplaySingleStringTimed(string dialogue, float displayTime)
+        {
+            DisplaySingleString(dialogue);
+            _displayTimerActive = true;
+            _displayTimer = displayTime;
+        }
 
         public void DisplaySingleString(string dialogue)
         {

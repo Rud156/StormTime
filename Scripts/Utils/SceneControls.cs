@@ -16,5 +16,9 @@ namespace StormTime.Utils
         public const string DialogueControl_1 = "ui_a";
         public const string DialogueControl_2 = "ui_d";
         public const string DialogueControl_3 = "ui_w";
+
+        public const string PlayerWeaponSwitch_1 = "ui_1";
+        public const string PlayerWeaponSwitch_2 = "ui_2";
+        public const string PlayerWeaponSwitch_3 = "ui_3";
     }
 }

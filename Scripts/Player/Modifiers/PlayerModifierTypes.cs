@@ -133,22 +133,55 @@ namespace StormTime.Player.Modifiers
 
         public static string GetShopItemDescription(ShopItem shopItem)
         {
+            string dialogueString = string.Empty;
+
             switch (shopItem)
             {
                 case ShopItem.HealthPotion:
-                    return "Gives a bit of health";
+                    dialogueString = "Gives a bit of health";
+                    break;
 
                 case ShopItem.ShotGun:
-                    return "High damage but recoiling gun. Spray your enemies";
+                    dialogueString = "High damage but recoiling gun. Spray your enemies";
+                    break;
 
                 case ShopItem.ChargeGun:
-                    return "The longer you charge the stronger it becomes";
+                    dialogueString = "The longer you charge the stronger it becomes";
+                    break;
 
                 case ShopItem.Shield:
-                    return "Protects for a few seconds. Rechargeable";
+                    dialogueString = "Protects for a few seconds. Rechargeable";
+                    break;
 
                 case ShopItem.BulletsFreezeEnemy:
-                    return "Bullets temporarily freeze enemies randomly";
+                    dialogueString = "Bullets temporarily freeze enemies randomly";
+                    break;
+
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(shopItem), shopItem, null);
+            }
+
+            return $"{dialogueString}. ({GetShopItemCost(shopItem)} Souls)";
+        }
+
+        public static int GetShopItemCost(ShopItem shopItem)
+        {
+            switch (shopItem)
+            {
+                case ShopItem.HealthPotion:
+                    return 30;
+
+                case ShopItem.BulletsFreezeEnemy:
+                    return 100;
+
+                case ShopItem.ShotGun:
+                    return 80;
+
+                case ShopItem.ChargeGun:
+                    return 60;
+
+                case ShopItem.Shield:
+                    return 15;
 
                 default:
                     throw new ArgumentOutOfRangeException(nameof(shopItem), shopItem, null);

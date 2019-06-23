@@ -206,8 +206,20 @@ namespace StormTime.Enemy.Groups
 
             if (shopItemInfo.HasValue)
             {
-                // TODO: So Something With Shop Items
-                SetPlayerInteractionState(PlayerInteractionState.Ending);
+                int soulsCost = PlayerModifierTypes.GetShopItemCost(shopItemInfo.Value.shopItem);
+
+                if (PlayerModifierSoulsManager.instance.GetSoulsCount() >= soulsCost)
+                {
+                    PlayerModifierSoulsManager.instance.DecrementSouls(soulsCost);
+                    _playerController.HandleShopItemInfluence(shopItemInfo.Value);
+                    SetPlayerInteractionState(PlayerInteractionState.Ending);
+                }
+                else
+                {
+                    SetPlayerInteractionState(PlayerInteractionState.Active);
+                    _playerIsInside = false;
+                }
+
             }
         }
 

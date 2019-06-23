@@ -34,7 +34,7 @@ scale_curve = SubResource( 4 )
 color_ramp = SubResource( 2 )
 
 [sub_resource type="RectangleShape2D" id=6]
-extents = Vector2( 200, 200 )
+extents = Vector2( 150, 150 )
 
 [node name="Enemy Group" type="Node2D"]
 z_index = 1

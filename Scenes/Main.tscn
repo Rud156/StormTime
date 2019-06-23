@@ -172,9 +172,7 @@ position = Vector2( -2270, 2080 )
 scaleChangeFrequency = 1.0
 playerShootingNodePath = NodePath("Player Shooter")
 playerHealthSetterNodePath = NodePath("Player Health")
-zeroSoulsHealthDecrementRate = 1.0
 lowHealthWarningPercent = 0.3
-lowHealthWarningColor = Color( 1, 0, 0, 1 )
 
 [node name="Player Shooter" type="Node2D" parent="Game World/Player"]
 script = ExtResource( 7 )
