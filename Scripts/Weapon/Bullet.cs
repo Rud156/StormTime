@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using Godot;
 
 namespace StormTime.Weapon
@@ -17,15 +18,24 @@ namespace StormTime.Weapon
         private float _currentBulletTrailTimeLeft;
 
         private float _currentDamageAmount;
+        private bool _destroyOnEnemyCollision;
+        private bool _isStaticBullet;
 
         public override void _Ready()
         {
             _currentBulletTrailTimeLeft = bulletTrailTimer;
             _currentDamageAmount = bulletDamageAmount;
+
+            _isStaticBullet = false;
         }
 
         public override void _Process(float delta)
         {
+            if (_isStaticBullet)
+            {
+                return;
+            }
+
             _currentBulletTrailTimeLeft -= delta;
             if (_currentBulletTrailTimeLeft <= 0)
             {
@@ -36,6 +46,11 @@ namespace StormTime.Weapon
 
         public override void _PhysicsProcess(float delta)
         {
+            if (_isStaticBullet)
+            {
+                return;
+            }
+
             KinematicCollision2D collision = MoveAndCollide(_launchVelocity * delta);
             if (collision != null || _currentBulletTimeLeft <= 0)
             {
@@ -45,7 +60,14 @@ namespace StormTime.Weapon
                     NotifyCollider(collision.Collider);
                 }
 
-                DestroyBullet();
+                if (!_destroyOnEnemyCollision && !(collision?.Collider is Enemy.Individuals.Enemy))
+                {
+                    DestroyBullet();
+                }
+                else if (_destroyOnEnemyCollision || _currentBulletTimeLeft <= 0)
+                {
+                    DestroyBullet();
+                }
             }
 
             _currentBulletTimeLeft -= delta;
@@ -53,21 +75,27 @@ namespace StormTime.Weapon
 
         #region External Functions
 
-        public void LaunchBullet(Vector2 forwardVectorNormalized)
+        public void LaunchBullet(Vector2 forwardVectorNormalized, bool destroyOnEnemyCollision = true)
         {
             _launchVelocity = forwardVectorNormalized * bulletSpeed;
             _currentBulletTimeLeft = bulletLifeTime;
+
+            _destroyOnEnemyCollision = destroyOnEnemyCollision;
         }
 
-        public void LaunchBullet(Vector2 forwardVectorNormalized, float damageAmount)
+        public void LaunchBullet(Vector2 forwardVectorNormalized, float damageAmount, bool destroyOnEnemyCollision = true)
         {
             _currentDamageAmount = damageAmount;
-            LaunchBullet(forwardVectorNormalized);
+            LaunchBullet(forwardVectorNormalized, destroyOnEnemyCollision);
         }
 
         public float GetBulletDamage() => _currentDamageAmount;
 
         public void SetBulletDamage(float damageAmount) => _currentDamageAmount = damageAmount;
+
+        public void SetAsStaticBullet() => _isStaticBullet = true;
+
+        public void SetAsDynamicBullet() => _isStaticBullet = false;
 
         #endregion
 

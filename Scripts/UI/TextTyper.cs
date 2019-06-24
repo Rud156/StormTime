@@ -7,6 +7,10 @@ namespace StormTime.UI
     {
         [Export] public float characterDelay;
 
+        public delegate void TypingComplete();
+
+        public TypingComplete typingComplete;
+
         private string _displayString;
 
         private bool _startTyping;
@@ -38,6 +42,7 @@ namespace StormTime.UI
                     if (_currentStringIndexCounter >= _displayString.Length - 1)
                     {
                         _startTyping = false;
+                        typingComplete?.Invoke();
                     }
                     else
                     {

@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://Scripts/Player/Modifiers/PlayerModifierSoulsManager.cs" type="Script" id=1]
 [ext_resource path="res://Prefabs/WorldElements/World.tscn" type="PackedScene" id=2]
@@ -8,11 +8,12 @@
 [ext_resource path="res://Prefabs/Interactibles/Player/Player.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Scripts/Player/Shooting/PlayerShooting.cs" type="Script" id=7]
 [ext_resource path="res://Prefabs/Interactibles/Bullets/Bullet.tscn" type="PackedScene" id=8]
-[ext_resource path="res://Textures/light.png" type="Texture" id=9]
-[ext_resource path="res://Scripts/Common/HealthSetter.cs" type="Script" id=10]
-[ext_resource path="res://Scripts/Common/HealthDisplay.cs" type="Script" id=11]
-[ext_resource path="res://Scripts/Camera/CameraFollowTarget.cs" type="Script" id=12]
-[ext_resource path="res://Prefabs/UI/GUI.tscn" type="PackedScene" id=13]
+[ext_resource path="res://Prefabs/Interactibles/Bullets/Charged Bullet.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Textures/light.png" type="Texture" id=10]
+[ext_resource path="res://Scripts/Common/HealthSetter.cs" type="Script" id=11]
+[ext_resource path="res://Scripts/Common/HealthDisplay.cs" type="Script" id=12]
+[ext_resource path="res://Scripts/Camera/CameraFollowTarget.cs" type="Script" id=13]
+[ext_resource path="res://Prefabs/UI/GUI.tscn" type="PackedScene" id=14]
 
 [sub_resource type="Gradient" id=1]
 offsets = PoolRealArray( 0, 0.856481, 1 )
@@ -178,11 +179,21 @@ lowHealthWarningPercent = 0.3
 script = ExtResource( 7 )
 playerBulletHolderNodePath = NodePath("../../Bullets Holder")
 playerBulletPrefab = ExtResource( 8 )
+playerChargedBulletPrefab = ExtResource( 9 )
+playerShootingPositionNodePath = NodePath("Player Shooting Position")
+playerChargedShootingPositionNodePath = NodePath("Charged Shooting Position")
 shootDelay = 0.3
+chargeGunScaleIncrementRate = 0.5
+
+[node name="Player Shooting Position" type="Node2D" parent="Game World/Player/Player Shooter"]
+position = Vector2( 80, 0 )
+
+[node name="Charged Shooting Position" type="Node2D" parent="Game World/Player/Player Shooter"]
+position = Vector2( 202.46, 0 )
 
 [node name="Scene Light" type="Light2D" parent="Game World/Player"]
 scale = Vector2( 66.6667, 66.6667 )
-texture = ExtResource( 9 )
+texture = ExtResource( 10 )
 energy = 1.5
 range_height = 7.0
 shadow_enabled = true
@@ -192,11 +203,11 @@ shadow_filter_smooth = 10.0
 
 [node name="Player Health" type="Node2D" parent="Game World/Player"]
 editor/display_folded = true
-script = ExtResource( 10 )
+script = ExtResource( 11 )
 maxHealth = 100.0
 
 [node name="Health Display" type="Node2D" parent="Game World/Player/Player Health"]
-script = ExtResource( 11 )
+script = ExtResource( 12 )
 minHealthColor = Color( 1, 0, 0, 1 )
 halfHealthColor = Color( 1, 1, 0, 1 )
 maxHealthColor = Color( 0, 1, 0, 1 )
@@ -212,14 +223,14 @@ drag_margin_left = 0.1
 drag_margin_top = 0.1
 drag_margin_right = 0.1
 drag_margin_bottom = 0.1
-script = ExtResource( 12 )
+script = ExtResource( 13 )
 targetNode = NodePath("../Player")
 lockBottomLeftCorner = Vector2( -1900, 1890 )
 lockTopRightCorner = Vector2( 2945, -2000 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="GUI" parent="CanvasLayer" instance=ExtResource( 13 )]
+[node name="GUI" parent="CanvasLayer" instance=ExtResource( 14 )]
 editor/display_folded = true
 
 [node name="Player Souls Sprite Animation" parent="CanvasLayer/GUI/Player Souls Panel" index="0"]

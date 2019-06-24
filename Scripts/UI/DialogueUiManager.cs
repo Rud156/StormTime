@@ -21,6 +21,7 @@ namespace StormTime.UI
 
         private float _displayTimer;
         private bool _displayTimerActive;
+        private bool _displayTimerCountdownActive;
 
         public override void _Ready()
         {
@@ -37,6 +38,7 @@ namespace StormTime.UI
 
             _singleDialogueHolder = GetNode<Control>(singleLineHolderNodePath);
             _singleDialogue = GetNode<TextTyper>(singleLineLabelNodePath);
+            _singleDialogue.typingComplete += HandleSingleDialogueTypingComplete;
 
             ClearAll();
 
@@ -57,6 +59,7 @@ namespace StormTime.UI
             if (_displayTimer <= 0)
             {
                 _displayTimerActive = false;
+                _displayTimerCountdownActive = false;
                 ClearAll();
             }
         }
@@ -66,7 +69,8 @@ namespace StormTime.UI
         public void DisplaySingleStringTimed(string dialogue, float displayTime)
         {
             DisplaySingleString(dialogue);
-            _displayTimerActive = true;
+            _displayTimerActive = false;
+            _displayTimerCountdownActive = true;
             _displayTimer = displayTime;
         }
 
@@ -111,6 +115,14 @@ namespace StormTime.UI
         #endregion
 
         #region Utility Functions
+
+        private void HandleSingleDialogueTypingComplete()
+        {
+            if (_displayTimerCountdownActive)
+            {
+                _displayTimerActive = true;
+            }
+        }
 
         private void ClearAll()
         {
