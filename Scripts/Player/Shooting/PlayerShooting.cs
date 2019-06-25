@@ -46,7 +46,7 @@ namespace StormTime.Player.Shooting
         // Charged Shot Weapon
         private float _chargeWeaponCurrentScale;
         private bool _chargeWeaponActive;
-        private Bullet _chargedShotBullet;
+        private ChargedBullet _chargedShotBullet;
 
         public enum WeaponType
         {
@@ -78,7 +78,7 @@ namespace StormTime.Player.Shooting
             {
                 {WeaponType.SingleShot, new WeaponState() {weaponType = WeaponType.SingleShot, isUnlocked = true}},
                 {WeaponType.Shotgun, new WeaponState() {weaponType = WeaponType.Shotgun, isUnlocked = false}},
-                {WeaponType.ChargeGun, new WeaponState() {weaponType = WeaponType.ChargeGun, isUnlocked = false}}
+                {WeaponType.ChargeGun, new WeaponState() {weaponType = WeaponType.ChargeGun, isUnlocked = true}}
             };
         }
 
@@ -140,7 +140,7 @@ namespace StormTime.Player.Shooting
                         _chargeWeaponCurrentScale = 1;
                         _chargeWeaponActive = true;
 
-                        _chargedShotBullet = (Bullet)playerChargedBulletPrefab.Instance();
+                        _chargedShotBullet = (ChargedBullet)playerChargedBulletPrefab.Instance();
                         _playerChargedShotShootingPosition.AddChild(_chargedShotBullet);
 
                         _chargedShotBullet.SetGlobalPosition(_playerChargedShotShootingPosition.GetGlobalPosition());
@@ -248,7 +248,13 @@ namespace StormTime.Player.Shooting
             _playerChargedShotShootingPosition.RemoveChild(_chargedShotBullet);
             _playerBulletHolder.AddChild(_chargedShotBullet);
 
-            _chargedShotBullet.SetBulletDamage(_chargedShotBullet.GetBulletDamage() + _currentDamageDiff);
+            float maxDamage = _chargedShotBullet.GetBulletDamage() + _currentDamageDiff;
+            float mappedDamage = ExtensionFunctions.Map(_chargeWeaponCurrentScale,
+                0, chargeGunMaxScaleAmount, 0, maxDamage);
+
+            _chargedShotBullet.SetBulletDamage(mappedDamage);
+            _chargedShotBullet.SetMaxScale(chargeGunMaxScaleAmount);
+            _chargedShotBullet.SetCurrentScale(_chargeWeaponCurrentScale);
             _chargedShotBullet.SetGlobalPosition(_playerChargedShotShootingPosition.GetGlobalPosition());
             _chargedShotBullet.SetGlobalScale(Vector2.One * _chargeWeaponCurrentScale);
 
@@ -257,7 +263,7 @@ namespace StormTime.Player.Shooting
             float xVelocity = Mathf.Cos(currentRotation);
             float yVelocity = Mathf.Sin(currentRotation);
             _chargedShotBullet.SetAsDynamicBullet();
-            _chargedShotBullet.LaunchBullet(new Vector2(xVelocity, yVelocity), false);
+            _chargedShotBullet.LaunchBullet(new Vector2(xVelocity, yVelocity));
 
             _chargedShotBullet = null;
             _chargeWeaponActive = false;

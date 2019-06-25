@@ -183,6 +183,7 @@ playerChargedBulletPrefab = ExtResource( 9 )
 playerShootingPositionNodePath = NodePath("Player Shooting Position")
 playerChargedShootingPositionNodePath = NodePath("Charged Shooting Position")
 shootDelay = 0.3
+chargeGunMaxScaleAmount = 2.0
 chargeGunScaleIncrementRate = 0.5
 
 [node name="Player Shooting Position" type="Node2D" parent="Game World/Player/Player Shooter"]

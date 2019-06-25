@@ -83,6 +83,7 @@
     <Compile Include="Scripts\Utils\TagManager.cs" />
     <Compile Include="Scripts\Utils\VectorHelpers.cs" />
     <Compile Include="Scripts\Weapon\Bullet.cs" />
+    <Compile Include="Scripts\Weapon\ChargedBullet.cs" />
     <Compile Include="Scripts\Weapon\EnemyBullet.cs" />
   </ItemGroup>
   <ItemGroup>

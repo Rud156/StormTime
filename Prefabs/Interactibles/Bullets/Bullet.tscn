@@ -25,5 +25,5 @@ bulletDamageAmount = 20.0
 self_modulate = Color( 1, 0.631373, 0, 1 )
 texture = ExtResource( 4 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="Bullet Collision Shape" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )

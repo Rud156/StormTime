@@ -1,11 +1,9 @@
-using System.Diagnostics;
 using Godot;
 
 namespace StormTime.Weapon
 {
     public class Bullet : KinematicBody2D
     {
-
         [Export] public PackedScene bulletTrailPrefab;
         [Export] public PackedScene bulletExplosionPrefab;
         [Export] public float bulletSpeed;
@@ -13,29 +11,20 @@ namespace StormTime.Weapon
         [Export] public float bulletTrailTimer;
         [Export] public float bulletDamageAmount;
 
-        private Vector2 _launchVelocity;
-        private float _currentBulletTimeLeft;
-        private float _currentBulletTrailTimeLeft;
+        protected Vector2 _launchVelocity;
+        protected float _currentBulletTimeLeft;
+        protected float _currentBulletTrailTimeLeft;
 
-        private float _currentDamageAmount;
-        private bool _destroyOnEnemyCollision;
-        private bool _isStaticBullet;
+        protected float _currentDamageAmount;
 
         public override void _Ready()
         {
             _currentBulletTrailTimeLeft = bulletTrailTimer;
             _currentDamageAmount = bulletDamageAmount;
-
-            _isStaticBullet = false;
         }
 
         public override void _Process(float delta)
         {
-            if (_isStaticBullet)
-            {
-                return;
-            }
-
             _currentBulletTrailTimeLeft -= delta;
             if (_currentBulletTrailTimeLeft <= 0)
             {
@@ -46,11 +35,6 @@ namespace StormTime.Weapon
 
         public override void _PhysicsProcess(float delta)
         {
-            if (_isStaticBullet)
-            {
-                return;
-            }
-
             KinematicCollision2D collision = MoveAndCollide(_launchVelocity * delta);
             if (collision != null || _currentBulletTimeLeft <= 0)
             {
@@ -60,14 +44,7 @@ namespace StormTime.Weapon
                     NotifyCollider(collision.Collider);
                 }
 
-                if (!_destroyOnEnemyCollision && !(collision?.Collider is Enemy.Individuals.Enemy))
-                {
-                    DestroyBullet();
-                }
-                else if (_destroyOnEnemyCollision || _currentBulletTimeLeft <= 0)
-                {
-                    DestroyBullet();
-                }
+                DestroyBullet();
             }
 
             _currentBulletTimeLeft -= delta;
@@ -75,46 +52,34 @@ namespace StormTime.Weapon
 
         #region External Functions
 
-        public void LaunchBullet(Vector2 forwardVectorNormalized, bool destroyOnEnemyCollision = true)
+        public void LaunchBullet(Vector2 forwardVectorNormalized)
         {
             _launchVelocity = forwardVectorNormalized * bulletSpeed;
             _currentBulletTimeLeft = bulletLifeTime;
-
-            _destroyOnEnemyCollision = destroyOnEnemyCollision;
-        }
-
-        public void LaunchBullet(Vector2 forwardVectorNormalized, float damageAmount, bool destroyOnEnemyCollision = true)
-        {
-            _currentDamageAmount = damageAmount;
-            LaunchBullet(forwardVectorNormalized, destroyOnEnemyCollision);
         }
 
         public float GetBulletDamage() => _currentDamageAmount;
 
         public void SetBulletDamage(float damageAmount) => _currentDamageAmount = damageAmount;
 
-        public void SetAsStaticBullet() => _isStaticBullet = true;
-
-        public void SetAsDynamicBullet() => _isStaticBullet = false;
-
         #endregion
 
         #region Utility Functions
 
-        private void DestroyBullet() => GetParent().RemoveChild(this);
+        protected void DestroyBullet() => GetParent().RemoveChild(this);
 
         #endregion
 
         #region Events
 
-        private void NotifyCollider(Object collider) =>
+        protected void NotifyCollider(Object collider) =>
             collider.CallDeferred("BulletCollisionNotification", this);
 
         #endregion
 
         #region Particle Effects
 
-        private void SpawnBulletExplosion()
+        protected void SpawnBulletExplosion()
         {
             Node2D bulletExplosionInstance = (Node2D)bulletExplosionPrefab.Instance();
             GetParent().AddChild(bulletExplosionInstance);
@@ -122,7 +87,7 @@ namespace StormTime.Weapon
             bulletExplosionInstance.SetGlobalPosition(GetGlobalPosition());
         }
 
-        private void SpawnBulletTrail()
+        protected void SpawnBulletTrail()
         {
             Node2D bulletTrailInstance = (Node2D)bulletTrailPrefab.Instance();
             GetParent().AddChild(bulletTrailInstance);
