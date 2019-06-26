@@ -48,6 +48,9 @@ namespace StormTime.Player.Shooting
         private bool _chargeWeaponActive;
         private ChargedBullet _chargedShotBullet;
 
+        // Freezer Bought
+        private bool _freezingBulletBought;
+
         public enum WeaponType
         {
             SingleShot,
@@ -78,7 +81,7 @@ namespace StormTime.Player.Shooting
             {
                 {WeaponType.SingleShot, new WeaponState() {weaponType = WeaponType.SingleShot, isUnlocked = true}},
                 {WeaponType.Shotgun, new WeaponState() {weaponType = WeaponType.Shotgun, isUnlocked = false}},
-                {WeaponType.ChargeGun, new WeaponState() {weaponType = WeaponType.ChargeGun, isUnlocked = true}}
+                {WeaponType.ChargeGun, new WeaponState() {weaponType = WeaponType.ChargeGun, isUnlocked = false}}
             };
         }
 
@@ -203,6 +206,8 @@ namespace StormTime.Player.Shooting
             bulletInstance.SetBulletDamage(bulletInstance.GetBulletDamage() + _currentDamageDiff);
             bulletInstance.SetGlobalPosition(_playerBulletShootingPosition.GetGlobalPosition());
             bulletInstance.LaunchBullet(forwardVectorNormalized);
+            bulletInstance.SetFreezingBulletState(_freezingBulletBought);
+
 
             _currentShootTimeLeft = _currentShootDelay;
 
@@ -293,6 +298,8 @@ namespace StormTime.Player.Shooting
         public void SetCurrentShootingDelay(float shootingDelay) => _currentShootDelay = shootingDelay;
 
         public void AddToDamageDifferencePercent(float percentIncrease) => _currentDamageDiffPercent += percentIncrease;
+
+        public void BuyFreezingBullet() => _freezingBulletBought = true;
 
         #endregion
     }

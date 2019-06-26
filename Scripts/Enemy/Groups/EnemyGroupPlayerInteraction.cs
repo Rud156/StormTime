@@ -98,12 +98,7 @@ namespace StormTime.Enemy.Groups
         private void HandlePlayerInteractionEnding(float delta)
         {
             SetPlayerInteractionState(PlayerInteractionState.Completed);
-            ClearDialogues();
-
-            _playerController.SetPlayerState(PlayerController.PlayerState.PlayerInControlMovement);
-            _playerController.ActivateShooting();
-            _playerController.ResetSizeDefaults();
-
+            ResetPlayerAndDialogues();
         }
 
         private void HandlePlayerInteractionComplete(float delta)
@@ -155,6 +150,15 @@ namespace StormTime.Enemy.Groups
             {
                 ShowSacrificialItemDialogues();
             }
+        }
+
+        private void ResetPlayerAndDialogues()
+        {
+            ClearDialogues();
+
+            _playerController.SetPlayerState(PlayerController.PlayerState.PlayerInControlMovement);
+            _playerController.ActivateShooting();
+            _playerController.ResetSizeDefaults();
         }
 
         #region Shop Interactions
@@ -216,8 +220,16 @@ namespace StormTime.Enemy.Groups
                 }
                 else
                 {
-                    SetPlayerInteractionState(PlayerInteractionState.Active);
+                    ResetPlayerAndDialogues();
+
+                    DialogueUiManager.instance.ClearMultiDialogue();
+                    DialogueUiManager.instance.DisplaySingleStringTimed("Not Enough Souls Available",
+                        3);
+
+                    SetPlayerInteractionState(PlayerInteractionState.NotActive);
                     _playerIsInside = false;
+
+
                 }
 
             }

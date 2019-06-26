@@ -135,6 +135,10 @@ namespace StormTime.UI
             _singleDialogue.ClearString();
             _singleDialogueHolder.SetVisible(false);
             SetVisible(false);
+
+            _displayTimerActive = false;
+            _displayTimerCountdownActive = false;
+            _displayTimer = 0;
         }
 
         #endregion

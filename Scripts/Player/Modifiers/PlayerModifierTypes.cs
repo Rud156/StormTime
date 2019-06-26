@@ -11,8 +11,7 @@ namespace StormTime.Player.Modifiers
             HealthPotion,
             BulletsFreezeEnemy,
             ShotGun,
-            ChargeGun,
-            Shield
+            ChargeGun
         }
 
         public enum SacrificialItem
@@ -149,10 +148,6 @@ namespace StormTime.Player.Modifiers
                     dialogueString = "The longer you charge the stronger it becomes";
                     break;
 
-                case ShopItem.Shield:
-                    dialogueString = "Protects for a few seconds. Rechargeable";
-                    break;
-
                 case ShopItem.BulletsFreezeEnemy:
                     dialogueString = "Bullets temporarily freeze enemies randomly";
                     break;
@@ -179,9 +174,6 @@ namespace StormTime.Player.Modifiers
 
                 case ShopItem.ChargeGun:
                     return 60;
-
-                case ShopItem.Shield:
-                    return 15;
 
                 default:
                     throw new ArgumentOutOfRangeException(nameof(shopItem), shopItem, null);
@@ -212,13 +204,6 @@ namespace StormTime.Player.Modifiers
                     };
 
                 case ShopItem.ChargeGun:
-                    return new ShopItemInfo()
-                    {
-                        shopItem = shopItem
-                    };
-
-
-                case ShopItem.Shield:
                     return new ShopItemInfo()
                     {
                         shopItem = shopItem

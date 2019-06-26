@@ -16,6 +16,7 @@ namespace StormTime.Weapon
         protected float _currentBulletTrailTimeLeft;
 
         protected float _currentDamageAmount;
+        protected bool _isFreezingBullet;
 
         public override void _Ready()
         {
@@ -62,6 +63,8 @@ namespace StormTime.Weapon
 
         public void SetBulletDamage(float damageAmount) => _currentDamageAmount = damageAmount;
 
+        public void SetFreezingBulletState(bool isFreezingBullet) => _isFreezingBullet = isFreezingBullet;
+
         #endregion
 
         #region Utility Functions
@@ -73,7 +76,7 @@ namespace StormTime.Weapon
         #region Events
 
         protected void NotifyCollider(Object collider) =>
-            collider.CallDeferred("BulletCollisionNotification", this);
+            collider.CallDeferred("BulletCollisionNotification", this, _isFreezingBullet);
 
         #endregion
 

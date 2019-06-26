@@ -20,6 +20,10 @@ namespace StormTime.Enemy.Individuals
         [Export] public float idleTime;
         [Export] public float minWanderingReachDistance;
 
+        // Freezing Affector
+        [Export] public float enemyFreezeTime;
+        [Export] public float enemyFreezeRatio;
+
         // Target Player Stats
         [Export] public float playerTargetDistance;
         [Export] public float playerAttackDistance;
@@ -275,7 +279,7 @@ namespace StormTime.Enemy.Individuals
         #region External Functions
 
         // Event Function from Bullet Collision
-        public void BulletCollisionNotification(object bullet)
+        public void BulletCollisionNotification(object bullet, bool isFreezingBullet)
         {
             bool isPlayerBullet = !(bullet is EnemyBullet);
 
@@ -285,6 +289,15 @@ namespace StormTime.Enemy.Individuals
 
                 float damageAmount = ((Bullet)bullet).GetBulletDamage();
                 _enemyHealthSetter.SubtractHealth(damageAmount);
+            }
+
+            if (isFreezingBullet)
+            {
+                float randomNumber = (float)GD.Randf();
+                if (randomNumber < enemyFreezeRatio)
+                {
+                    FreezeEnemy(enemyFreezeTime);
+                }
             }
         }
 

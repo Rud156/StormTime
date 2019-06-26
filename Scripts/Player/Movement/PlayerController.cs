@@ -153,7 +153,7 @@ namespace StormTime.Player.Movement
 
         #region External Functions
 
-        public void BulletCollisionNotification(object bullet)
+        public void BulletCollisionNotification(object bullet, bool isFreezingBullet)
         {
             bool isPlayerBullet = !(bullet is EnemyBullet);
 
@@ -232,9 +232,14 @@ namespace StormTime.Player.Movement
             switch (shopItemInfo.shopItem)
             {
                 case PlayerModifierTypes.ShopItem.HealthPotion:
+                    {
+                        float potionHealthAmount = shopItemInfo.valueChange;
+                        _playerHealthSetter.AddHealth(potionHealthAmount);
+                    }
                     break;
 
                 case PlayerModifierTypes.ShopItem.BulletsFreezeEnemy:
+                    _playerShooting.BuyFreezingBullet();
                     break;
 
                 case PlayerModifierTypes.ShopItem.ShotGun:
@@ -243,9 +248,6 @@ namespace StormTime.Player.Movement
 
                 case PlayerModifierTypes.ShopItem.ChargeGun:
                     _playerShooting.UnlockWeapon(PlayerShooting.WeaponType.ChargeGun);
-                    break;
-
-                case PlayerModifierTypes.ShopItem.Shield:
                     break;
 
                 default:
