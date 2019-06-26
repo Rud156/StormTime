@@ -51,6 +51,11 @@ namespace StormTime.Player.Shooting
         // Freezer Bought
         private bool _freezingBulletBought;
 
+        // Events
+        public delegate void BulletShot(WeaponType weaponType);
+
+        public BulletShot bulletShot;
+
         public enum WeaponType
         {
             SingleShot,
@@ -208,11 +213,11 @@ namespace StormTime.Player.Shooting
             bulletInstance.LaunchBullet(forwardVectorNormalized);
             bulletInstance.SetFreezingBulletState(_freezingBulletBought);
 
-
             _currentShootTimeLeft = _currentShootDelay;
 
             if (decrementSouls)
             {
+                bulletShot?.Invoke(_currentWeaponType);
                 PlayerModifierSoulsManager.instance.DecrementSouls(singleShotSoulDecrementCount);
             }
         }
@@ -233,6 +238,7 @@ namespace StormTime.Player.Shooting
                 currentAngle += shotGunAngleDiff;
             }
 
+            bulletShot?.Invoke(_currentWeaponType);
             PlayerModifierSoulsManager.instance.DecrementSouls(shotGunShotSoulDecrementCount);
         }
 
@@ -274,6 +280,7 @@ namespace StormTime.Player.Shooting
             _chargeWeaponActive = false;
             _currentShootTimeLeft = _currentShootDelay;
 
+            bulletShot?.Invoke(_currentWeaponType);
             PlayerModifierSoulsManager.instance.DecrementSouls(chargedShotSoulDecrementCount);
         }
 

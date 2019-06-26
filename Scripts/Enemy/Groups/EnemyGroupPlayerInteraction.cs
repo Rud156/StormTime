@@ -190,22 +190,18 @@ namespace StormTime.Enemy.Groups
         private void HandleShopPlayerInteraction()
         {
             PlayerModifierTypes.ShopItemInfo? shopItemInfo = null;
-            int itemIndex = -1;
 
             if (Input.IsActionJustPressed(SceneControls.DialogueControl_1))
             {
                 shopItemInfo = PlayerModifierTypes.GetShopItem(_shopItems[0]);
-                itemIndex = 0;
             }
             else if (Input.IsActionJustPressed(SceneControls.DialogueControl_2))
             {
                 shopItemInfo = PlayerModifierTypes.GetShopItem(_shopItems[1]);
-                itemIndex = 1;
             }
             else if (Input.IsActionJustPressed(SceneControls.DialogueControl_3))
             {
                 shopItemInfo = PlayerModifierTypes.GetShopItem(_shopItems[2]);
-                itemIndex = 2;
             }
 
             if (shopItemInfo.HasValue)
@@ -216,6 +212,7 @@ namespace StormTime.Enemy.Groups
                 {
                     PlayerModifierSoulsManager.instance.DecrementSouls(soulsCost);
                     _playerController.HandleShopItemInfluence(shopItemInfo.Value);
+                    _parentGroup.SetPlayerAsHostile();
                     SetPlayerInteractionState(PlayerInteractionState.Ending);
                 }
                 else
@@ -223,13 +220,10 @@ namespace StormTime.Enemy.Groups
                     ResetPlayerAndDialogues();
 
                     DialogueUiManager.instance.ClearMultiDialogue();
-                    DialogueUiManager.instance.DisplaySingleStringTimed("Not Enough Souls Available",
-                        3);
+                    DialogueUiManager.instance.DisplaySingleStringTimed("Not Enough Souls Available", 3);
 
                     SetPlayerInteractionState(PlayerInteractionState.NotActive);
                     _playerIsInside = false;
-
-
                 }
 
             }
@@ -269,27 +263,24 @@ namespace StormTime.Enemy.Groups
         private void HandleSacrificialItemPlayerInteraction()
         {
             PlayerModifierTypes.SacrificialItemInfo? itemInfo = null;
-            int itemIndex = -1;
 
             if (Input.IsActionJustPressed(SceneControls.DialogueControl_1))
             {
                 itemInfo = PlayerModifierTypes.GetSacrificialItemAffecter(_sacrificialItems[0]);
-                itemIndex = 0;
             }
             else if (Input.IsActionJustPressed(SceneControls.DialogueControl_2))
             {
                 itemInfo = PlayerModifierTypes.GetSacrificialItemAffecter(_sacrificialItems[1]);
-                itemIndex = 1;
             }
             else if (Input.IsActionJustPressed(SceneControls.DialogueControl_3))
             {
                 itemInfo = PlayerModifierTypes.GetSacrificialItemAffecter(_sacrificialItems[2]);
-                itemIndex = 2;
             }
 
             if (itemInfo.HasValue)
             {
                 _playerController.HandleSacrificialItemInfluence(itemInfo.Value);
+                _parentGroup.SetPlayerAsHostile();
                 SetPlayerInteractionState(PlayerInteractionState.Ending);
             }
         }

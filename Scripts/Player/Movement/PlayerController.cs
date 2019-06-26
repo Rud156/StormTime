@@ -32,6 +32,10 @@ namespace StormTime.Player.Movement
         [Export] public float lowHealthWarningPercent = 0.3f;
         [Export] public Color lowHealthWarningColor;
 
+        // ShotGun Weapon Recoil
+        [Export] public float shotGunRecoilForce;
+        [Export] public float shotGunRecoilAffectTime;
+
         public enum PlayerState
         {
             PlayerInControlMovement,
@@ -49,6 +53,7 @@ namespace StormTime.Player.Movement
         private Vector2 _lerpPosition;
 
         private float _playerTime;
+        private float _currentShotGunRecoilTime;
 
         private bool _isSoulsLow;
 
@@ -65,6 +70,7 @@ namespace StormTime.Player.Movement
             SetPlayerState(PlayerState.PlayerInControlMovement);
 
             _playerHealthSetter.healthChanged += HandleHeathChange;
+            _playerShooting.bulletShot += HandleBulletShot;
             PlayerModifierSoulsManager.instance.handleStatusChanged += HandleSoulsChange;
         }
 
@@ -112,19 +118,26 @@ namespace StormTime.Player.Movement
 
         private void MovePlayer(float delta)
         {
-            if (Input.IsActionPressed(SceneControls.Left))
-                _movement.x = -_currentMovementSpeed;
-            else if (Input.IsActionPressed(SceneControls.Right))
-                _movement.x = _currentMovementSpeed;
+            if (_currentShotGunRecoilTime > 0)
+            {
+                _currentShotGunRecoilTime -= delta;
+            }
             else
-                _movement.x = 0;
+            {
+                if (Input.IsActionPressed(SceneControls.Left))
+                    _movement.x = -_currentMovementSpeed;
+                else if (Input.IsActionPressed(SceneControls.Right))
+                    _movement.x = _currentMovementSpeed;
+                else
+                    _movement.x = 0;
 
-            if (Input.IsActionPressed(SceneControls.Up))
-                _movement.y = -_currentMovementSpeed;
-            else if (Input.IsActionPressed(SceneControls.Down))
-                _movement.y = _currentMovementSpeed;
-            else
-                _movement.y = 0;
+                if (Input.IsActionPressed(SceneControls.Up))
+                    _movement.y = -_currentMovementSpeed;
+                else if (Input.IsActionPressed(SceneControls.Down))
+                    _movement.y = _currentMovementSpeed;
+                else
+                    _movement.y = 0;
+            }
 
             _movement = MoveAndSlide(_movement);
             PlayerVariables.PlayerPosition = GetGlobalPosition();
@@ -274,6 +287,36 @@ namespace StormTime.Player.Movement
         #endregion
 
         #region Utility Functions
+
+        private void HandleBulletShot(PlayerShooting.WeaponType weaponType)
+        {
+            switch (weaponType)
+            {
+                case PlayerShooting.WeaponType.SingleShot:
+                    break;
+
+                case PlayerShooting.WeaponType.Shotgun:
+                    {
+                        float currentRotation = GetRotation() - Mathf.Pi;
+                        float xVelocity = Mathf.Cos(currentRotation);
+                        float yVelocity = Mathf.Sin(currentRotation);
+
+                        Vector2 reverseVelocity = new Vector2(xVelocity, yVelocity);
+                        reverseVelocity.x *= shotGunRecoilForce;
+                        reverseVelocity.y *= shotGunRecoilForce;
+
+                        _movement = reverseVelocity;
+                        _currentShotGunRecoilTime = shotGunRecoilAffectTime;
+                    }
+                    break;
+
+                case PlayerShooting.WeaponType.ChargeGun:
+                    break;
+
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(weaponType), weaponType, null);
+            }
+        }
 
         private void HandleHeathChange(float currentHealth, float maxHealth)
         {

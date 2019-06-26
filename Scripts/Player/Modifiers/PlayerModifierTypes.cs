@@ -141,7 +141,7 @@ namespace StormTime.Player.Modifiers
                     break;
 
                 case ShopItem.ShotGun:
-                    dialogueString = "High damage but recoiling gun. Spray your enemies";
+                    dialogueString = "High damage recoiling gun";
                     break;
 
                 case ShopItem.ChargeGun:
