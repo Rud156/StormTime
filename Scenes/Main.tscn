@@ -53,11 +53,10 @@ gradient = SubResource( 7 )
 [node name="Game World" type="Node2D" parent="."]
 
 [node name="Managers" type="Node" parent="Game World"]
-editor/display_folded = true
 
 [node name="Player Souls Manager" type="Node" parent="Game World/Managers"]
 script = ExtResource( 1 )
-initialSoulsCount = 50
+initialSoulsCount = 20
 soulsLabelNodePath = NodePath("../../../CanvasLayer/GUI/Player Souls Panel/Player Souls Text")
 soulsAnimationControllerNodePath = NodePath("../../../CanvasLayer/GUI/Player Souls Panel/Player Souls Sprite Animation/AnimationTree")
 
@@ -190,7 +189,7 @@ position = Vector2( 251.291, -1110.76 )
 maxEnemyDangerLevel = 8
 
 [node name="Portal Holder" type="Node2D" parent="Game World"]
-position = Vector2( -1922.45, 1010.27 )
+position = Vector2( 3000, 2000 )
 __meta__ = {
 "_edit_group_": true
 }
@@ -198,7 +197,8 @@ __meta__ = {
 [node name="Portal" parent="Game World/Portal Holder" instance=ExtResource( 8 )]
 
 [node name="Player" parent="Game World" instance=ExtResource( 9 )]
-position = Vector2( -2270, 2080 )
+editor/display_folded = true
+position = Vector2( -2270, 2083.6 )
 scaleChangeFrequency = 1.0
 playerShootingNodePath = NodePath("Player Shooter")
 playerHealthSetterNodePath = NodePath("Player Health")
@@ -264,7 +264,6 @@ lockTopRightCorner = Vector2( 2945, -2000 )
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="GUI" parent="CanvasLayer" instance=ExtResource( 17 )]
-editor/display_folded = true
 
 [node name="Player Souls Sprite Animation" parent="CanvasLayer/GUI/Player Souls Panel" index="0"]
 editor/display_folded = true

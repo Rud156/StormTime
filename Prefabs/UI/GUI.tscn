@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://Prefabs/UI/Default Theme.tres" type="Theme" id=1]
 [ext_resource path="res://Scripts/UI/FPSLabel.cs" type="Script" id=2]
@@ -11,6 +11,7 @@
 [ext_resource path="res://Textures/Black And White Screen.png" type="Texture" id=9]
 [ext_resource path="res://Scripts/UI/WarningManager.cs" type="Script" id=10]
 [ext_resource path="res://Scripts/UI/Fader.cs" type="Script" id=11]
+[ext_resource path="res://Textures/GrungeArrow.png" type="Texture" id=12]
 
 [sub_resource type="Animation" id=1]
 resource_name = "Action"
@@ -97,6 +98,7 @@ script = ExtResource( 2 )
 
 [node name="Dialogue Panel" type="Panel" parent="."]
 editor/display_folded = true
+visible = false
 self_modulate = Color( 1, 1, 1, 0.588235 )
 anchor_top = 1.0
 anchor_right = 1.0
@@ -214,9 +216,27 @@ script = ExtResource( 10 )
 fadeRate = 500.0
 
 [node name="Fader" type="TextureRect" parent="."]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 texture = ExtResource( 6 )
 expand = true
 script = ExtResource( 11 )
 faderRate = 0.7
+
+[node name="Flash Pointer Holder" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Flash Pointer" type="TextureRect" parent="Flash Pointer Holder"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -239.5
+margin_top = -131.5
+margin_right = 239.5
+margin_bottom = 131.5
+rect_pivot_offset = Vector2( 239, 131 )
+texture = ExtResource( 12 )
+expand = true

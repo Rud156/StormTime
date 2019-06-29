@@ -76,6 +76,7 @@
     <Compile Include="Scripts\Scene\MainScene\PortalController.cs" />
     <Compile Include="Scripts\UI\DialogueUiManager.cs" />
     <Compile Include="Scripts\UI\Fader.cs" />
+    <Compile Include="Scripts\UI\FlasherObjectPointer.cs" />
     <Compile Include="Scripts\UI\FPSLabel.cs" />
     <Compile Include="Scripts\UI\TextTyper.cs" />
     <Compile Include="Scripts\UI\TyperDialogue.cs" />
