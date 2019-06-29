@@ -91,7 +91,7 @@ namespace StormTime.UI
             }
 
             _fadeColor.a = _currentAlpha / MaxPossibleAlpha;
-            SelfModulate = _fadeColor;
+            SetSelfModulate(_fadeColor);
         }
 
         private void ResetFaderState()
@@ -99,7 +99,7 @@ namespace StormTime.UI
             _objectRequester = null;
             _isFadeActive = false;
             _currentAlpha = 0;
-            SelfModulate = new Color(0, 0, 0, 0);
+            SetSelfModulate(new Color(0, 0, 0, 0));
         }
 
         #endregion

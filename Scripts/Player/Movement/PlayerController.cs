@@ -39,7 +39,8 @@ namespace StormTime.Player.Movement
         public enum PlayerState
         {
             PlayerInControlMovement,
-            PlayerFloatingMovement
+            PlayerFloatingMovement,
+            PlayerDisabled
         }
 
         private PlayerShooting _playerShooting;
@@ -90,6 +91,10 @@ namespace StormTime.Player.Movement
                 case PlayerState.PlayerFloatingMovement:
                     HandlePlayerFloatingMovement(delta);
                     break;
+
+                case PlayerState.PlayerDisabled:
+                    HandlePlayerDisabled(delta);
+                    break;
             }
         }
 
@@ -106,6 +111,11 @@ namespace StormTime.Player.Movement
             ConstantRotatePlayer(delta);
             FloatingScaleChange(delta);
             LerpPlayerToPosition(delta);
+        }
+
+        private void HandlePlayerDisabled(float delta)
+        {
+
         }
 
         #region Player Control Movement
@@ -140,7 +150,7 @@ namespace StormTime.Player.Movement
             }
 
             _movement = MoveAndSlide(_movement);
-            PlayerVariables.PlayerPosition = GetGlobalPosition();
+            PlayerVariables.LastPlayerPosition = GetGlobalPosition();
         }
 
         #endregion
@@ -168,6 +178,11 @@ namespace StormTime.Player.Movement
 
         public void BulletCollisionNotification(object bullet, bool isFreezingBullet)
         {
+            if (_playerState == PlayerState.PlayerDisabled)
+            {
+                return;
+            }
+
             bool isPlayerBullet = !(bullet is EnemyBullet);
 
             if (!isPlayerBullet)
@@ -273,6 +288,8 @@ namespace StormTime.Player.Movement
         public void ActivateShooting() => _playerShooting.ActivateShooting();
 
         public void DeActivateShooting() => _playerShooting.DeActivateShooting();
+
+        public float GetPlayerMovementSpeed() => _currentMovementSpeed;
 
         public void SetPlayerState(PlayerState playerState)
         {

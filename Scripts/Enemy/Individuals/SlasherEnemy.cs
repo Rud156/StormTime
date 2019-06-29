@@ -26,7 +26,7 @@ namespace StormTime.Enemy.Individuals
 
             if (_enemyTimer > attackingWaitTime)
             {
-                _targetPosition = PlayerVariables.PlayerPosition;
+                _targetPosition = PlayerVariables.LastPlayerPosition;
                 MoveToTowardsTarget(_targetPosition, attackingPlayerMovementSpeed);
             }
             else

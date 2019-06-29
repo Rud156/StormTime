@@ -73,7 +73,9 @@
     <Compile Include="Scripts\Player\Data\PlayerVariables.cs" />
     <Compile Include="Scripts\Player\UIDisplay\PlayerSoulsAnimationController.cs" />
     <Compile Include="Scripts\Scene\MainScene\GameManager.cs" />
+    <Compile Include="Scripts\Scene\MainScene\PortalController.cs" />
     <Compile Include="Scripts\UI\DialogueUiManager.cs" />
+    <Compile Include="Scripts\UI\Fader.cs" />
     <Compile Include="Scripts\UI\FPSLabel.cs" />
     <Compile Include="Scripts\UI\TextTyper.cs" />
     <Compile Include="Scripts\UI\TyperDialogue.cs" />

@@ -15,13 +15,13 @@ namespace StormTime.Weapon
             base._Ready();
 
             _bulletSprite = GetNode<Sprite>(bulletSpritePath);
-            _bulletSprite.SelfModulate = _bulletColor;
+            _bulletSprite.SetSelfModulate(_bulletColor);
         }
 
         public void SetBulletColor(Color color)
         {
             _bulletColor = color;
-            _bulletSprite.SelfModulate = color;
+            _bulletSprite.SetSelfModulate(color);
         }
     }
 }

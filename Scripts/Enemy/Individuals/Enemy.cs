@@ -32,6 +32,7 @@ namespace StormTime.Enemy.Individuals
 
         // Target Attack Stats
         [Export] public float attackTime;
+        [Export] public float targetingAttackTime = 1;
         [Export] public Godot.Collections.Array<NodePath> launchPointsPath;
 
         // Death Items
@@ -155,14 +156,14 @@ namespace StormTime.Enemy.Individuals
 
             if (_playerHostile)
             {
-                if (GetGlobalPosition().DistanceSquaredTo(PlayerVariables.PlayerPosition) <= _playerTargetSqDst &&
+                if (GetGlobalPosition().DistanceSquaredTo(PlayerVariables.LastPlayerPosition) <= _playerTargetSqDst &&
                     _enemyState != EnemyState.Attacking && _enemyState != EnemyState.Dead &&
                     _enemyState != EnemyState.Homing)
                 {
                     SetEnemyState(EnemyState.Targeting);
                 }
 
-                if (GetGlobalPosition().DistanceSquaredTo(PlayerVariables.PlayerPosition) <= _playerAttackSqDst &&
+                if (GetGlobalPosition().DistanceSquaredTo(PlayerVariables.LastPlayerPosition) <= _playerAttackSqDst &&
                     _enemyState != EnemyState.Attacking && _enemyState != EnemyState.Dead)
                 {
                     LaunchAttack();
@@ -175,7 +176,7 @@ namespace StormTime.Enemy.Individuals
                     SetEnemyState(EnemyState.Homing);
                 }
 
-                if (GetGlobalPosition().DistanceSquaredTo(PlayerVariables.PlayerPosition) > _playerTargetSqDst &&
+                if (GetGlobalPosition().DistanceSquaredTo(PlayerVariables.LastPlayerPosition) > _playerTargetSqDst &&
                     _enemyState == EnemyState.Targeting)
                 {
                     SetEnemyState(EnemyState.Idling);
@@ -226,8 +227,15 @@ namespace StormTime.Enemy.Individuals
 
         protected void UpdateTargeting(float delta)
         {
-            _targetPosition = PlayerVariables.PlayerPosition;
+            _targetPosition = PlayerVariables.LastPlayerPosition;
             MoveToTowardsTarget(_targetPosition);
+
+            _enemyTimer -= delta;
+            if (_enemyTimer <= 0)
+            {
+                _enemyTimer = targetingAttackTime;
+                EnemyLaunchSingleShotAttack();
+            }
         }
 
         protected virtual void UpdateAttacking(float delta)
@@ -254,6 +262,8 @@ namespace StormTime.Enemy.Individuals
         protected virtual void LaunchAttack() => _enemyTimer = attackTime;
 
         protected virtual void EndAttack() => _enemyTimer = 0;
+
+        protected virtual void EnemyLaunchSingleShotAttack() { }
 
         protected void UpdateDead(float delta)
         {

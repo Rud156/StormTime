@@ -76,7 +76,7 @@ namespace StormTime.Enemy.Individuals
             _enemyAttackTimer -= delta;
             if (_enemyAttackTimer <= 0)
             {
-                ShootBullets();
+                EnemyLaunchSingleShotAttack();
                 _enemyAttackTimer = timeDelayBetweenShots;
                 _rotationAttackCounter += 1;
             }
@@ -96,7 +96,7 @@ namespace StormTime.Enemy.Individuals
             SetEnemyAttackState(EnemyAttackState.AttackRotating);
         }
 
-        private void ShootBullets()
+        protected override void EnemyLaunchSingleShotAttack()
         {
             float startRotation = 0;
             float rotationIncrementAmount = 360.0f / _launchPoints.Count;

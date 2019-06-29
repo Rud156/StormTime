@@ -28,11 +28,11 @@ namespace StormTime.Enemy.Individuals
             if (_currentShootingTime <= 0)
             {
                 _currentShootingTime = timeBetweenShot;
-                ShootBullets();
+                EnemyLaunchSingleShotAttack();
             }
         }
 
-        private void ShootBullets()
+        protected override void EnemyLaunchSingleShotAttack()
         {
             float startRotation = 0;
             float rotationIncrementAmount = (float)360 / _launchPoints.Count;

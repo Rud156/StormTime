@@ -304,6 +304,8 @@ namespace StormTime.Player.Shooting
 
         public void SetCurrentShootingDelay(float shootingDelay) => _currentShootDelay = shootingDelay;
 
+        public float GetShootingDamageDiff() => _currentDamageDiff;
+
         public void AddToDamageDifferencePercent(float percentIncrease) => _currentDamageDiffPercent += percentIncrease;
 
         public void BuyFreezingBullet() => _freezingBulletBought = true;

@@ -42,7 +42,7 @@ namespace StormTime.Enemy.Individuals
             else
             {
                 _shootingTimer = _timeBetweenShots;
-                ShootBullets();
+                EnemyLaunchSingleShotAttack();
             }
 
             RotateEnemy(delta);
@@ -61,7 +61,7 @@ namespace StormTime.Enemy.Individuals
         private void RotateEnemy(float delta) =>
             _rotationNode.Rotate(Mathf.Deg2Rad(_currentRotationRate * delta));
 
-        private void ShootBullets()
+        protected override void EnemyLaunchSingleShotAttack()
         {
             float startRotation = 45;
             float rotationIncrementAmount = 360.0f / _launchPoints.Count;

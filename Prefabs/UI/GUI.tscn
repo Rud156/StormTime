@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://Prefabs/UI/Default Theme.tres" type="Theme" id=1]
 [ext_resource path="res://Scripts/UI/FPSLabel.cs" type="Script" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://Scripts/Player/UIDisplay/PlayerSoulsAnimationController.cs" type="Script" id=8]
 [ext_resource path="res://Textures/Black And White Screen.png" type="Texture" id=9]
 [ext_resource path="res://Scripts/UI/WarningManager.cs" type="Script" id=10]
+[ext_resource path="res://Scripts/UI/Fader.cs" type="Script" id=11]
 
 [sub_resource type="Animation" id=1]
 resource_name = "Action"
@@ -203,7 +204,7 @@ theme = ExtResource( 1 )
 text = "X  20"
 valign = 1
 
-[node name="TextureRect" type="TextureRect" parent="."]
+[node name="Scene Indicator" type="TextureRect" parent="."]
 self_modulate = Color( 0, 0, 0, 1 )
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -211,3 +212,11 @@ texture = ExtResource( 9 )
 expand = true
 script = ExtResource( 10 )
 fadeRate = 500.0
+
+[node name="Fader" type="TextureRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 6 )
+expand = true
+script = ExtResource( 11 )
+faderRate = 0.7

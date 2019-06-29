@@ -127,7 +127,7 @@ namespace StormTime.Enemy.Groups
 
         public void SetEnemyGroupColors(Color spriteColor, GradientTexture particlesGradient)
         {
-            _interactionSprite.SelfModulate = spriteColor;
+            _interactionSprite.SetSelfModulate(spriteColor);
             _interactionParticles.ProcessMaterial.Set("color_ramp", particlesGradient);
 
             _spawnGradientTexture = particlesGradient;

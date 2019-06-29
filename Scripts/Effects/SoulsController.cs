@@ -47,7 +47,7 @@ namespace StormTime.Effects
 
         public void SetSoulsColor(Color color)
         {
-            _soulSprite.SelfModulate = color;
+            _soulSprite.SetSelfModulate(color);
             _soulParticles.ProcessMaterial.Set("color", color);
         }
 
