@@ -26,7 +26,7 @@ namespace StormTime.Enemy.Individuals
 
             if (_enemyTimer > attackingWaitTime)
             {
-                _targetPosition = PlayerVariables.PlayerPosition;
+                _targetPosition = PlayerVariables.LastPlayerPosition;
                 MoveToTowardsTarget(_targetPosition, attackingPlayerMovementSpeed);
             }
             else
@@ -36,7 +36,7 @@ namespace StormTime.Enemy.Individuals
                 _slasherEffect.SetEmitting(false);
             }
 
-            Rotate(Mathf.Deg2Rad(_currentRotationRate * delta));
+            _rotationNode.Rotate(Mathf.Deg2Rad(_currentRotationRate * delta));
         }
 
         protected override void LaunchAttack()

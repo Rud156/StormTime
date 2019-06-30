@@ -1,4 +1,3 @@
-using System;
 using Godot;
 using System.Collections.Generic;
 using Object = Godot.Object;

@@ -1,9 +1,14 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Scripts/Enemy/Individuals/SpinnerEnemy.cs" type="Script" id=1]
-[ext_resource path="res://Prefabs/Interactibles/Bullets/Enemy Bullet.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Textures/Blur Rectangle.png" type="Texture" id=3]
-[ext_resource path="res://Textures/Square_Shape_White.png" type="Texture" id=4]
+[ext_resource path="res://Prefabs/Effects/Enemy Death.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Prefabs/Interactibles/Player/PlayerSoul.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Prefabs/Interactibles/Bullets/Enemy Bullet.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Textures/Blur Rectangle.png" type="Texture" id=5]
+[ext_resource path="res://Textures/Square_Shape_White.png" type="Texture" id=6]
+[ext_resource path="res://Scripts/Common/HealthSetter.cs" type="Script" id=7]
+[ext_resource path="res://Scripts/Common/HealthDisplay.cs" type="Script" id=8]
+[ext_resource path="res://Textures/White Pixel.png" type="Texture" id=9]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 70, 70 )
@@ -16,44 +21,85 @@ scale = Vector2( 0.3, 0.3 )
 collision_layer = 4
 collision_mask = 3
 script = ExtResource( 1 )
-enemySpriteNodePath = NodePath("Sprite")
+enemySpriteNodePath = NodePath("Spinner Enemy Container/Sprite")
+rotationNodePath = NodePath("Spinner Enemy Container")
+enemyHealthSetterNodePath = NodePath("Enemy Health")
+enemyDeathEffectPrefab = ExtResource( 2 )
 explorationRadius = 200.0
 idleTime = 7.0
 minWanderingReachDistance = 5.0
+enemyFreezeTime = 5.0
+enemyFreezeRatio = 0.1
 playerTargetDistance = 700.0
 playerAttackDistance = 150.0
 maxPlayerFollowDistance = 800.0
 movementSpeed = 200.0
 attackTime = 7.0
-launchPointsPath = [ NodePath("Launch Points/LaunchPoint_1"), NodePath("Launch Points/LaunchPoint_2") ]
+launchPointsPath = [ NodePath("Spinner Enemy Container/Launch Points/LaunchPoint_1"), NodePath("Spinner Enemy Container/Launch Points/LaunchPoint_2") ]
+soulsPrefab = ExtResource( 3 )
+minSoulsAmount = 1.0
+maxSoulsAmount = 7.0
+rangeMultiplier = 150.0
 rotationRate = 200.0
 rotationSwitchTime = 3.0
-enemyBulletPrefab = ExtResource( 2 )
+enemyBulletPrefab = ExtResource( 4 )
 timeBetweenShot = 0.3
-
-[node name="Shadow Sprite" type="Sprite" parent="."]
-light_mask = 2
-scale = Vector2( 0.1, 0.3 )
-texture = ExtResource( 3 )
-
-[node name="Sprite" type="Sprite" parent="."]
-light_mask = 2
-texture = ExtResource( 4 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
 
-[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
-occluder = SubResource( 2 )
-
-[node name="Launch Points" type="Node2D" parent="."]
+[node name="Spinner Enemy Container" type="Node2D" parent="."]
 editor/display_folded = true
 
-[node name="LaunchPoint_1" type="Node2D" parent="Launch Points"]
+[node name="Shadow Sprite" type="Sprite" parent="Spinner Enemy Container"]
+light_mask = 2
+scale = Vector2( 0.1, 0.3 )
+texture = ExtResource( 5 )
+
+[node name="Sprite" type="Sprite" parent="Spinner Enemy Container"]
+light_mask = 2
+texture = ExtResource( 6 )
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="Spinner Enemy Container"]
+occluder = SubResource( 2 )
+
+[node name="Launch Points" type="Node2D" parent="Spinner Enemy Container"]
+editor/display_folded = true
+
+[node name="LaunchPoint_1" type="Node2D" parent="Spinner Enemy Container/Launch Points"]
 position = Vector2( -50, -63 )
 scale = Vector2( 0.5, 0.5 )
 
-[node name="LaunchPoint_2" type="Node2D" parent="Launch Points"]
+[node name="LaunchPoint_2" type="Node2D" parent="Spinner Enemy Container/Launch Points"]
 position = Vector2( 50, 63 )
 rotation = 3.14159
 scale = Vector2( 0.5, 0.5 )
+
+[node name="Enemy Health" type="Node2D" parent="."]
+script = ExtResource( 7 )
+maxHealth = 75.0
+
+[node name="Enemy Health Display" type="Node2D" parent="Enemy Health"]
+script = ExtResource( 8 )
+minHealthColor = Color( 1, 0, 0, 1 )
+halfHealthColor = Color( 0, 0.368627, 1, 1 )
+maxHealthColor = Color( 0.0784314, 1, 0, 1 )
+healthProgressNodePath = NodePath("../../UI Display/Health Display")
+healthSetterNodePath = NodePath("..")
+
+[node name="UI Display" type="Control" parent="."]
+editor/display_folded = true
+margin_left = -125.0
+margin_top = -125.0
+margin_right = 125.0
+margin_bottom = -111.0
+
+[node name="Health Display" type="TextureProgress" parent="UI Display"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+value = 50.0
+texture_under = ExtResource( 9 )
+texture_progress = ExtResource( 9 )
+tint_under = Color( 0, 0, 0, 0.392157 )
+tint_progress = Color( 1, 0, 0, 1 )
+nine_patch_stretch = true

@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using StormTime.Player.Data;
 using StormTime.Utils;
 using StormTime.Enemy.Groups;
-using System;
+using StormTime.Common;
+using StormTime.Effects;
+using StormTime.Weapon;
 
 namespace StormTime.Enemy.Individuals
 {
@@ -11,9 +13,16 @@ namespace StormTime.Enemy.Individuals
     {
         // Enemy State
         [Export] public NodePath enemySpriteNodePath;
+        [Export] public NodePath rotationNodePath;
+        [Export] public NodePath enemyHealthSetterNodePath;
+        [Export] public PackedScene enemyDeathEffectPrefab;
         [Export] public float explorationRadius;
         [Export] public float idleTime;
         [Export] public float minWanderingReachDistance;
+
+        // Freezing Affector
+        [Export] public float enemyFreezeTime;
+        [Export] public float enemyFreezeRatio;
 
         // Target Player Stats
         [Export] public float playerTargetDistance;
@@ -23,7 +32,14 @@ namespace StormTime.Enemy.Individuals
 
         // Target Attack Stats
         [Export] public float attackTime;
+        [Export] public float targetingAttackTime = 1;
         [Export] public Godot.Collections.Array<NodePath> launchPointsPath;
+
+        // Death Items
+        [Export] public PackedScene soulsPrefab;
+        [Export] public float minSoulsAmount;
+        [Export] public float maxSoulsAmount;
+        [Export] public float rangeMultiplier;
 
         protected enum EnemyState
         {
@@ -33,6 +49,7 @@ namespace StormTime.Enemy.Individuals
             Targeting,
             Attacking,
             Dead,
+            Frozen
         }
 
         protected EnemyState _enemyState;
@@ -48,19 +65,31 @@ namespace StormTime.Enemy.Individuals
         protected Vector2 _targetPosition;
         protected bool _playerHostile;
 
+        // Frozen Variables
+        protected float _frozenTimer;
+        protected EnemyState _previousStateBeforeFreezing;
+
         // Timer
         protected float _enemyTimer;
 
-        // Launch Points
+        // Launch Points and Rotation
         protected List<Node2D> _launchPoints;
+        protected Node2D _rotationNode;
 
         // Colors
         protected Color _enemyColor;
         protected Color _bulletColor;
         protected Sprite _enemySprite;
 
+        protected HealthSetter _enemyHealthSetter;
+        protected int _currentSoulCount;
+
         public override void _Ready()
         {
+            _rotationNode = GetNode<Node2D>(rotationNodePath);
+            _enemyHealthSetter = GetNode<HealthSetter>(enemyHealthSetterNodePath);
+            _enemyHealthSetter.zeroHealth += HandleHealthZero;
+
             _launchPoints = new List<Node2D>();
             foreach (NodePath launchPoint in launchPointsPath)
             {
@@ -77,9 +106,14 @@ namespace StormTime.Enemy.Individuals
             SetEnemyState(EnemyState.Idling);
         }
 
+        public override void _ExitTree() => _enemyHealthSetter.zeroHealth -= HandleHealthZero;
+
         public override void _Process(float delta)
         {
-            OverHeadCheckForEnemyState();
+            if (_enemyState != EnemyState.Frozen)
+            {
+                OverHeadCheckForEnemyState();
+            }
 
             switch (_enemyState)
             {
@@ -106,22 +140,30 @@ namespace StormTime.Enemy.Individuals
                 case EnemyState.Dead:
                     UpdateDead(delta);
                     break;
+
+                case EnemyState.Frozen:
+                    UpdateFrozenEnemy(delta);
+                    break;
             }
         }
 
         private void OverHeadCheckForEnemyState()
         {
+            if (_enemyState == EnemyState.Dead)
+            {
+                return;
+            }
 
             if (_playerHostile)
             {
-                if (GetGlobalPosition().DistanceSquaredTo(PlayerVariables.PlayerPosition) <= _playerTargetSqDst &&
+                if (GetGlobalPosition().DistanceSquaredTo(PlayerVariables.LastPlayerPosition) <= _playerTargetSqDst &&
                     _enemyState != EnemyState.Attacking && _enemyState != EnemyState.Dead &&
                     _enemyState != EnemyState.Homing)
                 {
                     SetEnemyState(EnemyState.Targeting);
                 }
 
-                if (GetGlobalPosition().DistanceSquaredTo(PlayerVariables.PlayerPosition) <= _playerAttackSqDst &&
+                if (GetGlobalPosition().DistanceSquaredTo(PlayerVariables.LastPlayerPosition) <= _playerAttackSqDst &&
                     _enemyState != EnemyState.Attacking && _enemyState != EnemyState.Dead)
                 {
                     LaunchAttack();
@@ -134,7 +176,7 @@ namespace StormTime.Enemy.Individuals
                     SetEnemyState(EnemyState.Homing);
                 }
 
-                if (GetGlobalPosition().DistanceSquaredTo(PlayerVariables.PlayerPosition) > _playerTargetSqDst &&
+                if (GetGlobalPosition().DistanceSquaredTo(PlayerVariables.LastPlayerPosition) > _playerTargetSqDst &&
                     _enemyState == EnemyState.Targeting)
                 {
                     SetEnemyState(EnemyState.Idling);
@@ -185,8 +227,15 @@ namespace StormTime.Enemy.Individuals
 
         protected void UpdateTargeting(float delta)
         {
-            _targetPosition = PlayerVariables.PlayerPosition;
+            _targetPosition = PlayerVariables.LastPlayerPosition;
             MoveToTowardsTarget(_targetPosition);
+
+            _enemyTimer -= delta;
+            if (_enemyTimer <= 0)
+            {
+                _enemyTimer = targetingAttackTime;
+                EnemyLaunchSingleShotAttack();
+            }
         }
 
         protected virtual void UpdateAttacking(float delta)
@@ -200,18 +249,75 @@ namespace StormTime.Enemy.Individuals
             }
         }
 
+        protected void UpdateFrozenEnemy(float delta)
+        {
+            _frozenTimer -= delta;
+
+            if (_frozenTimer <= 0)
+            {
+                SetEnemyState(_previousStateBeforeFreezing);
+            }
+        }
+
         protected virtual void LaunchAttack() => _enemyTimer = attackTime;
 
         protected virtual void EndAttack() => _enemyTimer = 0;
 
+        protected virtual void EnemyLaunchSingleShotAttack() { }
+
         protected void UpdateDead(float delta)
         {
-            // TODO: Play some effect or something here...
+            SpawnSoul();
+            _currentSoulCount -= 1;
+
+            if (_currentSoulCount <= 0)
+            {
+
+                EnemyDeathParticleCleaner deathEffectInstance =
+                    (EnemyDeathParticleCleaner)enemyDeathEffectPrefab.Instance();
+                GetParent().AddChild(deathEffectInstance);
+
+                deathEffectInstance.SetEffectGradient(_parentEnemyGroup.GetGroupGradientTexture());
+                deathEffectInstance.SetGlobalPosition(GetGlobalPosition());
+
+                GetParent().RemoveChild(this);
+            }
         }
 
         #endregion
 
-        #region Utility Functions
+        #region External Functions
+
+        // Event Function from Bullet Collision
+        public void BulletCollisionNotification(object bullet, bool isFreezingBullet)
+        {
+            bool isPlayerBullet = !(bullet is EnemyBullet);
+
+            if (isPlayerBullet)
+            {
+                EmitOnHostileOnPlayerAttack();
+
+                float damageAmount = ((Bullet)bullet).GetBulletDamage();
+                _enemyHealthSetter.SubtractHealth(damageAmount);
+            }
+
+            if (isFreezingBullet)
+            {
+                float randomNumber = (float)GD.Randf();
+                if (randomNumber < enemyFreezeRatio)
+                {
+                    FreezeEnemy(enemyFreezeTime);
+                }
+            }
+        }
+
+        public void FreezeEnemy(float freezeTime)
+        {
+            _frozenTimer = freezeTime;
+            _previousStateBeforeFreezing = _enemyState;
+
+            SetEnemyState(EnemyState.Frozen);
+        }
 
         public void SetEnemyColors(Color enemyColor, Color bulletColor)
         {
@@ -225,17 +331,13 @@ namespace StormTime.Enemy.Individuals
         public void SetParentEnemyGroup(EnemyGroup enemyGroup) =>
             _parentEnemyGroup = enemyGroup;
 
-        public void BulletCollisionNotification(bool isPlayerBullet)
-        {
-            if (isPlayerBullet)
-            {
-                EmitOnHostileOnPlayerAttack();
-            }
-        }
-
         public void SetPlayerHostileState(bool playerHostile = true) => _playerHostile = playerHostile;
 
         public void EmitOnHostileOnPlayerAttack() => _parentEnemyGroup.SetPlayerAsHostile();
+
+        #endregion
+
+        #region Utility Functions
 
         protected void MoveToTowardsTarget(Vector2 targetPosition) =>
             MoveToTowardsTarget(targetPosition, movementSpeed);
@@ -249,6 +351,24 @@ namespace StormTime.Enemy.Individuals
         protected void LookAtTarget(Vector2 target) => LookAt(target);
 
         protected Vector2 GetNewPositionForIdling() => VectorHelpers.Random2D() * explorationRadius;
+
+        protected void HandleHealthZero()
+        {
+            SetEnemyState(EnemyState.Dead);
+            _currentSoulCount = Mathf.FloorToInt((float)GD.RandRange(minSoulsAmount, maxSoulsAmount));
+        }
+
+        protected void SpawnSoul()
+        {
+            SoulsController soulsControllerInstance = (SoulsController)soulsPrefab.Instance();
+            GetParent().AddChild(soulsControllerInstance);
+
+            soulsControllerInstance.SetSoulsColor(_enemyColor);
+            Vector2 randomVectorPosition = ExtensionFunctions.VectorRandomUnit();
+            randomVectorPosition *= rangeMultiplier;
+            Vector2 soulsPosition = GetGlobalPosition() + randomVectorPosition;
+            soulsControllerInstance.SetGlobalPosition(soulsPosition);
+        }
 
         protected void SetEnemyState(EnemyState enemyState)
         {

@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using Godot;
 
@@ -6,298 +5,140 @@ namespace StormTime.UI
 {
     public class DialogueUiManager : Panel
     {
-        [Export] public NodePath leftContainerNodePath;
-        [Export] public NodePath rightContainerNodePath;
+        [Export] public NodePath singleLineLabelNodePath;
+        [Export] public NodePath singleLineHolderNodePath;
+        [Export] public NodePath multiDialogueHolderNodePath;
+        [Export] public Godot.Collections.Array<NodePath> dialogueNodePaths;
+        [Export] public string[] multiDialogueKeys;
 
-        // Dialogues
-        [Export] public NodePath dialogueContainerNodePath;
-        [Export] public NodePath dialogueQuestionNodePath;
-        [Export] public Godot.Collections.Array<NodePath> dialogueKeyTextNodePaths;
+        public static DialogueUiManager instance;
 
-        // Ending Dialogues
-        [Export] public NodePath endingDialogueContainerNodePath;
-        [Export] public NodePath endingDialogueLabelNodePath;
+        private Control _multiDialogueHolder;
+        private List<TyperDialogue> _dialogues;
 
-        // Prefabs
-        [Export] public PackedScene dialogueIntermediatePackedScene;
-        [Export] public PackedScene dialogueMainPackedScene;
+        private Control _singleDialogueHolder;
+        private TextTyper _singleDialogue;
 
-        private Control _endingDialogueContainer;
-        private Label _endingDialogueLabel;
-
-        private Control _dialogueContainer;
-        private Label _dialogueQuestion;
-        private List<DialogueKeyTextDisplay> _dialogueKeyTexts;
-
-        private Control _leftContainer;
-        private Control _rightContainer;
-
-        private List<DialogueIntermediate> _leftContainerDialogueIntermediates;
-        private int _leftCounter;
-        private List<DialogueIntermediate> _rightContainerDialogueIntermediates;
-        private int _rightCounter;
-
-        private enum DisplayState
-        {
-            None,
-            ClearAndDisplayQA,
-            ClearAndDisplaySingle,
-            DisplayQA,
-            DisplaySingle,
-        }
-
-        private DisplayState _displayState;
-        private float _delayTimer;
-        private float _originalDelayTimer;
-        private string _question;
-        private string[] _possibleAnswers;
+        private float _displayTimer;
+        private bool _displayTimerActive;
+        private bool _displayTimerCountdownActive;
 
         public override void _Ready()
         {
-            _leftContainerDialogueIntermediates = new List<DialogueIntermediate>();
-            _rightContainerDialogueIntermediates = new List<DialogueIntermediate>();
-            _dialogueKeyTexts = new List<DialogueKeyTextDisplay>();
-
-            _leftContainer = GetNode<Control>(leftContainerNodePath);
-            _rightContainer = GetNode<Control>(rightContainerNodePath);
-
-            _endingDialogueContainer = GetNode<Control>(endingDialogueContainerNodePath);
-            _endingDialogueLabel = GetNode<Label>(endingDialogueLabelNodePath);
-
-            _dialogueContainer = GetNode<Control>(dialogueContainerNodePath);
-            _dialogueQuestion = GetNode<Label>(dialogueQuestionNodePath);
-            foreach (var dialogueKeyText in dialogueKeyTextNodePaths)
+            _multiDialogueHolder = GetNode<Control>(multiDialogueHolderNodePath);
+            _dialogues = new List<TyperDialogue>();
+            for (var i = 0; i < dialogueNodePaths.Count; i++)
             {
-                _dialogueKeyTexts.Add(GetNode<DialogueKeyTextDisplay>(dialogueKeyText));
+                var dialogueNodePath = dialogueNodePaths[i];
+                TyperDialogue typerDialogue = GetNode<TyperDialogue>(dialogueNodePath);
+
+                _dialogues.Add(typerDialogue);
+                typerDialogue.SetInteractionLabelString(multiDialogueKeys[i]);
+            }
+
+            _singleDialogueHolder = GetNode<Control>(singleLineHolderNodePath);
+            _singleDialogue = GetNode<TextTyper>(singleLineLabelNodePath);
+            _singleDialogue.typingComplete += HandleSingleDialogueTypingComplete;
+
+            ClearAll();
+
+            if (instance == null)
+            {
+                instance = this;
             }
         }
 
         public override void _Process(float delta)
         {
-            if (_delayTimer > 0)
+            if (!_displayTimerActive)
             {
-                _delayTimer -= delta;
+                return;
+            }
 
-                if (_delayTimer <= 0)
-                {
-                    switch (_displayState)
-                    {
-                        case DisplayState.None:
-                            // Do nothing in this case
-                            // Only used for Idle State
-                            break;
-
-                        case DisplayState.ClearAndDisplayQA:
-                            ClearDialogueQuestionAndOptions();
-                            _delayTimer = _originalDelayTimer;
-                            SetDisplayState(DisplayState.DisplayQA);
-                            break;
-
-                        case DisplayState.ClearAndDisplaySingle:
-                            ClearSingleDialogue();
-                            _delayTimer = _originalDelayTimer;
-                            SetDisplayState(DisplayState.DisplaySingle);
-                            break;
-
-                        case DisplayState.DisplayQA:
-                            ShowDialogueQuestionsAndOptions(_question, _possibleAnswers);
-                            SetDisplayState(DisplayState.None);
-                            break;
-
-                        case DisplayState.DisplaySingle:
-                            ShowSingleDialogue(_question);
-                            SetDisplayState(DisplayState.None);
-                            break;
-
-                        default:
-                            throw new ArgumentOutOfRangeException();
-                    }
-                }
+            _displayTimer -= delta;
+            if (_displayTimer <= 0)
+            {
+                _displayTimerActive = false;
+                _displayTimerCountdownActive = false;
+                ClearAll();
             }
         }
 
         #region External Functions
 
-        #region Dialogue Questions
-
-        public void ShowDialogueQuestionsAndOptions(string question, string[] possibleAnswers)
+        public void DisplaySingleStringTimed(string dialogue, float displayTime)
         {
-            _dialogueQuestion.SetText(question);
-            _dialogueQuestion.SetVisible(true);
-
-            for (int i = 0; i < _dialogueKeyTexts.Count; i++)
-            {
-                string key = "A";
-                switch (i)
-                {
-                    case 0:
-                        key = "A";
-                        break;
-
-                    case 1:
-                        key = "W";
-                        break;
-
-                    case 2:
-                        key = "D";
-                        break;
-                }
-
-                _dialogueKeyTexts[i].SetAndDisplayDialogueAndKey(key, possibleAnswers[i]);
-            }
+            DisplaySingleString(dialogue);
+            _displayTimerActive = false;
+            _displayTimerCountdownActive = true;
+            _displayTimer = displayTime;
         }
 
-        public void ClearDialogueQuestionAndOptions()
+        public void DisplaySingleString(string dialogue)
         {
-            _dialogueQuestion.SetText(string.Empty);
-            _dialogueQuestion.SetVisible(false);
+            ClearAll();
 
-            foreach (DialogueKeyTextDisplay dialogueKeyTextDisplay in _dialogueKeyTexts)
-            {
-                dialogueKeyTextDisplay.ClearAndHideDialogueAndKey();
-            }
-        }
-
-        public void ClearAndShowDialogOptionsDelayed(string question, string[] possibleAnswers, float delayTime)
-        {
-            _delayTimer = delayTime;
-            _originalDelayTimer = delayTime;
-
-            _question = question;
-            _possibleAnswers = possibleAnswers;
-
-            SetDisplayState(DisplayState.ClearAndDisplayQA);
-        }
-
-        #endregion
-
-        #region Single Dialogue
-
-        public void ShowSingleDialogue(string dialogue)
-        {
-            ClearDialogueQuestionAndOptions();
-
-            _endingDialogueContainer.SetVisible(true);
-            _endingDialogueLabel.SetText(dialogue);
+            SetVisible(true);
+            _singleDialogueHolder.SetVisible(true);
+            _singleDialogue.DisplayString(dialogue);
         }
 
         public void ClearSingleDialogue()
         {
-            _endingDialogueLabel.SetText(string.Empty);
-            _endingDialogueContainer.SetVisible(false);
+            _singleDialogue.ClearString();
+            _singleDialogueHolder.SetVisible(false);
+            SetVisible(false);
         }
 
-        public void ClearAndShowSingleDelayed(string dialogue, float delayTimer)
+        public void DisplayMultiDialogue(string[] dialogues)
         {
-            _delayTimer = delayTimer;
-            _originalDelayTimer = delayTimer;
+            ClearAll();
 
-            _question = dialogue;
-            _possibleAnswers = new string[0];
+            SetVisible(true);
+            _multiDialogueHolder.SetVisible(true);
+            for (int i = 0; i < _dialogues.Count; i++)
+            {
+                _dialogues[i].GetTextTyper().DisplayString(dialogues[i]);
+            }
+        }
 
-            SetDisplayState(DisplayState.ClearAndDisplaySingle);
+        public void ClearMultiDialogue()
+        {
+            foreach (TyperDialogue textTyper in _dialogues)
+            {
+                textTyper.GetTextTyper().ClearString();
+            }
+            _multiDialogueHolder.SetVisible(false);
+            SetVisible(false);
         }
 
         #endregion
 
-        #region Dialogue Range State
+        #region Utility Functions
 
-        public void SetupDialogueStates(int playerWinCount, int groupWinCount)
+        private void HandleSingleDialogueTypingComplete()
         {
-            #region Left Container
-
-            _leftCounter = 0;
-
-            Control leftDialogueMainInstance = (Control)dialogueMainPackedScene.Instance();
-            _leftContainer.AddChild(leftDialogueMainInstance);
-
-            for (int i = 0; i < playerWinCount; i++)
+            if (_displayTimerCountdownActive)
             {
-                DialogueIntermediate leftDialogueIntermediateInstance =
-                    (DialogueIntermediate)dialogueIntermediatePackedScene.Instance();
-                _leftContainerDialogueIntermediates.Add(leftDialogueIntermediateInstance);
-                _leftContainer.AddChild(leftDialogueIntermediateInstance);
-            }
-
-            #endregion
-
-            #region Right Container
-
-            _rightCounter = groupWinCount - 1;
-
-            for (int i = 0; i < groupWinCount; i++)
-            {
-                DialogueIntermediate rightDialogueIntermediateInstance =
-                    (DialogueIntermediate)dialogueIntermediatePackedScene.Instance();
-                _rightContainerDialogueIntermediates.Add(rightDialogueIntermediateInstance);
-                _rightContainer.AddChild(rightDialogueIntermediateInstance);
-            }
-
-            Control rightDialogueMainInstance = (Control)dialogueMainPackedScene.Instance();
-            _rightContainer.AddChild(rightDialogueMainInstance);
-
-            #endregion
-        }
-
-        public void ClearDialogueStates()
-        {
-            _leftContainerDialogueIntermediates.Clear();
-            _rightContainerDialogueIntermediates.Clear();
-
-            for (int i = 0; i < _leftContainer.GetChildCount(); i++)
-            {
-                _leftContainer.GetChild(i).QueueFree();
-            }
-
-            for (int i = 0; i < _rightContainer.GetChildCount(); i++)
-            {
-                _rightContainer.GetChild(i).QueueFree();
+                _displayTimerActive = true;
             }
         }
 
-        public bool IncrementPlayerWin()
+        private void ClearAll()
         {
-            _leftContainerDialogueIntermediates[_leftCounter].DisplayFillerTexture();
-            _leftCounter += 1;
-
-            return _leftCounter >= _leftContainerDialogueIntermediates.Count;
-        }
-
-        public bool IncrementGroupWin()
-        {
-            _rightContainerDialogueIntermediates[_rightCounter].DisplayFillerTexture();
-            _rightCounter -= 1;
-
-            return _rightCounter <= 0;
-        }
-
-        #endregion
-
-        public void ClearAndHideDialoguePanel()
-        {
-            ClearDialogueQuestionAndOptions();
-            ClearSingleDialogue();
-            ClearDialogueStates();
-
-            HideDialoguePanel();
-        }
-
-        public void DisplayDialoguePanel() => SetVisible(true);
-
-        public void HideDialoguePanel() => SetVisible(false);
-
-        #endregion
-
-        #region State Management
-
-        private void SetDisplayState(DisplayState displayState)
-        {
-            if (displayState == _displayState)
+            foreach (TyperDialogue textTyper in _dialogues)
             {
-                return;
+                textTyper.GetTextTyper().ClearString();
             }
+            _multiDialogueHolder.SetVisible(false);
 
-            _displayState = displayState;
+            _singleDialogue.ClearString();
+            _singleDialogueHolder.SetVisible(false);
+            SetVisible(false);
+
+            _displayTimerActive = false;
+            _displayTimerCountdownActive = false;
+            _displayTimer = 0;
         }
 
         #endregion

@@ -1,9 +1,14 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Scripts/Enemy/Individuals/BurstEnemy.cs" type="Script" id=1]
-[ext_resource path="res://Prefabs/Interactibles/Bullets/Enemy Bullet.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Textures/light.png" type="Texture" id=3]
-[ext_resource path="res://Textures/Circle_Shape_White.png" type="Texture" id=4]
+[ext_resource path="res://Prefabs/Effects/Enemy Death.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Prefabs/Interactibles/Player/PlayerSoul.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Prefabs/Interactibles/Bullets/Enemy Bullet.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Textures/light.png" type="Texture" id=5]
+[ext_resource path="res://Textures/Circle_Shape_White.png" type="Texture" id=6]
+[ext_resource path="res://Scripts/Common/HealthSetter.cs" type="Script" id=7]
+[ext_resource path="res://Scripts/Common/HealthDisplay.cs" type="Script" id=8]
+[ext_resource path="res://Textures/White Pixel.png" type="Texture" id=9]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 70, 70 )
@@ -16,52 +21,93 @@ scale = Vector2( 0.3, 0.3 )
 collision_layer = 4
 collision_mask = 3
 script = ExtResource( 1 )
-enemySpriteNodePath = NodePath("Sprite")
+enemySpriteNodePath = NodePath("Burst Enemy Container/Sprite")
+rotationNodePath = NodePath("Burst Enemy Container")
+enemyHealthSetterNodePath = NodePath("Enemy Health")
+enemyDeathEffectPrefab = ExtResource( 2 )
 explorationRadius = 200.0
 idleTime = 5.0
 minWanderingReachDistance = 5.0
+enemyFreezeTime = 3.0
+enemyFreezeRatio = 0.2
 playerTargetDistance = 700.0
 playerAttackDistance = 150.0
 maxPlayerFollowDistance = 800.0
 movementSpeed = 250.0
 attackTime = 10.0
-launchPointsPath = [ NodePath("Launch Points/LaunchPoint_1"), NodePath("Launch Points/LaunchPoint_2"), NodePath("Launch Points/LaunchPoint_3"), NodePath("Launch Points/LaunchPoint_4") ]
+launchPointsPath = [ NodePath("Burst Enemy Container/Launch Points/LaunchPoint_1"), NodePath("Burst Enemy Container/Launch Points/LaunchPoint_2"), NodePath("Burst Enemy Container/Launch Points/LaunchPoint_3"), NodePath("Burst Enemy Container/Launch Points/LaunchPoint_4") ]
+soulsPrefab = ExtResource( 3 )
+minSoulsAmount = 1.0
+maxSoulsAmount = 10.0
+rangeMultiplier = 100.0
 rotationRate = 200.0
 rotationTime = 0.5
 rotationAttackCounts = 2.0
 timeDelayBetweenShots = 0.5
-enemyBulletPrefab = ExtResource( 2 )
-
-[node name="Shadow Sprite" type="Sprite" parent="."]
-light_mask = 2
-scale = Vector2( 0.175, 0.175 )
-texture = ExtResource( 3 )
-
-[node name="Sprite" type="Sprite" parent="."]
-light_mask = 2
-texture = ExtResource( 4 )
+enemyBulletPrefab = ExtResource( 4 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
 
-[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
-occluder = SubResource( 2 )
-
-[node name="Launch Points" type="Node2D" parent="."]
+[node name="Burst Enemy Container" type="Node2D" parent="."]
 editor/display_folded = true
 
-[node name="LaunchPoint_1" type="Node2D" parent="Launch Points"]
+[node name="Shadow Sprite" type="Sprite" parent="Burst Enemy Container"]
+light_mask = 2
+scale = Vector2( 0.175, 0.175 )
+texture = ExtResource( 5 )
+
+[node name="Sprite" type="Sprite" parent="Burst Enemy Container"]
+light_mask = 2
+texture = ExtResource( 6 )
+
+[node name="Launch Points" type="Node2D" parent="Burst Enemy Container"]
+editor/display_folded = true
+
+[node name="LaunchPoint_1" type="Node2D" parent="Burst Enemy Container/Launch Points"]
 position = Vector2( 70, 0 )
 scale = Vector2( 0.3, 0.3 )
 
-[node name="LaunchPoint_2" type="Node2D" parent="Launch Points"]
+[node name="LaunchPoint_2" type="Node2D" parent="Burst Enemy Container/Launch Points"]
 position = Vector2( 0, 70 )
 scale = Vector2( 0.3, 0.3 )
 
-[node name="LaunchPoint_3" type="Node2D" parent="Launch Points"]
+[node name="LaunchPoint_3" type="Node2D" parent="Burst Enemy Container/Launch Points"]
 position = Vector2( -70, 0 )
 scale = Vector2( 0.3, 0.3 )
 
-[node name="LaunchPoint_4" type="Node2D" parent="Launch Points"]
+[node name="LaunchPoint_4" type="Node2D" parent="Burst Enemy Container/Launch Points"]
 position = Vector2( 0, -70 )
 scale = Vector2( 0.3, 0.3 )
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="Burst Enemy Container"]
+occluder = SubResource( 2 )
+
+[node name="Enemy Health" type="Node2D" parent="."]
+script = ExtResource( 7 )
+maxHealth = 75.0
+
+[node name="Enemy Health Display" type="Node2D" parent="Enemy Health"]
+script = ExtResource( 8 )
+minHealthColor = Color( 1, 0, 0, 1 )
+halfHealthColor = Color( 0, 0.976471, 1, 1 )
+maxHealthColor = Color( 0.803922, 0, 1, 1 )
+healthProgressNodePath = NodePath("../../UI Display/Health Display")
+healthSetterNodePath = NodePath("..")
+
+[node name="UI Display" type="Control" parent="."]
+margin_left = -125.0
+margin_top = -125.0
+margin_right = 125.0
+margin_bottom = -111.0
+
+[node name="Health Display" type="TextureProgress" parent="UI Display"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = -2.0
+value = 50.0
+texture_under = ExtResource( 9 )
+texture_progress = ExtResource( 9 )
+tint_under = Color( 0, 0, 0, 0.392157 )
+tint_progress = Color( 1, 0, 0, 1 )
+nine_patch_stretch = true

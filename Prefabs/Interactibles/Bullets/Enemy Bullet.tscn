@@ -19,6 +19,7 @@ bulletExplosionPrefab = ExtResource( 3 )
 bulletSpeed = 500.0
 bulletLifeTime = 1.0
 bulletTrailTimer = 0.04
+bulletDamageAmount = 10.0
 bulletSpritePath = NodePath("Sprite")
 
 [node name="Sprite" type="Sprite" parent="."]

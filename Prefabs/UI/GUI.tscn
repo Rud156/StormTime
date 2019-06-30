@@ -1,23 +1,95 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://Prefabs/UI/Default Theme.tres" type="Theme" id=1]
 [ext_resource path="res://Scripts/UI/FPSLabel.cs" type="Script" id=2]
-[ext_resource path="res://Scripts/UI/DialogueUiManager.cs" type="Script" id=3]
-[ext_resource path="res://Textures/RingFadeOut.png" type="Texture" id=4]
-[ext_resource path="res://Prefabs/UI/Dialogue Text.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Textures/Swirl.png" type="Texture" id=3]
+[ext_resource path="res://Scripts/UI/DialogueUiManager.cs" type="Script" id=4]
+[ext_resource path="res://Scripts/UI/TextTyper.cs" type="Script" id=5]
+[ext_resource path="res://Prefabs/UI/TyperDialogue.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Textures/White Pixel.png" type="Texture" id=7]
+[ext_resource path="res://Textures/Flame Sprite Sheet Animation.png" type="Texture" id=8]
+[ext_resource path="res://Scripts/Player/UIDisplay/PlayerSoulsAnimationController.cs" type="Script" id=9]
+[ext_resource path="res://Textures/Black And White Screen.png" type="Texture" id=10]
+[ext_resource path="res://Scripts/UI/WarningManager.cs" type="Script" id=11]
+[ext_resource path="res://Scripts/UI/Fader.cs" type="Script" id=12]
+[ext_resource path="res://Textures/GrungeArrow.png" type="Texture" id=13]
+[ext_resource path="res://Scripts/UI/FlasherObjectPointer.cs" type="Script" id=14]
+[ext_resource path="res://Scripts/UI/PauseAndResume.cs" type="Script" id=15]
+
+[sub_resource type="Animation" id=1]
+resource_name = "Action"
+length = 0.65
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3, 4, 5, 6 ]
+}
+
+[sub_resource type="Animation" id=2]
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 0 ]
+}
+
+[sub_resource type="AnimationNodeAnimation" id=3]
+animation = "Action"
+
+[sub_resource type="AnimationNodeAnimation" id=4]
+animation = "Idle"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=5]
+switch_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=6]
+switch_mode = 2
+auto_advance = true
+
+[sub_resource type="AnimationNodeStateMachine" id=7]
+states/Action/node = SubResource( 3 )
+states/Action/position = Vector2( -182, -153 )
+states/Idle/node = SubResource( 4 )
+states/Idle/position = Vector2( -477, -153 )
+transitions = [ "Idle", "Action", SubResource( 5 ), "Action", "Idle", SubResource( 6 ) ]
+start_node = "Idle"
+graph_offset = Vector2( -674, -262 )
+
+[sub_resource type="AnimationNodeStateMachinePlayback" id=8]
 
 [node name="GUI" type="Control"]
 light_mask = 2
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_left = 1.78484
+margin_top = -3.3701
+margin_right = 1.78479
+margin_bottom = -3.37012
 
 [node name="FPS Panel" type="Panel" parent="."]
+editor/display_folded = true
 self_modulate = Color( 1, 1, 1, 0.588235 )
 light_mask = 2
 anchor_left = 1.0
+anchor_top = 1.0
 anchor_right = 1.0
+anchor_bottom = 1.0
 margin_left = -145.0
-margin_bottom = 50.0
+margin_top = -50.0
 
 [node name="FPS Label" type="Label" parent="FPS Panel"]
 light_mask = 2
@@ -29,97 +101,235 @@ align = 1
 valign = 1
 script = ExtResource( 2 )
 
-[node name="Dialogue Panel" type="Panel" parent="."]
-visible = false
-self_modulate = Color( 1, 1, 1, 0.392157 )
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_top = -389.0
-script = ExtResource( 3 )
-
-[node name="Dialogue Center" type="TextureRect" parent="Dialogue Panel"]
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-margin_left = -49.5
-margin_top = -119.0
-margin_right = 49.5
-margin_bottom = -20.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_stretch_ratio = 0.0
-texture = ExtResource( 4 )
-expand = true
-stretch_mode = 1
-
-[node name="Left Container" type="HBoxContainer" parent="Dialogue Panel"]
-anchor_top = 1.0
-anchor_right = 0.446
-anchor_bottom = 1.0
-margin_top = -119.0
-margin_right = 0.29599
-custom_constants/separation = 14
-alignment = 2
-
-[node name="Right Container" type="HBoxContainer" parent="Dialogue Panel"]
-anchor_left = 0.55
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_top = -119.0
-margin_bottom = 1.0
-custom_constants/separation = 14
-
-[node name="Dialogue Container" type="Control" parent="Dialogue Panel"]
+[node name="Portal Display Panel" type="Panel" parent="."]
 editor/display_folded = true
+self_modulate = Color( 1, 1, 1, 0.588235 )
+light_mask = 2
+anchor_left = 1.0
 anchor_right = 1.0
-margin_top = 90.8
-margin_bottom = 281.8
+margin_left = -122.0
+margin_right = 6.10352e-005
+margin_bottom = 50.0
 
-[node name="A Dialogue Text" parent="Dialogue Panel/Dialogue Container" instance=ExtResource( 5 )]
-margin_left = -462.0
-margin_top = 120.0
-margin_right = -47.9995
-margin_bottom = 184.0
-keyTextNodePath = null
-dialogueTextNodePath = null
+[node name="Portal Icon" type="TextureRect" parent="Portal Display Panel"]
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_left = 10.0
+margin_top = -18.0
+margin_right = 48.0
+margin_bottom = 18.0
+texture = ExtResource( 3 )
+expand = true
+stretch_mode = 5
 
-[node name="W Dialogue Text" parent="Dialogue Panel/Dialogue Container" instance=ExtResource( 5 )]
-margin_left = -206.0
-margin_top = 30.0
-margin_right = 208.001
-margin_bottom = 94.0
-keyTextNodePath = null
-dialogueTextNodePath = null
+[node name="Portal Left Count" type="Label" parent="Portal Display Panel"]
+light_mask = 2
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_left = 60.0
+margin_top = -25.0
+margin_right = 118.0
+margin_bottom = 25.0
+theme = ExtResource( 1 )
+text = "X  60"
+valign = 1
 
-[node name="D Dialogue Text" parent="Dialogue Panel/Dialogue Container" instance=ExtResource( 5 )]
-margin_left = 48.0
-margin_top = 120.0
-margin_right = 462.0
-margin_bottom = 184.0
-keyTextNodePath = null
-dialogueTextNodePath = null
+[node name="Dialogue Panel" type="Panel" parent="."]
+editor/display_folded = true
+self_modulate = Color( 1, 1, 1, 0.588235 )
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -200.0
+margin_bottom = 0.000244141
+script = ExtResource( 4 )
+singleLineLabelNodePath = NodePath("Single Line Dialogue Holder/Single Line Dialogue")
+singleLineHolderNodePath = NodePath("Single Line Dialogue Holder")
+multiDialogueHolderNodePath = NodePath("Dialogue Options Holder")
+dialogueNodePaths = [ NodePath("Dialogue Options Holder/Dialogue_1"), NodePath("Dialogue Options Holder/Dialogue_2"), NodePath("Dialogue Options Holder/Dialogue_3") ]
+multiDialogueKeys = PoolStringArray( "A", "D", "W" )
 
-[node name="Ending Dialogue Container" type="Control" parent="Dialogue Panel"]
+[node name="Single Line Dialogue Holder" type="Control" parent="Dialogue Panel"]
+editor/display_folded = true
 visible = false
 anchor_right = 1.0
-margin_bottom = 190.0
+anchor_bottom = 1.0
 
-[node name="Ending Dialogue Text" type="Label" parent="Dialogue Panel/Ending Dialogue Container"]
+[node name="Single Line Dialogue" type="Label" parent="Dialogue Panel/Single Line Dialogue Holder"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 theme = ExtResource( 1 )
 align = 1
 valign = 1
+script = ExtResource( 5 )
+characterDelay = 0.1
 
-[node name="Dialogue Question" type="Label" parent="Dialogue Panel"]
-visible = false
+[node name="Dialogue Options Holder" type="Control" parent="Dialogue Panel"]
+editor/display_folded = true
 anchor_right = 1.0
-margin_left = 35.0
-margin_right = -35.0
-margin_bottom = 92.0
+anchor_bottom = 1.0
+
+[node name="Dialogue_1" parent="Dialogue Panel/Dialogue Options Holder" instance=ExtResource( 6 )]
+editor/display_folded = true
+
+[node name="Dialogue_2" parent="Dialogue Panel/Dialogue Options Holder" instance=ExtResource( 6 )]
+editor/display_folded = true
+margin_left = 530.0
+margin_right = 968.0
+margin_bottom = -42.0002
+
+[node name="Dialogue_3" parent="Dialogue Panel/Dialogue Options Holder" instance=ExtResource( 6 )]
+editor/display_folded = true
+margin_left = 292.0
+margin_top = -175.0
+margin_right = 730.0
+margin_bottom = -117.0
+
+[node name="Player Health Panel" type="Panel" parent="."]
+editor/display_folded = true
+margin_right = 400.0
+margin_bottom = 20.0
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Player Health" type="TextureProgress" parent="Player Health Panel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 10.0
+margin_top = 5.0
+margin_right = -10.0
+margin_bottom = -5.0
+grow_horizontal = 2
+grow_vertical = 2
+value = 49.0
+texture_under = ExtResource( 7 )
+texture_progress = ExtResource( 7 )
+tint_under = Color( 0.11673, 0.11673, 0.132813, 1 )
+tint_progress = Color( 0.12549, 1, 0, 1 )
+nine_patch_stretch = true
+
+[node name="Player Souls Panel" type="Panel" parent="."]
+editor/display_folded = true
+margin_top = 20.0
+margin_right = 153.0
+margin_bottom = 57.0
+
+[node name="Player Souls Sprite Animation" type="Sprite" parent="Player Souls Panel"]
+self_modulate = Color( 0, 0.505882, 1, 1 )
+position = Vector2( 24.2657, 13.0578 )
+scale = Vector2( 1.55981, 1.54051 )
+texture = ExtResource( 8 )
+hframes = 7
+
+[node name="Player Souls Animation" type="AnimationPlayer" parent="Player Souls Panel/Player Souls Sprite Animation"]
+anims/Action = SubResource( 1 )
+anims/Idle = SubResource( 2 )
+
+[node name="AnimationTree" type="AnimationTree" parent="Player Souls Panel/Player Souls Sprite Animation"]
+tree_root = SubResource( 7 )
+anim_player = NodePath("../Player Souls Animation")
+active = true
+parameters/playback = SubResource( 8 )
+script = ExtResource( 9 )
+
+[node name="Player Souls Text" type="Label" parent="Player Souls Panel"]
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -106.0
+margin_right = -8.0
 theme = ExtResource( 1 )
+text = "X  20"
+valign = 1
+
+[node name="Scene Indicator" type="TextureRect" parent="."]
+self_modulate = Color( 0, 0, 0, 1 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 10 )
+expand = true
+script = ExtResource( 11 )
+fadeRate = 500.0
+
+[node name="Fader" type="TextureRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 7 )
+expand = true
+script = ExtResource( 12 )
+faderRate = 0.7
+
+[node name="Flash Pointer Holder" type="Control" parent="."]
+editor/display_folded = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Flash Pointer" type="TextureRect" parent="Flash Pointer Holder"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -239.5
+margin_top = -131.5
+margin_right = 239.5
+margin_bottom = 131.5
+rect_pivot_offset = Vector2( 239, 131 )
+texture = ExtResource( 13 )
+expand = true
+script = ExtResource( 14 )
+fadeRate = 2.0
+
+[node name="Pause Resume Panel" type="Panel" parent="."]
+pause_mode = 2
+visible = false
+self_modulate = Color( 0, 0, 0, 0.588235 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 15 )
+resumeButtonNodePath = NodePath("Resume Button")
+mainMenuButtonNodePath = NodePath("Main Menu Button")
+
+[node name="Resume Button" type="TextureButton" parent="Pause Resume Panel"]
+editor/display_folded = true
+self_modulate = Color( 0, 1, 0, 1 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -125.0
+margin_top = -60.0
+margin_right = 125.0
+margin_bottom = -20.0
+texture_normal = ExtResource( 7 )
+expand = true
+
+[node name="Resume Label" type="Label" parent="Pause Resume Panel/Resume Button"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 1 )
+text = "Resume"
+align = 1
+valign = 1
+
+[node name="Main Menu Button" type="TextureButton" parent="Pause Resume Panel"]
+editor/display_folded = true
+self_modulate = Color( 1, 0, 0, 1 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -125.0
+margin_top = 20.0
+margin_right = 125.0
+margin_bottom = 59.9998
+texture_normal = ExtResource( 7 )
+expand = true
+
+[node name="Main Menu Label" type="Label" parent="Pause Resume Panel/Main Menu Button"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 1 )
+text = "Go To Main Menu"
 align = 1
 valign = 1

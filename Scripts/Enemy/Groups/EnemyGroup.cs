@@ -8,6 +8,7 @@ namespace StormTime.Enemy.Groups
         [Export] public NodePath interactionParticlesNodePath;
         [Export] public NodePath interactionSpriteNodePath;
         [Export] public NodePath enemyPlayerInteractionNodePath;
+        [Export] public float shopSettingPercent;
         [Export] public Color[] enemyColors;
 
         /// <summary>
@@ -38,10 +39,12 @@ namespace StormTime.Enemy.Groups
         public override void _Ready()
         {
             _spawnPoints = new List<Node2D>();
-            _enemyTypeCount = new List<int> { 0, 0, 0 };
+            _enemyTypeCount = new List<int>();
+            for (int i = 0; i < enemyTypes.Count; i++)
+            {
+                _enemyTypeCount.Add(0);
+            }
             _groupEnemies = new List<Individuals.Enemy>();
-
-            _enemyGroupPlayerInteraction = GetNode<EnemyGroupPlayerInteraction>(enemyPlayerInteractionNodePath);
 
             _interactionSprite = GetNode<Sprite>(interactionSpriteNodePath);
             _interactionParticles = GetNode<Particles2D>(interactionParticlesNodePath);
@@ -49,6 +52,12 @@ namespace StormTime.Enemy.Groups
             foreach (NodePath spawnPoint in spawnPointsNodePaths)
             {
                 _spawnPoints.Add(GetNode<Node2D>(spawnPoint));
+            }
+
+            _enemyGroupPlayerInteraction = GetNode<EnemyGroupPlayerInteraction>(enemyPlayerInteractionNodePath);
+            if (GD.Randf() < shopSettingPercent)
+            {
+                _enemyGroupPlayerInteraction.SetAsShop();
             }
         }
 
@@ -116,12 +125,9 @@ namespace StormTime.Enemy.Groups
 
         #region External Functions
 
-        public void SetPlayerInteractionId(int playerInteractionId) =>
-            _enemyGroupPlayerInteraction.SetCustomPlayerInteractionId(playerInteractionId);
-
         public void SetEnemyGroupColors(Color spriteColor, GradientTexture particlesGradient)
         {
-            _interactionSprite.SelfModulate = spriteColor;
+            _interactionSprite.SetSelfModulate(spriteColor);
             _interactionParticles.ProcessMaterial.Set("color_ramp", particlesGradient);
 
             _spawnGradientTexture = particlesGradient;
@@ -159,6 +165,8 @@ namespace StormTime.Enemy.Groups
             GD.Print("Created All Enemies. Wowser!!!");
             StartEnemiesSpawn();
         }
+
+        public GradientTexture GetGroupGradientTexture() => _spawnGradientTexture;
 
         public void SetPlayerAsHostile(bool playerHostile = true)
         {

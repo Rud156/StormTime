@@ -1,23 +1,28 @@
 using Godot;
-using System;
-using StormTime.Utils;
 
 namespace StormTime.Weapon
 {
     public class Bullet : KinematicBody2D
     {
-
         [Export] public PackedScene bulletTrailPrefab;
         [Export] public PackedScene bulletExplosionPrefab;
         [Export] public float bulletSpeed;
         [Export] public float bulletLifeTime;
         [Export] public float bulletTrailTimer;
+        [Export] public float bulletDamageAmount;
 
-        private Vector2 _launchVelocity;
-        private float _currentBulletTimeLeft;
-        private float _currentBulletTrailTimeLeft;
+        protected Vector2 _launchVelocity;
+        protected float _currentBulletTimeLeft;
+        protected float _currentBulletTrailTimeLeft;
 
-        public override void _Ready() => _currentBulletTrailTimeLeft = bulletTrailTimer;
+        protected float _currentDamageAmount;
+        protected bool _isFreezingBullet;
+
+        public override void _Ready()
+        {
+            _currentBulletTrailTimeLeft = bulletTrailTimer;
+            _currentDamageAmount = bulletDamageAmount;
+        }
 
         public override void _Process(float delta)
         {
@@ -46,25 +51,38 @@ namespace StormTime.Weapon
             _currentBulletTimeLeft -= delta;
         }
 
+        #region External Functions
+
         public void LaunchBullet(Vector2 forwardVectorNormalized)
         {
             _launchVelocity = forwardVectorNormalized * bulletSpeed;
             _currentBulletTimeLeft = bulletLifeTime;
         }
 
-        private void DestroyBullet() => GetParent().RemoveChild(this);
+        public float GetBulletDamage() => _currentDamageAmount;
 
-        #region Events
+        public void SetBulletDamage(float damageAmount) => _currentDamageAmount = damageAmount;
 
-        private void NotifyCollider(Godot.Object collider) =>
-            collider.CallDeferred("BulletCollisionNotification", !(this is EnemyBullet));
+        public void SetFreezingBulletState(bool isFreezingBullet) => _isFreezingBullet = isFreezingBullet;
 
         #endregion
 
+        #region Utility Functions
+
+        protected void DestroyBullet() => GetParent().RemoveChild(this);
+
+        #endregion
+
+        #region Events
+
+        protected void NotifyCollider(Object collider) =>
+            collider.CallDeferred("BulletCollisionNotification", this, _isFreezingBullet);
+
+        #endregion
 
         #region Particle Effects
 
-        private void SpawnBulletExplosion()
+        protected void SpawnBulletExplosion()
         {
             Node2D bulletExplosionInstance = (Node2D)bulletExplosionPrefab.Instance();
             GetParent().AddChild(bulletExplosionInstance);
@@ -72,7 +90,7 @@ namespace StormTime.Weapon
             bulletExplosionInstance.SetGlobalPosition(GetGlobalPosition());
         }
 
-        private void SpawnBulletTrail()
+        protected void SpawnBulletTrail()
         {
             Node2D bulletTrailInstance = (Node2D)bulletTrailPrefab.Instance();
             GetParent().AddChild(bulletTrailInstance);

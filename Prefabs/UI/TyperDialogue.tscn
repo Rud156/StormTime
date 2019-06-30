@@ -1,0 +1,55 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Scripts/UI/TyperDialogue.cs" type="Script" id=1]
+[ext_resource path="res://Textures/White Pixel.png" type="Texture" id=2]
+[ext_resource path="res://Prefabs/UI/Default Theme.tres" type="Theme" id=3]
+[ext_resource path="res://Fonts/Bangers.ttf" type="DynamicFontData" id=4]
+[ext_resource path="res://Scripts/UI/TextTyper.cs" type="Script" id=5]
+
+[sub_resource type="DynamicFont" id=1]
+size = 18
+use_mipmaps = true
+use_filter = true
+font_data = ExtResource( 4 )
+
+[node name="Dialogue_1" type="Control"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 55.0
+margin_top = -100.0
+margin_right = 493.0
+margin_bottom = -42.0
+script = ExtResource( 1 )
+textTyperNodePath = NodePath("Dialogue Label")
+dialogueInteractionLabelNodePath = NodePath("Key Texture/Key Label")
+
+[node name="Key Texture" type="TextureRect" parent="."]
+editor/display_folded = true
+anchor_bottom = 1.0
+margin_right = 58.0
+texture = ExtResource( 2 )
+expand = true
+
+[node name="Key Label" type="Label" parent="Key Texture"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 3 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "A"
+align = 1
+valign = 1
+
+[node name="Dialogue Label" type="Label" parent="."]
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -369.262
+margin_top = 1.29236
+margin_right = 1.73755
+margin_bottom = 1.29236
+theme = ExtResource( 3 )
+custom_fonts/font = SubResource( 1 )
+text = "Become slower to but increase maximum health by 10%"
+valign = 1
+script = ExtResource( 5 )
+characterDelay = 0.03

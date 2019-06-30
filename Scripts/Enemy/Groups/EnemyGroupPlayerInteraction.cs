@@ -1,6 +1,8 @@
+using System.Collections.Generic;
 using Godot;
+using StormTime.Player.Modifiers;
 using StormTime.Player.Movement;
-using StormTime.Scene.MainScene;
+using StormTime.UI;
 using StormTime.Utils;
 
 namespace StormTime.Enemy.Groups
@@ -18,21 +20,25 @@ namespace StormTime.Enemy.Groups
         }
 
         private EnemyGroup _parentGroup;
+        private bool _isShop;
 
         private PlayerInteractionState _playerInteractionState;
         private bool _playerIsInside;
         private PlayerController _playerController;
 
-        private int _playerInteractionId;
+        private List<PlayerModifierTypes.SacrificialItem> _sacrificialItems;
+        private List<PlayerModifierTypes.ShopItem> _shopItems;
 
         public override void _Ready()
         {
-            _playerInteractionId = -1;
+            _sacrificialItems = new List<PlayerModifierTypes.SacrificialItem>();
+            _shopItems = new List<PlayerModifierTypes.ShopItem>();
+
             _playerIsInside = false;
             _parentGroup = GetNode<EnemyGroup>(parentGroupNodePath);
 
-            base.Connect("body_entered", this, "HandlePlayerEntry");
-            base.Connect("body_exited", this, "HandlePlayerExit");
+            Connect("body_entered", this, nameof(HandlePlayerEntry));
+            Connect("body_exited", this, nameof(HandlePlayerExit));
         }
 
         public override void _Process(float delta) => CheckPlayerInteraction(delta);
@@ -68,40 +74,31 @@ namespace StormTime.Enemy.Groups
                 return;
             }
 
-            if (Input.IsActionJustPressed(SceneControls.Interact))
+            if (_parentGroup.IsPlayerHostile())
             {
-                if (_parentGroup.IsPlayerHostile())
-                {
-                    return;
-                }
-
-                _playerController.SetLerpPosition(GetGlobalPosition());
-                _playerController.SetPlayerState(PlayerController.PlayerState.PlayerFloatingMovement);
-                _playerController.DeActivateShooting();
-
-                if (_playerInteractionId == -1)
-                {
-                    DialogueManager.Instance.StartRandomDialogueInteraction(_parentGroup);
-                }
-                else
-                {
-                    DialogueManager.Instance.StartDialogueInteraction(_parentGroup, _playerInteractionId);
-                }
-
-                SetPlayerInteractionState(PlayerInteractionState.Active);
+                return;
             }
+
+            DisablePlayerAndShowDialogues();
+            SetPlayerInteractionState(PlayerInteractionState.Active);
         }
 
         private void HandlePlayerInteractionActive(float delta)
         {
-            // TODO: Implement Dialogue Interaction Logic Here...
+            if (_isShop)
+            {
+                HandleShopPlayerInteraction();
+            }
+            else
+            {
+                HandleSacrificialItemPlayerInteraction();
+            }
         }
 
         private void HandlePlayerInteractionEnding(float delta)
         {
             SetPlayerInteractionState(PlayerInteractionState.Completed);
-            _playerController.SetPlayerState(PlayerController.PlayerState.PlayerInControlMovement);
-            _playerController.ActivateShooting();
+            ResetPlayerAndDialogues();
         }
 
         private void HandlePlayerInteractionComplete(float delta)
@@ -137,13 +134,162 @@ namespace StormTime.Enemy.Groups
 
         #endregion
 
-        #region External Functions
+        #region Utility Functions
 
-        public void SetCustomPlayerInteractionId(int playerInteractionId) => _playerInteractionId = playerInteractionId;
+        private void DisablePlayerAndShowDialogues()
+        {
+            _playerController.SetLerpPosition(GetGlobalPosition());
+            _playerController.SetPlayerState(PlayerController.PlayerState.PlayerFloatingMovement);
+            _playerController.DeActivateShooting();
+
+            if (_isShop)
+            {
+                ShowShopItemDialogues();
+            }
+            else
+            {
+                ShowSacrificialItemDialogues();
+            }
+        }
+
+        private void ResetPlayerAndDialogues()
+        {
+            ClearDialogues();
+
+            _playerController.SetPlayerState(PlayerController.PlayerState.PlayerInControlMovement);
+            _playerController.ActivateShooting();
+            _playerController.ResetSizeDefaults();
+        }
+
+        #region Shop Interactions
+
+        private void ShowShopItemDialogues()
+        {
+            _shopItems.Clear();
+            string[] shopItemDescriptions = new string[3];
+
+            HashSet<PlayerModifierTypes.ShopItem> currentShopItems = new HashSet<PlayerModifierTypes.ShopItem>();
+
+            for (int i = 0; i < shopItemDescriptions.Length; i++)
+            {
+                PlayerModifierTypes.ShopItem shopItem = PlayerModifierTypes.GetRandomShopItem();
+                while (currentShopItems.Contains(shopItem))
+                {
+                    shopItem = PlayerModifierTypes.GetRandomShopItem();
+                }
+
+                _shopItems.Add(shopItem);
+                currentShopItems.Add(shopItem);
+
+                shopItemDescriptions[i] = PlayerModifierTypes.GetShopItemDescription(shopItem);
+            }
+
+            DialogueUiManager.instance.DisplayMultiDialogue(shopItemDescriptions);
+        }
+
+        private void HandleShopPlayerInteraction()
+        {
+            PlayerModifierTypes.ShopItemInfo? shopItemInfo = null;
+
+            if (Input.IsActionJustPressed(SceneControls.DialogueControl_1))
+            {
+                shopItemInfo = PlayerModifierTypes.GetShopItem(_shopItems[0]);
+            }
+            else if (Input.IsActionJustPressed(SceneControls.DialogueControl_2))
+            {
+                shopItemInfo = PlayerModifierTypes.GetShopItem(_shopItems[1]);
+            }
+            else if (Input.IsActionJustPressed(SceneControls.DialogueControl_3))
+            {
+                shopItemInfo = PlayerModifierTypes.GetShopItem(_shopItems[2]);
+            }
+            else if (Input.IsActionJustPressed(SceneControls.Cancel))
+            {
+                ResetPlayerAndDialogues();
+                SetPlayerInteractionState(PlayerInteractionState.NotActive);
+                _playerIsInside = false;
+            }
+
+            if (shopItemInfo.HasValue)
+            {
+                int soulsCost = PlayerModifierTypes.GetShopItemCost(shopItemInfo.Value.shopItem);
+
+                if (PlayerModifierSoulsManager.instance.GetSoulsCount() >= soulsCost)
+                {
+                    PlayerModifierSoulsManager.instance.DecrementSouls(soulsCost);
+                    _playerController.HandleShopItemInfluence(shopItemInfo.Value);
+                    _parentGroup.SetPlayerAsHostile();
+                    SetPlayerInteractionState(PlayerInteractionState.Ending);
+                }
+                else
+                {
+                    ResetPlayerAndDialogues();
+                    DialogueUiManager.instance.DisplaySingleStringTimed("Not Enough Souls Available", 3);
+
+                    SetPlayerInteractionState(PlayerInteractionState.NotActive);
+                    _playerIsInside = false;
+                }
+
+            }
+        }
 
         #endregion
 
-        #region Utility Functions
+        #region Sacrificial Item Interactions
+
+        private void ShowSacrificialItemDialogues()
+        {
+            _sacrificialItems.Clear();
+            string[] sacrificialItemDescriptions = new string[3];
+
+            HashSet<PlayerModifierTypes.SacrificialItem> currentSacrificialItems =
+                new HashSet<PlayerModifierTypes.SacrificialItem>();
+
+            for (int i = 0; i < sacrificialItemDescriptions.Length; i++)
+            {
+                PlayerModifierTypes.SacrificialItem sacrificialItem = PlayerModifierTypes.GetRandomSacrificialItem();
+                while (currentSacrificialItems.Contains(sacrificialItem))
+                {
+                    sacrificialItem = PlayerModifierTypes.GetRandomSacrificialItem();
+                }
+
+                _sacrificialItems.Add(sacrificialItem);
+                currentSacrificialItems.Add(sacrificialItem);
+
+                sacrificialItemDescriptions[i] = PlayerModifierTypes.GetSacrificialItemDescription(_sacrificialItems[i]);
+            }
+
+            DialogueUiManager.instance.DisplayMultiDialogue(sacrificialItemDescriptions);
+        }
+
+        private void HandleSacrificialItemPlayerInteraction()
+        {
+            PlayerModifierTypes.SacrificialItemInfo? itemInfo = null;
+
+            if (Input.IsActionJustPressed(SceneControls.DialogueControl_1))
+            {
+                itemInfo = PlayerModifierTypes.GetSacrificialItemAffecter(_sacrificialItems[0]);
+            }
+            else if (Input.IsActionJustPressed(SceneControls.DialogueControl_2))
+            {
+                itemInfo = PlayerModifierTypes.GetSacrificialItemAffecter(_sacrificialItems[1]);
+            }
+            else if (Input.IsActionJustPressed(SceneControls.DialogueControl_3))
+            {
+                itemInfo = PlayerModifierTypes.GetSacrificialItemAffecter(_sacrificialItems[2]);
+            }
+
+            if (itemInfo.HasValue)
+            {
+                _playerController.HandleSacrificialItemInfluence(itemInfo.Value);
+                _parentGroup.SetPlayerAsHostile();
+                SetPlayerInteractionState(PlayerInteractionState.Ending);
+            }
+        }
+
+        #endregion
+
+        private void ClearDialogues() => DialogueUiManager.instance.ClearMultiDialogue();
 
         private void SetPlayerInteractionState(PlayerInteractionState playerInteractionState)
         {
@@ -154,6 +300,12 @@ namespace StormTime.Enemy.Groups
 
             _playerInteractionState = playerInteractionState;
         }
+
+        #endregion
+
+        #region External Functions
+
+        public void SetAsShop() => _isShop = true;
 
         #endregion
     }

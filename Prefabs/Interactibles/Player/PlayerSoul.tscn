@@ -1,0 +1,45 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://Scripts/Effects/SoulsController.cs" type="Script" id=1]
+[ext_resource path="res://Textures/RingFadeOut.png" type="Texture" id=2]
+[ext_resource path="res://Textures/White Circle.png" type="Texture" id=3]
+
+[sub_resource type="Curve" id=1]
+_data = [ Vector2( 0, 0 ), 0.0, 0.0, 0, 0, Vector2( 0.494133, 0.8652 ), -4.61836, -4.61836, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=2]
+curve = SubResource( 1 )
+
+[sub_resource type="ParticlesMaterial" id=3]
+flag_disable_z = true
+gravity = Vector3( 0, 0, 0 )
+angular_velocity = 4.89053e-043
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+scale_curve = SubResource( 2 )
+color = Color( 0, 0.227451, 1, 1 )
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 20, 20 )
+
+[node name="Soul" type="Node2D"]
+script = ExtResource( 1 )
+soulSpriteNodePath = NodePath("Soul Sprite")
+soulParticleNodePath = NodePath("Soul Particles")
+soulAreaCollisionNodePath = NodePath("Soul Area Collsion")
+
+[node name="Soul Particles" type="Particles2D" parent="."]
+amount = 3
+lifetime = 2.0
+process_material = SubResource( 3 )
+texture = ExtResource( 2 )
+
+[node name="Soul Sprite" type="Sprite" parent="."]
+self_modulate = Color( 0.219608, 0, 1, 1 )
+scale = Vector2( 0.1, 0.1 )
+texture = ExtResource( 3 )
+
+[node name="Soul Area Collsion" type="Area2D" parent="."]
+
+[node name="Collision Shape" type="CollisionShape2D" parent="Soul Area Collsion"]
+shape = SubResource( 4 )
