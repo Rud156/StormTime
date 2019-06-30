@@ -67,6 +67,7 @@ extents = Vector2( 139.419, 136.862 )
 
 [node name="Portal" type="Area2D"]
 script = ExtResource( 1 )
+maxRevealCount = 5
 soulsRequirement = 30
 minYPosition = -2000.0
 maxYPosition = 2000.0

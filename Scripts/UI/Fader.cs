@@ -6,9 +6,11 @@ namespace StormTime.UI
     {
         [Export] public float faderRate;
 
+        public delegate void FaderReady();
         public delegate void FadeInComplete();
         public delegate void FadeOutComplete();
 
+        public static FaderReady faderReady;
         public FadeInComplete fadeInComplete;
         public FadeOutComplete fadeOutComplete;
 
@@ -25,8 +27,7 @@ namespace StormTime.UI
                 instance = this;
             }
 
-            _currentAlpha = 0;
-            SetSelfModulate(new Color(1, 1, 1, _currentAlpha));
+            faderReady?.Invoke();
         }
 
         public override void _Process(float delta)

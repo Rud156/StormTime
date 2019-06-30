@@ -3,6 +3,7 @@ using StormTime.Common;
 using StormTime.Player.Data;
 using StormTime.Player.Movement;
 using StormTime.Player.Shooting;
+using StormTime.UI;
 using StormTime.Utils;
 
 namespace StormTime.Scene.MainScene
@@ -29,11 +30,16 @@ namespace StormTime.Scene.MainScene
             _playerController = GetNode<PlayerController>(playerControllerNodePath);
             _playerShooting = GetNode<PlayerShooting>(playerShooterNodePath);
             _playerHealthSetter = GetNode<HealthSetter>(playerHealthSetterNodePath);
+
+            Fader.faderReady += () =>
+            {
+                Fader.instance.StartFading(false, new Color(1, 1, 1));
+            };
         }
 
         #region External Functions
 
-        public void SwitchToBossScene() 
+        public void SwitchToBossScene()
         {
             float movementSpeed = _playerController.GetPlayerMovementSpeed();
             float currentMaxHealth = _playerHealthSetter.GetMaxHealth();
