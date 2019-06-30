@@ -203,6 +203,12 @@ namespace StormTime.Enemy.Groups
             {
                 shopItemInfo = PlayerModifierTypes.GetShopItem(_shopItems[2]);
             }
+            else if (Input.IsActionJustPressed(SceneControls.Cancel))
+            {
+                ResetPlayerAndDialogues();
+                SetPlayerInteractionState(PlayerInteractionState.NotActive);
+                _playerIsInside = false;
+            }
 
             if (shopItemInfo.HasValue)
             {
@@ -218,8 +224,6 @@ namespace StormTime.Enemy.Groups
                 else
                 {
                     ResetPlayerAndDialogues();
-
-                    DialogueUiManager.instance.ClearMultiDialogue();
                     DialogueUiManager.instance.DisplaySingleStringTimed("Not Enough Souls Available", 3);
 
                     SetPlayerInteractionState(PlayerInteractionState.NotActive);
@@ -235,8 +239,6 @@ namespace StormTime.Enemy.Groups
 
         private void ShowSacrificialItemDialogues()
         {
-            // TODO: Make Player Hostile After This...
-
             _sacrificialItems.Clear();
             string[] sacrificialItemDescriptions = new string[3];
 

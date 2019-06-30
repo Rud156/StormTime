@@ -68,6 +68,7 @@ script = ExtResource( 3 )
 playerControllerNodePath = NodePath("../../Player")
 playerShooterNodePath = NodePath("../../Player/Player Shooter")
 playerHealthSetterNodePath = NodePath("../../Player/Player Health")
+pauseResumeControllerNodePath = NodePath("../../../CanvasLayer/GUI/Pause Resume Panel")
 
 [node name="World" parent="Game World" instance=ExtResource( 4 )]
 

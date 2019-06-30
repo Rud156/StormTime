@@ -12,6 +12,7 @@ namespace StormTime.Utils
         public const string Interact = "ui_interact";
         public const string Shoot = "ui_shoot";
         public const string ShootSpecial = "ui_special_shoot";
+        public const string Cancel = "ui_cancel";
 
         public const string DialogueControl_1 = "ui_a";
         public const string DialogueControl_2 = "ui_d";

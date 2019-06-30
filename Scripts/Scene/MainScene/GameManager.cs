@@ -12,13 +12,21 @@ namespace StormTime.Scene.MainScene
     {
         private const string BossScenePath = "res://Scenes/Boss.tscn";
 
+        // Player Data Controls
         [Export] public NodePath playerControllerNodePath;
         [Export] public NodePath playerShooterNodePath;
         [Export] public NodePath playerHealthSetterNodePath;
 
+        // Pause and Resume
+        [Export] public NodePath pauseResumeControllerNodePath;
+
         private PlayerController _playerController;
         private PlayerShooting _playerShooting;
         private HealthSetter _playerHealthSetter;
+
+        private PauseAndResume _pauseResumeController;
+
+        private bool _playerInteractingWithShop;
 
         public override void _Ready()
         {
@@ -31,13 +39,34 @@ namespace StormTime.Scene.MainScene
             _playerShooting = GetNode<PlayerShooting>(playerShooterNodePath);
             _playerHealthSetter = GetNode<HealthSetter>(playerHealthSetterNodePath);
 
+            _pauseResumeController = GetNode<PauseAndResume>(pauseResumeControllerNodePath);
+
             Fader.faderReady += () =>
             {
                 Fader.instance.StartFading(false, new Color(1, 1, 1));
             };
         }
 
+        public override void _Process(float delta)
+        {
+            if (Input.IsActionJustPressed(SceneControls.Cancel))
+            {
+                if (_playerInteractingWithShop)
+                {
+                    return;
+                }
+                else
+                {
+                    _pauseResumeController.ShowPauseMenu();
+                }
+            }
+        }
+
         #region External Functions
+
+        public void PlayerEnemyShopInteractionStarted() => _playerInteractingWithShop = true;
+
+        public void PlayerEnemyShopInteractionEnded() => _playerInteractingWithShop = false;
 
         public void SwitchToBossScene()
         {

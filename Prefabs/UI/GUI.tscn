@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://Prefabs/UI/Default Theme.tres" type="Theme" id=1]
 [ext_resource path="res://Scripts/UI/FPSLabel.cs" type="Script" id=2]
@@ -14,6 +14,7 @@
 [ext_resource path="res://Scripts/UI/Fader.cs" type="Script" id=12]
 [ext_resource path="res://Textures/GrungeArrow.png" type="Texture" id=13]
 [ext_resource path="res://Scripts/UI/FlasherObjectPointer.cs" type="Script" id=14]
+[ext_resource path="res://Scripts/UI/PauseAndResume.cs" type="Script" id=15]
 
 [sub_resource type="Animation" id=1]
 resource_name = "Action"
@@ -260,6 +261,7 @@ script = ExtResource( 12 )
 faderRate = 0.7
 
 [node name="Flash Pointer Holder" type="Control" parent="."]
+editor/display_folded = true
 anchor_right = 1.0
 anchor_bottom = 1.0
 
@@ -277,3 +279,57 @@ texture = ExtResource( 13 )
 expand = true
 script = ExtResource( 14 )
 fadeRate = 2.0
+
+[node name="Pause Resume Panel" type="Panel" parent="."]
+pause_mode = 2
+visible = false
+self_modulate = Color( 0, 0, 0, 0.588235 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 15 )
+resumeButtonNodePath = NodePath("Resume Button")
+mainMenuButtonNodePath = NodePath("Main Menu Button")
+
+[node name="Resume Button" type="TextureButton" parent="Pause Resume Panel"]
+editor/display_folded = true
+self_modulate = Color( 0, 1, 0, 1 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -125.0
+margin_top = -60.0
+margin_right = 125.0
+margin_bottom = -20.0
+texture_normal = ExtResource( 7 )
+expand = true
+
+[node name="Resume Label" type="Label" parent="Pause Resume Panel/Resume Button"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 1 )
+text = "Resume"
+align = 1
+valign = 1
+
+[node name="Main Menu Button" type="TextureButton" parent="Pause Resume Panel"]
+editor/display_folded = true
+self_modulate = Color( 1, 0, 0, 1 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -125.0
+margin_top = 20.0
+margin_right = 125.0
+margin_bottom = 59.9998
+texture_normal = ExtResource( 7 )
+expand = true
+
+[node name="Main Menu Label" type="Label" parent="Pause Resume Panel/Main Menu Button"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 1 )
+text = "Go To Main Menu"
+align = 1
+valign = 1
