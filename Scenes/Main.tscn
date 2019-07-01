@@ -64,6 +64,7 @@ soulsAnimationControllerNodePath = NodePath("../../../CanvasLayer/GUI/Player Sou
 script = ExtResource( 2 )
 
 [node name="Game Manager" type="Node" parent="Game World/Managers"]
+pause_mode = 2
 script = ExtResource( 3 )
 playerControllerNodePath = NodePath("../../Player")
 playerShooterNodePath = NodePath("../../Player/Player Shooter")

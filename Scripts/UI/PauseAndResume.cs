@@ -1,5 +1,5 @@
-using System;
 using Godot;
+using StormTime.Scene.MainScene;
 
 namespace StormTime.UI
 {
@@ -16,7 +16,7 @@ namespace StormTime.UI
             _resumeButton = GetNode<TextureButton>(resumeButtonNodePath);
             _mainMenuButton = GetNode<TextureButton>(mainMenuButtonNodePath);
 
-            _resumeButton.Connect("pressed", this, nameof(HandleResumeButtonClicked));
+            _resumeButton.Connect("pressed", this, nameof(HidePauseMenu));
             _mainMenuButton.Connect("pressed", this, nameof(HandleMainMenuClicked));
         }
 
@@ -26,17 +26,21 @@ namespace StormTime.UI
         {
             Show();
             GetTree().SetPause(true);
+
+            GameManager.instance.PauseMenuOpened();
+        }
+
+        public void HidePauseMenu()
+        {
+            Hide();
+            GetTree().SetPause(false);
+
+            GameManager.instance.PauseMenuClosed();
         }
 
         #endregion
 
         #region Utility Functions
-
-        private void HandleResumeButtonClicked()
-        {
-            Hide();
-            GetTree().SetPause(false);
-        }
 
         private void HandleMainMenuClicked()
         {

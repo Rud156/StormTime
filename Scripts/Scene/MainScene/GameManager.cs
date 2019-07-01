@@ -27,6 +27,7 @@ namespace StormTime.Scene.MainScene
         private PauseAndResume _pauseResumeController;
 
         private bool _playerInteractingWithShop;
+        private bool _pauseMenuOpen;
 
         public override void _Ready()
         {
@@ -49,20 +50,31 @@ namespace StormTime.Scene.MainScene
 
         public override void _Process(float delta)
         {
-            if (Input.IsActionJustPressed(SceneControls.Cancel))
+            if (!Input.IsActionJustPressed(SceneControls.Cancel))
             {
-                if (_playerInteractingWithShop)
-                {
-                    return;
-                }
-                else
-                {
-                    _pauseResumeController.ShowPauseMenu();
-                }
+                return;
+            }
+
+            if (_playerInteractingWithShop)
+            {
+                return;
+            }
+
+            if (_pauseMenuOpen)
+            {
+                _pauseResumeController.HidePauseMenu();
+            }
+            else
+            {
+                _pauseResumeController.ShowPauseMenu();
             }
         }
 
         #region External Functions
+
+        public void PauseMenuOpened() => _pauseMenuOpen = true;
+
+        public void PauseMenuClosed() => _pauseMenuOpen = false;
 
         public void PlayerEnemyShopInteractionStarted() => _playerInteractingWithShop = true;
 
