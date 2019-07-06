@@ -57,6 +57,9 @@
     <Compile Include="Scripts\Effects\ParticleActivator.cs" />
     <Compile Include="Scripts\Effects\ParticlesCleaner.cs" />
     <Compile Include="Scripts\Effects\SoulsController.cs" />
+    <Compile Include="Scripts\Enemy\Boss\BossArmController.cs" />
+    <Compile Include="Scripts\Enemy\Boss\BossBodyController.cs" />
+    <Compile Include="Scripts\Enemy\Boss\BossController.cs" />
     <Compile Include="Scripts\Enemy\Individuals\BurstEnemy.cs" />
     <Compile Include="Scripts\Enemy\Individuals\Enemy.cs" />
     <Compile Include="Scripts\Enemy\Groups\EnemyGroup.cs" />

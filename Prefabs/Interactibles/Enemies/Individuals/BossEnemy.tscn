@@ -1,72 +1,174 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=8 format=2]
 
-[ext_resource path="res://Textures/Boss Body.png" type="Texture" id=1]
-[ext_resource path="res://Textures/Boss Side Arm.png" type="Texture" id=2]
-[ext_resource path="res://Textures/Boss Straight Arm.png" type="Texture" id=3]
+[ext_resource path="res://Scripts/Enemy/Boss/BossController.cs" type="Script" id=1]
+[ext_resource path="res://Scripts/Enemy/Boss/BossArmController.cs" type="Script" id=2]
+[ext_resource path="res://Textures/Boss Side Arm.png" type="Texture" id=3]
+[ext_resource path="res://Scripts/Common/HealthSetter.cs" type="Script" id=4]
+[ext_resource path="res://Textures/Boss Straight Arm.png" type="Texture" id=5]
+[ext_resource path="res://Scripts/Enemy/Boss/BossBodyController.cs" type="Script" id=6]
+[ext_resource path="res://Textures/Boss Body.png" type="Texture" id=7]
 
 [node name="BossEnemy" type="Node2D"]
-
-[node name="Boss Body" type="Sprite" parent="."]
-scale = Vector2( 3, 3 )
-texture = ExtResource( 1 )
+script = ExtResource( 1 )
+bodyNodePath = NodePath("Body")
+leftArmNodePath = NodePath("Left Arm")
+rightArmNodePath = NodePath("Right Arm")
+topArmNodePath = NodePath("Top Arm")
+bottomArmNodePath = NodePath("Bottom Arm")
 
 [node name="Left Arm" type="Node2D" parent="."]
 editor/display_folded = true
 position = Vector2( -120, 0 )
 scale = Vector2( 3, 3 )
+script = ExtResource( 2 )
+firstArmNodePath = NodePath("Top Part")
+secondArmNodePath = NodePath("Bottom Part")
+firstArmAttackNodePath = NodePath("Top Attack Point")
+secondArmAttackNodePath = NodePath("Bottom Attack Point")
+dualArmAttackNodePath = NodePath("Dual Attack Point")
 
 [node name="Top Part" type="Sprite" parent="Left Arm"]
 position = Vector2( -12, -10 )
-texture = ExtResource( 2 )
+texture = ExtResource( 3 )
+script = ExtResource( 4 )
+maxHealth = 100.0
 
 [node name="Bottom Part" type="Sprite" parent="Left Arm"]
-position = Vector2( -12, 10 )
-texture = ExtResource( 2 )
+position = Vector2( -12, 11 )
+texture = ExtResource( 3 )
 flip_v = true
+script = ExtResource( 4 )
+maxHealth = 100.0
+
+[node name="Top Attack Point" type="Node2D" parent="Left Arm"]
+position = Vector2( -24, -6.5 )
+
+[node name="Bottom Attack Point" type="Node2D" parent="Left Arm"]
+position = Vector2( -24, 6.5 )
+
+[node name="Dual Attack Point" type="Node2D" parent="Left Arm"]
+position = Vector2( -25, 0 )
 
 [node name="Right Arm" type="Node2D" parent="."]
 editor/display_folded = true
 position = Vector2( 120, 0 )
 scale = Vector2( 3, 3 )
+script = ExtResource( 2 )
+firstArmNodePath = NodePath("Top Part")
+secondArmNodePath = NodePath("Bottom Part")
+firstArmAttackNodePath = NodePath("Top Attack Point")
+secondArmAttackNodePath = NodePath("Bottom Attack Point")
+dualArmAttackNodePath = NodePath("Dual Attack Point")
 
 [node name="Top Part" type="Sprite" parent="Right Arm"]
 position = Vector2( 12, -10 )
-texture = ExtResource( 2 )
+texture = ExtResource( 3 )
 flip_h = true
+script = ExtResource( 4 )
+maxHealth = 100.0
 
 [node name="Bottom Part" type="Sprite" parent="Right Arm"]
-position = Vector2( 12, 10 )
-texture = ExtResource( 2 )
+position = Vector2( 12, 11 )
+texture = ExtResource( 3 )
 flip_h = true
 flip_v = true
+script = ExtResource( 4 )
+maxHealth = 100.0
+
+[node name="Top Attack Point" type="Node2D" parent="Right Arm"]
+position = Vector2( 24, -6.5 )
+
+[node name="Bottom Attack Point" type="Node2D" parent="Right Arm"]
+position = Vector2( 24, 6.5 )
+
+[node name="Dual Attack Point" type="Node2D" parent="Right Arm"]
+position = Vector2( 25, 0 )
 
 [node name="Top Arm" type="Node2D" parent="."]
 editor/display_folded = true
 position = Vector2( 0, -78 )
+script = ExtResource( 2 )
+firstArmNodePath = NodePath("Left Part")
+secondArmNodePath = NodePath("Right Part")
+firstArmAttackNodePath = NodePath("Left Attack Point")
+secondArmAttackNodePath = NodePath("Right Attack Point")
+dualArmAttackNodePath = NodePath("../Right Arm/Dual Attack Point")
 
 [node name="Left Part" type="Sprite" parent="Top Arm"]
 position = Vector2( -55, -48 )
 scale = Vector2( 3, 3 )
-texture = ExtResource( 3 )
+texture = ExtResource( 5 )
+script = ExtResource( 4 )
+maxHealth = 100.0
 
 [node name="Right Part" type="Sprite" parent="Top Arm"]
 position = Vector2( 55, -48 )
 scale = Vector2( 3, 3 )
-texture = ExtResource( 3 )
+texture = ExtResource( 5 )
 flip_h = true
+script = ExtResource( 4 )
+maxHealth = 100.0
+
+[node name="Left Attack Point" type="Node2D" parent="Top Arm"]
+position = Vector2( -30, -95 )
+
+[node name="Right Attack Point" type="Node2D" parent="Top Arm"]
+position = Vector2( 30, -95 )
+
+[node name="Dual Attack Point" type="Node2D" parent="Top Arm"]
+position = Vector2( 0, -100 )
 
 [node name="Bottom Arm" type="Node2D" parent="."]
+editor/display_folded = true
 position = Vector2( 0, 78 )
+script = ExtResource( 2 )
+firstArmNodePath = NodePath("Left Part")
+secondArmNodePath = NodePath("Right Part")
+firstArmAttackNodePath = NodePath("Left Attack Point")
+secondArmAttackNodePath = NodePath("Right Attack Point")
+dualArmAttackNodePath = NodePath("Dual Attack Point")
 
 [node name="Left Part" type="Sprite" parent="Bottom Arm"]
-position = Vector2( -55, 48 )
+position = Vector2( -55, 51 )
 scale = Vector2( 3, 3 )
-texture = ExtResource( 3 )
+texture = ExtResource( 5 )
 flip_v = true
+script = ExtResource( 4 )
+maxHealth = 100.0
 
 [node name="Right Part" type="Sprite" parent="Bottom Arm"]
-position = Vector2( 55, 48 )
+position = Vector2( 55, 51 )
 scale = Vector2( 3, 3 )
-texture = ExtResource( 3 )
+texture = ExtResource( 5 )
 flip_h = true
 flip_v = true
+script = ExtResource( 4 )
+maxHealth = 100.0
+
+[node name="Left Attack Point" type="Node2D" parent="Bottom Arm"]
+position = Vector2( -30, 95 )
+
+[node name="Right Attack Point" type="Node2D" parent="Bottom Arm"]
+position = Vector2( 30, 95 )
+
+[node name="Dual Attack Point" type="Node2D" parent="Bottom Arm"]
+position = Vector2( 0, 100 )
+
+[node name="Body" type="Node2D" parent="."]
+script = ExtResource( 6 )
+bossBodyNodePath = NodePath("Boss Body Part")
+
+[node name="Boss Body Part" type="Sprite" parent="Body"]
+scale = Vector2( 3, 3 )
+texture = ExtResource( 7 )
+script = ExtResource( 4 )
+maxHealth = 200.0
+
+[node name="Body Attack Point 1" type="Node2D" parent="Body"]
+position = Vector2( -60, -37 )
+
+[node name="Body Attack Point 2" type="Node2D" parent="Body"]
+position = Vector2( 60, -37 )
+
+[node name="Body Attack Point 3" type="Node2D" parent="Body"]
+position = Vector2( 0, 36 )
