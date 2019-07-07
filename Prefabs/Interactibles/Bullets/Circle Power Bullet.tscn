@@ -9,10 +9,9 @@
 [ext_resource path="res://Scripts/Extensions/Rotator.cs" type="Script" id=7]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 140, 140 )
+extents = Vector2( 72.0349, 72.4049 )
 
-[node name="Circle Power Bullet" type="KinematicBody2D"]
-scale = Vector2( 0.5, 0.5 )
+[node name="Circle Power Bullet" type="RigidBody2D"]
 collision_layer = 4
 collision_mask = 3
 script = ExtResource( 1 )
@@ -31,12 +30,14 @@ shape = SubResource( 1 )
 
 [node name="Base Bullet" type="Sprite" parent="."]
 self_modulate = Color( 0.06, 0, 0, 1 )
+scale = Vector2( 0.5, 0.5 )
 texture = ExtResource( 4 )
 script = ExtResource( 5 )
 lerpDuration = 3.0
 colors = PoolColorArray( 1, 0, 0, 1, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 1, 0, 0, 1, 1, 1, 0, 1, 1, 1, 0, 0.380392, 1 )
 
 [node name="Jagged Part" type="Sprite" parent="."]
+scale = Vector2( 0.5, 0.5 )
 texture = ExtResource( 6 )
 script = ExtResource( 7 )
 rotationSpeed = 14.0

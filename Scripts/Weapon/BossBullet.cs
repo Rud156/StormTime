@@ -22,6 +22,11 @@ namespace StormTime.Weapon
 
         }
 
+        public override void _PhysicsProcess(float delta)
+        {
+
+        }
+
         #region External Functions
 
         public void SetAsBouncyBullet() => _isBouncyBullet = true;

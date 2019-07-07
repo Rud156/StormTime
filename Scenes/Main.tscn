@@ -53,6 +53,7 @@ gradient = SubResource( 7 )
 [node name="Game World" type="Node2D" parent="."]
 
 [node name="Managers" type="Node" parent="Game World"]
+editor/display_folded = true
 
 [node name="Player Souls Manager" type="Node" parent="Game World/Managers"]
 script = ExtResource( 1 )

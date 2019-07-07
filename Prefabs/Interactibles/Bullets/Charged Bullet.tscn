@@ -6,12 +6,12 @@
 [ext_resource path="res://Textures/Star2.png" type="Texture" id=4]
 [ext_resource path="res://Textures/White Pixel.png" type="Texture" id=5]
 
-[sub_resource type="Gradient" id=16]
+[sub_resource type="Gradient" id=1]
 offsets = PoolRealArray( 0, 0.132479, 0.846154, 1 )
 colors = PoolColorArray( 1, 0, 0, 0, 1, 0, 0, 1, 0.992188, 1, 0, 1, 1, 0.984375, 0, 0 )
 
-[sub_resource type="GradientTexture" id=17]
-gradient = SubResource( 16 )
+[sub_resource type="GradientTexture" id=2]
+gradient = SubResource( 1 )
 
 [sub_resource type="Curve" id=3]
 _data = [ Vector2( 0.00523756, 0 ), 0.0, 2.69779, 0, 0, Vector2( 0.501956, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), -3.01068, 0.0, 0, 0 ]
@@ -19,7 +19,7 @@ _data = [ Vector2( 0.00523756, 0 ), 0.0, 2.69779, 0, 0, Vector2( 0.501956, 1 ), 
 [sub_resource type="CurveTexture" id=4]
 curve = SubResource( 3 )
 
-[sub_resource type="ParticlesMaterial" id=18]
+[sub_resource type="ParticlesMaterial" id=5]
 flag_disable_z = true
 gravity = Vector3( 0, 0, 0 )
 angular_velocity = 180.0
@@ -28,10 +28,10 @@ orbit_velocity = 0.0
 orbit_velocity_random = 0.0
 scale = 0.2
 scale_curve = SubResource( 4 )
-color_ramp = SubResource( 17 )
+color_ramp = SubResource( 2 )
 
-[sub_resource type="RectangleShape2D" id=19]
-extents = Vector2( 16, 16 )
+[sub_resource type="RectangleShape2D" id=6]
+extents = Vector2( 6.50611, 6.33735 )
 
 [sub_resource type="Gradient" id=7]
 offsets = PoolRealArray( 0, 0.303419, 0.807692, 1 )
@@ -80,11 +80,12 @@ tangential_accel_random = 1.0
 scale = 0.05
 color_ramp = SubResource( 8 )
 
-[node name="Charged Bullet" type="KinematicBody2D"]
+[node name="Charged Bullet" type="RigidBody2D"]
 light_mask = 2
-scale = Vector2( 0.4, 0.4 )
 collision_layer = 2
 collision_mask = 5
+contacts_reported = 1
+contact_monitor = true
 script = ExtResource( 1 )
 bulletTrailPrefab = ExtResource( 2 )
 bulletExplosionPrefab = ExtResource( 3 )
@@ -96,18 +97,21 @@ minCollisionLifeDecrement = 2.0
 maxCollisionLifeDecrement = 35.0
 
 [node name="Bullet Particles Star" type="Particles2D" parent="."]
+scale = Vector2( 0.4, 0.4 )
 amount = 3
-process_material = SubResource( 18 )
+process_material = SubResource( 5 )
 texture = ExtResource( 4 )
 
 [node name="Sprite" type="Sprite" parent="."]
 self_modulate = Color( 1, 0.631373, 0, 1 )
+scale = Vector2( 0.4, 0.4 )
 texture = ExtResource( 5 )
 
 [node name="Bullet Collision Shape" type="CollisionShape2D" parent="."]
-shape = SubResource( 19 )
+shape = SubResource( 6 )
 
 [node name="Bullet Particles Star_1" type="Particles2D" parent="."]
+scale = Vector2( 0.4, 0.4 )
 amount = 50
 lifetime = 7.0
 explosiveness = 0.3

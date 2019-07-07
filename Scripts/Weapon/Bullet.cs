@@ -2,7 +2,7 @@ using Godot;
 
 namespace StormTime.Weapon
 {
-    public class Bullet : KinematicBody2D
+    public class Bullet : RigidBody2D
     {
         [Export] public PackedScene bulletTrailPrefab;
         [Export] public PackedScene bulletExplosionPrefab;
@@ -17,6 +17,8 @@ namespace StormTime.Weapon
 
         protected float _currentDamageAmount;
         protected bool _isFreezingBullet;
+
+        protected Godot.Collections.Array _collidingBodies;
 
         public override void _Ready()
         {
@@ -36,13 +38,13 @@ namespace StormTime.Weapon
 
         public override void _PhysicsProcess(float delta)
         {
-            KinematicCollision2D collision = MoveAndCollide(_launchVelocity * delta);
-            if (collision != null || _currentBulletTimeLeft <= 0)
+            _collidingBodies = GetCollidingBodies();
+            if (_collidingBodies.Count != 0 || _currentBulletTimeLeft <= 0)
             {
-                if (collision != null)
+                if (_collidingBodies.Count != 0)
                 {
                     SpawnBulletExplosion();
-                    NotifyCollider(collision.Collider);
+                    NotifyCollider((Object)_collidingBodies[0]);
                 }
 
                 DestroyBullet();
@@ -57,6 +59,8 @@ namespace StormTime.Weapon
         {
             _launchVelocity = forwardVectorNormalized * bulletSpeed;
             _currentBulletTimeLeft = bulletLifeTime;
+
+            SetLinearVelocity(_launchVelocity);
         }
 
         public float GetBulletDamage() => _currentDamageAmount;

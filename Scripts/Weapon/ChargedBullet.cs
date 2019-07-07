@@ -35,18 +35,18 @@ namespace StormTime.Weapon
                 return;
             }
 
-            KinematicCollision2D collision = MoveAndCollide(_launchVelocity * delta);
-            if (collision != null || _currentBulletTimeLeft <= 0)
+            _collidingBodies = GetCollidingBodies();
+            if (_collidingBodies.Count != 0 || _currentBulletTimeLeft <= 0)
             {
-                if (collision != null)
+                if (_collidingBodies.Count != 0)
                 {
                     SpawnBulletExplosion();
-                    NotifyCollider(collision.Collider);
+                    NotifyCollider((Object)_collidingBodies[0]);
 
                     _currentBulletTimeLeft -= delta * maxCollisionLifeDecrement;
                 }
 
-                if (!IsColliderEnemyAffector(collision?.Collider) || _currentBulletTimeLeft <= 0)
+                if (!IsColliderEnemyAffector((Object)_collidingBodies[0]) || _currentBulletTimeLeft <= 0)
                 {
                     DestroyBullet();
                 }
