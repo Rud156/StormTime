@@ -82,7 +82,7 @@ namespace StormTime.Weapon
 
         #region Particle Effects
 
-        protected void SpawnBulletExplosion()
+        protected virtual void SpawnBulletExplosion()
         {
             Node2D bulletExplosionInstance = (Node2D)bulletExplosionPrefab.Instance();
             GetParent().AddChild(bulletExplosionInstance);
@@ -90,7 +90,7 @@ namespace StormTime.Weapon
             bulletExplosionInstance.SetGlobalPosition(GetGlobalPosition());
         }
 
-        protected void SpawnBulletTrail()
+        protected virtual void SpawnBulletTrail()
         {
             Node2D bulletTrailInstance = (Node2D)bulletTrailPrefab.Instance();
             GetParent().AddChild(bulletTrailInstance);

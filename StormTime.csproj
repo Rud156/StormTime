@@ -69,6 +69,8 @@
     <Compile Include="Scripts\Enemy\Individuals\SlasherEnemy.cs" />
     <Compile Include="Scripts\Enemy\Individuals\SpinnerEnemy.cs" />
     <Compile Include="Scripts\Enemy\Individuals\WheelEnemy.cs" />
+    <Compile Include="Scripts\Extensions\ColorLerper.cs" />
+    <Compile Include="Scripts\Extensions\Rotator.cs" />
     <Compile Include="Scripts\Player\Modifiers\PlayerModifierSoulsManager.cs" />
     <Compile Include="Scripts\Player\Modifiers\PlayerModifierTypes.cs" />
     <Compile Include="Scripts\Player\Shooting\PlayerShooting.cs" />
@@ -89,6 +91,7 @@
     <Compile Include="Scripts\Utils\SceneControls.cs" />
     <Compile Include="Scripts\Utils\TagManager.cs" />
     <Compile Include="Scripts\Utils\VectorHelpers.cs" />
+    <Compile Include="Scripts\Weapon\BossBullet.cs" />
     <Compile Include="Scripts\Weapon\Bullet.cs" />
     <Compile Include="Scripts\Weapon\ChargedBullet.cs" />
     <Compile Include="Scripts\Weapon\EnemyBullet.cs" />
