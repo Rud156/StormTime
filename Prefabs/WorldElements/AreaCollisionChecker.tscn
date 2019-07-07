@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Scripts/Common/AreaCollisionChecker.cs" type="Script" id=1]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 35.0
+
+[node name="Area Collision Checker" type="Area2D"]
+collision_layer = 7
+collision_mask = 7
+script = ExtResource( 1 )
+circleCollisionShapeNodePath = NodePath("Area Collision Shape")
+
+[node name="Area Collision Shape" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )

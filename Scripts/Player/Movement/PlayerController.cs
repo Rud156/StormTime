@@ -192,6 +192,9 @@ namespace StormTime.Player.Movement
             }
         }
 
+        public void TakeExternalDamage(float damageAmount) =>
+            _playerHealthSetter.SubtractHealth(damageAmount);
+
         public void ResetSizeDefaults() => _targetScale = Vector2.One * defaultScaleAmount;
 
         public void HandleSacrificialItemInfluence(PlayerModifierTypes.SacrificialItemInfo sacrificialItemInfo)

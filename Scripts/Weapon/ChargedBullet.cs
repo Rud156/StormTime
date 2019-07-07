@@ -48,7 +48,7 @@ namespace StormTime.Weapon
 
                 if (!IsColliderEnemyAffector((Object)_collidingBodies[0]) || _currentBulletTimeLeft <= 0)
                 {
-                    DestroyBullet();
+                    RemoveBulletFromTree();
                 }
             }
 

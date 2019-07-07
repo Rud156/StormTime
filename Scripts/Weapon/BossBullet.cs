@@ -1,4 +1,6 @@
 using Godot;
+using StormTime.Common;
+using StormTime.Player.Movement;
 
 namespace StormTime.Weapon
 {
@@ -12,22 +14,31 @@ namespace StormTime.Weapon
         private bool _canExplode;
         private bool _hasTrail;
 
-        public override void _Ready()
-        {
-
-        }
+        public override void _Ready() => base._Ready();
 
         public override void _Process(float delta)
         {
-
+            if (_hasTrail)
+            {
+                HandleTrailSpawnAndUpdate(delta);
+            }
         }
 
         public override void _PhysicsProcess(float delta)
         {
             _collidingBodies = GetCollidingBodies();
-            if (_collidingBodies.Count != 0 && !_isBouncyBullet)
+            if (_collidingBodies.Count != 0)
             {
-                
+                if (!_isBouncyBullet)
+                {
+                    HandleBossBulletDestruction();
+                }
+
+                NotifyCollider((Object)_collidingBodies[0]);
+            }
+            else if (_currentBulletTimeLeft <= 0)
+            {
+                HandleBossBulletDestruction();
             }
         }
 
@@ -47,7 +58,7 @@ namespace StormTime.Weapon
 
         #endregion
 
-        #region Overriden Parent
+        #region Overridden Parent
 
         protected override void SpawnBulletExplosion()
         {
@@ -63,6 +74,36 @@ namespace StormTime.Weapon
             {
                 return;
             }
+        }
+
+        #endregion
+
+        #region Utility Functions
+
+        private void HandleBossBulletDestruction()
+        {
+            if (_canExplode)
+            {
+                SpawnBulletExplosion();
+
+                AreaCollisionChecker areaCollisionChecker = AreaCollisionManager.instance.GetAreaCollisionChecker();
+                areaCollisionChecker.MoveShapeToPosition(GetGlobalPosition());
+                areaCollisionChecker.SetCollisionRadius(explosionRadius);
+
+                Godot.Collections.Array overlappingBodies = areaCollisionChecker.GetCollidingObjects();
+                foreach (Object collidingBody in overlappingBodies)
+                {
+                    if (collidingBody is PlayerController)
+                    {
+                        ((PlayerController)collidingBody).TakeExternalDamage(explosionDamageAmount);
+                        break;
+                    }
+                }
+
+                AreaCollisionManager.instance.ReturnCollisionChecker(areaCollisionChecker);
+            }
+
+            RemoveBulletFromTree();
         }
 
         #endregion

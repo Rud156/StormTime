@@ -26,15 +26,7 @@ namespace StormTime.Weapon
             _currentDamageAmount = bulletDamageAmount;
         }
 
-        public override void _Process(float delta)
-        {
-            _currentBulletTrailTimeLeft -= delta;
-            if (_currentBulletTrailTimeLeft <= 0)
-            {
-                SpawnBulletTrail();
-                _currentBulletTrailTimeLeft = bulletTrailTimer;
-            }
-        }
+        public override void _Process(float delta) => HandleTrailSpawnAndUpdate(delta);
 
         public override void _PhysicsProcess(float delta)
         {
@@ -47,7 +39,7 @@ namespace StormTime.Weapon
                     NotifyCollider((Object)_collidingBodies[0]);
                 }
 
-                DestroyBullet();
+                RemoveBulletFromTree();
             }
 
             _currentBulletTimeLeft -= delta;
@@ -73,7 +65,17 @@ namespace StormTime.Weapon
 
         #region Utility Functions
 
-        protected void DestroyBullet() => GetParent().RemoveChild(this);
+        protected void HandleTrailSpawnAndUpdate(float delta)
+        {
+            _currentBulletTrailTimeLeft -= delta;
+            if (_currentBulletTrailTimeLeft <= 0)
+            {
+                SpawnBulletTrail();
+                _currentBulletTrailTimeLeft = bulletTrailTimer;
+            }
+        }
+
+        protected void RemoveBulletFromTree() => GetParent().RemoveChild(this);
 
         #endregion
 
