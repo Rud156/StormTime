@@ -24,7 +24,11 @@ namespace StormTime.Weapon
 
         public override void _PhysicsProcess(float delta)
         {
-
+            _collidingBodies = GetCollidingBodies();
+            if (_collidingBodies.Count != 0 && !_isBouncyBullet)
+            {
+                
+            }
         }
 
         #region External Functions

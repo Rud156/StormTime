@@ -8,12 +8,14 @@
 [ext_resource path="res://Textures/Spiked Circle.png" type="Texture" id=6]
 [ext_resource path="res://Scripts/Extensions/Rotator.cs" type="Script" id=7]
 
-[sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 72.0349, 72.4049 )
+[sub_resource type="CircleShape2D" id=1]
+radius = 74.3495
 
 [node name="Circle Power Bullet" type="RigidBody2D"]
 collision_layer = 4
 collision_mask = 3
+contacts_reported = 1
+contact_monitor = true
 script = ExtResource( 1 )
 bulletTrailPrefab = ExtResource( 2 )
 bulletExplosionPrefab = ExtResource( 3 )
@@ -24,9 +26,6 @@ bulletDamageAmount = 50.0
 bulletSpritePath = NodePath("Jagged Part")
 explosionRadius = 100.0
 explosionDamageAmount = 50.0
-
-[node name="Circle Power Bullet Collision" type="CollisionShape2D" parent="."]
-shape = SubResource( 1 )
 
 [node name="Base Bullet" type="Sprite" parent="."]
 self_modulate = Color( 0.06, 0, 0, 1 )
@@ -41,3 +40,6 @@ scale = Vector2( 0.5, 0.5 )
 texture = ExtResource( 6 )
 script = ExtResource( 7 )
 rotationSpeed = 14.0
+
+[node name="Circle Power Bullet Collision" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
