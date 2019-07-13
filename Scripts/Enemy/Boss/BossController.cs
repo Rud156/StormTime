@@ -40,7 +40,7 @@ namespace StormTime.Enemy.Boss
             SingleArmShot,
             DualArmShot,
             CircleWorldFill,
-            FrenzyCircleShot,
+            FrenzySpinningShot,
             BounceCircleShot,
 
             Dead
@@ -102,7 +102,7 @@ namespace StormTime.Enemy.Boss
                     UpdateCircleWorldFill(delta);
                     break;
 
-                case BossState.FrenzyCircleShot:
+                case BossState.FrenzySpinningShot:
                     UpdateFrenzyCircleShot(delta);
                     break;
 
