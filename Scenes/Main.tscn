@@ -10,8 +10,8 @@
 [ext_resource path="res://Prefabs/WorldElements/Portal.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Prefabs/Interactibles/Player/Player.tscn" type="PackedScene" id=9]
 [ext_resource path="res://Scripts/Player/Shooting/PlayerShooting.cs" type="Script" id=10]
-[ext_resource path="res://Prefabs/Interactibles/Bullets/Bullet.tscn" type="PackedScene" id=11]
-[ext_resource path="res://Prefabs/Interactibles/Bullets/Charged Bullet.tscn" type="PackedScene" id=12]
+[ext_resource path="res://Prefabs/Interactibles/Bullets/Player Bullets/Bullet.tscn" type="PackedScene" id=11]
+[ext_resource path="res://Prefabs/Interactibles/Bullets/Player Bullets/Charged Bullet.tscn" type="PackedScene" id=12]
 [ext_resource path="res://Textures/light.png" type="Texture" id=13]
 [ext_resource path="res://Scripts/Common/HealthSetter.cs" type="Script" id=14]
 [ext_resource path="res://Scripts/Common/HealthDisplay.cs" type="Script" id=15]
@@ -201,7 +201,6 @@ __meta__ = {
 portalCountDisplayLabelNodePath = NodePath("../../../CanvasLayer/GUI/Portal Display Panel/Portal Left Count")
 
 [node name="Player" parent="Game World" instance=ExtResource( 9 )]
-editor/display_folded = true
 position = Vector2( -2270, 2083.6 )
 scaleChangeFrequency = 1.0
 playerShootingNodePath = NodePath("Player Shooter")

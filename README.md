@@ -19,6 +19,7 @@
 - [ ] Boss encounter occurs in a new world which is a desolated and nasty world with bad weather effects
 - [ ] Upon winning the fight player gets to live till the next encounter and the process repeats
 - [X] Player needs to move around it to encounter other groups and NPC(s)
+- [ ] Allow multiple shots per soul
 
 ## Later Ideas:
 - [ ] Player can acquire new gang members by talking to them and thus not killing them

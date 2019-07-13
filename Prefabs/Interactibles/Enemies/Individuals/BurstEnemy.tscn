@@ -3,7 +3,7 @@
 [ext_resource path="res://Scripts/Enemy/Individuals/BurstEnemy.cs" type="Script" id=1]
 [ext_resource path="res://Prefabs/Effects/Enemy Death.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Prefabs/Interactibles/Player/PlayerSoul.tscn" type="PackedScene" id=3]
-[ext_resource path="res://Prefabs/Interactibles/Bullets/Enemy Bullet.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Prefabs/Interactibles/Bullets/Normal Enemy Bullets/Enemy Bullet.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Textures/light.png" type="Texture" id=5]
 [ext_resource path="res://Textures/Circle_Shape_White.png" type="Texture" id=6]
 [ext_resource path="res://Scripts/Common/HealthSetter.cs" type="Script" id=7]

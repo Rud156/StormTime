@@ -1,0 +1,30 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Scripts/Weapon/BossBullet.cs" type="Script" id=1]
+[ext_resource path="res://Prefabs/Effects/Bullet Trail GB.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Prefabs/Effects/Bullet Explosion GB.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Textures/White Pixel.png" type="Texture" id=4]
+[ext_resource path="res://Scripts/Extensions/Rotator.cs" type="Script" id=5]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 11.3499, 11.1773 )
+
+[node name="Shard Bullet" type="RigidBody2D"]
+contacts_reported = 1
+script = ExtResource( 1 )
+bulletTrailPrefab = ExtResource( 2 )
+bulletExplosionPrefab = ExtResource( 3 )
+bulletSpeed = 500.0
+bulletLifeTime = 10.0
+bulletTrailTimer = 0.1
+bulletDamageAmount = 10.0
+bulletSpritePath = NodePath("Shard Sprite")
+
+[node name="Shard Sprite" type="Sprite" parent="."]
+scale = Vector2( 0.7, 0.7 )
+texture = ExtResource( 4 )
+script = ExtResource( 5 )
+rotationSpeed = 2.0
+
+[node name="Shard Collision Shape" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
