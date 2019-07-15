@@ -1,5 +1,7 @@
 using Godot;
 using StormTime.Common;
+using StormTime.Player.Data;
+using StormTime.Utils;
 using StormTime.Weapon;
 
 namespace StormTime.Enemy.Boss
@@ -24,6 +26,7 @@ namespace StormTime.Enemy.Boss
         [Export] public float multiShotCircleAttackAngleDiff;
         [Export] public float timeBetweenSimpleAttacks;
         [Export] public float timeBetweenChargedAttacks;
+        [Export] public float chargedAttackIncreaseRate;
 
         public delegate void ArmStatusChanged(ArmStatus armStatus);
 
@@ -34,6 +37,8 @@ namespace StormTime.Enemy.Boss
         private Node2D _firstArmAttackPosition;
         private Node2D _secondArmAttackPosition;
         private Node2D _dualArmAttackPosition;
+
+        private BossBullet _chargedBullet;
 
         public struct ArmStatus
         {
@@ -155,14 +160,18 @@ namespace StormTime.Enemy.Boss
             _attackTimer -= delta;
             if (_attackTimer <= 0)
             {
+                LaunchChargedAttack();
                 SetArmAttackState(ArmAttackState.IdleState);
             }
 
             _attackVariable_2 -= delta;
+            UpdateChargedAttack(delta);
+
             if (_attackVariable_2 <= 0)
             {
                 _attackVariable_2 = timeBetweenChargedAttacks;
                 LaunchChargedAttack();
+                CreateChargedAttack();
             }
         }
 
@@ -203,16 +212,56 @@ namespace StormTime.Enemy.Boss
             BossBullet bulletInstance = (BossBullet)simpleBulletPrefab.Instance();
             GetParent().GetParent().AddChild(bulletInstance);
 
-            bulletInstance.SetGlobalPosition(_firstArmAttackPosition.GetGlobalPosition());
+            bulletInstance.SetGlobalPosition(attackPosition);
             bulletInstance.LaunchBullet(launchVelocity);
 
             _attackVariable_1 += multiShotCircleAttackAngleDiff;
+            _attackVariable_1 = ExtensionFunctions.To360Angle(_attackVariable_1);
+        }
+
+        #region Charged Bullet
+
+        private void CreateChargedAttack()
+        {
+            _chargedBullet = (BossBullet)chargedBulletPrefab.Instance();
+            _chargedBullet.SetMode(RigidBody2D.ModeEnum.Kinematic);
+            AddChild(_chargedBullet);
+        }
+
+        private void UpdateChargedAttack(float delta)
+        {
+            _attackVariable_1 += delta * chargedAttackIncreaseRate;
+            _chargedBullet.SetGlobalScale(Vector2.One * _attackVariable_1);
         }
 
         private void LaunchChargedAttack()
         {
+            if (_chargedBullet == null)
+            {
+                return;
+            }
 
+            Vector2 launchPosition = _dualArmAttackPosition.GetGlobalPosition();
+            float launchAngle = Mathf.Atan2(
+                launchPosition.x - PlayerVariables.LastPlayerPosition.x,
+                launchPosition.y - PlayerVariables.LastPlayerPosition.y
+            );
+
+            float xVelocity = Mathf.Cos(launchAngle);
+            float yVelocity = Mathf.Sin(launchAngle);
+            Vector2 launchVelocity = new Vector2(xVelocity, yVelocity);
+
+            RemoveChild(_chargedBullet);
+            GetParent().GetParent().AddChild(_chargedBullet);
+
+            _chargedBullet.SetMode(RigidBody2D.ModeEnum.Rigid);
+            _chargedBullet.LaunchBullet(launchVelocity);
+
+            _attackVariable_1 = 0;
+            _chargedBullet = null;
         }
+
+        #endregion
 
         private void HandleFirstArmHealthChange(float currentHealth, float maxHealth)
         {

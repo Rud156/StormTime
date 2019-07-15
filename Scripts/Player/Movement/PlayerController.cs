@@ -168,7 +168,8 @@ namespace StormTime.Player.Movement
             _targetScale = Vector2.One * scaleAmount;
         }
 
-        private void LerpPlayerToPosition(float delta) => SetGlobalPosition(GetGlobalPosition().LinearInterpolate(_lerpPosition, lerpVelocity * delta));
+        private void LerpPlayerToPosition(float delta) =>
+            SetGlobalPosition(GetGlobalPosition().LinearInterpolate(_lerpPosition, lerpVelocity * delta));
 
         #endregion
 

@@ -86,7 +86,7 @@ namespace StormTime.Player.Shooting
             {
                 {WeaponType.SingleShot, new WeaponState() {weaponType = WeaponType.SingleShot, isUnlocked = true}},
                 {WeaponType.Shotgun, new WeaponState() {weaponType = WeaponType.Shotgun, isUnlocked = false}},
-                {WeaponType.ChargeGun, new WeaponState() {weaponType = WeaponType.ChargeGun, isUnlocked = false}}
+                {WeaponType.ChargeGun, new WeaponState() {weaponType = WeaponType.ChargeGun, isUnlocked = true}}
             };
         }
 
@@ -153,6 +153,7 @@ namespace StormTime.Player.Shooting
 
                         _chargedShotBullet.SetGlobalPosition(_playerChargedShotShootingPosition.GetGlobalPosition());
                         _chargedShotBullet.SetAsStaticBullet();
+                        _chargedShotBullet.SetMode(RigidBody2D.ModeEnum.Kinematic);
                     }
 
                     break;
@@ -271,9 +272,12 @@ namespace StormTime.Player.Shooting
 
             float currentRotation = _playerRoot.GetRotation();
             _chargedShotBullet.SetGlobalRotation(currentRotation);
+
+            _chargedShotBullet.SetAsDynamicBullet();
+            _chargedShotBullet.SetMode(RigidBody2D.ModeEnum.Rigid);
+
             float xVelocity = Mathf.Cos(currentRotation);
             float yVelocity = Mathf.Sin(currentRotation);
-            _chargedShotBullet.SetAsDynamicBullet();
             _chargedShotBullet.LaunchBullet(new Vector2(xVelocity, yVelocity));
 
             _chargedShotBullet = null;

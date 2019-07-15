@@ -192,6 +192,7 @@ position = Vector2( 251.291, -1110.76 )
 maxEnemyDangerLevel = 8
 
 [node name="Portal Holder" type="Node2D" parent="Game World"]
+editor/display_folded = true
 position = Vector2( 3000, 1682.44 )
 __meta__ = {
 "_edit_group_": true
@@ -201,6 +202,7 @@ __meta__ = {
 portalCountDisplayLabelNodePath = NodePath("../../../CanvasLayer/GUI/Portal Display Panel/Portal Left Count")
 
 [node name="Player" parent="Game World" instance=ExtResource( 9 )]
+editor/display_folded = true
 position = Vector2( -2270, 2083.6 )
 scaleChangeFrequency = 1.0
 playerShootingNodePath = NodePath("Player Shooter")

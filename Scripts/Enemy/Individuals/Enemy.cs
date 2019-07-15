@@ -6,6 +6,7 @@ using StormTime.Enemy.Groups;
 using StormTime.Common;
 using StormTime.Effects;
 using StormTime.Weapon;
+using System;
 
 namespace StormTime.Enemy.Individuals
 {
@@ -144,6 +145,9 @@ namespace StormTime.Enemy.Individuals
                 case EnemyState.Frozen:
                     UpdateFrozenEnemy(delta);
                     break;
+
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
         }
 

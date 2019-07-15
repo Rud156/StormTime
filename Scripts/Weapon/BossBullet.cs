@@ -90,8 +90,8 @@ namespace StormTime.Weapon
                 areaCollisionChecker.MoveShapeToPosition(GetGlobalPosition());
                 areaCollisionChecker.SetCollisionRadius(explosionRadius);
 
-                Godot.Collections.Array overlappingBodies = areaCollisionChecker.GetCollidingObjects();
-                foreach (Object collidingBody in overlappingBodies)
+                _collidingBodies = areaCollisionChecker.GetCollidingObjects();
+                foreach (Object collidingBody in _collidingBodies)
                 {
                     if (collidingBody is PlayerController)
                     {

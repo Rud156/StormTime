@@ -1,5 +1,6 @@
 using System;
 using Godot;
+using StormTime.Common;
 
 namespace StormTime.Enemy.Boss
 {
@@ -11,6 +12,11 @@ namespace StormTime.Enemy.Boss
         [Export] public NodePath rightArmNodePath;
         [Export] public NodePath topArmNodePath;
         [Export] public NodePath bottomArmNodePath;
+
+        // General Stats
+        [Export] public float idleSwitchTimer;
+        [Export] public float frenzyAttackChancePercent;
+        [Export] public float frenzyAttackHealthPercent;
 
         // Attack Timers
         [Export] public float innerCircleShotTimer;
@@ -40,8 +46,8 @@ namespace StormTime.Enemy.Boss
             SingleArmShot,
             DualArmShot,
             CircleWorldFill,
-            FrenzySpinningShot,
             BounceCircleShot,
+            FrenzySpinningShot,
 
             Dead
         }
@@ -49,6 +55,8 @@ namespace StormTime.Enemy.Boss
         private BossState _currentBossState;
         private float _bossTimer;
         private int _bossStateCounter;
+
+        private HealthSetter _bossTotalHealthSetter;
 
         public override void _Ready()
         {
@@ -107,7 +115,7 @@ namespace StormTime.Enemy.Boss
                     break;
 
                 case BossState.BounceCircleShot:
-                    UpdateCircleWorldFill(delta);
+                    UpdateBounceCircleShot(delta);
                     break;
 
                 case BossState.Dead:
@@ -123,7 +131,11 @@ namespace StormTime.Enemy.Boss
 
         private void UpdateIdleState(float delta)
         {
-
+            _bossTimer -= delta;
+            if (_bossTimer <= 0)
+            {
+                SetBossState(GetRandomAttack());
+            }
         }
 
         private void UpdateInnerCircleShot(float delta)
@@ -190,6 +202,31 @@ namespace StormTime.Enemy.Boss
 
         }
 
+        private BossState GetRandomAttack()
+        {
+            if (_currentBossState == BossState.Dead)
+            {
+                return BossState.Dead;
+            }
+
+            float frenzyAttackChance = (float)GD.Randf();
+            float currentHealth = _bossTotalHealthSetter.GetCurrentHealth();
+
+            if (frenzyAttackChance <= frenzyAttackChancePercent &&
+                currentHealth <= frenzyAttackHealthPercent)
+            {
+                return BossState.FrenzySpinningShot;
+            }
+
+            float randomNumber = (float)GD.Randf();
+            if (randomNumber >= 1)
+            {
+                randomNumber -= 0.01f;
+            }
+
+            return (BossState)(Mathf.FloorToInt(randomNumber * 5) + 1);
+        }
+
         private void SetBossState(BossState bossState)
         {
             if (bossState == _currentBossState)
@@ -198,6 +235,42 @@ namespace StormTime.Enemy.Boss
             }
 
             _currentBossState = bossState;
+            switch (_currentBossState)
+            {
+                case BossState.Idle:
+                    _bossTimer = idleSwitchTimer;
+                    break;
+
+                case BossState.InnerCircleShot:
+                    _bossTimer = innerCircleShotTimer;
+                    break;
+
+                case BossState.SingleArmShot:
+                    _bossTimer = singleArmShotTimer;
+                    break;
+
+                case BossState.DualArmShot:
+                    _bossTimer = dualArmShotTimer;
+                    break;
+
+                case BossState.CircleWorldFill:
+                    _bossTimer = circleWorldFillTimer;
+                    break;
+
+                case BossState.BounceCircleShot:
+                    _bossTimer = bounceCircleShotTimer;
+                    break;
+
+                case BossState.FrenzySpinningShot:
+                    _bossTimer = frenzyCircleShotTimer;
+                    break;
+
+                case BossState.Dead:
+                    break;
+
+                default:
+                    throw new ArgumentException();
+            }
         }
 
         #endregion

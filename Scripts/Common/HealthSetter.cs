@@ -59,6 +59,12 @@ namespace StormTime.Common
 
         public float GetCurrentHealth() => _currentHealth;
 
+        public void ForceSetCurrentHealth(float amount)
+        {
+            _currentHealth = amount;
+            HandleHealthChange();
+        }
+
         public float GetMaxHealth() => _maxHealth;
 
         #endregion
