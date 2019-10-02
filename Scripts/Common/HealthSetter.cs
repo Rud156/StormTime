@@ -22,7 +22,7 @@ namespace StormTime.Common
             _maxHealth = maxHealth;
             _currentHealth = maxHealth;
 
-            HandleHealthChange();
+            HandleHealthChange(false);
         }
 
         #region External Functions
@@ -54,7 +54,7 @@ namespace StormTime.Common
                 _currentHealth = _maxHealth;
             }
 
-            HandleHealthChange();
+            HandleHealthChange(false);
         }
 
         public float GetCurrentHealth() => _currentHealth;
@@ -71,11 +71,11 @@ namespace StormTime.Common
 
         #region Utility Functions
 
-        private void HandleHealthChange()
+        private void HandleHealthChange(bool fireZeroHealthEvent = true)
         {
             healthChanged?.Invoke(_currentHealth, _maxHealth);
 
-            if (_currentHealth <= 0 && !_zeroHealthEventFired)
+            if (fireZeroHealthEvent && _currentHealth <= 0 && !_zeroHealthEventFired)
             {
                 zeroHealth?.Invoke();
                 _zeroHealthEventFired = true;

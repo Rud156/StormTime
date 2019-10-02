@@ -29,7 +29,6 @@ namespace StormTime.Enemy.Boss
         [Export] public float chargedAttackIncreaseRate;
 
         public delegate void ArmStatusChanged(ArmStatus armStatus);
-
         public ArmStatusChanged armStatusChanged;
 
         private HealthSetter _firstArmHealthSetter;
@@ -47,6 +46,9 @@ namespace StormTime.Enemy.Boss
 
             public float firstArmHealth;
             public float secondArmHealth;
+
+            public float firstArmMaxHealth;
+            public float secondArmMaxHealth;
         }
 
         private ArmStatus _armStatus;
@@ -64,7 +66,6 @@ namespace StormTime.Enemy.Boss
 
         private float _attackVariable_1; // Used for multiple things such as charge and rotation etc...
         private float _attackVariable_2; // Used for multiple things such as charge and rotation etc...
-        private Object _attackIndicator;
 
         public override void _Ready()
         {
@@ -266,6 +267,7 @@ namespace StormTime.Enemy.Boss
         private void HandleFirstArmHealthChange(float currentHealth, float maxHealth)
         {
             _armStatus.firstArmHealth = currentHealth;
+            _armStatus.firstArmMaxHealth = maxHealth;
 
             if (currentHealth <= 0)
             {
@@ -278,6 +280,7 @@ namespace StormTime.Enemy.Boss
         private void HandleSecondArmHealthChange(float currentHealth, float maxHealth)
         {
             _armStatus.secondArmHealth = currentHealth;
+            _armStatus.secondArmMaxHealth = maxHealth;
 
             if (currentHealth <= 0)
             {

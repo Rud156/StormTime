@@ -32,6 +32,9 @@ namespace StormTime.Enemy.Boss
         [Export] public float bounceCircleShotTimer;
         [Export] public int bounceCircleShotCount;
 
+        public delegate void BossDead();
+        public BossDead onBossDead;
+
         private BossBodyController _bodyController;
         private BossArmController _leftArmController;
         private BossArmController _rightArmController;
@@ -54,8 +57,14 @@ namespace StormTime.Enemy.Boss
 
         private BossState _currentBossState;
         private float _bossTimer;
-        private int _bossStateCounter;
 
+        private struct BossHealthBodyStatus
+        {
+            public bool doubleArmAvailable;
+            public bool singleArmAvailable;
+        }
+
+        private BossHealthBodyStatus _bossHealthBodyStatus;
         private HealthSetter _bossTotalHealthSetter;
 
         public override void _Ready()
@@ -72,6 +81,12 @@ namespace StormTime.Enemy.Boss
             _rightArmController.armStatusChanged += HandleRightArmStatusChanged;
             _topArmController.armStatusChanged += HandleTopArmStatusChanged;
             _bottomArmController.armStatusChanged += HandleBottomArmStatusChanged;
+
+            SetBossMaxHealth();
+            ComputeTotalBossHealth();
+
+            _bossHealthBodyStatus = new BossHealthBodyStatus();
+            SetBossHealthBodyStatus();
 
             SetBossState(BossState.Idle);
         }
@@ -179,26 +194,102 @@ namespace StormTime.Enemy.Boss
 
         private void HandleLeftArmStatusChanged(BossArmController.ArmStatus armStatus)
         {
-
+            ComputeTotalBossHealth();
+            ComputeArmExistenceStatus();
         }
 
         private void HandleRightArmStatusChanged(BossArmController.ArmStatus armStatus)
         {
-
+            ComputeTotalBossHealth();
+            ComputeArmExistenceStatus();
         }
 
         private void HandleTopArmStatusChanged(BossArmController.ArmStatus armStatus)
         {
-
+            ComputeTotalBossHealth();
+            ComputeArmExistenceStatus();
         }
 
         private void HandleBottomArmStatusChanged(BossArmController.ArmStatus armStatus)
         {
-
+            ComputeTotalBossHealth();
+            ComputeArmExistenceStatus();
         }
 
         private void HandleBodyStatusChanged(BossBodyController.BodyStatus bodyStatus)
         {
+            ComputeTotalBossHealth();
+
+            // If the body is not there, there is nothing the Boss can do
+            if (bodyStatus.bodyDestroyed)
+            {
+                DestroyBoss();
+            }
+        }
+
+        private void DestroyBoss()
+        {
+            // TODO: Also do something else like effects and other things
+
+            onBossDead?.Invoke();
+            SetBossState(BossState.Dead);
+        }
+
+        private void ComputeTotalBossHealth()
+        {
+            BossArmController.ArmStatus leftArmStatus = _leftArmController.GetArmStatus();
+            BossArmController.ArmStatus rightArmStatus = _rightArmController.GetArmStatus();
+            BossArmController.ArmStatus topArmStatus = _topArmController.GetArmStatus();
+            BossArmController.ArmStatus bottomArmStatus = _bottomArmController.GetArmStatus();
+
+            BossBodyController.BodyStatus bodyStatus = _bodyController.GetBodyStatus();
+
+            float totalHealth = leftArmStatus.firstArmHealth + leftArmStatus.secondArmHealth;
+            totalHealth += (rightArmStatus.firstArmHealth + rightArmStatus.secondArmHealth);
+            totalHealth += (topArmStatus.firstArmHealth + topArmStatus.secondArmHealth);
+            totalHealth += (bottomArmStatus.firstArmHealth + bottomArmStatus.secondArmHealth);
+            totalHealth += bodyStatus.bodyHealth;
+
+            _bossTotalHealthSetter.ForceSetCurrentHealth(totalHealth);
+        }
+
+        private void ComputeArmExistenceStatus()
+        {
+            BossArmController.ArmStatus leftArmStatus = _leftArmController.GetArmStatus();
+            BossArmController.ArmStatus rightArmStatus = _rightArmController.GetArmStatus();
+            BossArmController.ArmStatus topArmStatus = _topArmController.GetArmStatus();
+            BossArmController.ArmStatus bottomArmStatus = _bottomArmController.GetArmStatus();
+
+            bool hasDoubleArm = (leftArmStatus.firstArmAlive && leftArmStatus.secondArmAlive) ||
+                                (rightArmStatus.firstArmAlive && rightArmStatus.secondArmAlive) ||
+                                (topArmStatus.firstArmAlive && topArmStatus.secondArmAlive) ||
+                                (bottomArmStatus.firstArmAlive && bottomArmStatus.secondArmAlive);
+
+            bool hasSingleArm = hasDoubleArm ||
+                                (leftArmStatus.firstArmAlive || leftArmStatus.secondArmAlive) ||
+                                (rightArmStatus.firstArmAlive || rightArmStatus.secondArmAlive) ||
+                                (topArmStatus.firstArmAlive || topArmStatus.secondArmAlive) ||
+                                (bottomArmStatus.firstArmAlive || bottomArmStatus.secondArmAlive);
+
+            SetBossHealthBodyStatus(hasDoubleArm, hasSingleArm);
+        }
+
+        private void SetBossMaxHealth()
+        {
+            BossArmController.ArmStatus leftArmStatus = _leftArmController.GetArmStatus();
+            BossArmController.ArmStatus rightArmStatus = _rightArmController.GetArmStatus();
+            BossArmController.ArmStatus topArmStatus = _topArmController.GetArmStatus();
+            BossArmController.ArmStatus bottomArmStatus = _bottomArmController.GetArmStatus();
+
+            BossBodyController.BodyStatus bodyStatus = _bodyController.GetBodyStatus();
+
+            float totalMaxHealth = leftArmStatus.firstArmMaxHealth + leftArmStatus.secondArmMaxHealth;
+            totalMaxHealth += (rightArmStatus.firstArmMaxHealth + rightArmStatus.secondArmMaxHealth);
+            totalMaxHealth += (topArmStatus.firstArmMaxHealth + topArmStatus.secondArmMaxHealth);
+            totalMaxHealth += (bottomArmStatus.firstArmMaxHealth + bottomArmStatus.secondArmMaxHealth);
+            totalMaxHealth += bodyStatus.bodyMaxHealth;
+
+            _bossTotalHealthSetter.SetMaxHealth(totalMaxHealth);
 
         }
 
@@ -221,10 +312,36 @@ namespace StormTime.Enemy.Boss
             float randomNumber = (float)GD.Randf();
             if (randomNumber >= 1)
             {
-                randomNumber -= 0.01f;
+                randomNumber -= 0.01f; // This is done so as to not select the last Enum (Dead State)
             }
 
-            return (BossState)(Mathf.FloorToInt(randomNumber * 5) + 1);
+            BossState bossState = (BossState)(Mathf.FloorToInt(randomNumber * 5) + 1); // This removes the first Enum (Idle State)
+
+            // This removes double arm attack in case it is selected and 
+            // the boss does not have any double arms left
+            while (bossState == BossState.DualArmShot && !_bossHealthBodyStatus.doubleArmAvailable)
+            {
+                randomNumber = (float)GD.Randf();
+                if (randomNumber >= 1)
+                {
+                    randomNumber -= 0.01f;
+                }
+                bossState = (BossState)(Mathf.FloorToInt(randomNumber * 5) + 1);
+            }
+
+            // This removes single arm attack in case it is selected and 
+            // the boss does not have any arms left
+            while (bossState == BossState.SingleArmShot && !_bossHealthBodyStatus.singleArmAvailable)
+            {
+                randomNumber = (float)GD.Randf();
+                if (randomNumber >= 1)
+                {
+                    randomNumber -= 0.01f;
+                }
+                bossState = (BossState)(Mathf.FloorToInt(randomNumber * 5) + 1);
+            }
+
+            return bossState;
         }
 
         private void SetBossState(BossState bossState)
@@ -271,6 +388,12 @@ namespace StormTime.Enemy.Boss
                 default:
                     throw new ArgumentException();
             }
+        }
+
+        private void SetBossHealthBodyStatus(bool doubleArmAvailable = true, bool singleArmAvailable = true)
+        {
+            _bossHealthBodyStatus.singleArmAvailable = singleArmAvailable;
+            _bossHealthBodyStatus.doubleArmAvailable = doubleArmAvailable;
         }
 
         #endregion

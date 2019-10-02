@@ -27,6 +27,7 @@ namespace StormTime.Enemy.Boss
         {
             public bool bodyDestroyed;
             public float bodyHealth;
+            public float bodyMaxHealth;
         }
 
         private BodyStatus _bodyStatus;
@@ -57,6 +58,7 @@ namespace StormTime.Enemy.Boss
         private void HandleBodyHealthChanged(float currentHealth, float maxHealth)
         {
             _bodyStatus.bodyHealth = currentHealth;
+            _bodyStatus.bodyMaxHealth = maxHealth;
 
             if (currentHealth <= 0)
             {
@@ -91,6 +93,8 @@ namespace StormTime.Enemy.Boss
         {
 
         }
+
+        public BodyStatus GetBodyStatus() => _bodyStatus;
 
         #endregion
     }
