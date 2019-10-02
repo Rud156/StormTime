@@ -16,6 +16,7 @@ namespace StormTime.Enemy.Groups
         /// 1. Burst Enemy
         /// 2. Spinner Enemy
         /// 3. Slasher Enemy
+        /// 4. Wheel Enemy
         /// </summary>
         [Export] public Godot.Collections.Array<PackedScene> enemyTypes;
         [Export] public int[] enemyDangerValues;

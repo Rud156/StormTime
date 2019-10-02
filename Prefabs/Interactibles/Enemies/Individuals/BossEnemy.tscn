@@ -85,6 +85,7 @@ position = Vector2( 24, 6.5 )
 position = Vector2( 25, 0 )
 
 [node name="Top Arm" type="Node2D" parent="."]
+editor/display_folded = true
 position = Vector2( 0, -78 )
 script = ExtResource( 2 )
 firstArmNodePath = NodePath("Left Part")
@@ -118,6 +119,7 @@ position = Vector2( 31, -95 )
 position = Vector2( 0, -100 )
 
 [node name="Bottom Arm" type="Node2D" parent="."]
+editor/display_folded = true
 position = Vector2( 0, 78 )
 script = ExtResource( 2 )
 firstArmNodePath = NodePath("Left Part")
@@ -171,3 +173,5 @@ position = Vector2( 60, -37 )
 
 [node name="Body Attack Point 3" type="Node2D" parent="Body"]
 position = Vector2( 0, 36 )
+
+[node name="Boss Attacks" type="Node" parent="."]

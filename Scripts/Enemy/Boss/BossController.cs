@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Godot;
 using StormTime.Common;
 
@@ -17,20 +18,14 @@ namespace StormTime.Enemy.Boss
         [Export] public float idleSwitchTimer;
         [Export] public float frenzyAttackChancePercent;
         [Export] public float frenzyAttackHealthPercent;
+        [Export] public NodePath frenzyAttackNodePath;
+        [Export] public Godot.Collections.Array<NodePath> bossAttacks;
 
         // Attack Timers
-        [Export] public float innerCircleShotTimer;
-        [Export] public int innerCircleShotCount;
         [Export] public float singleArmShotTimer;
         [Export] public int singleArmShotCount;
         [Export] public float dualArmShotTimer;
         [Export] public int dualArmShotCount;
-        [Export] public float circleWorldFillTimer;
-        [Export] public int circleWorldFillCount;
-        [Export] public float frenzyCircleShotTimer;
-        [Export] public int frenzyCircleShotCount;
-        [Export] public float bounceCircleShotTimer;
-        [Export] public int bounceCircleShotCount;
 
         public delegate void BossDead();
         public BossDead onBossDead;
@@ -45,11 +40,9 @@ namespace StormTime.Enemy.Boss
         {
             Idle,
 
-            InnerCircleShot,
             SingleArmShot,
             DualArmShot,
-            CircleWorldFill,
-            BounceCircleShot,
+            AbilityAttack,
             FrenzySpinningShot,
 
             Dead
@@ -57,6 +50,10 @@ namespace StormTime.Enemy.Boss
 
         private BossState _currentBossState;
         private float _bossTimer;
+        private int _abilityAttackIndex;
+
+        private FrenzySpinningShot _frenzySpinningShotAttack;
+        private List<BossBaseAttack> _bossAttacks;
 
         private struct BossHealthBodyStatus
         {
@@ -81,6 +78,13 @@ namespace StormTime.Enemy.Boss
             _rightArmController.armStatusChanged += HandleRightArmStatusChanged;
             _topArmController.armStatusChanged += HandleTopArmStatusChanged;
             _bottomArmController.armStatusChanged += HandleBottomArmStatusChanged;
+
+            _frenzySpinningShotAttack = GetNode<FrenzySpinningShot>(frenzyAttackNodePath);
+            _bossAttacks = new List<BossBaseAttack>();
+            for (int i = 0; i < bossAttacks.Count; i++)
+            {
+                _bossAttacks.Add(GetNode<BossBaseAttack>(bossAttacks[i]));
+            }
 
             SetBossMaxHealth();
             ComputeTotalBossHealth();
@@ -109,10 +113,6 @@ namespace StormTime.Enemy.Boss
                     UpdateIdleState(delta);
                     break;
 
-                case BossState.InnerCircleShot:
-                    UpdateInnerCircleShot(delta);
-                    break;
-
                 case BossState.SingleArmShot:
                     UpdateSingleArmShot(delta);
                     break;
@@ -121,16 +121,12 @@ namespace StormTime.Enemy.Boss
                     UpdateDualArmShot(delta);
                     break;
 
-                case BossState.CircleWorldFill:
-                    UpdateCircleWorldFill(delta);
+                case BossState.AbilityAttack:
+                    UpdateAbilityAttack(delta);
                     break;
 
                 case BossState.FrenzySpinningShot:
-                    UpdateFrenzyCircleShot(delta);
-                    break;
-
-                case BossState.BounceCircleShot:
-                    UpdateBounceCircleShot(delta);
+                    UpdateFrenzySpinningShot(delta);
                     break;
 
                 case BossState.Dead:
@@ -153,39 +149,45 @@ namespace StormTime.Enemy.Boss
             }
         }
 
-        private void UpdateInnerCircleShot(float delta)
-        {
-
-        }
-
         private void UpdateSingleArmShot(float delta)
         {
-
+            _bossTimer -= delta;
+            if (_bossTimer <= 0)
+            {
+                SetBossState(GetRandomAttack());
+            }
         }
 
         private void UpdateDualArmShot(float delta)
         {
-
+            _bossTimer -= delta;
+            if (_bossTimer <= 0)
+            {
+                SetBossState(GetRandomAttack());
+            }
         }
 
-        private void UpdateCircleWorldFill(float delta)
+        private void UpdateFrenzySpinningShot(float delta)
         {
-
+            bool frenzyAttackUpdate = _frenzySpinningShotAttack.Update(delta);
+            if (frenzyAttackUpdate)
+            {
+                SetBossState(GetRandomAttack());
+            }
         }
 
-        private void UpdateFrenzyCircleShot(float delta)
+        private void UpdateAbilityAttack(float delta)
         {
-
-        }
-
-        private void UpdateBounceCircleShot(float delta)
-        {
-
+            bool abilityAttackUpdate = _bossAttacks[_abilityAttackIndex].Update(delta);
+            if (abilityAttackUpdate)
+            {
+                SetBossState(GetRandomAttack());
+            }
         }
 
         private void UpdateDeadState(float delta)
         {
-
+            // TODO: Do something here...
         }
 
         #endregion
@@ -315,7 +317,7 @@ namespace StormTime.Enemy.Boss
                 randomNumber -= 0.01f; // This is done so as to not select the last Enum (Dead State)
             }
 
-            BossState bossState = (BossState)(Mathf.FloorToInt(randomNumber * 5) + 1); // This removes the first Enum (Idle State)
+            BossState bossState = (BossState)(Mathf.FloorToInt(randomNumber * 3) + 1); // This removes the first Enum (Idle State)
 
             // This removes double arm attack in case it is selected and 
             // the boss does not have any double arms left
@@ -326,7 +328,7 @@ namespace StormTime.Enemy.Boss
                 {
                     randomNumber -= 0.01f;
                 }
-                bossState = (BossState)(Mathf.FloorToInt(randomNumber * 5) + 1);
+                bossState = (BossState)(Mathf.FloorToInt(randomNumber * 3) + 1);
             }
 
             // This removes single arm attack in case it is selected and 
@@ -338,7 +340,12 @@ namespace StormTime.Enemy.Boss
                 {
                     randomNumber -= 0.01f;
                 }
-                bossState = (BossState)(Mathf.FloorToInt(randomNumber * 5) + 1);
+                bossState = (BossState)(Mathf.FloorToInt(randomNumber * 3) + 1);
+            }
+
+            if (bossState == BossState.AbilityAttack)
+            {
+                _abilityAttackIndex = ((int)GD.Randi() % _bossAttacks.Count) - 1; // Select a random ability in case ability attack is selected
             }
 
             return bossState;
@@ -358,10 +365,6 @@ namespace StormTime.Enemy.Boss
                     _bossTimer = idleSwitchTimer;
                     break;
 
-                case BossState.InnerCircleShot:
-                    _bossTimer = innerCircleShotTimer;
-                    break;
-
                 case BossState.SingleArmShot:
                     _bossTimer = singleArmShotTimer;
                     break;
@@ -370,16 +373,8 @@ namespace StormTime.Enemy.Boss
                     _bossTimer = dualArmShotTimer;
                     break;
 
-                case BossState.CircleWorldFill:
-                    _bossTimer = circleWorldFillTimer;
-                    break;
-
-                case BossState.BounceCircleShot:
-                    _bossTimer = bounceCircleShotTimer;
-                    break;
-
                 case BossState.FrenzySpinningShot:
-                    _bossTimer = frenzyCircleShotTimer;
+                    // Don't do anything here as the base attack handles the return state
                     break;
 
                 case BossState.Dead:
