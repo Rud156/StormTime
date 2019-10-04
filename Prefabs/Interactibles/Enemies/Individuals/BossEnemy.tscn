@@ -202,6 +202,9 @@ bossArmControllerNodePaths = [ NodePath("../../Left Arm"), NodePath("../../Right
 
 [node name="Dual Arm Attack" type="Node" parent="Boss Attacks"]
 script = ExtResource( 9 )
+attackTimer = 14.0
+dualArmAttackCount = 2.0
+bossArmControllerNodePaths = [ NodePath("../../Left Arm"), NodePath("../../Right Arm"), NodePath("../../Top Arm"), NodePath("../../Bottom Arm") ]
 
 [node name="Fenzy Spinning Shot Attack" type="Node" parent="Boss Attacks"]
 script = ExtResource( 10 )

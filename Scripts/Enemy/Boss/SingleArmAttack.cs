@@ -24,6 +24,8 @@ namespace StormTime.Enemy.Boss
             _timeBetweenEachAttack = attackTimer / singleArmAttackCount;
         }
 
+        #region Overridden Parent
+
         public override bool UpdateAttack(float delta)
         {
             _currentAttackTimer -= delta;
@@ -43,6 +45,8 @@ namespace StormTime.Enemy.Boss
             LaunchRandomArmAttack();
             _currentAttackTimer = _timeBetweenEachAttack;
         }
+
+        #endregion
 
         #region Utility Functions
 
