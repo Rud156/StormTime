@@ -13,11 +13,14 @@ namespace StormTime.Enemy.Boss
         [Export] public NodePath rightArmNodePath;
         [Export] public NodePath topArmNodePath;
         [Export] public NodePath bottomArmNodePath;
+        [Export] public NodePath bossBodyHealthSetterNodePath;
 
         // General Stats
         [Export] public float idleSwitchTimer;
         [Export] public float frenzyAttackChancePercent;
         [Export] public float frenzyAttackHealthPercent;
+        [Export] public NodePath singleArmAttackNodePath;
+        [Export] public NodePath dualArmAttackNodePath;
         [Export] public NodePath frenzyAttackNodePath;
         [Export] public Godot.Collections.Array<NodePath> bossAttacks;
 
@@ -52,6 +55,8 @@ namespace StormTime.Enemy.Boss
         private float _bossTimer;
         private int _abilityAttackIndex;
 
+        private SingleArmAttack _singleArmAttack;
+        private DoubleArmAttack _dualArmAttack;
         private FrenzySpinningShot _frenzySpinningShotAttack;
         private List<BossBaseAttack> _bossAttacks;
 
@@ -74,12 +79,16 @@ namespace StormTime.Enemy.Boss
             _topArmController = GetNode<BossArmController>(topArmNodePath);
             _bottomArmController = GetNode<BossArmController>(bottomArmNodePath);
 
-            _leftArmController.armStatusChanged += HandleLeftArmStatusChanged;
-            _rightArmController.armStatusChanged += HandleRightArmStatusChanged;
-            _topArmController.armStatusChanged += HandleTopArmStatusChanged;
-            _bottomArmController.armStatusChanged += HandleBottomArmStatusChanged;
+            _bossTotalHealthSetter = GetNode<HealthSetter>(bossBodyHealthSetterNodePath);
+
+            _leftArmController.armStatusChanged += HandleArmStatusChanged;
+            _rightArmController.armStatusChanged += HandleArmStatusChanged;
+            _topArmController.armStatusChanged += HandleArmStatusChanged;
+            _bottomArmController.armStatusChanged += HandleArmStatusChanged;
 
             _frenzySpinningShotAttack = GetNode<FrenzySpinningShot>(frenzyAttackNodePath);
+            _singleArmAttack = GetNode<SingleArmAttack>(singleArmAttackNodePath);
+            _dualArmAttack = GetNode<DoubleArmAttack>(dualArmAttackNodePath);
             _bossAttacks = new List<BossBaseAttack>();
             for (int i = 0; i < bossAttacks.Count; i++)
             {
@@ -99,10 +108,10 @@ namespace StormTime.Enemy.Boss
         {
             _bodyController.bodyStatusChanged -= HandleBodyStatusChanged;
 
-            _leftArmController.armStatusChanged -= HandleLeftArmStatusChanged;
-            _rightArmController.armStatusChanged -= HandleRightArmStatusChanged;
-            _topArmController.armStatusChanged -= HandleTopArmStatusChanged;
-            _bottomArmController.armStatusChanged -= HandleBottomArmStatusChanged;
+            _leftArmController.armStatusChanged -= HandleArmStatusChanged;
+            _rightArmController.armStatusChanged -= HandleArmStatusChanged;
+            _topArmController.armStatusChanged -= HandleArmStatusChanged;
+            _bottomArmController.armStatusChanged -= HandleArmStatusChanged;
         }
 
         public override void _Process(float delta)
@@ -151,8 +160,8 @@ namespace StormTime.Enemy.Boss
 
         private void UpdateSingleArmShot(float delta)
         {
-            _bossTimer -= delta;
-            if (_bossTimer <= 0)
+            bool singleArmAttackComplete = _singleArmAttack.UpdateAttack(delta);
+            if (singleArmAttackComplete)
             {
                 SetBossState(GetRandomAttack());
             }
@@ -160,8 +169,8 @@ namespace StormTime.Enemy.Boss
 
         private void UpdateDualArmShot(float delta)
         {
-            _bossTimer -= delta;
-            if (_bossTimer <= 0)
+            bool dualArmAttackComplete = _dualArmAttack.UpdateAttack(delta);
+            if (dualArmAttackComplete)
             {
                 SetBossState(GetRandomAttack());
             }
@@ -169,8 +178,8 @@ namespace StormTime.Enemy.Boss
 
         private void UpdateFrenzySpinningShot(float delta)
         {
-            bool frenzyAttackUpdate = _frenzySpinningShotAttack.Update(delta);
-            if (frenzyAttackUpdate)
+            bool frenzyAttackComplete = _frenzySpinningShotAttack.UpdateAttack(delta);
+            if (frenzyAttackComplete)
             {
                 SetBossState(GetRandomAttack());
             }
@@ -178,8 +187,8 @@ namespace StormTime.Enemy.Boss
 
         private void UpdateAbilityAttack(float delta)
         {
-            bool abilityAttackUpdate = _bossAttacks[_abilityAttackIndex].Update(delta);
-            if (abilityAttackUpdate)
+            bool abilityAttackComplete = _bossAttacks[_abilityAttackIndex].UpdateAttack(delta);
+            if (abilityAttackComplete)
             {
                 SetBossState(GetRandomAttack());
             }
@@ -194,25 +203,7 @@ namespace StormTime.Enemy.Boss
 
         #region Utility Functions
 
-        private void HandleLeftArmStatusChanged(BossArmController.ArmStatus armStatus)
-        {
-            ComputeTotalBossHealth();
-            ComputeArmExistenceStatus();
-        }
-
-        private void HandleRightArmStatusChanged(BossArmController.ArmStatus armStatus)
-        {
-            ComputeTotalBossHealth();
-            ComputeArmExistenceStatus();
-        }
-
-        private void HandleTopArmStatusChanged(BossArmController.ArmStatus armStatus)
-        {
-            ComputeTotalBossHealth();
-            ComputeArmExistenceStatus();
-        }
-
-        private void HandleBottomArmStatusChanged(BossArmController.ArmStatus armStatus)
+        private void HandleArmStatusChanged(BossArmController.ArmStatus armStatus)
         {
             ComputeTotalBossHealth();
             ComputeArmExistenceStatus();
@@ -366,18 +357,14 @@ namespace StormTime.Enemy.Boss
                     break;
 
                 case BossState.SingleArmShot:
-                    _bossTimer = singleArmShotTimer;
-                    break;
-
                 case BossState.DualArmShot:
-                    _bossTimer = dualArmShotTimer;
-                    break;
-
                 case BossState.FrenzySpinningShot:
+                case BossState.AbilityAttack:
                     // Don't do anything here as the base attack handles the return state
                     break;
 
                 case BossState.Dead:
+                    // TODO: Add Something here probably
                     break;
 
                 default:

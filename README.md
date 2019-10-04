@@ -2,15 +2,15 @@
 > A Simple Top Down 2D Game
 
 ## Theme And Limitations:
-- Theme -> Storm
+- Theme -> Storm -> Bullet Storm (Interpretation)
 - Limitation -> 2D and Top Down Camera
 
 ## Idea:
 - [X] Neon based bullet hell world
-- [ ] Multiple weapon types useful depending on the situation
-- [ ] All not unlocked at once. Enemy drops give weapons
+- [X] Multiple weapon types useful depending on the situation
+- [X] All not unlocked at once. Enemy drops give weapons
 - [X] Simple shapes the main characters
-- [ ] Boss encounter occurs in a new world which is a desolated and nasty world with bad weather effects
+- [X] Boss encounter occurs in a separate world
 - [X] Player needs to move around it to encounter other groups and NPC(s)
 - [ ] Allow multiple shots per soul (Give more bullets)
 

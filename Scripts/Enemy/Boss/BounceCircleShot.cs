@@ -6,9 +6,9 @@ namespace StormTime.Enemy.Boss
     {
         [Export] public int bounceCircleShotCount;
 
-        public override bool Update(float delta)
+        public override bool UpdateAttack(float delta)
         {
-            return base.Update(delta);
+            return base.UpdateAttack(delta);
         }
     }
 }

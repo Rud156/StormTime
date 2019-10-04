@@ -15,6 +15,7 @@ leftArmNodePath = NodePath("Left Arm")
 rightArmNodePath = NodePath("Right Arm")
 topArmNodePath = NodePath("Top Arm")
 bottomArmNodePath = NodePath("Bottom Arm")
+bossBodyHealthSetterNodePath = NodePath("Body/Boss Body Part")
 
 [node name="Left Arm" type="Node2D" parent="."]
 editor/display_folded = true
@@ -155,7 +156,6 @@ position = Vector2( 31, 95 )
 position = Vector2( 0, 100 )
 
 [node name="Body" type="Node2D" parent="."]
-editor/display_folded = true
 script = ExtResource( 6 )
 bossBodyNodePath = NodePath("Boss Body Part")
 
