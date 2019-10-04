@@ -214,6 +214,10 @@ script = ExtResource( 11 )
 
 [node name="Circle World Fill Attack" type="Node" parent="Boss Attacks"]
 script = ExtResource( 12 )
+attackTimer = 5.0
+burstCircleCount = 20
+timeBetweenBursts = 1.5
+launchPointNodePath = NodePath("../../Body/Body Attack Point 3")
 
 [node name="inner Circle Shot Attack" type="Node" parent="Boss Attacks"]
 script = ExtResource( 13 )
