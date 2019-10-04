@@ -31,6 +31,8 @@ namespace StormTime.Scene.MainScene
 
         public override void _Ready()
         {
+            GD.Randomize();
+
             if (instance == null)
             {
                 instance = this;

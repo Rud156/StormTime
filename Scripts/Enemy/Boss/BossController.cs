@@ -24,11 +24,13 @@ namespace StormTime.Enemy.Boss
         [Export] public NodePath frenzyAttackNodePath;
         [Export] public Godot.Collections.Array<NodePath> bossAttacks;
 
-        // Attack Timers
-        [Export] public float singleArmShotTimer;
-        [Export] public int singleArmShotCount;
-        [Export] public float dualArmShotTimer;
-        [Export] public int dualArmShotCount;
+        // Attack Selection Percentages
+        [Export] public float minSingleArmAttackPercent;
+        [Export] public float maxSingleArmAttackPercent;
+        [Export] public float minDualArmAttackPercent;
+        [Export] public float maxDualArmAttackPercent;
+        [Export] public float minAbilityAttackPercent;
+        [Export] public float maxAbilityArmAttackPercent;
 
         public delegate void BossDead();
         public BossDead onBossDead;
@@ -303,40 +305,33 @@ namespace StormTime.Enemy.Boss
             }
 
             float randomNumber = (float)GD.Randf();
-            if (randomNumber >= 1)
+            BossState bossState = BossState.FrenzySpinningShot;
+
+            if (randomNumber > minSingleArmAttackPercent && randomNumber < maxSingleArmAttackPercent)
             {
-                randomNumber -= 0.01f; // This is done so as to not select the last Enum (Dead State)
+                bossState = BossState.SingleArmShot;
+            }
+            else if (randomNumber > minDualArmAttackPercent && randomNumber < maxDualArmAttackPercent)
+            {
+                bossState = BossState.DualArmShot;
+            }
+            else if (randomNumber > minAbilityAttackPercent && randomNumber < maxAbilityArmAttackPercent)
+            {
+                bossState = BossState.AbilityAttack;
             }
 
-            BossState bossState = (BossState)(Mathf.FloorToInt(randomNumber * 3) + 1); // This removes the first Enum (Idle State)
-
-            // This removes double arm attack in case it is selected and 
-            // the boss does not have any double arms left
-            while (bossState == BossState.DualArmShot && !_bossHealthBodyStatus.doubleArmAvailable)
+            if (bossState == BossState.SingleArmShot && !_bossHealthBodyStatus.singleArmAvailable)
             {
-                randomNumber = (float)GD.Randf();
-                if (randomNumber >= 1)
-                {
-                    randomNumber -= 0.01f;
-                }
-                bossState = (BossState)(Mathf.FloorToInt(randomNumber * 3) + 1);
+                bossState = BossState.AbilityAttack;
             }
-
-            // This removes single arm attack in case it is selected and 
-            // the boss does not have any arms left
-            while (bossState == BossState.SingleArmShot && !_bossHealthBodyStatus.singleArmAvailable)
+            else if (bossState == BossState.DualArmShot && !_bossHealthBodyStatus.doubleArmAvailable)
             {
-                randomNumber = (float)GD.Randf();
-                if (randomNumber >= 1)
-                {
-                    randomNumber -= 0.01f;
-                }
-                bossState = (BossState)(Mathf.FloorToInt(randomNumber * 3) + 1);
+                bossState = BossState.AbilityAttack;
             }
 
             if (bossState == BossState.AbilityAttack)
             {
-                _abilityAttackIndex = ((int)GD.Randi() % _bossAttacks.Count) - 1; // Select a random ability in case ability attack is selected
+                _abilityAttackIndex = (int)GD.Randi() % _bossAttacks.Count;
             }
 
             return bossState;
