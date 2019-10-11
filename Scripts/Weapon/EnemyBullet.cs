@@ -6,6 +6,7 @@ namespace StormTime.Weapon
     public class EnemyBullet : Bullet
     {
         [Export] public NodePath bulletSpritePath;
+        [Export] public bool autoSetInitialColor = true;
 
         private Color _bulletColor = new Color(1, 1, 1);
         private Sprite _bulletSprite;
@@ -15,7 +16,11 @@ namespace StormTime.Weapon
             base._Ready();
 
             _bulletSprite = GetNode<Sprite>(bulletSpritePath);
-            _bulletSprite.SetSelfModulate(_bulletColor);
+
+            if (autoSetInitialColor)
+            {
+                _bulletSprite.SetSelfModulate(_bulletColor);
+            }
         }
 
         public void SetBulletColor(Color color)

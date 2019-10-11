@@ -1,0 +1,36 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Scripts/Weapon/BossBullet.cs" type="Script" id=1]
+[ext_resource path="res://Prefabs/Effects/Bullet Trail GB.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Prefabs/Effects/Bullet Explosion GB.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Textures/Bubble.png" type="Texture" id=4]
+[ext_resource path="res://Scripts/Extensions/Rotator.cs" type="Script" id=5]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 15.5471
+
+[node name="Circle Power Bullet" type="RigidBody2D"]
+collision_layer = 4
+collision_mask = 3
+contacts_reported = 1
+contact_monitor = true
+script = ExtResource( 1 )
+bulletTrailPrefab = ExtResource( 2 )
+bulletExplosionPrefab = ExtResource( 3 )
+bulletSpeed = 250.0
+bulletLifeTime = 10.0
+bulletTrailTimer = 1.0
+bulletDamageAmount = 50.0
+bulletSpritePath = NodePath("Bubble Sprite")
+autoSetInitialColor = false
+explosionRadius = 100.0
+explosionDamageAmount = 50.0
+
+[node name="Bubble Sprite" type="Sprite" parent="."]
+scale = Vector2( 0.146765, 0.146765 )
+texture = ExtResource( 4 )
+script = ExtResource( 5 )
+rotationSpeed = 14.0
+
+[node name="Circle Power Bullet Collision" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )

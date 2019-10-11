@@ -1,0 +1,46 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://Scripts/Weapon/BossBullet.cs" type="Script" id=1]
+[ext_resource path="res://Prefabs/Effects/Bullet Trail GB.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Prefabs/Effects/Bullet Explosion GB.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Textures/light.png" type="Texture" id=4]
+[ext_resource path="res://Scripts/Extensions/ColorRangeChange.cs" type="Script" id=5]
+[ext_resource path="res://Textures/Octagon Glow Circle.png" type="Texture" id=6]
+[ext_resource path="res://Scripts/Extensions/Rotator.cs" type="Script" id=7]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 29.484
+
+[node name="Circle Power Bullet" type="RigidBody2D"]
+collision_layer = 4
+collision_mask = 3
+contacts_reported = 1
+contact_monitor = true
+script = ExtResource( 1 )
+bulletTrailPrefab = ExtResource( 2 )
+bulletExplosionPrefab = ExtResource( 3 )
+bulletSpeed = 250.0
+bulletLifeTime = 10.0
+bulletTrailTimer = 1.0
+bulletDamageAmount = 50.0
+bulletSpritePath = NodePath("Jagged Part")
+autoSetInitialColor = false
+explosionRadius = 100.0
+explosionDamageAmount = 50.0
+
+[node name="Base Bullet" type="Sprite" parent="."]
+scale = Vector2( 0.0992526, 0.0992526 )
+texture = ExtResource( 4 )
+script = ExtResource( 5 )
+startColor = Color( 1, 0, 0, 1 )
+endColor = Color( 1, 1, 0, 1 )
+
+[node name="Jagged Part" type="Sprite" parent="."]
+self_modulate = Color( 0, 0.415686, 1, 1 )
+scale = Vector2( 0.106674, 0.106674 )
+texture = ExtResource( 6 )
+script = ExtResource( 7 )
+rotationSpeed = 14.0
+
+[node name="Circle Power Bullet Collision" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )

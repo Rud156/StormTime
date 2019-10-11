@@ -20,6 +20,8 @@ namespace StormTime.Utils
             return angle;
         }
 
+        public static float Lerp(float start, float stop, float amount) => amount * (stop - start) + start;
+
         public static float LerpAngleDeg(float from, float to, float amount)
         {
             float delta = ((to - from + 360 + 180) % 360) - 180;

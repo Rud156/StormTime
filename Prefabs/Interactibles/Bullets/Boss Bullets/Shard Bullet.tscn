@@ -3,11 +3,11 @@
 [ext_resource path="res://Scripts/Weapon/BossBullet.cs" type="Script" id=1]
 [ext_resource path="res://Prefabs/Effects/Bullet Trail GB.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Prefabs/Effects/Bullet Explosion GB.tscn" type="PackedScene" id=3]
-[ext_resource path="res://Textures/White Pixel.png" type="Texture" id=4]
-[ext_resource path="res://Scripts/Extensions/Rotator.cs" type="Script" id=5]
+[ext_resource path="res://Textures/Triangle Glow.png" type="Texture" id=4]
+[ext_resource path="res://Scripts/Extensions/ColorLerper.cs" type="Script" id=5]
 
-[sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 11.3499, 11.1773 )
+[sub_resource type="ConvexPolygonShape2D" id=1]
+points = PoolVector2Array( -14, -7, 14, 0, -14, 7 )
 
 [node name="Shard Bullet" type="RigidBody2D"]
 contacts_reported = 1
@@ -19,12 +19,24 @@ bulletLifeTime = 10.0
 bulletTrailTimer = 0.1
 bulletDamageAmount = 10.0
 bulletSpritePath = NodePath("Shard Sprite")
+autoSetInitialColor = false
 
 [node name="Shard Sprite" type="Sprite" parent="."]
-scale = Vector2( 0.7, 0.7 )
+self_modulate = Color( 1, 0.447059, 0, 1 )
+position = Vector2( 14.02, 0 )
+scale = Vector2( 0.0366977, 0.0366977 )
+texture = ExtResource( 4 )
+
+[node name="Shard Inner Sprite" type="Sprite" parent="."]
+self_modulate = Color( 0.992157, 1, 0, 1 )
+position = Vector2( 10.7875, 0 )
+scale = Vector2( 0.0177707, 0.0114571 )
 texture = ExtResource( 4 )
 script = ExtResource( 5 )
-rotationSpeed = 2.0
+lerpDuration = 3.0
+colors = PoolColorArray( 1, 1, 0, 1, 1, 0.537255, 0, 1, 1, 0, 0, 1 )
 
 [node name="Shard Collision Shape" type="CollisionShape2D" parent="."]
+position = Vector2( 14.02, 0 )
+scale = Vector2( 1, 1 )
 shape = SubResource( 1 )

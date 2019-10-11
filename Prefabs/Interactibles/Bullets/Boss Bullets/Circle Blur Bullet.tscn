@@ -3,43 +3,39 @@
 [ext_resource path="res://Scripts/Weapon/BossBullet.cs" type="Script" id=1]
 [ext_resource path="res://Prefabs/Effects/Bullet Trail GB.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Prefabs/Effects/Bullet Explosion GB.tscn" type="PackedScene" id=3]
-[ext_resource path="res://Textures/White Circle.png" type="Texture" id=4]
+[ext_resource path="res://Textures/Glow Circle.png" type="Texture" id=4]
 [ext_resource path="res://Scripts/Extensions/ColorLerper.cs" type="Script" id=5]
-[ext_resource path="res://Textures/Spiked Circle.png" type="Texture" id=6]
+[ext_resource path="res://Textures/Star2.png" type="Texture" id=6]
 [ext_resource path="res://Scripts/Extensions/Rotator.cs" type="Script" id=7]
 
 [sub_resource type="CircleShape2D" id=1]
-radius = 74.3495
+radius = 19.6198
 
-[node name="Circle Power Bullet" type="RigidBody2D"]
-collision_layer = 4
-collision_mask = 3
+[node name="Circle Flash Bullet" type="RigidBody2D"]
 contacts_reported = 1
-contact_monitor = true
 script = ExtResource( 1 )
 bulletTrailPrefab = ExtResource( 2 )
 bulletExplosionPrefab = ExtResource( 3 )
 bulletSpeed = 250.0
-bulletLifeTime = 10.0
+bulletLifeTime = 7.0
 bulletTrailTimer = 1.0
 bulletDamageAmount = 50.0
-bulletSpritePath = NodePath("Jagged Part")
-explosionRadius = 100.0
-explosionDamageAmount = 50.0
+bulletSpritePath = NodePath("Inner Circle")
+autoSetInitialColor = false
 
-[node name="Base Bullet" type="Sprite" parent="."]
-self_modulate = Color( 0.06, 0, 0, 1 )
-scale = Vector2( 0.5, 0.5 )
+[node name="Outer Circle" type="Sprite" parent="."]
+scale = Vector2( 0.10373, 0.10373 )
 texture = ExtResource( 4 )
 script = ExtResource( 5 )
-lerpDuration = 3.0
-colors = PoolColorArray( 1, 0, 0, 1, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 1, 0, 0, 1, 1, 1, 0, 1, 1, 1, 0, 0.380392, 1 )
+lerpDuration = 0.3
+colors = PoolColorArray( 1, 0, 0, 1, 1, 0.447059, 0, 1, 0.243137, 0, 1, 1, 0, 0.788235, 1, 1 )
 
-[node name="Jagged Part" type="Sprite" parent="."]
-scale = Vector2( 0.5, 0.5 )
+[node name="Inner Circle" type="Sprite" parent="."]
+self_modulate = Color( 1, 0, 0, 1 )
+scale = Vector2( 0.071797, 0.071797 )
 texture = ExtResource( 6 )
 script = ExtResource( 7 )
 rotationSpeed = 14.0
 
-[node name="Circle Power Bullet Collision" type="CollisionShape2D" parent="."]
+[node name="Circle Collision Shape" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
