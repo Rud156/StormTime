@@ -75,7 +75,7 @@ namespace StormTime.Weapon
             }
         }
 
-        protected void RemoveBulletFromTree() => GetParent().RemoveChild(this);
+        protected void RemoveBulletFromTree() => QueueFree();
 
         #endregion
 

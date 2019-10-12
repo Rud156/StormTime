@@ -38,7 +38,7 @@ namespace StormTime.Effects
         public void RemoveSoulFromWorld()
         {
             PlayerModifierSoulsManager.instance.IncrementSouls(1);
-            GetParent().RemoveChild(this);
+            QueueFree();
         }
 
         #endregion

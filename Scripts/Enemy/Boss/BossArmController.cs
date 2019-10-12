@@ -6,7 +6,7 @@ using StormTime.Weapon;
 
 namespace StormTime.Enemy.Boss
 {
-    public class BossArmController : Node2D
+    public class BossArmController : RigidBody2D
     {
         // Arm Health Controllers
         [Export] public NodePath firstArmNodePath;
@@ -16,6 +16,7 @@ namespace StormTime.Enemy.Boss
         [Export] public NodePath firstArmAttackNodePath;
         [Export] public NodePath secondArmAttackNodePath;
         [Export] public NodePath dualArmAttackNodePath;
+        [Export] public NodePath bulletHolderNodePath;
 
         // Arm Attacks
         [Export] public PackedScene simpleBulletPrefab;
@@ -28,8 +29,16 @@ namespace StormTime.Enemy.Boss
         [Export] public float timeBetweenChargedAttacks;
         [Export] public float chargedAttackIncreaseRate;
 
+        // Arm Destroy
+        [Export] public float armDestroyForceAmount;
+        [Export] public float alphaChangeRate;
+
         public delegate void ArmStatusChanged(ArmStatus armStatus);
         public ArmStatusChanged armStatusChanged;
+
+        public delegate void ArmDestroyed();
+        public ArmDestroyed armDestroyed;
+        
 
         private HealthSetter _firstArmHealthSetter;
         private HealthSetter _secondArmHealthSetter;
@@ -37,7 +46,12 @@ namespace StormTime.Enemy.Boss
         private Node2D _secondArmAttackPosition;
         private Node2D _dualArmAttackPosition;
 
+        // Bullets
+        private Node2D _bulletHolder;
         private BossBullet _chargedBullet;
+
+        // Arm Destroy
+        private float _currentArmAlpha;
 
         public struct ArmStatus
         {
@@ -58,7 +72,8 @@ namespace StormTime.Enemy.Boss
             IdleState,
             DualArmAttack,
             FirstArmAttack,
-            SecondArmAttack
+            SecondArmAttack,
+            ArmDestroyed
         }
 
         private ArmAttackState _armAttackState;
@@ -85,6 +100,8 @@ namespace StormTime.Enemy.Boss
             _secondArmAttackPosition = GetNode<Node2D>(secondArmAttackNodePath);
             _dualArmAttackPosition = GetNode<Node2D>(dualArmAttackNodePath);
 
+            _bulletHolder = GetNode<Node2D>(bulletHolderNodePath);
+
             _firstArmHealthSetter.healthChanged += HandleFirstArmHealthChange;
             _secondArmHealthSetter.healthChanged += HandleSecondArmHealthChange;
         }
@@ -107,6 +124,10 @@ namespace StormTime.Enemy.Boss
 
                 case ArmAttackState.DualArmAttack:
                     UpdateDualArmAttack(delta);
+                    break;
+
+                case ArmAttackState.ArmDestroyed:
+                    UpdateArmDestroyedState(delta);
                     break;
             }
         }
@@ -176,6 +197,18 @@ namespace StormTime.Enemy.Boss
             }
         }
 
+        private void UpdateArmDestroyedState(float delta)
+        {
+            _currentArmAlpha -= alphaChangeRate * delta;
+            Color currentColor = GetModulate();
+            currentColor.a = _currentArmAlpha;
+
+            if (_currentArmAlpha <= 0)
+            {
+                QueueFree();
+            }
+        }
+
         #endregion
 
         #region External Functions
@@ -200,6 +233,25 @@ namespace StormTime.Enemy.Boss
             SetArmAttackState(ArmAttackState.SecondArmAttack);
         }
 
+        public void DestroyArm()
+        {
+            if (_armAttackState == ArmAttackState.DualArmAttack)
+            {
+                LaunchChargedAttack();
+            }
+
+            GetParent().RemoveChild(this);
+            _bulletHolder.AddChild(this);
+
+            Vector2 randomForceDirection = VectorHelpers.Random2D() * armDestroyForceAmount;
+            AddForce(Vector2.Zero, randomForceDirection);
+
+            Color armModulate = GetModulate();
+            _currentArmAlpha = armModulate.a;
+
+            SetArmAttackState(ArmAttackState.ArmDestroyed);
+        }
+
         #endregion
 
         #region Utility Functions
@@ -211,7 +263,7 @@ namespace StormTime.Enemy.Boss
             Vector2 launchVelocity = new Vector2(xVelocity, yVelocity);
 
             BossBullet bulletInstance = (BossBullet)simpleBulletPrefab.Instance();
-            GetParent().GetParent().AddChild(bulletInstance);
+            _bulletHolder.AddChild(bulletInstance);
 
             bulletInstance.SetGlobalPosition(attackPosition);
             bulletInstance.LaunchBullet(launchVelocity);
@@ -225,8 +277,10 @@ namespace StormTime.Enemy.Boss
         private void CreateChargedAttack()
         {
             _chargedBullet = (BossBullet)chargedBulletPrefab.Instance();
-            _chargedBullet.SetMode(RigidBody2D.ModeEnum.Kinematic);
             AddChild(_chargedBullet);
+
+            _chargedBullet.SetMode(RigidBody2D.ModeEnum.Kinematic);
+            _chargedBullet.SetGlobalPosition(_dualArmAttackPosition.GetGlobalPosition());
         }
 
         private void UpdateChargedAttack(float delta)
@@ -253,9 +307,9 @@ namespace StormTime.Enemy.Boss
             Vector2 launchVelocity = new Vector2(xVelocity, yVelocity);
 
             RemoveChild(_chargedBullet);
-            GetParent().GetParent().AddChild(_chargedBullet);
+            _bulletHolder.AddChild(_chargedBullet);
 
-            _chargedBullet.SetMode(RigidBody2D.ModeEnum.Rigid);
+            _chargedBullet.SetMode(ModeEnum.Rigid);
             _chargedBullet.LaunchBullet(launchVelocity);
 
             _attackVariable_1 = 0;
@@ -284,6 +338,7 @@ namespace StormTime.Enemy.Boss
 
             if (currentHealth <= 0)
             {
+
                 _armStatus.secondArmAlive = false;
             }
 
@@ -291,6 +346,8 @@ namespace StormTime.Enemy.Boss
         }
 
         private void NotifyArmStatusChanged() => armStatusChanged?.Invoke(_armStatus);
+
+        private void NotifyArmDestroyed() => armDestroyed?.Invoke();
 
         private void SetArmAttackState(ArmAttackState armAttackState)
         {

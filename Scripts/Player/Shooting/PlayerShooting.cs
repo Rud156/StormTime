@@ -82,11 +82,12 @@ namespace StormTime.Player.Shooting
             _playerChargedShotShootingPosition = GetNode<Node2D>(playerChargedShootingPositionNodePath);
             _playerRoot = GetParent<PlayerController>();
 
+            // TODO: Change this later on...
             _playerWeapons = new Dictionary<WeaponType, WeaponState>
             {
                 {WeaponType.SingleShot, new WeaponState() {weaponType = WeaponType.SingleShot, isUnlocked = true}},
                 {WeaponType.Shotgun, new WeaponState() {weaponType = WeaponType.Shotgun, isUnlocked = false}},
-                {WeaponType.ChargeGun, new WeaponState() {weaponType = WeaponType.ChargeGun, isUnlocked = true}}
+                {WeaponType.ChargeGun, new WeaponState() {weaponType = WeaponType.ChargeGun, isUnlocked = false}}
             };
         }
 

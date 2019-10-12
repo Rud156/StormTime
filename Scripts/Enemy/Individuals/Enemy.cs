@@ -284,7 +284,7 @@ namespace StormTime.Enemy.Individuals
                 deathEffectInstance.SetEffectGradient(_parentEnemyGroup.GetGroupGradientTexture());
                 deathEffectInstance.SetGlobalPosition(GetGlobalPosition());
 
-                GetParent().RemoveChild(this);
+                QueueFree();
             }
         }
 

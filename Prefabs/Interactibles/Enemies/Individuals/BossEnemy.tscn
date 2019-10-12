@@ -2,13 +2,13 @@
 
 [ext_resource path="res://Scripts/Enemy/Boss/BossController.cs" type="Script" id=1]
 [ext_resource path="res://Scripts/Enemy/Boss/BossArmController.cs" type="Script" id=2]
-[ext_resource path="res://Textures/Boss Side Arm.png" type="Texture" id=3]
-[ext_resource path="res://Scripts/Common/HealthSetter.cs" type="Script" id=4]
-[ext_resource path="res://Textures/Boss Straight Arm.png" type="Texture" id=5]
-[ext_resource path="res://Scripts/Enemy/Boss/BossBodyController.cs" type="Script" id=6]
-[ext_resource path="res://Textures/Boss Body.png" type="Texture" id=7]
-[ext_resource path="res://Scripts/Enemy/Boss/SingleArmAttack.cs" type="Script" id=8]
-[ext_resource path="res://Prefabs/Interactibles/Bullets/Boss Bullets/Circle Bubble Bullet.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Prefabs/Interactibles/Bullets/Boss Bullets/Circle Bubble Bullet.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Textures/Boss Side Arm.png" type="Texture" id=4]
+[ext_resource path="res://Scripts/Common/HealthSetter.cs" type="Script" id=5]
+[ext_resource path="res://Textures/Boss Straight Arm.png" type="Texture" id=6]
+[ext_resource path="res://Scripts/Enemy/Boss/BossBodyController.cs" type="Script" id=7]
+[ext_resource path="res://Textures/Boss Body.png" type="Texture" id=8]
+[ext_resource path="res://Scripts/Enemy/Boss/SingleArmAttack.cs" type="Script" id=9]
 [ext_resource path="res://Scripts/Enemy/Boss/DoubleArmAttack.cs" type="Script" id=10]
 [ext_resource path="res://Scripts/Enemy/Boss/FrenzySpinningShot.cs" type="Script" id=11]
 [ext_resource path="res://Prefabs/Interactibles/Bullets/Boss Bullets/Shard Bullet.tscn" type="PackedScene" id=12]
@@ -39,8 +39,7 @@ maxDualArmAttackPercent = 0.5
 minAbilityAttackPercent = 0.5
 maxAbilityArmAttackPercent = 0.95
 
-[node name="Left Arm" type="Node2D" parent="."]
-editor/display_folded = true
+[node name="Left Arm" type="RigidBody2D" parent="."]
 position = Vector2( -120, 0 )
 scale = Vector2( 3, 3 )
 script = ExtResource( 2 )
@@ -49,18 +48,19 @@ secondArmNodePath = NodePath("Bottom Part")
 firstArmAttackNodePath = NodePath("Top Attack Point")
 secondArmAttackNodePath = NodePath("Bottom Attack Point")
 dualArmAttackNodePath = NodePath("Dual Attack Point")
+simpleBulletPrefab = ExtResource( 3 )
 
 [node name="Top Part" type="Sprite" parent="Left Arm"]
 position = Vector2( -12, -10 )
-texture = ExtResource( 3 )
-script = ExtResource( 4 )
+texture = ExtResource( 4 )
+script = ExtResource( 5 )
 maxHealth = 100.0
 
 [node name="Bottom Part" type="Sprite" parent="Left Arm"]
 position = Vector2( -12, 11 )
-texture = ExtResource( 3 )
+texture = ExtResource( 4 )
 flip_v = true
-script = ExtResource( 4 )
+script = ExtResource( 5 )
 maxHealth = 100.0
 
 [node name="Top Attack Point" type="Node2D" parent="Left Arm"]
@@ -72,7 +72,9 @@ position = Vector2( -24, 6.5 )
 [node name="Dual Attack Point" type="Node2D" parent="Left Arm"]
 position = Vector2( -25, 0 )
 
-[node name="Right Arm" type="Node2D" parent="."]
+[node name="Arm Collision Shape" type="CollisionShape2D" parent="Left Arm"]
+
+[node name="Right Arm" type="RigidBody2D" parent="."]
 editor/display_folded = true
 position = Vector2( 120, 0 )
 scale = Vector2( 3, 3 )
@@ -82,20 +84,21 @@ secondArmNodePath = NodePath("Bottom Part")
 firstArmAttackNodePath = NodePath("Top Attack Point")
 secondArmAttackNodePath = NodePath("Bottom Attack Point")
 dualArmAttackNodePath = NodePath("Dual Attack Point")
+simpleBulletPrefab = ExtResource( 3 )
 
 [node name="Top Part" type="Sprite" parent="Right Arm"]
 position = Vector2( 12, -10 )
-texture = ExtResource( 3 )
+texture = ExtResource( 4 )
 flip_h = true
-script = ExtResource( 4 )
+script = ExtResource( 5 )
 maxHealth = 100.0
 
 [node name="Bottom Part" type="Sprite" parent="Right Arm"]
 position = Vector2( 12, 11 )
-texture = ExtResource( 3 )
+texture = ExtResource( 4 )
 flip_h = true
 flip_v = true
-script = ExtResource( 4 )
+script = ExtResource( 5 )
 maxHealth = 100.0
 
 [node name="Top Attack Point" type="Node2D" parent="Right Arm"]
@@ -107,7 +110,7 @@ position = Vector2( 24, 6.5 )
 [node name="Dual Attack Point" type="Node2D" parent="Right Arm"]
 position = Vector2( 25, 0 )
 
-[node name="Top Arm" type="Node2D" parent="."]
+[node name="Top Arm" type="RigidBody2D" parent="."]
 editor/display_folded = true
 position = Vector2( 0, -78 )
 script = ExtResource( 2 )
@@ -116,20 +119,21 @@ secondArmNodePath = NodePath("Right Part")
 firstArmAttackNodePath = NodePath("Left Attack Point")
 secondArmAttackNodePath = NodePath("Right Attack Point")
 dualArmAttackNodePath = NodePath("../Right Arm/Dual Attack Point")
+simpleBulletPrefab = ExtResource( 3 )
 
 [node name="Left Part" type="Sprite" parent="Top Arm"]
 position = Vector2( -55, -48 )
 scale = Vector2( 3, 3 )
-texture = ExtResource( 5 )
-script = ExtResource( 4 )
+texture = ExtResource( 6 )
+script = ExtResource( 5 )
 maxHealth = 100.0
 
 [node name="Right Part" type="Sprite" parent="Top Arm"]
 position = Vector2( 55, -48 )
 scale = Vector2( 3, 3 )
-texture = ExtResource( 5 )
+texture = ExtResource( 6 )
 flip_h = true
-script = ExtResource( 4 )
+script = ExtResource( 5 )
 maxHealth = 100.0
 
 [node name="Left Attack Point" type="Node2D" parent="Top Arm"]
@@ -141,7 +145,7 @@ position = Vector2( 31, -95 )
 [node name="Dual Attack Point" type="Node2D" parent="Top Arm"]
 position = Vector2( 0, -100 )
 
-[node name="Bottom Arm" type="Node2D" parent="."]
+[node name="Bottom Arm" type="RigidBody2D" parent="."]
 editor/display_folded = true
 position = Vector2( 0, 78 )
 script = ExtResource( 2 )
@@ -150,22 +154,23 @@ secondArmNodePath = NodePath("Right Part")
 firstArmAttackNodePath = NodePath("Left Attack Point")
 secondArmAttackNodePath = NodePath("Right Attack Point")
 dualArmAttackNodePath = NodePath("Dual Attack Point")
+simpleBulletPrefab = ExtResource( 3 )
 
 [node name="Left Part" type="Sprite" parent="Bottom Arm"]
 position = Vector2( -55, 51 )
 scale = Vector2( 3, 3 )
-texture = ExtResource( 5 )
+texture = ExtResource( 6 )
 flip_v = true
-script = ExtResource( 4 )
+script = ExtResource( 5 )
 maxHealth = 100.0
 
 [node name="Right Part" type="Sprite" parent="Bottom Arm"]
 position = Vector2( 55, 51 )
 scale = Vector2( 3, 3 )
-texture = ExtResource( 5 )
+texture = ExtResource( 6 )
 flip_h = true
 flip_v = true
-script = ExtResource( 4 )
+script = ExtResource( 5 )
 maxHealth = 100.0
 
 [node name="Left Attack Point" type="Node2D" parent="Bottom Arm"]
@@ -178,13 +183,13 @@ position = Vector2( 31, 95 )
 position = Vector2( 0, 100 )
 
 [node name="Body" type="Node2D" parent="."]
-script = ExtResource( 6 )
+script = ExtResource( 7 )
 bossBodyNodePath = NodePath("Boss Body Part")
 
 [node name="Boss Body Part" type="Sprite" parent="Body"]
 scale = Vector2( 3, 3 )
-texture = ExtResource( 7 )
-script = ExtResource( 4 )
+texture = ExtResource( 8 )
+script = ExtResource( 5 )
 maxHealth = 200.0
 
 [node name="Body Attack Point" type="Node2D" parent="Body"]
@@ -193,8 +198,8 @@ position = Vector2( 0, 36 )
 [node name="Boss Attacks" type="Node" parent="."]
 
 [node name="Single Arm Attack" type="Node" parent="Boss Attacks"]
-script = ExtResource( 8 )
-bulletPrefab = ExtResource( 9 )
+script = ExtResource( 9 )
+bulletPrefab = ExtResource( 3 )
 attackTimer = 14.0
 bossAttackPointNodePath = NodePath("../../Body/Body Attack Point")
 singleArmAttackCount = 2.0
@@ -202,7 +207,7 @@ bossArmControllerNodePaths = [ NodePath("../../Left Arm"), NodePath("../../Right
 
 [node name="Dual Arm Attack" type="Node" parent="Boss Attacks"]
 script = ExtResource( 10 )
-bulletPrefab = ExtResource( 9 )
+bulletPrefab = ExtResource( 3 )
 attackTimer = 14.0
 bossAttackPointNodePath = NodePath("../../Body/Body Attack Point")
 dualArmAttackCount = 2.0

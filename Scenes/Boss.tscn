@@ -20,6 +20,18 @@ initialCount = 5
 
 [node name="BossEnemy" parent="Game World" instance=ExtResource( 4 )]
 
+[node name="Left Arm" parent="Game World/BossEnemy" index="0"]
+bulletHolderNodePath = NodePath("../../Boss Bullets Holder")
+
+[node name="Right Arm" parent="Game World/BossEnemy" index="1"]
+bulletHolderNodePath = NodePath("../../Boss Bullets Holder")
+
+[node name="Top Arm" parent="Game World/BossEnemy" index="2"]
+bulletHolderNodePath = NodePath("../../Boss Bullets Holder")
+
+[node name="Bottom Arm" parent="Game World/BossEnemy" index="3"]
+bulletHolderNodePath = NodePath("../../Boss Bullets Holder")
+
 [node name="Single Arm Attack" parent="Game World/BossEnemy/Boss Attacks" index="0"]
 bulletHolderNodePath = NodePath("../../../Boss Bullets Holder")
 

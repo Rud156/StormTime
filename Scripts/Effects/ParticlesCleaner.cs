@@ -19,6 +19,6 @@ namespace StormTime.Effects
             }
         }
 
-        private void CleanUpParticles() => GetParent().RemoveChild(this);
+        private void CleanUpParticles() => QueueFree();
     }
 }
