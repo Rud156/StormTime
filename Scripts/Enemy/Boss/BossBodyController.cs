@@ -19,10 +19,6 @@ namespace StormTime.Enemy.Boss
 
         private HealthSetter _bossBodyHealthSetter;
 
-        private Node2D _firstAttackPoint;
-        private Node2D _secondAttackPoint;
-        private Node2D _thirdAttackPoint;
-
         public struct BodyStatus
         {
             public bool bodyDestroyed;
@@ -39,10 +35,6 @@ namespace StormTime.Enemy.Boss
                 bodyDestroyed = false,
                 bodyHealth = 1
             };
-
-            _firstAttackPoint = GetNode<Node2D>(firstAttackNodePath);
-            _secondAttackPoint = GetNode<Node2D>(secondAttackNodePath);
-            _thirdAttackPoint = GetNode<Node2D>(thirdAttackNodePath);
 
             _bossBodyHealthSetter = GetNode<HealthSetter>(bossBodyNodePath);
             _bossBodyHealthSetter.healthChanged += HandleBodyHealthChanged;
@@ -73,26 +65,6 @@ namespace StormTime.Enemy.Boss
         #endregion
 
         #region External Functions
-
-        public void LaunchFirstAttack()
-        {
-
-        }
-
-        public void LaunchSecondAttack()
-        {
-
-        }
-
-        public void LaunchThirdAttack()
-        {
-
-        }
-
-        public void LaunchCombinedAttack()
-        {
-
-        }
 
         public BodyStatus GetBodyStatus() => _bodyStatus;
 

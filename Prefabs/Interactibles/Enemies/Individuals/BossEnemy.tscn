@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://Scripts/Enemy/Boss/BossController.cs" type="Script" id=1]
 [ext_resource path="res://Scripts/Enemy/Boss/BossArmController.cs" type="Script" id=2]
@@ -13,6 +13,7 @@
 [ext_resource path="res://Scripts/Enemy/Boss/BounceCircleShot.cs" type="Script" id=11]
 [ext_resource path="res://Scripts/Enemy/Boss/CircleWorldFill.cs" type="Script" id=12]
 [ext_resource path="res://Scripts/Enemy/Boss/InnerCircleShot.cs" type="Script" id=13]
+[ext_resource path="res://Prefabs/Interactibles/Bullets/Boss Bullets/Circle Blur Bullet.tscn" type="PackedScene" id=14]
 
 [node name="BossEnemy" type="Node2D"]
 script = ExtResource( 1 )
@@ -174,6 +175,7 @@ position = Vector2( 31, 95 )
 position = Vector2( 0, 100 )
 
 [node name="Body" type="Node2D" parent="."]
+editor/display_folded = true
 script = ExtResource( 6 )
 bossBodyNodePath = NodePath("Boss Body Part")
 
@@ -219,5 +221,10 @@ burstCircleCount = 20
 timeBetweenBursts = 1.5
 launchPointNodePath = NodePath("../../Body/Body Attack Point 3")
 
-[node name="inner Circle Shot Attack" type="Node" parent="Boss Attacks"]
+[node name="Inner Circle Shot Attack" type="Node" parent="Boss Attacks"]
 script = ExtResource( 13 )
+attackTimer = 7.0
+bossAttackPointNodePath = NodePath("../../Body/Body Attack Point 3")
+bulletPrefab = ExtResource( 14 )
+angleIncrementAmount = 3.0
+angleIncrementRate = 0.25

@@ -5,9 +5,20 @@ namespace StormTime.Enemy.Boss
     public abstract class BossBaseAttack : Node
     {
         [Export] public float attackTimer;
+        [Export] public NodePath bulletHolderNodePath;
+        [Export] public NodePath bossAttackPointNodePath;
 
         private bool _attackLaunched = false;
         private float _currentAttackTimer = -1;
+
+        protected Node2D _bulletHolder;
+        protected Node2D _bossAttackPoint;
+
+        public override void _Ready()
+        {
+            _bulletHolder = GetNode<Node2D>(bulletHolderNodePath);
+            _bossAttackPoint = GetNode<Node2D>(bossAttackPointNodePath);
+        }
 
         public virtual bool UpdateAttack(float delta)
         {

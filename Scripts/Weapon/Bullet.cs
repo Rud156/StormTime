@@ -47,7 +47,7 @@ namespace StormTime.Weapon
 
         #region External Functions
 
-        public void LaunchBullet(Vector2 forwardVectorNormalized)
+        public virtual void LaunchBullet(Vector2 forwardVectorNormalized)
         {
             _launchVelocity = forwardVectorNormalized * bulletSpeed;
             _currentBulletTimeLeft = bulletLifeTime;
