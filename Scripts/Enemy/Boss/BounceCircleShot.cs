@@ -6,9 +6,6 @@ namespace StormTime.Enemy.Boss
 {
     public class BounceCircleShot : BossBaseAttack
     {
-        // Prefabs
-        [Export] public PackedScene bulletPrefab;
-
         // Shot Info
         [Export] public NodePath spawnLeftMostPointNodePath;
         [Export] public NodePath spawnRightMostPointNodePath;
@@ -33,7 +30,7 @@ namespace StormTime.Enemy.Boss
 
         public override bool UpdateAttack(float delta)
         {
-            UpdateShot(delta);
+            UpdateShooting(delta);
             return base.UpdateAttack(delta);
         }
 
@@ -47,7 +44,7 @@ namespace StormTime.Enemy.Boss
 
         #region Utility Functions
 
-        private void UpdateShot(float delta)
+        private void UpdateShooting(float delta)
         {
             _currentTimer -= delta;
             if (_currentTimer <= 0)

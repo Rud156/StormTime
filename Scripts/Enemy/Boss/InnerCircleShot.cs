@@ -5,12 +5,9 @@ namespace StormTime.Enemy.Boss
 {
     public class InnerCircleShot : BossBaseAttack
     {
-        // Prefab
-        [Export] public PackedScene bulletPrefab;
-
         // Shot Info
         [Export] public float angleIncrementAmount;
-        [Export] public float angleIncrementRate;
+        [Export] public float timeBetweenShot;
 
         private float _currentAngle;
         private float _angleTimer;
@@ -45,7 +42,7 @@ namespace StormTime.Enemy.Boss
                 LaunchBullet();
 
                 _currentAngle += angleIncrementAmount;
-                _angleTimer = angleIncrementRate;
+                _angleTimer = timeBetweenShot;
             }
         }
 

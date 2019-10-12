@@ -4,6 +4,7 @@ namespace StormTime.Enemy.Boss
 {
     public abstract class BossBaseAttack : Node
     {
+        [Export] public PackedScene bulletPrefab;
         [Export] public float attackTimer;
         [Export] public NodePath bulletHolderNodePath;
         [Export] public NodePath bossAttackPointNodePath;
