@@ -10,7 +10,6 @@
 [node name="Game World" type="Node2D" parent="."]
 
 [node name="Managers" type="Node" parent="Game World"]
-editor/display_folded = true
 
 [node name="Area Collision Manager" type="Node" parent="Game World/Managers"]
 script = ExtResource( 1 )
@@ -20,3 +19,41 @@ initialCount = 5
 [node name="Single Scene World" parent="Game World" instance=ExtResource( 3 )]
 
 [node name="BossEnemy" parent="Game World" instance=ExtResource( 4 )]
+
+[node name="Single Arm Attack" parent="Game World/BossEnemy/Boss Attacks" index="0"]
+bulletHolderNodePath = NodePath("../../../Boss Bullets Holder")
+
+[node name="Dual Arm Attack" parent="Game World/BossEnemy/Boss Attacks" index="1"]
+bulletHolderNodePath = NodePath("../../../Boss Bullets Holder")
+
+[node name="Fenzy Spinning Shot Attack" parent="Game World/BossEnemy/Boss Attacks" index="2"]
+bulletHolderNodePath = NodePath("../../../Boss Bullets Holder")
+
+[node name="Bounce Circle Shot Attack" parent="Game World/BossEnemy/Boss Attacks" index="3"]
+bulletHolderNodePath = NodePath("../../../Boss Bullets Holder")
+spawnLeftMostPointNodePath = NodePath("../../../World End Points/Top Left Most Point")
+spawnRightMostPointNodePath = NodePath("../../../World End Points/Top Right Most Point")
+
+[node name="Circle World Fill Attack" parent="Game World/BossEnemy/Boss Attacks" index="4"]
+bulletHolderNodePath = NodePath("../../../Boss Bullets Holder")
+
+[node name="Inner Circle Shot Attack" parent="Game World/BossEnemy/Boss Attacks" index="5"]
+bulletHolderNodePath = NodePath("../../../Boss Bullets Holder")
+
+[node name="Boss Bullets Holder" type="Node2D" parent="Game World"]
+
+[node name="World End Points" type="Node2D" parent="Game World"]
+
+[node name="Top Left Most Point" type="Node2D" parent="Game World/World End Points"]
+position = Vector2( -1507, -1500 )
+
+[node name="Top Right Most Point" type="Node2D" parent="Game World/World End Points"]
+position = Vector2( 1507, -1500 )
+
+[node name="Bottom Left Most Point" type="Node2D" parent="Game World/World End Points"]
+position = Vector2( -1507, 1500 )
+
+[node name="Bottom Right Most Point" type="Node2D" parent="Game World/World End Points"]
+position = Vector2( 1507, 1500 )
+
+[editable path="Game World/BossEnemy"]

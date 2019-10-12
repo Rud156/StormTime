@@ -34,12 +34,7 @@ namespace StormTime.Common
             return areaCollisionChecker;
         }
 
-        public void ReturnCollisionChecker(AreaCollisionChecker areaCollisionChecker)
-        {
-            areaCollisionChecker.SetFree();
-
-            // TODO: Check if this actually keeps the item reference
-        }
+        public void ReturnCollisionChecker(AreaCollisionChecker areaCollisionChecker) => areaCollisionChecker.SetFree();
 
         #endregion
 

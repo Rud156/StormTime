@@ -26,7 +26,6 @@ namespace StormTime.Enemy.Boss
         {
             base.LaunchAttack();
 
-            _currentAngle = 0;
             _angleTimer = 0;
         }
 

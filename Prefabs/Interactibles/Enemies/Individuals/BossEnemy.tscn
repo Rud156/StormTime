@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://Scripts/Enemy/Boss/BossController.cs" type="Script" id=1]
 [ext_resource path="res://Scripts/Enemy/Boss/BossArmController.cs" type="Script" id=2]
@@ -8,12 +8,15 @@
 [ext_resource path="res://Scripts/Enemy/Boss/BossBodyController.cs" type="Script" id=6]
 [ext_resource path="res://Textures/Boss Body.png" type="Texture" id=7]
 [ext_resource path="res://Scripts/Enemy/Boss/SingleArmAttack.cs" type="Script" id=8]
-[ext_resource path="res://Scripts/Enemy/Boss/DoubleArmAttack.cs" type="Script" id=9]
-[ext_resource path="res://Scripts/Enemy/Boss/FrenzySpinningShot.cs" type="Script" id=10]
-[ext_resource path="res://Scripts/Enemy/Boss/BounceCircleShot.cs" type="Script" id=11]
-[ext_resource path="res://Scripts/Enemy/Boss/CircleWorldFill.cs" type="Script" id=12]
-[ext_resource path="res://Scripts/Enemy/Boss/InnerCircleShot.cs" type="Script" id=13]
-[ext_resource path="res://Prefabs/Interactibles/Bullets/Boss Bullets/Circle Blur Bullet.tscn" type="PackedScene" id=14]
+[ext_resource path="res://Prefabs/Interactibles/Bullets/Boss Bullets/Circle Bubble Bullet.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Scripts/Enemy/Boss/DoubleArmAttack.cs" type="Script" id=10]
+[ext_resource path="res://Scripts/Enemy/Boss/FrenzySpinningShot.cs" type="Script" id=11]
+[ext_resource path="res://Prefabs/Interactibles/Bullets/Boss Bullets/Shard Bullet.tscn" type="PackedScene" id=12]
+[ext_resource path="res://Scripts/Enemy/Boss/BounceCircleShot.cs" type="Script" id=13]
+[ext_resource path="res://Prefabs/Interactibles/Bullets/Boss Bullets/Circle Light Center Bullet.tscn" type="PackedScene" id=14]
+[ext_resource path="res://Scripts/Enemy/Boss/CircleWorldFill.cs" type="Script" id=15]
+[ext_resource path="res://Prefabs/Interactibles/Bullets/Boss Bullets/Circle Blur Bullet.tscn" type="PackedScene" id=16]
+[ext_resource path="res://Scripts/Enemy/Boss/InnerCircleShot.cs" type="Script" id=17]
 
 [node name="BossEnemy" type="Node2D"]
 script = ExtResource( 1 )
@@ -175,7 +178,6 @@ position = Vector2( 31, 95 )
 position = Vector2( 0, 100 )
 
 [node name="Body" type="Node2D" parent="."]
-editor/display_folded = true
 script = ExtResource( 6 )
 bossBodyNodePath = NodePath("Boss Body Part")
 
@@ -185,46 +187,60 @@ texture = ExtResource( 7 )
 script = ExtResource( 4 )
 maxHealth = 200.0
 
-[node name="Body Attack Point 1" type="Node2D" parent="Body"]
-position = Vector2( -60, -37 )
-
-[node name="Body Attack Point 2" type="Node2D" parent="Body"]
-position = Vector2( 60, -37 )
-
-[node name="Body Attack Point 3" type="Node2D" parent="Body"]
+[node name="Body Attack Point" type="Node2D" parent="Body"]
 position = Vector2( 0, 36 )
 
 [node name="Boss Attacks" type="Node" parent="."]
 
 [node name="Single Arm Attack" type="Node" parent="Boss Attacks"]
 script = ExtResource( 8 )
+bulletPrefab = ExtResource( 9 )
 attackTimer = 14.0
+bossAttackPointNodePath = NodePath("../../Body/Body Attack Point")
 singleArmAttackCount = 2.0
 bossArmControllerNodePaths = [ NodePath("../../Left Arm"), NodePath("../../Right Arm"), NodePath("../../Top Arm"), NodePath("../../Bottom Arm") ]
 
 [node name="Dual Arm Attack" type="Node" parent="Boss Attacks"]
-script = ExtResource( 9 )
+script = ExtResource( 10 )
+bulletPrefab = ExtResource( 9 )
 attackTimer = 14.0
+bossAttackPointNodePath = NodePath("../../Body/Body Attack Point")
 dualArmAttackCount = 2.0
 bossArmControllerNodePaths = [ NodePath("../../Left Arm"), NodePath("../../Right Arm"), NodePath("../../Top Arm"), NodePath("../../Bottom Arm") ]
 
 [node name="Fenzy Spinning Shot Attack" type="Node" parent="Boss Attacks"]
-script = ExtResource( 10 )
+script = ExtResource( 11 )
+bulletPrefab = ExtResource( 12 )
+attackTimer = 14.0
+bossAttackPointNodePath = NodePath("../../Body/Body Attack Point")
+rotationOffset = 90.0
+totalCircleBullets = 35
+totalSprayBullets = 5.0
+sprayRotationIncrementAmount = 10.0
+timeBetweenSprayShots = 0.3
+timeBetweenCircleShots = 1.0
 
 [node name="Bounce Circle Shot Attack" type="Node" parent="Boss Attacks"]
-script = ExtResource( 11 )
+script = ExtResource( 13 )
+bulletPrefab = ExtResource( 14 )
+attackTimer = 7.0
+bossAttackPointNodePath = NodePath("../../Body/Body Attack Point")
+timeBetweenRows = 0.3
+bulletsInEachRow = 10
+bulletDefaultVelocity = Vector2( 0, 10 )
 
 [node name="Circle World Fill Attack" type="Node" parent="Boss Attacks"]
-script = ExtResource( 12 )
-attackTimer = 5.0
-burstCircleCount = 20
-timeBetweenBursts = 1.5
-launchPointNodePath = NodePath("../../Body/Body Attack Point 3")
+script = ExtResource( 15 )
+bulletPrefab = ExtResource( 16 )
+attackTimer = 9.0
+bossAttackPointNodePath = NodePath("../../Body/Body Attack Point")
+eachShotBulletCount = 10.0
+timeBetweenShot = 0.3
+angleIncrementAmount = 15.0
 
 [node name="Inner Circle Shot Attack" type="Node" parent="Boss Attacks"]
-script = ExtResource( 13 )
+script = ExtResource( 17 )
+bulletPrefab = ExtResource( 16 )
 attackTimer = 7.0
-bossAttackPointNodePath = NodePath("../../Body/Body Attack Point 3")
-bulletPrefab = ExtResource( 14 )
+bossAttackPointNodePath = NodePath("../../Body/Body Attack Point")
 angleIncrementAmount = 3.0
-angleIncrementRate = 0.25
