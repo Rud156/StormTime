@@ -1,24 +1,25 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://Scripts/Enemy/Boss/BossController.cs" type="Script" id=1]
 [ext_resource path="res://Scripts/Enemy/Boss/BossArmController.cs" type="Script" id=2]
 [ext_resource path="res://Prefabs/Interactibles/Bullets/Boss Bullets/Circle Bubble Bullet.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Prefabs/Interactibles/Bullets/Boss Bullets/Boss Charged Bullet.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Scripts/Enemy/Boss/BossSingleArmController.cs" type="Script" id=5]
-[ext_resource path="res://Textures/Boss Side Arm.png" type="Texture" id=6]
-[ext_resource path="res://Scripts/Common/HealthSetter.cs" type="Script" id=7]
-[ext_resource path="res://Textures/Boss Straight Arm.png" type="Texture" id=8]
-[ext_resource path="res://Scripts/Enemy/Boss/BossBodyController.cs" type="Script" id=9]
-[ext_resource path="res://Textures/Boss Body.png" type="Texture" id=10]
-[ext_resource path="res://Scripts/Enemy/Boss/SingleArmAttack.cs" type="Script" id=11]
-[ext_resource path="res://Scripts/Enemy/Boss/DoubleArmAttack.cs" type="Script" id=12]
-[ext_resource path="res://Scripts/Enemy/Boss/FrenzySpinningShot.cs" type="Script" id=13]
-[ext_resource path="res://Prefabs/Interactibles/Bullets/Boss Bullets/Shard Bullet.tscn" type="PackedScene" id=14]
-[ext_resource path="res://Scripts/Enemy/Boss/BounceCircleShot.cs" type="Script" id=15]
-[ext_resource path="res://Prefabs/Interactibles/Bullets/Boss Bullets/Circle Light Center Bullet.tscn" type="PackedScene" id=16]
-[ext_resource path="res://Scripts/Enemy/Boss/CircleWorldFill.cs" type="Script" id=17]
-[ext_resource path="res://Prefabs/Interactibles/Bullets/Boss Bullets/Circle Blur Bullet.tscn" type="PackedScene" id=18]
-[ext_resource path="res://Scripts/Enemy/Boss/InnerCircleShot.cs" type="Script" id=19]
+[ext_resource path="res://Prefabs/Effects/Boss Charge Effect.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Scripts/Enemy/Boss/BossSingleArmController.cs" type="Script" id=6]
+[ext_resource path="res://Textures/Boss Side Arm.png" type="Texture" id=7]
+[ext_resource path="res://Scripts/Common/HealthSetter.cs" type="Script" id=8]
+[ext_resource path="res://Textures/Boss Straight Arm.png" type="Texture" id=9]
+[ext_resource path="res://Scripts/Enemy/Boss/BossBodyController.cs" type="Script" id=10]
+[ext_resource path="res://Textures/Boss Body.png" type="Texture" id=11]
+[ext_resource path="res://Scripts/Enemy/Boss/SingleArmAttack.cs" type="Script" id=12]
+[ext_resource path="res://Scripts/Enemy/Boss/DoubleArmAttack.cs" type="Script" id=13]
+[ext_resource path="res://Scripts/Enemy/Boss/FrenzySpinningShot.cs" type="Script" id=14]
+[ext_resource path="res://Prefabs/Interactibles/Bullets/Boss Bullets/Shard Bullet.tscn" type="PackedScene" id=15]
+[ext_resource path="res://Scripts/Enemy/Boss/BounceCircleShot.cs" type="Script" id=16]
+[ext_resource path="res://Prefabs/Interactibles/Bullets/Boss Bullets/Circle Light Center Bullet.tscn" type="PackedScene" id=17]
+[ext_resource path="res://Scripts/Enemy/Boss/CircleWorldFill.cs" type="Script" id=18]
+[ext_resource path="res://Prefabs/Interactibles/Bullets/Boss Bullets/Circle Blur Bullet.tscn" type="PackedScene" id=19]
+[ext_resource path="res://Scripts/Enemy/Boss/InnerCircleShot.cs" type="Script" id=20]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 12.3397, 3.74849 )
@@ -64,6 +65,7 @@ secondArmAttackNodePath = NodePath("Bottom Attack Point")
 dualArmAttackNodePath = NodePath("Dual Attack Point")
 singleArmBulletPrefab = ExtResource( 3 )
 chargedBulletPrefab = ExtResource( 4 )
+chargingEffectPrefab = ExtResource( 5 )
 singeArmAttackAngleDiff = 7.0
 timeBetweenSingleArmAttacks = 0.3
 timeBetweenChargedAttacks = 3.0
@@ -73,15 +75,15 @@ chargedAttackIncreaseRate = 0.5
 editor/display_folded = true
 position = Vector2( -12, -10 )
 mode = 1
-script = ExtResource( 5 )
+script = ExtResource( 6 )
 healthSetterNodePath = NodePath("Top Part")
 armAlphaChangeRate = 7.0
 armRotationRate = 3.0
 armDetachForce = 5.0
 
 [node name="Top Part" type="Sprite" parent="Left Arm/Top Part RigidBody"]
-texture = ExtResource( 6 )
-script = ExtResource( 7 )
+texture = ExtResource( 7 )
+script = ExtResource( 8 )
 maxHealth = 100.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Left Arm/Top Part RigidBody"]
@@ -92,16 +94,16 @@ shape = SubResource( 1 )
 editor/display_folded = true
 position = Vector2( -12, 11 )
 mode = 1
-script = ExtResource( 5 )
+script = ExtResource( 6 )
 healthSetterNodePath = NodePath("Bottom Part")
 armAlphaChangeRate = 7.0
 armRotationRate = 3.0
 armDetachForce = 5.0
 
 [node name="Bottom Part" type="Sprite" parent="Left Arm/Bottom Part RigidBody"]
-texture = ExtResource( 6 )
+texture = ExtResource( 7 )
 flip_v = true
-script = ExtResource( 7 )
+script = ExtResource( 8 )
 maxHealth = 100.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Left Arm/Bottom Part RigidBody"]
@@ -130,6 +132,7 @@ secondArmAttackNodePath = NodePath("Bottom Attack Point")
 dualArmAttackNodePath = NodePath("Dual Attack Point")
 singleArmBulletPrefab = ExtResource( 3 )
 chargedBulletPrefab = ExtResource( 4 )
+chargingEffectPrefab = ExtResource( 5 )
 singeArmAttackAngleDiff = 7.0
 timeBetweenSingleArmAttacks = 0.3
 timeBetweenChargedAttacks = 3.0
@@ -139,16 +142,16 @@ chargedAttackIncreaseRate = 0.5
 editor/display_folded = true
 position = Vector2( 12, -10 )
 mode = 1
-script = ExtResource( 5 )
+script = ExtResource( 6 )
 healthSetterNodePath = NodePath("Top Part")
 armAlphaChangeRate = 7.0
 armRotationRate = 3.0
 armDetachForce = 5.0
 
 [node name="Top Part" type="Sprite" parent="Right Arm/Top Part RigidBody"]
-texture = ExtResource( 6 )
+texture = ExtResource( 7 )
 flip_h = true
-script = ExtResource( 7 )
+script = ExtResource( 8 )
 maxHealth = 100.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Right Arm/Top Part RigidBody"]
@@ -158,17 +161,17 @@ shape = SubResource( 1 )
 editor/display_folded = true
 position = Vector2( 12, 11 )
 mode = 1
-script = ExtResource( 5 )
+script = ExtResource( 6 )
 healthSetterNodePath = NodePath("Bottom Part")
 armAlphaChangeRate = 7.0
 armRotationRate = 3.0
 armDetachForce = 5.0
 
 [node name="Bottom Part" type="Sprite" parent="Right Arm/Bottom Part RigidBody"]
-texture = ExtResource( 6 )
+texture = ExtResource( 7 )
 flip_h = true
 flip_v = true
-script = ExtResource( 7 )
+script = ExtResource( 8 )
 maxHealth = 100.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Right Arm/Bottom Part RigidBody"]
@@ -196,6 +199,7 @@ secondArmAttackNodePath = NodePath("Right Attack Point")
 dualArmAttackNodePath = NodePath("../Right Arm/Dual Attack Point")
 singleArmBulletPrefab = ExtResource( 3 )
 chargedBulletPrefab = ExtResource( 4 )
+chargingEffectPrefab = ExtResource( 5 )
 singeArmAttackAngleDiff = 7.0
 timeBetweenSingleArmAttacks = 0.3
 timeBetweenChargedAttacks = 3.0
@@ -205,7 +209,7 @@ chargedAttackIncreaseRate = 0.5
 editor/display_folded = true
 position = Vector2( -55, -48 )
 mode = 1
-script = ExtResource( 5 )
+script = ExtResource( 6 )
 healthSetterNodePath = NodePath("Left Part")
 armAlphaChangeRate = 7.0
 armRotationRate = 3.0
@@ -213,8 +217,8 @@ armDetachForce = 5.0
 
 [node name="Left Part" type="Sprite" parent="Top Arm/Left Part RigidBody"]
 scale = Vector2( 3, 3 )
-texture = ExtResource( 8 )
-script = ExtResource( 7 )
+texture = ExtResource( 9 )
+script = ExtResource( 8 )
 maxHealth = 100.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Top Arm/Left Part RigidBody"]
@@ -224,7 +228,7 @@ shape = SubResource( 2 )
 editor/display_folded = true
 position = Vector2( 55, -48 )
 mode = 1
-script = ExtResource( 5 )
+script = ExtResource( 6 )
 healthSetterNodePath = NodePath("Right Part")
 armAlphaChangeRate = 7.0
 armRotationRate = 3.0
@@ -232,9 +236,9 @@ armDetachForce = 5.0
 
 [node name="Right Part" type="Sprite" parent="Top Arm/Right Part RigidBody"]
 scale = Vector2( 3, 3 )
-texture = ExtResource( 8 )
+texture = ExtResource( 9 )
 flip_h = true
-script = ExtResource( 7 )
+script = ExtResource( 8 )
 maxHealth = 100.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Top Arm/Right Part RigidBody"]
@@ -262,6 +266,7 @@ secondArmAttackNodePath = NodePath("Right Attack Point")
 dualArmAttackNodePath = NodePath("Dual Attack Point")
 singleArmBulletPrefab = ExtResource( 3 )
 chargedBulletPrefab = ExtResource( 4 )
+chargingEffectPrefab = ExtResource( 5 )
 singeArmAttackAngleDiff = 7.0
 timeBetweenSingleArmAttacks = 0.3
 timeBetweenChargedAttacks = 3.0
@@ -271,7 +276,7 @@ chargedAttackIncreaseRate = 0.5
 editor/display_folded = true
 position = Vector2( -55, 51 )
 mode = 1
-script = ExtResource( 5 )
+script = ExtResource( 6 )
 healthSetterNodePath = NodePath("Left Part")
 armAlphaChangeRate = 7.0
 armRotationRate = 3.0
@@ -279,9 +284,9 @@ armDetachForce = 5.0
 
 [node name="Left Part" type="Sprite" parent="Bottom Arm/Left Part RigidBody"]
 scale = Vector2( 3, 3 )
-texture = ExtResource( 8 )
+texture = ExtResource( 9 )
 flip_v = true
-script = ExtResource( 7 )
+script = ExtResource( 8 )
 maxHealth = 100.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Bottom Arm/Left Part RigidBody"]
@@ -291,7 +296,7 @@ shape = SubResource( 2 )
 editor/display_folded = true
 position = Vector2( 55, 51 )
 mode = 1
-script = ExtResource( 5 )
+script = ExtResource( 6 )
 healthSetterNodePath = NodePath("Right Part")
 armAlphaChangeRate = 7.0
 armRotationRate = 3.0
@@ -299,10 +304,10 @@ armDetachForce = 5.0
 
 [node name="Right Part" type="Sprite" parent="Bottom Arm/Right Part RigidBody"]
 scale = Vector2( 3, 3 )
-texture = ExtResource( 8 )
+texture = ExtResource( 9 )
 flip_h = true
 flip_v = true
-script = ExtResource( 7 )
+script = ExtResource( 8 )
 maxHealth = 100.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Bottom Arm/Right Part RigidBody"]
@@ -319,14 +324,14 @@ position = Vector2( 0, 100 )
 
 [node name="Body" type="RigidBody2D" parent="."]
 mode = 1
-script = ExtResource( 9 )
+script = ExtResource( 10 )
 bossBodyNodePath = NodePath("Boss Body Part")
 bodyAttackNodePath = NodePath("Body Attack Point")
 
 [node name="Boss Body Part" type="Sprite" parent="Body"]
 scale = Vector2( 3, 3 )
-texture = ExtResource( 10 )
-script = ExtResource( 7 )
+texture = ExtResource( 11 )
+script = ExtResource( 8 )
 maxHealth = 200.0
 
 [node name="Body Attack Point" type="Node2D" parent="Body"]
@@ -339,7 +344,7 @@ shape = SubResource( 3 )
 editor/display_folded = true
 
 [node name="Single Arm Attack" type="Node" parent="Boss Attacks"]
-script = ExtResource( 11 )
+script = ExtResource( 12 )
 bulletPrefab = ExtResource( 3 )
 attackTimer = 14.0
 bossAttackPointNodePath = NodePath("../../Body/Body Attack Point")
@@ -347,7 +352,7 @@ singleArmAttackCount = 2.0
 bossArmControllerNodePaths = [ NodePath("../../Left Arm"), NodePath("../../Right Arm"), NodePath("../../Top Arm"), NodePath("../../Bottom Arm") ]
 
 [node name="Dual Arm Attack" type="Node" parent="Boss Attacks"]
-script = ExtResource( 12 )
+script = ExtResource( 13 )
 bulletPrefab = ExtResource( 3 )
 attackTimer = 14.0
 bossAttackPointNodePath = NodePath("../../Body/Body Attack Point")
@@ -355,8 +360,8 @@ dualArmAttackCount = 2.0
 bossArmControllerNodePaths = [ NodePath("../../Left Arm"), NodePath("../../Right Arm"), NodePath("../../Top Arm"), NodePath("../../Bottom Arm") ]
 
 [node name="Fenzy Spinning Shot Attack" type="Node" parent="Boss Attacks"]
-script = ExtResource( 13 )
-bulletPrefab = ExtResource( 14 )
+script = ExtResource( 14 )
+bulletPrefab = ExtResource( 15 )
 attackTimer = 14.0
 bossAttackPointNodePath = NodePath("../../Body/Body Attack Point")
 rotationOffset = 90.0
@@ -367,8 +372,8 @@ timeBetweenSprayShots = 0.3
 timeBetweenCircleShots = 1.0
 
 [node name="Bounce Circle Shot Attack" type="Node" parent="Boss Attacks"]
-script = ExtResource( 15 )
-bulletPrefab = ExtResource( 16 )
+script = ExtResource( 16 )
+bulletPrefab = ExtResource( 17 )
 attackTimer = 7.0
 bossAttackPointNodePath = NodePath("../../Body/Body Attack Point")
 timeBetweenRows = 0.3
@@ -376,8 +381,8 @@ bulletsInEachRow = 10
 bulletDefaultVelocity = Vector2( 0, 10 )
 
 [node name="Circle World Fill Attack" type="Node" parent="Boss Attacks"]
-script = ExtResource( 17 )
-bulletPrefab = ExtResource( 18 )
+script = ExtResource( 18 )
+bulletPrefab = ExtResource( 19 )
 attackTimer = 9.0
 bossAttackPointNodePath = NodePath("../../Body/Body Attack Point")
 eachShotBulletCount = 10.0
@@ -385,8 +390,8 @@ timeBetweenShot = 0.3
 angleIncrementAmount = 15.0
 
 [node name="Inner Circle Shot Attack" type="Node" parent="Boss Attacks"]
-script = ExtResource( 19 )
-bulletPrefab = ExtResource( 18 )
+script = ExtResource( 20 )
+bulletPrefab = ExtResource( 19 )
 attackTimer = 7.0
 bossAttackPointNodePath = NodePath("../../Body/Body Attack Point")
 angleIncrementAmount = 3.0

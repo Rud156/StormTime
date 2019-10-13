@@ -1,5 +1,6 @@
 using Godot;
 using StormTime.Common;
+using StormTime.Extensions;
 using StormTime.Player.Data;
 using StormTime.Utils;
 using StormTime.Weapon;
@@ -47,6 +48,7 @@ namespace StormTime.Enemy.Boss
         // Bullets
         private Node2D _bulletHolder;
         private BossBullet _chargedBullet;
+        private DestroyNodeForced _chargedEffectDestroy;
 
         // Arm Single Controllers
         private BossSingleArmController _firstArmSingleController;
@@ -236,11 +238,15 @@ namespace StormTime.Enemy.Boss
 
         private void CreateChargedAttack()
         {
+            // Charged Bullet
             _chargedBullet = (BossBullet)chargedBulletPrefab.Instance();
-            AddChild(_chargedBullet);
-
+            _dualArmAttackPosition.AddChild(_chargedBullet);
             _chargedBullet.SetMode(RigidBody2D.ModeEnum.Kinematic);
             _chargedBullet.SetGlobalPosition(_dualArmAttackPosition.GetGlobalPosition());
+
+            // Charged Bullet Effect
+            _chargedEffectDestroy = (DestroyNodeForced)chargingEffectPrefab.Instance();
+            _dualArmAttackPosition.AddChild(_chargedEffectDestroy);
         }
 
         private void UpdateChargedAttack(float delta)
@@ -266,13 +272,16 @@ namespace StormTime.Enemy.Boss
             float yVelocity = Mathf.Sin(launchAngle);
             Vector2 launchVelocity = new Vector2(xVelocity, yVelocity);
 
-            RemoveChild(_chargedBullet);
+            _dualArmAttackPosition.RemoveChild(_chargedBullet);
             _bulletHolder.AddChild(_chargedBullet);
 
             _chargedBullet.SetMode(RigidBody2D.ModeEnum.Rigid);
             _chargedBullet.LaunchBullet(launchVelocity);
 
+            _chargedEffectDestroy.DestroyNode();
+
             _attackVariable_1 = 0;
+            _chargedEffectDestroy = null;
             _chargedBullet = null;
         }
 

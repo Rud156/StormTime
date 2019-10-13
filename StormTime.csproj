@@ -81,6 +81,7 @@
     <Compile Include="Scripts\Enemy\Individuals\WheelEnemy.cs" />
     <Compile Include="Scripts\Extensions\ColorLerper.cs" />
     <Compile Include="Scripts\Extensions\ColorRangeChange.cs" />
+    <Compile Include="Scripts\Extensions\DestroyNodeForced.cs" />
     <Compile Include="Scripts\Extensions\Rotator.cs" />
     <Compile Include="Scripts\Player\Modifiers\PlayerModifierSoulsManager.cs" />
     <Compile Include="Scripts\Player\Modifiers\PlayerModifierTypes.cs" />
