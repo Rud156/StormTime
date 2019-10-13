@@ -1,5 +1,6 @@
 using Godot;
 using StormTime.Common;
+using StormTime.Weapon;
 
 namespace StormTime.Enemy.Boss
 {
@@ -9,9 +10,7 @@ namespace StormTime.Enemy.Boss
         [Export] public NodePath bossBodyNodePath;
 
         // Attack Points
-        [Export] public NodePath firstAttackNodePath;
-        [Export] public NodePath secondAttackNodePath;
-        [Export] public NodePath thirdAttackNodePath;
+        [Export] public NodePath bodyAttackNodePath;
 
         public delegate void BodyStatusChanged(BodyStatus bodyStatus);
 
@@ -40,10 +39,25 @@ namespace StormTime.Enemy.Boss
             _bossBodyHealthSetter.healthChanged += HandleBodyHealthChanged;
         }
 
-        public override void _ExitTree()
+        public override void _ExitTree() => _bossBodyHealthSetter.healthChanged -= HandleBodyHealthChanged;
+
+        #region External Functions
+
+        // Event Function from Bullet Collision
+        public void BulletCollisionNotification(object bullet, bool isFreezingBullet)
         {
-            _bossBodyHealthSetter.healthChanged -= HandleBodyHealthChanged;
+            bool isPLayerBullet = !(bullet is EnemyBullet);
+
+            if (isPLayerBullet)
+            {
+                float damageAmount = ((Bullet)bullet).GetBulletDamage();
+                _bossBodyHealthSetter.SubtractHealth(damageAmount);
+            }
         }
+
+        public BodyStatus GetBodyStatus() => _bodyStatus;
+
+        #endregion
 
         #region Utility Functions
 
@@ -61,12 +75,6 @@ namespace StormTime.Enemy.Boss
         }
 
         private void NotifyBodyHealthChanged() => bodyStatusChanged?.Invoke(_bodyStatus);
-
-        #endregion
-
-        #region External Functions
-
-        public BodyStatus GetBodyStatus() => _bodyStatus;
 
         #endregion
     }

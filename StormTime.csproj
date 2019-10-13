@@ -63,6 +63,7 @@
     <Compile Include="Scripts\Enemy\Boss\BossBaseAttack.cs" />
     <Compile Include="Scripts\Enemy\Boss\BossBodyController.cs" />
     <Compile Include="Scripts\Enemy\Boss\BossController.cs" />
+    <Compile Include="Scripts\Enemy\Boss\BossSingleArmController.cs" />
     <Compile Include="Scripts\Enemy\Boss\BounceCircleShot.cs" />
     <Compile Include="Scripts\Enemy\Boss\CircleWorldFill.cs" />
     <Compile Include="Scripts\Enemy\Boss\DoubleArmAttack.cs" />

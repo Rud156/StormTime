@@ -18,8 +18,6 @@
 [ext_resource path="res://Scripts/Camera/CameraFollowTarget.cs" type="Script" id=16]
 [ext_resource path="res://Prefabs/UI/GUI.tscn" type="PackedScene" id=17]
 
-
-
 [sub_resource type="Gradient" id=1]
 offsets = PoolRealArray( 0, 0.856481, 1 )
 colors = PoolColorArray( 1, 0, 0, 0, 1, 0.679688, 0, 1, 1, 0.609375, 0, 0 )

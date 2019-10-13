@@ -124,22 +124,6 @@ namespace StormTime.Weapon
             if (_canExplode)
             {
                 SpawnBulletExplosion();
-
-                AreaCollisionChecker areaCollisionChecker = AreaCollisionManager.instance.GetAreaCollisionChecker();
-                areaCollisionChecker.MoveShapeToPosition(GetGlobalPosition());
-                areaCollisionChecker.SetCollisionRadius(explosionRadius);
-
-                _collidingBodies = areaCollisionChecker.GetCollidingObjects();
-                foreach (Object collidingBody in _collidingBodies)
-                {
-                    if (collidingBody is PlayerController playerController)
-                    {
-                        playerController.TakeExternalDamage(explosionDamageAmount);
-                        break;
-                    }
-                }
-
-                AreaCollisionManager.instance.ReturnCollisionChecker(areaCollisionChecker);
             }
 
             RemoveBulletFromTree();
