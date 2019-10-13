@@ -23,7 +23,7 @@ namespace StormTime.Utils
         public const string PlayerWeaponSwitch_3 = "ui_3";
 
         public const string Testing_1 = "ui_q";
-        public const string Testing_2 = "ui_w";
+        public const string Testing_2 = "ui_u";
         public const string Testing_3 = "ui_e";
         public const string Testing_4 = "ui_r";
         public const string Testing_5 = "ui_t";

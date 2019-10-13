@@ -50,7 +50,6 @@ enemyBulletPrefab = ExtResource( 4 )
 shape = SubResource( 1 )
 
 [node name="Burst Enemy Container" type="Node2D" parent="."]
-editor/display_folded = true
 
 [node name="Shadow Sprite" type="Sprite" parent="Burst Enemy Container"]
 light_mask = 2

@@ -195,10 +195,13 @@ __meta__ = {
 portalCountDisplayLabelNodePath = NodePath("../../../CanvasLayer/GUI/Portal Display Panel/Portal Left Count")
 
 [node name="Player" parent="Game World" instance=ExtResource( 9 )]
-editor/display_folded = true
 
 [node name="Player Shooter" parent="Game World/Player" index="3"]
+editor/display_folded = false
 playerBulletHolderNodePath = NodePath("../../Bullets Holder")
+
+[node name="Player Health" parent="Game World/Player" index="5"]
+editor/display_folded = false
 
 [node name="Health Display" parent="Game World/Player/Player Health" index="0"]
 healthProgressNodePath = NodePath("../../../../CanvasLayer/GUI/Player Health Panel/Player Health")
@@ -212,6 +215,8 @@ drag_margin_left = 0.1
 drag_margin_top = 0.1
 drag_margin_right = 0.1
 drag_margin_bottom = 0.1
+editor_draw_limits = true
+editor_draw_drag_margin = true
 script = ExtResource( 10 )
 targetNode = NodePath("../Player")
 lockBottomLeftCorner = Vector2( -1900, 1890 )

@@ -403,7 +403,6 @@ position = Vector2( 12.0242, 11.0414 )
 shape = SubResource( 2 )
 
 [node name="Background_5" type="Sprite" parent="World Background"]
-editor/display_folded = true
 position = Vector2( -48.8022, -2250 )
 scale = Vector2( 8.98438, 8.59375 )
 z_index = -1
@@ -466,11 +465,11 @@ position = Vector2( 12.0242, 11.0414 )
 shape = SubResource( 2 )
 
 [node name="Occuluder 6" type="LightOccluder2D" parent="World Background/Background_5"]
-editor/display_folded = true
 position = Vector2( 20, 90 )
 occluder = SubResource( 1 )
 
 [node name="StaticBody2D" type="StaticBody2D" parent="World Background/Background_5/Occuluder 6"]
+editor/display_folded = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World Background/Background_5/Occuluder 6/StaticBody2D"]
 position = Vector2( 12.0242, 11.0414 )

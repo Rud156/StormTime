@@ -53,7 +53,7 @@ frenzyAttackHealthPercent = 0.3
 singleArmAttackNodePath = NodePath("Boss Attacks/Single Arm Attack")
 dualArmAttackNodePath = NodePath("Boss Attacks/Dual Arm Attack")
 frenzyAttackNodePath = NodePath("Boss Attacks/Fenzy Spinning Shot Attack")
-bossAttacks = [ NodePath("Boss Attacks/Bounce Circle Shot Attack"), NodePath("Boss Attacks/Circle World Fill Attack"), NodePath("Boss Attacks/inner Circle Shot Attack") ]
+bossAttacks = [ NodePath("Boss Attacks/Bounce Circle Shot Attack"), NodePath("Boss Attacks/Circle World Fill Attack"), NodePath("Boss Attacks/Inner Circle Shot Attack") ]
 maxSingleArmAttackPercent = 0.25
 minDualArmAttackPercent = 0.25
 maxDualArmAttackPercent = 0.5
@@ -80,7 +80,10 @@ timeBetweenChargedAttacks = 3.0
 chargedAttackIncreaseRate = 0.5
 
 [node name="Top Part RigidBody" type="RigidBody2D" parent="Left Arm"]
+editor/display_folded = true
 position = Vector2( -12, -10 )
+collision_layer = 4
+collision_mask = 3
 mode = 1
 script = ExtResource( 6 )
 healthSetterNodePath = NodePath("Top Part")
@@ -100,6 +103,8 @@ shape = SubResource( 1 )
 [node name="Bottom Part RigidBody" type="RigidBody2D" parent="Left Arm"]
 editor/display_folded = true
 position = Vector2( -12, 11 )
+collision_layer = 4
+collision_mask = 3
 mode = 1
 script = ExtResource( 6 )
 healthSetterNodePath = NodePath("Bottom Part")
@@ -126,7 +131,6 @@ position = Vector2( -24, 6.5 )
 position = Vector2( -25, 0 )
 
 [node name="Right Arm" type="Node2D" parent="."]
-editor/display_folded = true
 position = Vector2( 120, 0 )
 scale = Vector2( 3, 3 )
 script = ExtResource( 2 )
@@ -148,6 +152,8 @@ chargedAttackIncreaseRate = 0.5
 [node name="Top Part RigidBody" type="RigidBody2D" parent="Right Arm"]
 editor/display_folded = true
 position = Vector2( 12, -10 )
+collision_layer = 4
+collision_mask = 3
 mode = 1
 script = ExtResource( 6 )
 healthSetterNodePath = NodePath("Top Part")
@@ -167,6 +173,8 @@ shape = SubResource( 1 )
 [node name="Bottom Part RigidBody" type="RigidBody2D" parent="Right Arm"]
 editor/display_folded = true
 position = Vector2( 12, 11 )
+collision_layer = 4
+collision_mask = 3
 mode = 1
 script = ExtResource( 6 )
 healthSetterNodePath = NodePath("Bottom Part")
@@ -194,7 +202,6 @@ position = Vector2( 24, 6.5 )
 position = Vector2( 25, 0 )
 
 [node name="Top Arm" type="Node2D" parent="."]
-editor/display_folded = true
 position = Vector2( 0, -78 )
 script = ExtResource( 2 )
 firstArmNodePath = NodePath("Left Part RigidBody/Left Part")
@@ -215,6 +222,8 @@ chargedAttackIncreaseRate = 0.5
 [node name="Left Part RigidBody" type="RigidBody2D" parent="Top Arm"]
 editor/display_folded = true
 position = Vector2( -55, -48 )
+collision_layer = 4
+collision_mask = 3
 mode = 1
 script = ExtResource( 6 )
 healthSetterNodePath = NodePath("Left Part")
@@ -234,6 +243,8 @@ shape = SubResource( 2 )
 [node name="Right Part RigidBody" type="RigidBody2D" parent="Top Arm"]
 editor/display_folded = true
 position = Vector2( 55, -48 )
+collision_layer = 4
+collision_mask = 3
 mode = 1
 script = ExtResource( 6 )
 healthSetterNodePath = NodePath("Right Part")
@@ -279,7 +290,10 @@ timeBetweenChargedAttacks = 3.0
 chargedAttackIncreaseRate = 0.5
 
 [node name="Left Part RigidBody" type="RigidBody2D" parent="Bottom Arm"]
+editor/display_folded = true
 position = Vector2( -55, 51 )
+collision_layer = 4
+collision_mask = 3
 mode = 1
 script = ExtResource( 6 )
 healthSetterNodePath = NodePath("Left Part")
@@ -299,7 +313,10 @@ position = Vector2( -0.790543, 0 )
 shape = SubResource( 2 )
 
 [node name="Right Part RigidBody" type="RigidBody2D" parent="Bottom Arm"]
+editor/display_folded = true
 position = Vector2( 55, 51 )
+collision_layer = 4
+collision_mask = 3
 mode = 1
 script = ExtResource( 6 )
 healthSetterNodePath = NodePath("Right Part")
@@ -328,6 +345,8 @@ position = Vector2( 31, 95 )
 position = Vector2( 0, 100 )
 
 [node name="Body" type="RigidBody2D" parent="."]
+collision_layer = 4
+collision_mask = 3
 mode = 1
 script = ExtResource( 10 )
 bossBodyNodePath = NodePath("Boss Body Part")
