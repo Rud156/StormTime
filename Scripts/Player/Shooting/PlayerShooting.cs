@@ -31,6 +31,9 @@ namespace StormTime.Player.Shooting
         [Export] public float chargeGunScaleIncrementRate;
         [Export] public int chargedShotSoulDecrementCount = 5;
 
+        // Souls Info
+        [Export] public int totalShotsBeforeSoulsDecrement = 15;
+
         private Node2D _playerBulletHolder;
         private Node2D _playerBulletShootingPosition;
         private Node2D _playerChargedShotShootingPosition;
@@ -43,6 +46,8 @@ namespace StormTime.Player.Shooting
         private float _currentDamageDiff; // Add this value to the original damage value of the bullet
         private float _currentDamageDiffPercent;
 
+        public int _currentShotCount;
+
         // Charged Shot Weapon
         private float _chargeWeaponCurrentScale;
         private bool _chargeWeaponActive;
@@ -53,7 +58,6 @@ namespace StormTime.Player.Shooting
 
         // Events
         public delegate void BulletShot(WeaponType weaponType);
-
         public BulletShot bulletShot;
 
         public enum WeaponType
@@ -89,6 +93,8 @@ namespace StormTime.Player.Shooting
                 {WeaponType.Shotgun, new WeaponState() {weaponType = WeaponType.Shotgun, isUnlocked = false}},
                 {WeaponType.ChargeGun, new WeaponState() {weaponType = WeaponType.ChargeGun, isUnlocked = false}}
             };
+
+            _currentShotCount = totalShotsBeforeSoulsDecrement;
         }
 
         public override void _Process(float delta)
@@ -220,7 +226,7 @@ namespace StormTime.Player.Shooting
             if (decrementSouls)
             {
                 bulletShot?.Invoke(_currentWeaponType);
-                PlayerModifierSoulsManager.instance.DecrementSouls(singleShotSoulDecrementCount);
+                CheckAndDecrementSoulsCount(singleShotSoulDecrementCount);
             }
         }
 
@@ -241,7 +247,7 @@ namespace StormTime.Player.Shooting
             }
 
             bulletShot?.Invoke(_currentWeaponType);
-            PlayerModifierSoulsManager.instance.DecrementSouls(shotGunShotSoulDecrementCount);
+            CheckAndDecrementSoulsCount(shotGunShotSoulDecrementCount);
         }
 
         private void ShootChargedBullet()
@@ -286,7 +292,17 @@ namespace StormTime.Player.Shooting
             _currentShootTimeLeft = _currentShootDelay;
 
             bulletShot?.Invoke(_currentWeaponType);
-            PlayerModifierSoulsManager.instance.DecrementSouls(chargedShotSoulDecrementCount);
+            CheckAndDecrementSoulsCount(chargedShotSoulDecrementCount);
+        }
+
+        private void CheckAndDecrementSoulsCount(int decrementSoulCount)
+        {
+            _currentShotCount -= decrementSoulCount;
+            if (_currentShotCount <= 0)
+            {
+                PlayerModifierSoulsManager.instance.DecrementSouls(1);
+                _currentShotCount = totalShotsBeforeSoulsDecrement;
+            }
         }
 
         #endregion

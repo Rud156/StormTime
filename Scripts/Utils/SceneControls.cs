@@ -2,7 +2,7 @@ using Godot;
 
 namespace StormTime.Utils
 {
-    public class SceneControls : Node2D
+    public class SceneControls : Node
     {
         public const string Up = "ui_up";
         public const string Down = "ui_down";
@@ -21,5 +21,12 @@ namespace StormTime.Utils
         public const string PlayerWeaponSwitch_1 = "ui_1";
         public const string PlayerWeaponSwitch_2 = "ui_2";
         public const string PlayerWeaponSwitch_3 = "ui_3";
+
+        public const string Testing_1 = "ui_q";
+        public const string Testing_2 = "ui_w";
+        public const string Testing_3 = "ui_e";
+        public const string Testing_4 = "ui_r";
+        public const string Testing_5 = "ui_t";
+        public const string Testing_6 = "ui_y";
     }
 }

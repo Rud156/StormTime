@@ -132,7 +132,7 @@ namespace StormTime.Player.Modifiers
 
         public static string GetShopItemDescription(ShopItem shopItem)
         {
-            string dialogueString = string.Empty;
+            string dialogueString;
 
             switch (shopItem)
             {

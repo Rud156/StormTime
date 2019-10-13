@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://Scripts/Enemy/Boss/BossController.cs" type="Script" id=1]
 [ext_resource path="res://Scripts/Enemy/Boss/BossArmController.cs" type="Script" id=2]
@@ -25,10 +25,19 @@
 extents = Vector2( 12.3397, 3.74849 )
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 22.9475, 48.9015 )
+extents = Vector2( 22.9475, 51.1947 )
 
 [sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 119.594, 77.6248 )
+
+[sub_resource type="OccluderPolygon2D" id=4]
+polygon = PoolVector2Array( 18.3667, 113.367, 65.9603, 113.367, 65.9603, 79.4964, 91.071, 79.4964, 91.071, 138.185, 43.4774, 138.185, 43.4774, 173.224, 18.3667, 173.224 )
+
+[sub_resource type="OccluderPolygon2D" id=5]
+polygon = PoolVector2Array( -191.877, -30.3952, -169.205, -30.3952, -169.205, -54.1611, -120.381, -54.1611, -120.381, -29.898, -144.246, -29.898, -144.246, -8.91642, -191.977, -8.91642 )
+
+[sub_resource type="OccluderPolygon2D" id=6]
+polygon = PoolVector2Array( -120.286, -78.5305, 119.726, -78.5305, 119.726, 78.5576, -119.702, 78.8495 )
 
 [node name="BossEnemy" type="Node2D"]
 script = ExtResource( 1 )
@@ -52,7 +61,6 @@ minAbilityAttackPercent = 0.5
 maxAbilityArmAttackPercent = 0.95
 
 [node name="Left Arm" type="Node2D" parent="."]
-editor/display_folded = true
 position = Vector2( -120, 0 )
 scale = Vector2( 3, 3 )
 script = ExtResource( 2 )
@@ -72,7 +80,6 @@ timeBetweenChargedAttacks = 3.0
 chargedAttackIncreaseRate = 0.5
 
 [node name="Top Part RigidBody" type="RigidBody2D" parent="Left Arm"]
-editor/display_folded = true
 position = Vector2( -12, -10 )
 mode = 1
 script = ExtResource( 6 )
@@ -87,7 +94,7 @@ script = ExtResource( 8 )
 maxHealth = 100.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Left Arm/Top Part RigidBody"]
-position = Vector2( 0, -0.107844 )
+position = Vector2( 0, -0.140991 )
 shape = SubResource( 1 )
 
 [node name="Bottom Part RigidBody" type="RigidBody2D" parent="Left Arm"]
@@ -254,7 +261,6 @@ position = Vector2( 31, -95 )
 position = Vector2( 0, -100 )
 
 [node name="Bottom Arm" type="Node2D" parent="."]
-editor/display_folded = true
 position = Vector2( 0, 78 )
 script = ExtResource( 2 )
 firstArmNodePath = NodePath("Left Part RigidBody/Left Part")
@@ -273,7 +279,6 @@ timeBetweenChargedAttacks = 3.0
 chargedAttackIncreaseRate = 0.5
 
 [node name="Left Part RigidBody" type="RigidBody2D" parent="Bottom Arm"]
-editor/display_folded = true
 position = Vector2( -55, 51 )
 mode = 1
 script = ExtResource( 6 )
@@ -290,10 +295,10 @@ script = ExtResource( 8 )
 maxHealth = 100.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Bottom Arm/Left Part RigidBody"]
+position = Vector2( -0.790543, 0 )
 shape = SubResource( 2 )
 
 [node name="Right Part RigidBody" type="RigidBody2D" parent="Bottom Arm"]
-editor/display_folded = true
 position = Vector2( 55, 51 )
 mode = 1
 script = ExtResource( 6 )
@@ -340,10 +345,10 @@ position = Vector2( 0, 36 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Body"]
 shape = SubResource( 3 )
 
-[node name="Boss Attacks" type="Node" parent="."]
+[node name="Boss Attacks" type="Node2D" parent="."]
 editor/display_folded = true
 
-[node name="Single Arm Attack" type="Node" parent="Boss Attacks"]
+[node name="Single Arm Attack" type="Node2D" parent="Boss Attacks"]
 script = ExtResource( 12 )
 bulletPrefab = ExtResource( 3 )
 attackTimer = 14.0
@@ -351,7 +356,7 @@ bossAttackPointNodePath = NodePath("../../Body/Body Attack Point")
 singleArmAttackCount = 2.0
 bossArmControllerNodePaths = [ NodePath("../../Left Arm"), NodePath("../../Right Arm"), NodePath("../../Top Arm"), NodePath("../../Bottom Arm") ]
 
-[node name="Dual Arm Attack" type="Node" parent="Boss Attacks"]
+[node name="Dual Arm Attack" type="Node2D" parent="Boss Attacks"]
 script = ExtResource( 13 )
 bulletPrefab = ExtResource( 3 )
 attackTimer = 14.0
@@ -359,7 +364,7 @@ bossAttackPointNodePath = NodePath("../../Body/Body Attack Point")
 dualArmAttackCount = 2.0
 bossArmControllerNodePaths = [ NodePath("../../Left Arm"), NodePath("../../Right Arm"), NodePath("../../Top Arm"), NodePath("../../Bottom Arm") ]
 
-[node name="Fenzy Spinning Shot Attack" type="Node" parent="Boss Attacks"]
+[node name="Fenzy Spinning Shot Attack" type="Node2D" parent="Boss Attacks"]
 script = ExtResource( 14 )
 bulletPrefab = ExtResource( 15 )
 attackTimer = 14.0
@@ -371,7 +376,7 @@ sprayRotationIncrementAmount = 10.0
 timeBetweenSprayShots = 0.3
 timeBetweenCircleShots = 1.0
 
-[node name="Bounce Circle Shot Attack" type="Node" parent="Boss Attacks"]
+[node name="Bounce Circle Shot Attack" type="Node2D" parent="Boss Attacks"]
 script = ExtResource( 16 )
 bulletPrefab = ExtResource( 17 )
 attackTimer = 7.0
@@ -380,7 +385,7 @@ timeBetweenRows = 0.3
 bulletsInEachRow = 10
 bulletDefaultVelocity = Vector2( 0, 10 )
 
-[node name="Circle World Fill Attack" type="Node" parent="Boss Attacks"]
+[node name="Circle World Fill Attack" type="Node2D" parent="Boss Attacks"]
 script = ExtResource( 18 )
 bulletPrefab = ExtResource( 19 )
 attackTimer = 9.0
@@ -389,9 +394,49 @@ eachShotBulletCount = 10.0
 timeBetweenShot = 0.3
 angleIncrementAmount = 15.0
 
-[node name="Inner Circle Shot Attack" type="Node" parent="Boss Attacks"]
+[node name="Inner Circle Shot Attack" type="Node2D" parent="Boss Attacks"]
 script = ExtResource( 20 )
 bulletPrefab = ExtResource( 19 )
 attackTimer = 7.0
 bossAttackPointNodePath = NodePath("../../Body/Body Attack Point")
 angleIncrementAmount = 3.0
+
+[node name="Light Occuluder" type="Node2D" parent="."]
+
+[node name="Light Occuluder 1" type="LightOccluder2D" parent="Light Occuluder"]
+occluder = SubResource( 4 )
+
+[node name="Light Occuluder 2" type="LightOccluder2D" parent="Light Occuluder"]
+position = Vector2( -109.6, -251.93 )
+occluder = SubResource( 4 )
+
+[node name="Light Occuluder 3" type="LightOccluder2D" parent="Light Occuluder"]
+position = Vector2( 110.27, -251.93 )
+scale = Vector2( -1, 1 )
+occluder = SubResource( 4 )
+
+[node name="Light Occuluder 4" type="LightOccluder2D" parent="Light Occuluder"]
+position = Vector2( 0.03, 0 )
+rotation = -3.14159
+scale = Vector2( 1, -1 )
+occluder = SubResource( 4 )
+
+[node name="Light Occuluder 5" type="LightOccluder2D" parent="Light Occuluder"]
+occluder = SubResource( 5 )
+
+[node name="Light Occuluder 6" type="LightOccluder2D" parent="Light Occuluder"]
+position = Vector2( 0, -0.1 )
+scale = Vector2( 1, -1 )
+occluder = SubResource( 5 )
+
+[node name="Light Occuluder 7" type="LightOccluder2D" parent="Light Occuluder"]
+position = Vector2( 312.42, 63.21 )
+occluder = SubResource( 5 )
+
+[node name="Light Occuluder 8" type="LightOccluder2D" parent="Light Occuluder"]
+position = Vector2( 312.53, -63.19 )
+scale = Vector2( 1, -1 )
+occluder = SubResource( 5 )
+
+[node name="Light Occuluder Body" type="LightOccluder2D" parent="Light Occuluder"]
+occluder = SubResource( 6 )

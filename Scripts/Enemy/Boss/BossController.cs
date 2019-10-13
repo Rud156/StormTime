@@ -153,11 +153,14 @@ namespace StormTime.Enemy.Boss
 
         private void UpdateIdleState(float delta)
         {
-            _bossTimer -= delta;
-            if (_bossTimer <= 0)
-            {
-                SetBossState(GetRandomAttack());
-            }
+            // TODO: Activate this later on...
+            // _bossTimer -= delta;
+            // if (_bossTimer <= 0)
+            // {
+            //     SetBossState(GetRandomAttack());
+            // }
+
+        
         }
 
         private void UpdateSingleArmShot(float delta)

@@ -1,8 +1,14 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Scripts/Player/Movement/PlayerController.cs" type="Script" id=1]
 [ext_resource path="res://Textures/Blur Rectangle.png" type="Texture" id=2]
 [ext_resource path="res://Textures/Player.png" type="Texture" id=3]
+[ext_resource path="res://Scripts/Player/Shooting/PlayerShooting.cs" type="Script" id=4]
+[ext_resource path="res://Prefabs/Interactibles/Bullets/Player Bullets/Bullet.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Prefabs/Interactibles/Bullets/Player Bullets/Charged Bullet.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Textures/light.png" type="Texture" id=7]
+[ext_resource path="res://Scripts/Common/HealthSetter.cs" type="Script" id=8]
+[ext_resource path="res://Scripts/Common/HealthDisplay.cs" type="Script" id=9]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 70, 70 )
@@ -21,8 +27,12 @@ maxScaleAmount = 0.5
 scaleChangeFrequency = 7.0
 rotationRate = 30.0
 lerpVelocity = 7.0
+playerShootingNodePath = NodePath("Player Shooter")
+playerHealthSetterNodePath = NodePath("Player Health")
 lowSoulsHealthDecrementRate = 1.0
 lowHealthWarningColor = Color( 1, 0, 0, 1 )
+shotGunRecoilForce = 1000.0
+shotGunRecoilAffectTime = 0.1
 
 [node name="Shadow Sprite" type="Sprite" parent="."]
 light_mask = 2
@@ -35,3 +45,42 @@ texture = ExtResource( 3 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
+
+[node name="Player Shooter" type="Node2D" parent="."]
+editor/display_folded = true
+script = ExtResource( 4 )
+playerBulletPrefab = ExtResource( 5 )
+playerChargedBulletPrefab = ExtResource( 6 )
+playerShootingPositionNodePath = NodePath("Player Shooting Position")
+playerChargedShootingPositionNodePath = NodePath("Charged Shooting Position")
+shootDelay = 0.3
+chargeGunMaxScaleAmount = 2.0
+chargeGunScaleIncrementRate = 0.5
+
+[node name="Player Shooting Position" type="Node2D" parent="Player Shooter"]
+position = Vector2( 80, 0 )
+
+[node name="Charged Shooting Position" type="Node2D" parent="Player Shooter"]
+position = Vector2( 202.46, 0 )
+
+[node name="Scene Light" type="Light2D" parent="."]
+scale = Vector2( 66.6667, 66.6667 )
+texture = ExtResource( 7 )
+energy = 1.5
+range_height = 7.0
+shadow_enabled = true
+shadow_gradient_length = 1.3
+shadow_filter = 3
+shadow_filter_smooth = 10.0
+
+[node name="Player Health" type="Node2D" parent="."]
+editor/display_folded = true
+script = ExtResource( 8 )
+maxHealth = 100.0
+
+[node name="Health Display" type="Node2D" parent="Player Health"]
+script = ExtResource( 9 )
+minHealthColor = Color( 1, 0, 0, 1 )
+halfHealthColor = Color( 1, 1, 0, 1 )
+maxHealthColor = Color( 0, 1, 0, 1 )
+healthSetterNodePath = NodePath("..")
