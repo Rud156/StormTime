@@ -21,19 +21,15 @@ namespace StormTime.Enemy.Boss
         [Export] public NodePath bulletHolderNodePath;
 
         // Arm Attacks
-        [Export] public PackedScene simpleBulletPrefab;
+        [Export] public PackedScene singleArmBulletPrefab;
         [Export] public PackedScene chargedBulletPrefab;
         [Export] public PackedScene chargingEffectPrefab;
 
         // Attack Information
-        [Export] public float multiShotCircleAttackAngleDiff;
-        [Export] public float timeBetweenSimpleAttacks;
+        [Export] public float singeArmAttackAngleDiff;
+        [Export] public float timeBetweenSingleArmAttacks;
         [Export] public float timeBetweenChargedAttacks;
         [Export] public float chargedAttackIncreaseRate;
-
-        // Arm Destroy
-        [Export] public float armDestroyForceAmount;
-        [Export] public float alphaChangeRate;
 
         public delegate void ArmStatusChanged(ArmStatus armStatus);
         public ArmStatusChanged armStatusChanged;
@@ -151,7 +147,7 @@ namespace StormTime.Enemy.Boss
             _attackVariable_2 -= delta;
             if (_attackVariable_2 <= 0)
             {
-                _attackVariable_2 = timeBetweenSimpleAttacks;
+                _attackVariable_2 = timeBetweenSingleArmAttacks;
                 LaunchSingleArmAttack(_firstArmAttackPosition.GetGlobalPosition());
             }
         }
@@ -167,7 +163,7 @@ namespace StormTime.Enemy.Boss
             _attackVariable_2 -= delta;
             if (_attackVariable_2 <= 0)
             {
-                _attackVariable_2 = timeBetweenSimpleAttacks;
+                _attackVariable_2 = timeBetweenSingleArmAttacks;
                 LaunchSingleArmAttack(_secondArmAttackPosition.GetGlobalPosition());
             }
         }
@@ -226,13 +222,13 @@ namespace StormTime.Enemy.Boss
             float yVelocity = Mathf.Sin(Mathf.Deg2Rad(_attackVariable_1));
             Vector2 launchVelocity = new Vector2(xVelocity, yVelocity);
 
-            BossBullet bulletInstance = (BossBullet)simpleBulletPrefab.Instance();
+            BossBullet bulletInstance = (BossBullet)singleArmBulletPrefab.Instance();
             _bulletHolder.AddChild(bulletInstance);
 
             bulletInstance.SetGlobalPosition(attackPosition);
             bulletInstance.LaunchBullet(launchVelocity);
 
-            _attackVariable_1 += multiShotCircleAttackAngleDiff;
+            _attackVariable_1 += singeArmAttackAngleDiff;
             _attackVariable_1 = ExtensionFunctions.To360Angle(_attackVariable_1);
         }
 
