@@ -5,13 +5,13 @@
 [ext_resource path="res://Prefabs/Effects/Bullet Explosion GB.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Textures/light.png" type="Texture" id=4]
 [ext_resource path="res://Scripts/Extensions/ColorRangeChange.cs" type="Script" id=5]
-[ext_resource path="res://Textures/Octagon Glow Circle.png" type="Texture" id=6]
-[ext_resource path="res://Scripts/Extensions/Rotator.cs" type="Script" id=7]
+[ext_resource path="res://Scripts/Extensions/Rotator.cs" type="Script" id=6]
+[ext_resource path="res://Textures/Octagon Glow Circle.png" type="Texture" id=7]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 29.484
 
-[node name="Circle Power Bullet" type="RigidBody2D"]
+[node name="Circle Light Center Bullet" type="RigidBody2D"]
 collision_layer = 4
 collision_mask = 3
 contacts_reported = 1
@@ -23,7 +23,7 @@ bulletSpeed = 250.0
 bulletLifeTime = 10.0
 bulletTrailTimer = 1.0
 bulletDamageAmount = 50.0
-bulletSpritePath = NodePath("Jagged Part")
+bulletSpritePath = NodePath("../Circle Light Center Bullet/Jagged Part")
 autoSetInitialColor = false
 explosionRadius = 100.0
 explosionDamageAmount = 50.0
@@ -35,11 +35,15 @@ script = ExtResource( 5 )
 startColor = Color( 1, 0, 0, 1 )
 endColor = Color( 1, 1, 0, 1 )
 
-[node name="Jagged Part" type="Sprite" parent="."]
-self_modulate = Color( 0, 0.415686, 1, 1 )
+[node name="Rotator" type="Node2D" parent="."]
 scale = Vector2( 0.106674, 0.106674 )
-texture = ExtResource( 6 )
-script = ExtResource( 7 )
+script = ExtResource( 6 )
+rotationSpeed = 14.0
+
+[node name="Jagged Part" type="Sprite" parent="Rotator"]
+self_modulate = Color( 0, 0.415686, 1, 1 )
+texture = ExtResource( 7 )
+script = ExtResource( 6 )
 rotationSpeed = 14.0
 
 [node name="Circle Power Bullet Collision" type="CollisionShape2D" parent="."]

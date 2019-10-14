@@ -407,7 +407,6 @@ position = Vector2( 0.149887, 0 )
 shape = SubResource( 3 )
 
 [node name="Boss Attacks" type="Node2D" parent="."]
-editor/display_folded = true
 
 [node name="Single Arm Attack" type="Node2D" parent="Boss Attacks"]
 script = ExtResource( 15 )
@@ -466,6 +465,7 @@ angleIncrementAmount = 3.0
 script = ExtResource( 9 )
 
 [node name="Light Occuluder" type="Node2D" parent="."]
+editor/display_folded = true
 
 [node name="Light Occuluder 1" type="LightOccluder2D" parent="Light Occuluder"]
 occluder = SubResource( 4 )
@@ -503,6 +503,7 @@ scale = Vector2( 1, -1 )
 occluder = SubResource( 5 )
 
 [node name="Boss Body Light Occuluder" type="Node2D" parent="Light Occuluder"]
+editor/display_folded = true
 
 [node name="Body Occuluder 1" type="LightOccluder2D" parent="Light Occuluder/Boss Body Light Occuluder"]
 occluder = SubResource( 6 )

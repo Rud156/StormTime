@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Godot;
 using StormTime.Common;
 using StormTime.Utils;
+using StormTime.Weapon;
 
 namespace StormTime.Enemy.Boss
 {

@@ -47,6 +47,7 @@ gradient = SubResource( 7 )
 [node name="Game World" type="Node2D" parent="."]
 
 [node name="Managers" type="Node" parent="Game World"]
+editor/display_folded = true
 
 [node name="Player Souls Manager" type="Node" parent="Game World/Managers"]
 script = ExtResource( 1 )
@@ -195,6 +196,7 @@ __meta__ = {
 portalCountDisplayLabelNodePath = NodePath("../../../CanvasLayer/GUI/Portal Display Panel/Portal Left Count")
 
 [node name="Player" parent="Game World" instance=ExtResource( 9 )]
+editor/display_folded = true
 
 [node name="Player Shooter" parent="Game World/Player" index="3"]
 editor/display_folded = false

@@ -35,6 +35,7 @@ script = ExtResource( 3 )
 [node name="Player Bullet Holder" type="Node2D" parent="Game World"]
 
 [node name="Boss Bullet Holder" type="Node2D" parent="Game World"]
+position = Vector2( -340.18, 0 )
 
 [node name="World End Points" type="Node2D" parent="Game World"]
 editor/display_folded = true
@@ -52,6 +53,7 @@ position = Vector2( -1507, 1500 )
 position = Vector2( 1507, 1500 )
 
 [node name="BossEnemy" parent="Game World" instance=ExtResource( 5 )]
+editor/display_folded = true
 
 [node name="Left Arm" parent="Game World/BossEnemy" index="0"]
 bulletHolderNodePath = NodePath("../../Boss Bullet Holder")
@@ -64,6 +66,9 @@ bulletHolderNodePath = NodePath("../../Boss Bullet Holder")
 
 [node name="Bottom Arm" parent="Game World/BossEnemy" index="3"]
 bulletHolderNodePath = NodePath("../../Boss Bullet Holder")
+
+[node name="Boss Attacks" parent="Game World/BossEnemy" index="5"]
+editor/display_folded = true
 
 [node name="Single Arm Attack" parent="Game World/BossEnemy/Boss Attacks" index="0"]
 bulletHolderNodePath = NodePath("../../../Boss Bullet Holder")
@@ -86,11 +91,9 @@ bulletHolderNodePath = NodePath("../../../Boss Bullet Holder")
 bulletHolderNodePath = NodePath("../../../Boss Bullet Holder")
 
 [node name="Player" parent="Game World" instance=ExtResource( 6 )]
-editor/display_folded = true
 position = Vector2( -315.013, 209.949 )
 
 [node name="Player Shooter" parent="Game World/Player" index="3"]
-editor/display_folded = false
 playerBulletHolderNodePath = NodePath("../../Player Bullet Holder")
 
 [node name="Player Health" parent="Game World/Player" index="5"]

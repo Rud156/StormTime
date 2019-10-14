@@ -220,14 +220,12 @@ namespace StormTime.Enemy.Boss
 
         private void LaunchSingleArmAttack(Vector2 attackPosition)
         {
+            BossBullet bulletInstance = (BossBullet)singleArmBulletPrefab.Instance();
+            _bulletHolder.AddChild(bulletInstance);
+
             float xVelocity = Mathf.Cos(Mathf.Deg2Rad(_attackVariable_1));
             float yVelocity = Mathf.Sin(Mathf.Deg2Rad(_attackVariable_1));
             Vector2 launchVelocity = new Vector2(xVelocity, yVelocity);
-
-            BossBullet bulletInstance = (BossBullet)singleArmBulletPrefab.Instance();
-            GD.Print($"Bullet Instance: {bulletInstance}");
-            GD.Print($"Bullet Holder: {_bulletHolder}");
-            _bulletHolder.AddChild(bulletInstance);
 
             bulletInstance.SetGlobalPosition(attackPosition);
             bulletInstance.LaunchBullet(launchVelocity);
