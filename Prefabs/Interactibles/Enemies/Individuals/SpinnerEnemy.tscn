@@ -49,7 +49,6 @@ timeBetweenShot = 0.3
 shape = SubResource( 1 )
 
 [node name="Spinner Enemy Container" type="Node2D" parent="."]
-editor/display_folded = true
 
 [node name="Shadow Sprite" type="Sprite" parent="Spinner Enemy Container"]
 light_mask = 2
@@ -76,6 +75,7 @@ rotation = 3.14159
 scale = Vector2( 0.5, 0.5 )
 
 [node name="Enemy Health" type="Node2D" parent="."]
+editor/display_folded = true
 script = ExtResource( 7 )
 maxHealth = 75.0
 

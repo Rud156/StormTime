@@ -1,3 +1,4 @@
+using System;
 using Godot;
 using StormTime.Common;
 using StormTime.Player.Data;
@@ -44,10 +45,14 @@ namespace StormTime.Scene.MainScene
 
             _pauseResumeController = GetNode<PauseAndResume>(pauseResumeControllerNodePath);
 
-            Fader.faderReady += () =>
-            {
-                Fader.instance.StartFading(false, new Color(1, 1, 1));
-            };
+            Fader.FaderReady faderActivate = null;
+            faderActivate = () =>
+           {
+               Fader.instance.StartFading(false, new Color(1, 1, 1));
+               Fader.faderReady -= faderActivate;
+           };
+
+            Fader.faderReady += faderActivate;
         }
 
         public override void _Process(float delta)

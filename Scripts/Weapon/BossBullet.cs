@@ -1,6 +1,4 @@
 using Godot;
-using StormTime.Common;
-using StormTime.Player.Movement;
 
 namespace StormTime.Weapon
 {

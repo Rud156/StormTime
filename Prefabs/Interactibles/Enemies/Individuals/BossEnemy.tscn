@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=2]
+[gd_scene load_steps=38 format=2]
 
 [ext_resource path="res://Scripts/Enemy/Boss/BossController.cs" type="Script" id=1]
 [ext_resource path="res://Scripts/Enemy/Boss/BossArmController.cs" type="Script" id=2]
@@ -7,19 +7,22 @@
 [ext_resource path="res://Prefabs/Effects/Boss Charge Effect.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Scripts/Enemy/Boss/BossSingleArmController.cs" type="Script" id=6]
 [ext_resource path="res://Textures/Boss Side Arm.png" type="Texture" id=7]
-[ext_resource path="res://Scripts/Common/HealthSetter.cs" type="Script" id=8]
-[ext_resource path="res://Textures/Boss Straight Arm.png" type="Texture" id=9]
-[ext_resource path="res://Scripts/Enemy/Boss/BossBodyController.cs" type="Script" id=10]
-[ext_resource path="res://Textures/Boss Body.png" type="Texture" id=11]
-[ext_resource path="res://Scripts/Enemy/Boss/SingleArmAttack.cs" type="Script" id=12]
-[ext_resource path="res://Scripts/Enemy/Boss/DoubleArmAttack.cs" type="Script" id=13]
-[ext_resource path="res://Scripts/Enemy/Boss/FrenzySpinningShot.cs" type="Script" id=14]
-[ext_resource path="res://Prefabs/Interactibles/Bullets/Boss Bullets/Shard Bullet.tscn" type="PackedScene" id=15]
-[ext_resource path="res://Scripts/Enemy/Boss/BounceCircleShot.cs" type="Script" id=16]
-[ext_resource path="res://Prefabs/Interactibles/Bullets/Boss Bullets/Circle Light Center Bullet.tscn" type="PackedScene" id=17]
-[ext_resource path="res://Scripts/Enemy/Boss/CircleWorldFill.cs" type="Script" id=18]
-[ext_resource path="res://Prefabs/Interactibles/Bullets/Boss Bullets/Circle Blur Bullet.tscn" type="PackedScene" id=19]
-[ext_resource path="res://Scripts/Enemy/Boss/InnerCircleShot.cs" type="Script" id=20]
+[ext_resource path="res://Textures/BossSideArm_Normal.png" type="Texture" id=8]
+[ext_resource path="res://Scripts/Common/HealthSetter.cs" type="Script" id=9]
+[ext_resource path="res://Textures/Boss Straight Arm.png" type="Texture" id=10]
+[ext_resource path="res://Textures/BossStraightArm_Normal.png" type="Texture" id=11]
+[ext_resource path="res://Scripts/Enemy/Boss/BossBodyController.cs" type="Script" id=12]
+[ext_resource path="res://Textures/Boss Body.png" type="Texture" id=13]
+[ext_resource path="res://Textures/BossBody_Normal.png" type="Texture" id=14]
+[ext_resource path="res://Scripts/Enemy/Boss/SingleArmAttack.cs" type="Script" id=15]
+[ext_resource path="res://Scripts/Enemy/Boss/DoubleArmAttack.cs" type="Script" id=16]
+[ext_resource path="res://Scripts/Enemy/Boss/FrenzySpinningShot.cs" type="Script" id=17]
+[ext_resource path="res://Prefabs/Interactibles/Bullets/Boss Bullets/Shard Bullet.tscn" type="PackedScene" id=18]
+[ext_resource path="res://Scripts/Enemy/Boss/BounceCircleShot.cs" type="Script" id=19]
+[ext_resource path="res://Prefabs/Interactibles/Bullets/Boss Bullets/Circle Light Center Bullet.tscn" type="PackedScene" id=20]
+[ext_resource path="res://Scripts/Enemy/Boss/CircleWorldFill.cs" type="Script" id=21]
+[ext_resource path="res://Prefabs/Interactibles/Bullets/Boss Bullets/Circle Blur Bullet.tscn" type="PackedScene" id=22]
+[ext_resource path="res://Scripts/Enemy/Boss/InnerCircleShot.cs" type="Script" id=23]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 12.3397, 3.74849 )
@@ -37,7 +40,31 @@ polygon = PoolVector2Array( 18.3667, 113.367, 65.9603, 113.367, 65.9603, 79.4964
 polygon = PoolVector2Array( -191.877, -30.3952, -169.205, -30.3952, -169.205, -54.1611, -120.381, -54.1611, -120.381, -29.898, -144.246, -29.898, -144.246, -8.91642, -191.977, -8.91642 )
 
 [sub_resource type="OccluderPolygon2D" id=6]
-polygon = PoolVector2Array( -120.286, -78.5305, 119.726, -78.5305, 119.726, 78.5576, -119.702, 78.8495 )
+polygon = PoolVector2Array( -120.075, -78.6632, 110.255, -77.5886, 110.855, -67.2463, -119.768, -66.369 )
+
+[sub_resource type="OccluderPolygon2D" id=7]
+polygon = PoolVector2Array( -119.674, -68.8951, -120.084, 77.94, -108.404, 77.94, -108.732, -68.8951 )
+
+[sub_resource type="OccluderPolygon2D" id=8]
+polygon = PoolVector2Array( -110.663, 66.2457, 120.092, 66.124, 120.092, 78.0403, -110.135, 77.3134 )
+
+[sub_resource type="OccluderPolygon2D" id=9]
+polygon = PoolVector2Array( 108.573, -77.666, 109.026, 67.5642, 119.257, 67.7437, 120.092, -78.0632 )
+
+[sub_resource type="OccluderPolygon2D" id=10]
+polygon = PoolVector2Array( -13.1159, -66.6764, -12.8086, -5.51307, 13.3165, -5.20571, 13.0091, -66.6764 )
+
+[sub_resource type="OccluderPolygon2D" id=11]
+polygon = PoolVector2Array( -109.318, -4.89836, -97.6381, -5.20571, -95.1793, -18.7293, -84.1146, -18.1146, -84.1146, -7.04984, 83.3931, -6.43513, 84.0077, -18.7293, 95.9945, -18.7293, 96.3019, -7.04984, 110.133, -6.74248, 109.825, 4.93695, -110.854, 6.16636 )
+
+[sub_resource type="OccluderPolygon2D" id=12]
+polygon = PoolVector2Array( -96.7161, 28.6032, -83.4999, 28.6032, -82.8851, 40.2826, -61.0631, 39.9752, -60.7557, 27.6811, 60.9562, 27.6811, 60.6489, 40.2826, 82.7783, 40.5899, 82.1636, 27.3737, 96.6092, 27.9885, 97.224, 42.7414, 85.8519, 43.6635, 85.8519, 54.4208, 48.9695, 55.3429, 46.5106, 43.3561, -45.6954, 42.4341, -45.6954, 53.4988, -83.8072, 54.4208, -84.7293, 43.9708, -95.794, 43.0488 )
+
+[sub_resource type="OccluderPolygon2D" id=13]
+polygon = PoolVector2Array( -96.4662, -54.452, -71.0709, -54.8201, -71.0709, -42.8585, -60.5816, -43.0426, -59.1094, -32.0011, -47.6999, -31.265, -47.1478, -18.5674, -71.9911, -17.4633, -73.2792, -29.0568, -84.3207, -28.6887, -85.0567, -40.2822, -95.5461, -41.0183 )
+
+[sub_resource type="OccluderPolygon2D" id=14]
+polygon = PoolVector2Array( 71.6242, -55.3723, 97.1128, -55.5147, 97.2552, -41.9872, 85.0093, -41.1329, 84.8669, -29.3142, 73.1906, -28.887, 73.0482, -16.9259, 46.9901, -16.4987, 46.4205, -31.1653, 58.6664, -32.162, 58.524, -43.4112, 70.4851, -43.8384 )
 
 [node name="BossEnemy" type="Node2D"]
 script = ExtResource( 1 )
@@ -46,7 +73,7 @@ leftArmNodePath = NodePath("Left Arm")
 rightArmNodePath = NodePath("Right Arm")
 topArmNodePath = NodePath("Top Arm")
 bottomArmNodePath = NodePath("Bottom Arm")
-bossBodyHealthSetterNodePath = NodePath("Body/Boss Body Part")
+bossTotalHealthSetter = NodePath("Boss Total Health Setter")
 idleSwitchTimer = 3.0
 frenzyAttackChancePercent = 0.5
 frenzyAttackHealthPercent = 0.3
@@ -61,6 +88,7 @@ minAbilityAttackPercent = 0.5
 maxAbilityArmAttackPercent = 0.95
 
 [node name="Left Arm" type="Node2D" parent="."]
+editor/display_folded = true
 position = Vector2( -120, 0 )
 scale = Vector2( 3, 3 )
 script = ExtResource( 2 )
@@ -93,7 +121,8 @@ armDetachForce = 5.0
 
 [node name="Top Part" type="Sprite" parent="Left Arm/Top Part RigidBody"]
 texture = ExtResource( 7 )
-script = ExtResource( 8 )
+normal_map = ExtResource( 8 )
+script = ExtResource( 9 )
 maxHealth = 100.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Left Arm/Top Part RigidBody"]
@@ -114,8 +143,9 @@ armDetachForce = 5.0
 
 [node name="Bottom Part" type="Sprite" parent="Left Arm/Bottom Part RigidBody"]
 texture = ExtResource( 7 )
+normal_map = ExtResource( 8 )
 flip_v = true
-script = ExtResource( 8 )
+script = ExtResource( 9 )
 maxHealth = 100.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Left Arm/Bottom Part RigidBody"]
@@ -131,6 +161,7 @@ position = Vector2( -24, 6.5 )
 position = Vector2( -25, 0 )
 
 [node name="Right Arm" type="Node2D" parent="."]
+editor/display_folded = true
 position = Vector2( 120, 0 )
 scale = Vector2( 3, 3 )
 script = ExtResource( 2 )
@@ -163,8 +194,9 @@ armDetachForce = 5.0
 
 [node name="Top Part" type="Sprite" parent="Right Arm/Top Part RigidBody"]
 texture = ExtResource( 7 )
+normal_map = ExtResource( 8 )
 flip_h = true
-script = ExtResource( 8 )
+script = ExtResource( 9 )
 maxHealth = 100.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Right Arm/Top Part RigidBody"]
@@ -184,9 +216,10 @@ armDetachForce = 5.0
 
 [node name="Bottom Part" type="Sprite" parent="Right Arm/Bottom Part RigidBody"]
 texture = ExtResource( 7 )
+normal_map = ExtResource( 8 )
 flip_h = true
 flip_v = true
-script = ExtResource( 8 )
+script = ExtResource( 9 )
 maxHealth = 100.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Right Arm/Bottom Part RigidBody"]
@@ -202,6 +235,7 @@ position = Vector2( 24, 6.5 )
 position = Vector2( 25, 0 )
 
 [node name="Top Arm" type="Node2D" parent="."]
+editor/display_folded = true
 position = Vector2( 0, -78 )
 script = ExtResource( 2 )
 firstArmNodePath = NodePath("Left Part RigidBody/Left Part")
@@ -233,8 +267,9 @@ armDetachForce = 5.0
 
 [node name="Left Part" type="Sprite" parent="Top Arm/Left Part RigidBody"]
 scale = Vector2( 3, 3 )
-texture = ExtResource( 9 )
-script = ExtResource( 8 )
+texture = ExtResource( 10 )
+normal_map = ExtResource( 11 )
+script = ExtResource( 9 )
 maxHealth = 100.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Top Arm/Left Part RigidBody"]
@@ -254,9 +289,10 @@ armDetachForce = 5.0
 
 [node name="Right Part" type="Sprite" parent="Top Arm/Right Part RigidBody"]
 scale = Vector2( 3, 3 )
-texture = ExtResource( 9 )
+texture = ExtResource( 10 )
+normal_map = ExtResource( 11 )
 flip_h = true
-script = ExtResource( 8 )
+script = ExtResource( 9 )
 maxHealth = 100.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Top Arm/Right Part RigidBody"]
@@ -272,6 +308,7 @@ position = Vector2( 31, -95 )
 position = Vector2( 0, -100 )
 
 [node name="Bottom Arm" type="Node2D" parent="."]
+editor/display_folded = true
 position = Vector2( 0, 78 )
 script = ExtResource( 2 )
 firstArmNodePath = NodePath("Left Part RigidBody/Left Part")
@@ -303,9 +340,10 @@ armDetachForce = 5.0
 
 [node name="Left Part" type="Sprite" parent="Bottom Arm/Left Part RigidBody"]
 scale = Vector2( 3, 3 )
-texture = ExtResource( 9 )
+texture = ExtResource( 10 )
+normal_map = ExtResource( 11 )
 flip_v = true
-script = ExtResource( 8 )
+script = ExtResource( 9 )
 maxHealth = 100.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Bottom Arm/Left Part RigidBody"]
@@ -326,10 +364,11 @@ armDetachForce = 5.0
 
 [node name="Right Part" type="Sprite" parent="Bottom Arm/Right Part RigidBody"]
 scale = Vector2( 3, 3 )
-texture = ExtResource( 9 )
+texture = ExtResource( 10 )
+normal_map = ExtResource( 11 )
 flip_h = true
 flip_v = true
-script = ExtResource( 8 )
+script = ExtResource( 9 )
 maxHealth = 100.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Bottom Arm/Right Part RigidBody"]
@@ -345,30 +384,33 @@ position = Vector2( 31, 95 )
 position = Vector2( 0, 100 )
 
 [node name="Body" type="RigidBody2D" parent="."]
+editor/display_folded = true
 collision_layer = 4
 collision_mask = 3
 mode = 1
-script = ExtResource( 10 )
+script = ExtResource( 12 )
 bossBodyNodePath = NodePath("Boss Body Part")
 bodyAttackNodePath = NodePath("Body Attack Point")
 
 [node name="Boss Body Part" type="Sprite" parent="Body"]
 scale = Vector2( 3, 3 )
-texture = ExtResource( 11 )
-script = ExtResource( 8 )
+texture = ExtResource( 13 )
+normal_map = ExtResource( 14 )
+script = ExtResource( 9 )
 maxHealth = 200.0
 
 [node name="Body Attack Point" type="Node2D" parent="Body"]
 position = Vector2( 0, 36 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Body"]
+position = Vector2( 0.149887, 0 )
 shape = SubResource( 3 )
 
 [node name="Boss Attacks" type="Node2D" parent="."]
 editor/display_folded = true
 
 [node name="Single Arm Attack" type="Node2D" parent="Boss Attacks"]
-script = ExtResource( 12 )
+script = ExtResource( 15 )
 bulletPrefab = ExtResource( 3 )
 attackTimer = 14.0
 bossAttackPointNodePath = NodePath("../../Body/Body Attack Point")
@@ -376,7 +418,7 @@ singleArmAttackCount = 2.0
 bossArmControllerNodePaths = [ NodePath("../../Left Arm"), NodePath("../../Right Arm"), NodePath("../../Top Arm"), NodePath("../../Bottom Arm") ]
 
 [node name="Dual Arm Attack" type="Node2D" parent="Boss Attacks"]
-script = ExtResource( 13 )
+script = ExtResource( 16 )
 bulletPrefab = ExtResource( 3 )
 attackTimer = 14.0
 bossAttackPointNodePath = NodePath("../../Body/Body Attack Point")
@@ -384,8 +426,8 @@ dualArmAttackCount = 2.0
 bossArmControllerNodePaths = [ NodePath("../../Left Arm"), NodePath("../../Right Arm"), NodePath("../../Top Arm"), NodePath("../../Bottom Arm") ]
 
 [node name="Fenzy Spinning Shot Attack" type="Node2D" parent="Boss Attacks"]
-script = ExtResource( 14 )
-bulletPrefab = ExtResource( 15 )
+script = ExtResource( 17 )
+bulletPrefab = ExtResource( 18 )
 attackTimer = 14.0
 bossAttackPointNodePath = NodePath("../../Body/Body Attack Point")
 rotationOffset = 90.0
@@ -396,8 +438,8 @@ timeBetweenSprayShots = 0.3
 timeBetweenCircleShots = 1.0
 
 [node name="Bounce Circle Shot Attack" type="Node2D" parent="Boss Attacks"]
-script = ExtResource( 16 )
-bulletPrefab = ExtResource( 17 )
+script = ExtResource( 19 )
+bulletPrefab = ExtResource( 20 )
 attackTimer = 7.0
 bossAttackPointNodePath = NodePath("../../Body/Body Attack Point")
 timeBetweenRows = 0.3
@@ -405,8 +447,8 @@ bulletsInEachRow = 10
 bulletDefaultVelocity = Vector2( 0, 10 )
 
 [node name="Circle World Fill Attack" type="Node2D" parent="Boss Attacks"]
-script = ExtResource( 18 )
-bulletPrefab = ExtResource( 19 )
+script = ExtResource( 21 )
+bulletPrefab = ExtResource( 22 )
 attackTimer = 9.0
 bossAttackPointNodePath = NodePath("../../Body/Body Attack Point")
 eachShotBulletCount = 10.0
@@ -414,11 +456,14 @@ timeBetweenShot = 0.3
 angleIncrementAmount = 15.0
 
 [node name="Inner Circle Shot Attack" type="Node2D" parent="Boss Attacks"]
-script = ExtResource( 20 )
-bulletPrefab = ExtResource( 19 )
+script = ExtResource( 23 )
+bulletPrefab = ExtResource( 22 )
 attackTimer = 7.0
 bossAttackPointNodePath = NodePath("../../Body/Body Attack Point")
 angleIncrementAmount = 3.0
+
+[node name="Boss Total Health Setter" type="Node2D" parent="."]
+script = ExtResource( 9 )
 
 [node name="Light Occuluder" type="Node2D" parent="."]
 
@@ -457,5 +502,31 @@ position = Vector2( 312.53, -63.19 )
 scale = Vector2( 1, -1 )
 occluder = SubResource( 5 )
 
-[node name="Light Occuluder Body" type="LightOccluder2D" parent="Light Occuluder"]
+[node name="Boss Body Light Occuluder" type="Node2D" parent="Light Occuluder"]
+
+[node name="Body Occuluder 1" type="LightOccluder2D" parent="Light Occuluder/Boss Body Light Occuluder"]
 occluder = SubResource( 6 )
+
+[node name="Body Occuluder 2" type="LightOccluder2D" parent="Light Occuluder/Boss Body Light Occuluder"]
+occluder = SubResource( 7 )
+
+[node name="Body Occuluder 3" type="LightOccluder2D" parent="Light Occuluder/Boss Body Light Occuluder"]
+occluder = SubResource( 8 )
+
+[node name="Body Occuluder 4" type="LightOccluder2D" parent="Light Occuluder/Boss Body Light Occuluder"]
+occluder = SubResource( 9 )
+
+[node name="Body Occuluder 5" type="LightOccluder2D" parent="Light Occuluder/Boss Body Light Occuluder"]
+occluder = SubResource( 10 )
+
+[node name="Body Occuluder 6" type="LightOccluder2D" parent="Light Occuluder/Boss Body Light Occuluder"]
+occluder = SubResource( 11 )
+
+[node name="Body Occuluder 7" type="LightOccluder2D" parent="Light Occuluder/Boss Body Light Occuluder"]
+occluder = SubResource( 12 )
+
+[node name="Body Occuluder 8" type="LightOccluder2D" parent="Light Occuluder/Boss Body Light Occuluder"]
+occluder = SubResource( 13 )
+
+[node name="Body Occuluder 9" type="LightOccluder2D" parent="Light Occuluder/Boss Body Light Occuluder"]
+occluder = SubResource( 14 )

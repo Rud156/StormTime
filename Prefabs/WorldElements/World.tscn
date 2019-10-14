@@ -19,7 +19,6 @@ position = Vector2( 1, -6.10352e-005 )
 [node name="World Background" type="Node2D" parent="."]
 
 [node name="Background_1" type="Sprite" parent="World Background"]
-editor/display_folded = true
 position = Vector2( -51.0002, -50.0001 )
 scale = Vector2( 8.98438, 8.59375 )
 z_index = -1
@@ -403,6 +402,7 @@ position = Vector2( 12.0242, 11.0414 )
 shape = SubResource( 2 )
 
 [node name="Background_5" type="Sprite" parent="World Background"]
+editor/display_folded = true
 position = Vector2( -48.8022, -2250 )
 scale = Vector2( 8.98438, 8.59375 )
 z_index = -1
@@ -1936,7 +1936,6 @@ shape = SubResource( 2 )
 [node name="World Boundaries" type="Node2D" parent="."]
 
 [node name="Left Boundary" type="Sprite" parent="World Boundaries"]
-editor/display_folded = true
 self_modulate = Color( 0.113725, 0.0705882, 0.129412, 1 )
 light_mask = 2
 position = Vector2( -175.152, -5650 )

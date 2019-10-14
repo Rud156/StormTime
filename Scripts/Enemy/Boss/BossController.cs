@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Godot;
 using StormTime.Common;
+using StormTime.Utils;
 
 namespace StormTime.Enemy.Boss
 {
@@ -13,7 +14,7 @@ namespace StormTime.Enemy.Boss
         [Export] public NodePath rightArmNodePath;
         [Export] public NodePath topArmNodePath;
         [Export] public NodePath bottomArmNodePath;
-        [Export] public NodePath bossBodyHealthSetterNodePath;
+        [Export] public NodePath bossTotalHealthSetter;
 
         // General Stats
         [Export] public float idleSwitchTimer;
@@ -81,7 +82,7 @@ namespace StormTime.Enemy.Boss
             _topArmController = GetNode<BossArmController>(topArmNodePath);
             _bottomArmController = GetNode<BossArmController>(bottomArmNodePath);
 
-            _bossTotalHealthSetter = GetNode<HealthSetter>(bossBodyHealthSetterNodePath);
+            _bossTotalHealthSetter = GetNode<HealthSetter>(bossTotalHealthSetter);
 
             _leftArmController.armStatusChanged += HandleArmStatusChanged;
             _rightArmController.armStatusChanged += HandleArmStatusChanged;
@@ -160,7 +161,46 @@ namespace StormTime.Enemy.Boss
             //     SetBossState(GetRandomAttack());
             // }
 
-        
+            // TODO: Remove this after testing all attacks
+
+            // Switch To Idle State
+            if (Input.IsActionJustPressed(SceneControls.Testing_1))
+            {
+                SetBossState(BossState.Idle);
+            }
+            // Single Arm Attack
+            else if (Input.IsActionJustPressed(SceneControls.Testing_2))
+            {
+                SetBossState(BossState.SingleArmShot);
+            }
+            // Double Arm Attack
+            else if (Input.IsActionJustPressed(SceneControls.Testing_3))
+            {
+                SetBossState(BossState.DualArmShot);
+            }
+            // Inner Circle Shot
+            else if (Input.IsActionJustPressed(SceneControls.Testing_4))
+            {
+                SetBossState(BossState.AbilityAttack);
+                _abilityAttackIndex = 2;
+            }
+            // Bounce Circle Shot
+            else if (Input.IsActionJustPressed(SceneControls.Testing_5))
+            {
+                SetBossState(BossState.AbilityAttack);
+                _abilityAttackIndex = 0;
+            }
+            // Circle World Fill
+            else if (Input.IsActionJustPressed(SceneControls.Testing_6))
+            {
+                SetBossState(BossState.AbilityAttack);
+                _abilityAttackIndex = 1;
+            }
+            // Frenzy Attack Shot
+            else if (Input.IsActionJustPressed(SceneControls.Testing_7))
+            {
+                SetBossState(BossState.FrenzySpinningShot);
+            }
         }
 
         private void UpdateSingleArmShot(float delta)
@@ -332,6 +372,8 @@ namespace StormTime.Enemy.Boss
                 bossState = BossState.AbilityAttack;
             }
 
+            // This is very important.
+            // Probably should not be hidden like this
             if (bossState == BossState.AbilityAttack)
             {
                 _abilityAttackIndex = (int)GD.Randi() % _bossAttacks.Count;

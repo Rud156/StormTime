@@ -225,6 +225,8 @@ namespace StormTime.Enemy.Boss
             Vector2 launchVelocity = new Vector2(xVelocity, yVelocity);
 
             BossBullet bulletInstance = (BossBullet)singleArmBulletPrefab.Instance();
+            GD.Print($"Bullet Instance: {bulletInstance}");
+            GD.Print($"Bullet Holder: {_bulletHolder}");
             _bulletHolder.AddChild(bulletInstance);
 
             bulletInstance.SetGlobalPosition(attackPosition);

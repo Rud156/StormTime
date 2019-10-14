@@ -56,10 +56,10 @@ namespace StormTime.Common
 
         private void CreateAndAddNewChecker()
         {
-            AreaCollisionChecker collsionCheckerInstance = (AreaCollisionChecker)collisionCheckerPrefab.Instance();
-            GetParent().AddChild(collsionCheckerInstance);
+            AreaCollisionChecker collisionCheckerInstance = (AreaCollisionChecker)collisionCheckerPrefab.Instance();
+            GetParent().CallDeferred("add_child", collisionCheckerInstance);
 
-            _pooledCollisionCheckers.Add(collsionCheckerInstance);
+            _pooledCollisionCheckers.Add(collisionCheckerInstance);
         }
 
         #endregion
