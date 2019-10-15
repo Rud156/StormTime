@@ -3,9 +3,9 @@
 [ext_resource path="res://Scripts/Weapon/BossBullet.cs" type="Script" id=1]
 [ext_resource path="res://Prefabs/Effects/Bullet Trail GB.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Prefabs/Effects/Bullet Explosion GB.tscn" type="PackedScene" id=3]
-[ext_resource path="res://Textures/light.png" type="Texture" id=4]
-[ext_resource path="res://Scripts/Extensions/ColorRangeChange.cs" type="Script" id=5]
-[ext_resource path="res://Scripts/Extensions/Rotator.cs" type="Script" id=6]
+[ext_resource path="res://Scripts/Extensions/Rotator.cs" type="Script" id=4]
+[ext_resource path="res://Textures/light.png" type="Texture" id=5]
+[ext_resource path="res://Scripts/Extensions/ColorLerper.cs" type="Script" id=6]
 [ext_resource path="res://Textures/Octagon Glow Circle.png" type="Texture" id=7]
 
 [sub_resource type="CircleShape2D" id=1]
@@ -20,34 +20,38 @@ contact_monitor = true
 script = ExtResource( 1 )
 bulletTrailPrefab = ExtResource( 2 )
 bulletExplosionPrefab = ExtResource( 3 )
-bulletSpeed = 250.0
-bulletLifeTime = 10.0
+bulletSpeed = 400.0
+bulletLifeTime = 20.0
 bulletTrailTimer = 1.0
 bulletDamageAmount = 50.0
-bulletSpritePath = NodePath("../Circle Light Center Bullet/Jagged Part")
+bulletSpritePath = NodePath("Rotator/Jagged Part")
 autoSetInitialColor = false
 explosionRadius = 100.0
 explosionDamageAmount = 50.0
 
-[node name="Base Bullet" type="Sprite" parent="."]
+[node name="Rotator Main" type="Node2D" parent="."]
+scale = Vector2( 0.1, 0.1 )
+script = ExtResource( 4 )
+rotationSpeed = 200.0
+
+[node name="Base Bullet" type="Sprite" parent="Rotator Main"]
 light_mask = 2
-scale = Vector2( 0.0992526, 0.0992526 )
-texture = ExtResource( 4 )
-script = ExtResource( 5 )
-startColor = Color( 1, 0, 0, 1 )
-endColor = Color( 1, 1, 0, 1 )
+scale = Vector2( 1, 1 )
+texture = ExtResource( 5 )
+script = ExtResource( 6 )
+lerpDuration = 0.5
+colors = PoolColorArray( 1, 0, 0, 1, 1, 0.866667, 0, 1, 0, 1, 0.0392157, 1, 1, 0.631373, 0, 1 )
 
 [node name="Rotator" type="Node2D" parent="."]
 scale = Vector2( 0.106674, 0.106674 )
-script = ExtResource( 6 )
-rotationSpeed = 14.0
+script = ExtResource( 4 )
+rotationSpeed = 200.0
 
 [node name="Jagged Part" type="Sprite" parent="Rotator"]
 self_modulate = Color( 0, 0.415686, 1, 1 )
 light_mask = 2
 texture = ExtResource( 7 )
-script = ExtResource( 6 )
-rotationSpeed = 14.0
 
 [node name="Circle Power Bullet Collision" type="CollisionShape2D" parent="."]
+visible = false
 shape = SubResource( 1 )

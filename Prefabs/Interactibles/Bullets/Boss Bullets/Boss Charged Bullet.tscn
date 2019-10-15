@@ -107,7 +107,7 @@ bulletSpritePath = NodePath("Sprite Rotator/Bullet Sprite")
 editor/display_folded = true
 scale = Vector2( 0.1, 0.1 )
 script = ExtResource( 4 )
-rotationSpeed = 14.0
+rotationSpeed = 150.0
 
 [node name="Bullet Sprite" type="Sprite" parent="Sprite Rotator"]
 self_modulate = Color( 1, 0.631373, 0, 1 )

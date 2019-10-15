@@ -1,4 +1,3 @@
-using System;
 using Godot;
 using StormTime.Weapon;
 
@@ -9,6 +8,7 @@ namespace StormTime.Enemy.Boss
         // Shot Info
         [Export] public NodePath spawnLeftMostPointNodePath;
         [Export] public NodePath spawnRightMostPointNodePath;
+        [Export] public float bulletGapOffset = 600;
 
         // Launch Info
         [Export] public float timeBetweenRows;
@@ -19,9 +19,12 @@ namespace StormTime.Enemy.Boss
         private Node2D _spawnRightMostPoint;
 
         private float _currentTimer;
+        private bool _isOffsetUsed;
 
         public override void _Ready()
         {
+            base._Ready();
+
             _spawnLeftMostPoint = GetNode<Node2D>(spawnLeftMostPointNodePath);
             _spawnRightMostPoint = GetNode<Node2D>(spawnRightMostPointNodePath);
         }
@@ -57,15 +60,21 @@ namespace StormTime.Enemy.Boss
 
         private void LaunchBullets()
         {
+            _isOffsetUsed = !_isOffsetUsed;
+
             for (int i = 0; i < bulletsInEachRow; i++)
             {
                 BossBullet bossBulletInstance = (BossBullet)bulletPrefab.Instance();
                 _bulletHolder.AddChild(bossBulletInstance);
 
-                float indexRatio = i / bulletsInEachRow;
+                float indexRatio = (float)i / bulletsInEachRow;
                 Vector2 finalPosition = _spawnLeftMostPoint.GetGlobalPosition().LinearInterpolate(_spawnRightMostPoint.GetGlobalPosition(), indexRatio);
-                bossBulletInstance.SetGlobalPosition(finalPosition);
+                if (_isOffsetUsed)
+                {
+                    finalPosition.x += bulletGapOffset;
+                }
 
+                bossBulletInstance.SetGlobalPosition(finalPosition);
                 bossBulletInstance.LaunchBullet(bulletDefaultVelocity.Normalized());
             }
         }

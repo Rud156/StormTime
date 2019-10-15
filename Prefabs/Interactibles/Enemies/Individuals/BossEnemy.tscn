@@ -102,7 +102,7 @@ dualArmAttackNodePath = NodePath("Dual Attack Point")
 singleArmBulletPrefab = ExtResource( 3 )
 chargedBulletPrefab = ExtResource( 4 )
 chargingEffectPrefab = ExtResource( 5 )
-singeArmAttackAngleDiff = 14.0
+singeArmAttackAngleDiff = 25.0
 timeBetweenSingleArmAttacks = 0.1
 timeBetweenChargedAttacks = 1.5
 chargedAttackIncreaseRate = 0.75
@@ -175,7 +175,7 @@ dualArmAttackNodePath = NodePath("Dual Attack Point")
 singleArmBulletPrefab = ExtResource( 3 )
 chargedBulletPrefab = ExtResource( 4 )
 chargingEffectPrefab = ExtResource( 5 )
-singeArmAttackAngleDiff = 14.0
+singeArmAttackAngleDiff = 25.0
 timeBetweenSingleArmAttacks = 0.1
 timeBetweenChargedAttacks = 1.5
 chargedAttackIncreaseRate = 0.75
@@ -248,7 +248,7 @@ dualArmAttackNodePath = NodePath("../Right Arm/Dual Attack Point")
 singleArmBulletPrefab = ExtResource( 3 )
 chargedBulletPrefab = ExtResource( 4 )
 chargingEffectPrefab = ExtResource( 5 )
-singeArmAttackAngleDiff = 14.0
+singeArmAttackAngleDiff = 25.0
 timeBetweenSingleArmAttacks = 0.1
 timeBetweenChargedAttacks = 1.5
 chargedAttackIncreaseRate = 0.75
@@ -321,7 +321,7 @@ dualArmAttackNodePath = NodePath("Dual Attack Point")
 singleArmBulletPrefab = ExtResource( 3 )
 chargedBulletPrefab = ExtResource( 4 )
 chargingEffectPrefab = ExtResource( 5 )
-singeArmAttackAngleDiff = 14.0
+singeArmAttackAngleDiff = 25.0
 timeBetweenSingleArmAttacks = 0.1
 timeBetweenChargedAttacks = 1.5
 chargedAttackIncreaseRate = 0.75
@@ -407,7 +407,6 @@ position = Vector2( 0.149887, 0 )
 shape = SubResource( 3 )
 
 [node name="Boss Attacks" type="Node2D" parent="."]
-editor/display_folded = true
 
 [node name="Single Arm Attack" type="Node2D" parent="Boss Attacks"]
 script = ExtResource( 15 )
@@ -440,10 +439,11 @@ timeBetweenCircleShots = 1.0
 [node name="Bounce Circle Shot Attack" type="Node2D" parent="Boss Attacks"]
 script = ExtResource( 19 )
 bulletPrefab = ExtResource( 20 )
-attackTimer = 7.0
+attackTimer = 21.0
 bossAttackPointNodePath = NodePath("../../Body/Body Attack Point")
-timeBetweenRows = 0.3
-bulletsInEachRow = 10
+bulletGapOffset = 500.0
+timeBetweenRows = 0.7
+bulletsInEachRow = 15
 bulletDefaultVelocity = Vector2( 0, 10 )
 
 [node name="Circle World Fill Attack" type="Node2D" parent="Boss Attacks"]
@@ -458,9 +458,10 @@ angleIncrementAmount = 15.0
 [node name="Inner Circle Shot Attack" type="Node2D" parent="Boss Attacks"]
 script = ExtResource( 23 )
 bulletPrefab = ExtResource( 22 )
-attackTimer = 7.0
+attackTimer = 14.0
 bossAttackPointNodePath = NodePath("../../Body/Body Attack Point")
-angleIncrementAmount = 3.0
+angleIncrementAmount = 25.0
+timeBetweenShot = 0.1
 
 [node name="Boss Total Health Setter" type="Node2D" parent="."]
 script = ExtResource( 9 )

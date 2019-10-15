@@ -16,6 +16,7 @@ collision_layer = 4
 collision_mask = 3
 gravity_scale = 0.0
 contacts_reported = 1
+contact_monitor = true
 script = ExtResource( 1 )
 bulletTrailPrefab = ExtResource( 2 )
 bulletExplosionPrefab = ExtResource( 3 )
@@ -23,7 +24,7 @@ bulletSpeed = 250.0
 bulletLifeTime = 7.0
 bulletTrailTimer = 1.0
 bulletDamageAmount = 50.0
-bulletSpritePath = NodePath("../Circle Blur Bullet/Inner Circle")
+bulletSpritePath = NodePath("Rotator/Inner Circle")
 autoSetInitialColor = false
 
 [node name="Outer Circle" type="Sprite" parent="."]
@@ -37,7 +38,7 @@ colors = PoolColorArray( 1, 0, 0, 1, 1, 0.447059, 0, 1, 0.243137, 0, 1, 1, 0, 0.
 [node name="Rotator" type="Node2D" parent="."]
 scale = Vector2( 0.071797, 0.071797 )
 script = ExtResource( 6 )
-rotationSpeed = 14.0
+rotationSpeed = 150.0
 
 [node name="Inner Circle" type="Sprite" parent="Rotator"]
 self_modulate = Color( 1, 0, 0, 1 )

@@ -53,7 +53,6 @@ position = Vector2( -1507, 1500 )
 position = Vector2( 1507, 1500 )
 
 [node name="BossEnemy" parent="Game World" instance=ExtResource( 5 )]
-editor/display_folded = true
 
 [node name="Left Arm" parent="Game World/BossEnemy" index="0"]
 bulletHolderNodePath = NodePath("../../Boss Bullet Holder")
@@ -110,8 +109,8 @@ editor_draw_limits = true
 editor_draw_drag_margin = true
 script = ExtResource( 7 )
 targetNode = NodePath("../Player")
-lockBottomLeftCorner = Vector2( -1090, 1293 )
-lockTopRightCorner = Vector2( 1090, -1293 )
+lockBottomLeftCorner = Vector2( -1120, 1310 )
+lockTopRightCorner = Vector2( 1120, -1310 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 editor/display_folded = true
