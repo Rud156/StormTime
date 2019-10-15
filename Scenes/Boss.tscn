@@ -67,9 +67,6 @@ bulletHolderNodePath = NodePath("../../Boss Bullet Holder")
 [node name="Bottom Arm" parent="Game World/BossEnemy" index="3"]
 bulletHolderNodePath = NodePath("../../Boss Bullet Holder")
 
-[node name="Boss Attacks" parent="Game World/BossEnemy" index="5"]
-editor/display_folded = true
-
 [node name="Single Arm Attack" parent="Game World/BossEnemy/Boss Attacks" index="0"]
 bulletHolderNodePath = NodePath("../../../Boss Bullet Holder")
 

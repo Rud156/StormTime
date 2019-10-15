@@ -285,7 +285,7 @@ namespace StormTime.Player.Shooting
 
             float xVelocity = Mathf.Cos(currentRotation);
             float yVelocity = Mathf.Sin(currentRotation);
-            _chargedShotBullet.LaunchBullet(new Vector2(xVelocity, yVelocity));
+            _chargedShotBullet.LaunchBullet(new Vector2(xVelocity, yVelocity).Normalized());
 
             _chargedShotBullet = null;
             _chargeWeaponActive = false;

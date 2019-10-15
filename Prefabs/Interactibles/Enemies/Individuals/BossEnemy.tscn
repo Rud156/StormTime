@@ -104,8 +104,8 @@ chargedBulletPrefab = ExtResource( 4 )
 chargingEffectPrefab = ExtResource( 5 )
 singeArmAttackAngleDiff = 14.0
 timeBetweenSingleArmAttacks = 0.1
-timeBetweenChargedAttacks = 3.0
-chargedAttackIncreaseRate = 0.5
+timeBetweenChargedAttacks = 1.5
+chargedAttackIncreaseRate = 0.75
 
 [node name="Top Part RigidBody" type="RigidBody2D" parent="Left Arm"]
 editor/display_folded = true
@@ -177,8 +177,8 @@ chargedBulletPrefab = ExtResource( 4 )
 chargingEffectPrefab = ExtResource( 5 )
 singeArmAttackAngleDiff = 14.0
 timeBetweenSingleArmAttacks = 0.1
-timeBetweenChargedAttacks = 3.0
-chargedAttackIncreaseRate = 0.5
+timeBetweenChargedAttacks = 1.5
+chargedAttackIncreaseRate = 0.75
 
 [node name="Top Part RigidBody" type="RigidBody2D" parent="Right Arm"]
 editor/display_folded = true
@@ -250,8 +250,8 @@ chargedBulletPrefab = ExtResource( 4 )
 chargingEffectPrefab = ExtResource( 5 )
 singeArmAttackAngleDiff = 14.0
 timeBetweenSingleArmAttacks = 0.1
-timeBetweenChargedAttacks = 3.0
-chargedAttackIncreaseRate = 0.5
+timeBetweenChargedAttacks = 1.5
+chargedAttackIncreaseRate = 0.75
 
 [node name="Left Part RigidBody" type="RigidBody2D" parent="Top Arm"]
 editor/display_folded = true
@@ -323,8 +323,8 @@ chargedBulletPrefab = ExtResource( 4 )
 chargingEffectPrefab = ExtResource( 5 )
 singeArmAttackAngleDiff = 14.0
 timeBetweenSingleArmAttacks = 0.1
-timeBetweenChargedAttacks = 3.0
-chargedAttackIncreaseRate = 0.5
+timeBetweenChargedAttacks = 1.5
+chargedAttackIncreaseRate = 0.75
 
 [node name="Left Part RigidBody" type="RigidBody2D" parent="Bottom Arm"]
 editor/display_folded = true
@@ -407,6 +407,7 @@ position = Vector2( 0.149887, 0 )
 shape = SubResource( 3 )
 
 [node name="Boss Attacks" type="Node2D" parent="."]
+editor/display_folded = true
 
 [node name="Single Arm Attack" type="Node2D" parent="Boss Attacks"]
 script = ExtResource( 15 )

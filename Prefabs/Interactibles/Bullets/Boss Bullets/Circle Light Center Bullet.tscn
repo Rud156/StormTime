@@ -30,6 +30,7 @@ explosionRadius = 100.0
 explosionDamageAmount = 50.0
 
 [node name="Base Bullet" type="Sprite" parent="."]
+light_mask = 2
 scale = Vector2( 0.0992526, 0.0992526 )
 texture = ExtResource( 4 )
 script = ExtResource( 5 )
@@ -43,6 +44,7 @@ rotationSpeed = 14.0
 
 [node name="Jagged Part" type="Sprite" parent="Rotator"]
 self_modulate = Color( 0, 0.415686, 1, 1 )
+light_mask = 2
 texture = ExtResource( 7 )
 script = ExtResource( 6 )
 rotationSpeed = 14.0

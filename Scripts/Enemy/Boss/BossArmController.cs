@@ -160,6 +160,7 @@ namespace StormTime.Enemy.Boss
             if (_attackTimer <= 0)
             {
                 SetArmAttackState(ArmAttackState.IdleState);
+                return;
             }
 
             _attackVariable_2 -= delta;
@@ -177,6 +178,7 @@ namespace StormTime.Enemy.Boss
             {
                 LaunchChargedAttack();
                 SetArmAttackState(ArmAttackState.IdleState);
+                return;
             }
 
             _attackVariable_2 -= delta;
@@ -199,6 +201,8 @@ namespace StormTime.Enemy.Boss
         public void LaunchDualArmAttack(float attackTimer)
         {
             _attackTimer = attackTimer;
+
+            CreateChargedAttack();
             SetArmAttackState(ArmAttackState.DualArmAttack);
         }
 
@@ -243,6 +247,7 @@ namespace StormTime.Enemy.Boss
             _dualArmAttackPosition.AddChild(_chargedBullet);
             _chargedBullet.SetMode(RigidBody2D.ModeEnum.Kinematic);
             _chargedBullet.SetGlobalPosition(_dualArmAttackPosition.GetGlobalPosition());
+            _chargedBullet.SetAsStaticBullet();
 
             // Charged Bullet Effect
             _chargedEffectDestroy = (DestroyNodeForced)chargingEffectPrefab.Instance();
@@ -263,20 +268,23 @@ namespace StormTime.Enemy.Boss
             }
 
             Vector2 launchPosition = _dualArmAttackPosition.GetGlobalPosition();
-            float launchAngle = Mathf.Atan2(
+            float launchAngle = -Mathf.Rad2Deg(Mathf.Atan2(
                 launchPosition.x - PlayerVariables.LastPlayerPosition.x,
                 launchPosition.y - PlayerVariables.LastPlayerPosition.y
-            );
+            )) - 90;
 
-            float xVelocity = Mathf.Cos(launchAngle);
-            float yVelocity = Mathf.Sin(launchAngle);
+            float xVelocity = Mathf.Cos(Mathf.Deg2Rad(launchAngle));
+            float yVelocity = Mathf.Sin(Mathf.Deg2Rad(launchAngle));
             Vector2 launchVelocity = new Vector2(xVelocity, yVelocity);
 
             _dualArmAttackPosition.RemoveChild(_chargedBullet);
             _bulletHolder.AddChild(_chargedBullet);
 
             _chargedBullet.SetMode(RigidBody2D.ModeEnum.Rigid);
-            _chargedBullet.LaunchBullet(launchVelocity);
+            _chargedBullet.LaunchBullet(launchVelocity.Normalized());
+            _chargedBullet.SetAsDynamicBullet();
+            _chargedBullet.SetGlobalPosition(launchPosition);
+            _chargedBullet.SetGlobalScale(Vector2.One * _attackVariable_1);
 
             _chargedEffectDestroy.DestroyNode();
 

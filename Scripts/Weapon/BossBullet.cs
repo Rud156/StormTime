@@ -14,15 +14,20 @@ namespace StormTime.Weapon
         [Export] public float scaleRate = 7;
         [Export] public bool useBulletScaling;
 
-        private bool _isBouncyBullet;
         private bool _canExplode;
         private bool _hasTrail;
+        private bool _isStatic;
 
         private bool _scalingActive;
         private float _currentScaleAmount;
 
         public override void _Process(float delta)
         {
+            if (_isStatic)
+            {
+                return;
+            }
+
             if (_hasTrail)
             {
                 HandleTrailSpawnAndUpdate(delta);
@@ -36,14 +41,15 @@ namespace StormTime.Weapon
 
         public override void _PhysicsProcess(float delta)
         {
+            if (_isStatic)
+            {
+                return;
+            }
+
             _collidingBodies = GetCollidingBodies();
             if (_collidingBodies.Count != 0)
             {
-                if (!_isBouncyBullet)
-                {
-                    HandleBossBulletDestruction();
-                }
-
+                HandleBossBulletDestruction();
                 NotifyCollider((Object)_collidingBodies[0]);
             }
             else if (_currentBulletTimeLeft <= 0)
@@ -54,10 +60,6 @@ namespace StormTime.Weapon
 
         #region External Functions
 
-        public void SetAsBouncyBullet() => _isBouncyBullet = true;
-
-        public void SetAsNormalBullet() => _isBouncyBullet = false;
-
         public void SetBulletAsExplosion() => _canExplode = true;
 
         public void SetBulletAsNonExplosion() => _canExplode = false;
@@ -65,6 +67,10 @@ namespace StormTime.Weapon
         public void SetBulletHasTrail() => _hasTrail = true;
 
         public void SetBulletHasNoTrail() => _hasTrail = false;
+
+        public void SetAsStaticBullet() => _isStatic = true;
+
+        public void SetAsDynamicBullet() => _isStatic = false;
 
         #endregion
 

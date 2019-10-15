@@ -32,7 +32,7 @@ radial_accel = 50.0
 radial_accel_random = 1.0
 tangential_accel = 100.0
 tangential_accel_random = 1.0
-scale = 0.2
+scale = 0.3
 scale_curve = SubResource( 4 )
 color_ramp = SubResource( 2 )
 
@@ -82,36 +82,36 @@ radial_accel = 50.0
 radial_accel_random = 1.0
 tangential_accel = 50.0
 tangential_accel_random = 1.0
-scale = 0.05
+scale = 0.1
 color_ramp = SubResource( 7 )
 
-[sub_resource type="RectangleShape2D" id=15]
-extents = Vector2( 13.9835, 16.336 )
+[sub_resource type="CircleShape2D" id=15]
+radius = 23.986
 
 [node name="Boss Charged Bullet" type="RigidBody2D"]
 light_mask = 2
-collision_layer = 2
-collision_mask = 5
+collision_layer = 4
+collision_mask = 3
 gravity_scale = 0.0
 contacts_reported = 1
 contact_monitor = true
 script = ExtResource( 1 )
 bulletTrailPrefab = ExtResource( 2 )
 bulletExplosionPrefab = ExtResource( 3 )
-bulletSpeed = 100.0
-bulletLifeTime = 7.0
+bulletSpeed = 250.0
+bulletLifeTime = 10.0
 bulletDamageAmount = 50.0
 bulletSpritePath = NodePath("Sprite Rotator/Bullet Sprite")
 
 [node name="Sprite Rotator" type="Node2D" parent="."]
 editor/display_folded = true
-scale = Vector2( 0.05, 0.05 )
+scale = Vector2( 0.1, 0.1 )
 script = ExtResource( 4 )
 rotationSpeed = 14.0
 
 [node name="Bullet Sprite" type="Sprite" parent="Sprite Rotator"]
 self_modulate = Color( 1, 0.631373, 0, 1 )
-scale = Vector2( 1, 1 )
+light_mask = 2
 texture = ExtResource( 5 )
 
 [node name="Bullet Particles Star" type="Particles2D" parent="."]

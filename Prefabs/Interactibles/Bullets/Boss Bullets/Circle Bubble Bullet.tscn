@@ -27,6 +27,7 @@ explosionRadius = 100.0
 explosionDamageAmount = 50.0
 
 [node name="Bubble Sprite" type="Sprite" parent="."]
+light_mask = 2
 position = Vector2( 0.19, 0.9 )
 scale = Vector2( 0.146765, 0.146765 )
 texture = ExtResource( 4 )
