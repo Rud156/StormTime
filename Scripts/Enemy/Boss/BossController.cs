@@ -209,7 +209,7 @@ namespace StormTime.Enemy.Boss
             bool singleArmAttackComplete = _singleArmAttack.UpdateAttack(delta);
             if (singleArmAttackComplete)
             {
-                SetBossState(GetRandomAttack());
+                SetBossState(BossState.Idle);
             }
         }
 
@@ -218,7 +218,7 @@ namespace StormTime.Enemy.Boss
             bool dualArmAttackComplete = _dualArmAttack.UpdateAttack(delta);
             if (dualArmAttackComplete)
             {
-                SetBossState(GetRandomAttack());
+                SetBossState(BossState.Idle);
             }
         }
 
@@ -227,7 +227,7 @@ namespace StormTime.Enemy.Boss
             bool frenzyAttackComplete = _frenzySpinningShotAttack.UpdateAttack(delta);
             if (frenzyAttackComplete)
             {
-                SetBossState(GetRandomAttack());
+                SetBossState(BossState.Idle);
             }
         }
 
@@ -236,7 +236,7 @@ namespace StormTime.Enemy.Boss
             bool abilityAttackComplete = _bossAttacks[_abilityAttackIndex].UpdateAttack(delta);
             if (abilityAttackComplete)
             {
-                SetBossState(GetRandomAttack());
+                SetBossState(BossState.Idle);
             }
         }
 
@@ -377,7 +377,8 @@ namespace StormTime.Enemy.Boss
             // Probably should not be hidden like this
             if (bossState == BossState.AbilityAttack)
             {
-                _abilityAttackIndex = (int)GD.Randi() % _bossAttacks.Count;
+                _abilityAttackIndex = (int)(GD.Randi() % _bossAttacks.Count);
+                _abilityAttackIndex = Mathf.Abs(_abilityAttackIndex); // This is added so as to prevent an overflow
             }
 
             return bossState;

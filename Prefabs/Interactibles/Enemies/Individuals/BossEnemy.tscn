@@ -102,8 +102,8 @@ dualArmAttackNodePath = NodePath("Dual Attack Point")
 singleArmBulletPrefab = ExtResource( 3 )
 chargedBulletPrefab = ExtResource( 4 )
 chargingEffectPrefab = ExtResource( 5 )
-singeArmAttackAngleDiff = 7.0
-timeBetweenSingleArmAttacks = 0.3
+singeArmAttackAngleDiff = 14.0
+timeBetweenSingleArmAttacks = 0.1
 timeBetweenChargedAttacks = 3.0
 chargedAttackIncreaseRate = 0.5
 
@@ -175,8 +175,8 @@ dualArmAttackNodePath = NodePath("Dual Attack Point")
 singleArmBulletPrefab = ExtResource( 3 )
 chargedBulletPrefab = ExtResource( 4 )
 chargingEffectPrefab = ExtResource( 5 )
-singeArmAttackAngleDiff = 7.0
-timeBetweenSingleArmAttacks = 0.3
+singeArmAttackAngleDiff = 14.0
+timeBetweenSingleArmAttacks = 0.1
 timeBetweenChargedAttacks = 3.0
 chargedAttackIncreaseRate = 0.5
 
@@ -248,8 +248,8 @@ dualArmAttackNodePath = NodePath("../Right Arm/Dual Attack Point")
 singleArmBulletPrefab = ExtResource( 3 )
 chargedBulletPrefab = ExtResource( 4 )
 chargingEffectPrefab = ExtResource( 5 )
-singeArmAttackAngleDiff = 7.0
-timeBetweenSingleArmAttacks = 0.3
+singeArmAttackAngleDiff = 14.0
+timeBetweenSingleArmAttacks = 0.1
 timeBetweenChargedAttacks = 3.0
 chargedAttackIncreaseRate = 0.5
 
@@ -321,8 +321,8 @@ dualArmAttackNodePath = NodePath("Dual Attack Point")
 singleArmBulletPrefab = ExtResource( 3 )
 chargedBulletPrefab = ExtResource( 4 )
 chargingEffectPrefab = ExtResource( 5 )
-singeArmAttackAngleDiff = 7.0
-timeBetweenSingleArmAttacks = 0.3
+singeArmAttackAngleDiff = 14.0
+timeBetweenSingleArmAttacks = 0.1
 timeBetweenChargedAttacks = 3.0
 chargedAttackIncreaseRate = 0.5
 
@@ -413,7 +413,7 @@ script = ExtResource( 15 )
 bulletPrefab = ExtResource( 3 )
 attackTimer = 14.0
 bossAttackPointNodePath = NodePath("../../Body/Body Attack Point")
-singleArmAttackCount = 2.0
+singleArmAttackCount = 4.0
 bossArmControllerNodePaths = [ NodePath("../../Left Arm"), NodePath("../../Right Arm"), NodePath("../../Top Arm"), NodePath("../../Bottom Arm") ]
 
 [node name="Dual Arm Attack" type="Node2D" parent="Boss Attacks"]

@@ -12,6 +12,7 @@
 radius = 19.6198
 
 [node name="Circle Blur Bullet" type="RigidBody2D"]
+gravity_scale = 0.0
 contacts_reported = 1
 script = ExtResource( 1 )
 bulletTrailPrefab = ExtResource( 2 )

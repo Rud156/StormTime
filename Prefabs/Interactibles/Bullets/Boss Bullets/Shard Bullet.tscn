@@ -10,6 +10,7 @@
 points = PoolVector2Array( -14, -7, 14, 0, -14, 7 )
 
 [node name="Shard Bullet" type="RigidBody2D"]
+gravity_scale = 0.0
 contacts_reported = 1
 script = ExtResource( 1 )
 bulletTrailPrefab = ExtResource( 2 )
@@ -38,5 +39,4 @@ colors = PoolColorArray( 1, 1, 0, 1, 1, 0.537255, 0, 1, 1, 0, 0, 1 )
 
 [node name="Shard Collision Shape" type="CollisionShape2D" parent="."]
 position = Vector2( 14.02, 0 )
-scale = Vector2( 1, 1 )
 shape = SubResource( 1 )

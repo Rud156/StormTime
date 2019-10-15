@@ -15,6 +15,8 @@ namespace StormTime.Scene.BossScene
            };
 
             Fader.faderReady += faderActivate;
+
+            GD.Randomize();
         }
     }
 }

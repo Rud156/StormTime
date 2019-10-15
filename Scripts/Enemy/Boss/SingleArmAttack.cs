@@ -28,6 +28,8 @@ namespace StormTime.Enemy.Boss
 
         public override bool UpdateAttack(float delta)
         {
+            bool updateAttack = base.UpdateAttack(delta);
+
             _currentAttackTimer -= delta;
             if (_currentAttackTimer <= 0)
             {
@@ -35,7 +37,7 @@ namespace StormTime.Enemy.Boss
                 _currentAttackTimer = _timeBetweenEachAttack;
             }
 
-            return base.UpdateAttack(delta);
+            return updateAttack;
         }
 
         public override void LaunchAttack()
@@ -52,7 +54,9 @@ namespace StormTime.Enemy.Boss
 
         private void LaunchRandomArmAttack()
         {
-            int randomArmIndex = (int)GD.Randi() % _bossArmControllers.Count;
+            int randomArmIndex = (int)(GD.Randi() % _bossArmControllers.Count);
+            randomArmIndex = Mathf.Abs(randomArmIndex);
+
             float randomNumber = (float)GD.Randf();
 
             if (randomNumber <= 0.5f)
