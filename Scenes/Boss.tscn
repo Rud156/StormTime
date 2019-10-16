@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Scripts/Player/Modifiers/PlayerModifierSoulsManager.cs" type="Script" id=1]
 [ext_resource path="res://Scripts/Player/Modifiers/PlayerModifierTypes.cs" type="Script" id=2]
@@ -7,7 +7,9 @@
 [ext_resource path="res://Prefabs/Interactibles/Enemies/Individuals/BossEnemy.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Prefabs/Interactibles/Player/Player.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Scripts/Camera/CameraFollowTarget.cs" type="Script" id=7]
-[ext_resource path="res://Prefabs/UI/GUI.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Textures/Pixel Bar.png" type="Texture" id=8]
+[ext_resource path="res://Textures/Pixel Bar Filled.png" type="Texture" id=9]
+[ext_resource path="res://Prefabs/UI/GUI.tscn" type="PackedScene" id=10]
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=1]
 
@@ -53,9 +55,15 @@ position = Vector2( -1507, 1500 )
 position = Vector2( 1507, 1500 )
 
 [node name="BossEnemy" parent="Game World" instance=ExtResource( 5 )]
+editor/display_folded = true
+idleSwitchTimer = 0.7
 
 [node name="Left Arm" parent="Game World/BossEnemy" index="0"]
+editor/display_folded = false
 bulletHolderNodePath = NodePath("../../Boss Bullet Holder")
+
+[node name="Top Part RigidBody" parent="Game World/BossEnemy/Left Arm" index="0"]
+editor/display_folded = false
 
 [node name="Right Arm" parent="Game World/BossEnemy" index="1"]
 bulletHolderNodePath = NodePath("../../Boss Bullet Holder")
@@ -86,13 +94,18 @@ bulletHolderNodePath = NodePath("../../../Boss Bullet Holder")
 [node name="Inner Circle Shot Attack" parent="Game World/BossEnemy/Boss Attacks" index="5"]
 bulletHolderNodePath = NodePath("../../../Boss Bullet Holder")
 
+[node name="Boss Total Health Display" parent="Game World/BossEnemy/Boss Total Health Setter" index="0"]
+healthProgressNodePath = NodePath("../../../../CanvasLayer/Additional Scene Controls/Boss Health Bar")
+
 [node name="Player" parent="Game World" instance=ExtResource( 6 )]
 position = Vector2( -315.013, 209.949 )
+playerHeartScaleBlinkerNodePath = NodePath("../../CanvasLayer/GUI/Player Health Panel/Player Heart")
 
 [node name="Player Shooter" parent="Game World/Player" index="3"]
 playerBulletHolderNodePath = NodePath("../../Player Bullet Holder")
 
 [node name="Player Health" parent="Game World/Player" index="5"]
+editor/display_folded = false
 maxHealth = 100000.0
 
 [node name="Health Display" parent="Game World/Player/Player Health" index="0"]
@@ -113,13 +126,64 @@ lockBottomLeftCorner = Vector2( -1120, 1310 )
 lockTopRightCorner = Vector2( 1120, -1310 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Additional Scene Controls" type="Control" parent="CanvasLayer"]
+editor/display_folded = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Boss Health Bar" type="TextureProgress" parent="CanvasLayer/Additional Scene Controls"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 14.0
+margin_top = -38.58
+margin_right = 3940.0
+margin_bottom = 111.42
+grow_horizontal = 2
+grow_vertical = 2
+rect_scale = Vector2( 0.2, 0.2 )
+value = 56.0
+texture_under = ExtResource( 8 )
+texture_progress = ExtResource( 9 )
+tint_under = Color( 0, 0, 0, 1 )
+tint_progress = Color( 1, 0, 0, 1 )
+nine_patch_stretch = true
+stretch_margin_left = 50
+stretch_margin_top = 75
+stretch_margin_right = 50
+stretch_margin_bottom = 75
+
+[node name="GUI" parent="CanvasLayer" instance=ExtResource( 10 )]
 editor/display_folded = true
 
-[node name="GUI" parent="CanvasLayer" instance=ExtResource( 8 )]
+[node name="FPS Panel" parent="CanvasLayer/GUI" index="0"]
+margin_top = -92.17
+margin_bottom = -42.1702
+
+[node name="Portal Display Panel" parent="CanvasLayer/GUI" index="1"]
 visible = false
+
+[node name="Dialogue Panel" parent="CanvasLayer/GUI" index="2"]
+visible = false
+
+[node name="Player Health Panel" parent="CanvasLayer/GUI" index="3"]
+editor/display_folded = true
+
+[node name="Player Souls Panel" parent="CanvasLayer/GUI" index="4"]
+editor/display_folded = true
 
 [node name="AnimationTree" parent="CanvasLayer/GUI/Player Souls Panel/Player Souls Sprite Animation" index="1"]
 parameters/playback = SubResource( 1 )
+
+[node name="Flash Pointer Holder" parent="CanvasLayer/GUI" index="6"]
+visible = false
+
+[node name="Fader" parent="CanvasLayer/GUI" index="7"]
+visible = true
+
+[node name="Pause Resume Panel" parent="CanvasLayer/GUI" index="8"]
+editor/display_folded = true
 
 [editable path="Game World/BossEnemy"]
 

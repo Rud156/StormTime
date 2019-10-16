@@ -48,8 +48,6 @@ namespace StormTime.Enemy.Boss
 
         private void LaunchBullet()
         {
-            GD.Print("Lunching Attack");
-
             float currentShotAngle = _currentAngle;
             float angleDiff = 360.0f / eachShotBulletCount;
 

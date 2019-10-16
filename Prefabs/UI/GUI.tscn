@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://Prefabs/UI/Default Theme.tres" type="Theme" id=1]
 [ext_resource path="res://Scripts/UI/FPSLabel.cs" type="Script" id=2]
@@ -6,15 +6,19 @@
 [ext_resource path="res://Scripts/UI/DialogueUiManager.cs" type="Script" id=4]
 [ext_resource path="res://Scripts/UI/TextTyper.cs" type="Script" id=5]
 [ext_resource path="res://Prefabs/UI/TyperDialogue.tscn" type="PackedScene" id=6]
-[ext_resource path="res://Textures/White Pixel.png" type="Texture" id=7]
-[ext_resource path="res://Textures/Flame Sprite Sheet Animation.png" type="Texture" id=8]
-[ext_resource path="res://Scripts/Player/UIDisplay/PlayerSoulsAnimationController.cs" type="Script" id=9]
-[ext_resource path="res://Textures/Black And White Screen.png" type="Texture" id=10]
-[ext_resource path="res://Scripts/UI/WarningManager.cs" type="Script" id=11]
-[ext_resource path="res://Scripts/UI/Fader.cs" type="Script" id=12]
-[ext_resource path="res://Textures/GrungeArrow.png" type="Texture" id=13]
-[ext_resource path="res://Scripts/UI/FlasherObjectPointer.cs" type="Script" id=14]
-[ext_resource path="res://Scripts/UI/PauseAndResume.cs" type="Script" id=15]
+[ext_resource path="res://Textures/Pixel Bar.png" type="Texture" id=7]
+[ext_resource path="res://Textures/Pixel Bar Filled.png" type="Texture" id=8]
+[ext_resource path="res://Textures/Pixel Heart.png" type="Texture" id=9]
+[ext_resource path="res://Scripts/UI/ScaleBlinker.cs" type="Script" id=10]
+[ext_resource path="res://Textures/Flame Sprite Sheet Animation.png" type="Texture" id=11]
+[ext_resource path="res://Scripts/Player/UIDisplay/PlayerSoulsAnimationController.cs" type="Script" id=12]
+[ext_resource path="res://Textures/Black And White Screen.png" type="Texture" id=13]
+[ext_resource path="res://Scripts/UI/WarningManager.cs" type="Script" id=14]
+[ext_resource path="res://Textures/GrungeArrow.png" type="Texture" id=15]
+[ext_resource path="res://Scripts/UI/FlasherObjectPointer.cs" type="Script" id=16]
+[ext_resource path="res://Textures/White Pixel.png" type="Texture" id=17]
+[ext_resource path="res://Scripts/UI/Fader.cs" type="Script" id=18]
+[ext_resource path="res://Scripts/UI/PauseAndResume.cs" type="Script" id=19]
 
 [sub_resource type="Animation" id=1]
 resource_name = "Action"
@@ -75,10 +79,9 @@ graph_offset = Vector2( -674, -262 )
 light_mask = 2
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 1.78484
-margin_top = -3.3701
-margin_right = 1.78479
-margin_bottom = -3.37012
+margin_left = 2.0
+margin_right = 2.0
+margin_bottom = -4.0
 
 [node name="FPS Panel" type="Panel" parent="."]
 editor/display_folded = true
@@ -186,9 +189,9 @@ margin_right = 730.0
 margin_bottom = -117.0
 
 [node name="Player Health Panel" type="Panel" parent="."]
-editor/display_folded = true
+self_modulate = Color( 1, 1, 1, 0.588235 )
 margin_right = 400.0
-margin_bottom = 20.0
+margin_bottom = 34.0
 __meta__ = {
 "_edit_group_": true
 }
@@ -196,30 +199,47 @@ __meta__ = {
 [node name="Player Health" type="TextureProgress" parent="Player Health Panel"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 10.0
-margin_top = 5.0
-margin_right = -10.0
-margin_bottom = -5.0
+margin_left = 5.0
+margin_right = 1555.0
+margin_bottom = 134.0
 grow_horizontal = 2
 grow_vertical = 2
-value = 49.0
+rect_scale = Vector2( 0.2, 0.2 )
+value = 25.0
 texture_under = ExtResource( 7 )
-texture_progress = ExtResource( 7 )
-tint_under = Color( 0.11673, 0.11673, 0.132813, 1 )
+texture_progress = ExtResource( 8 )
+tint_under = Color( 0, 0, 0, 1 )
 tint_progress = Color( 0.12549, 1, 0, 1 )
 nine_patch_stretch = true
+stretch_margin_left = 50
+stretch_margin_top = 75
+stretch_margin_right = 50
+stretch_margin_bottom = 75
+
+[node name="Player Heart" type="TextureRect" parent="Player Health Panel"]
+self_modulate = Color( 1, 0, 0, 1 )
+margin_right = 35.0
+margin_bottom = 35.0
+rect_pivot_offset = Vector2( 17, 17 )
+texture = ExtResource( 9 )
+expand = true
+stretch_mode = 6
+script = ExtResource( 10 )
+scaleChangeCount = 3
+minScaleAmount = 0.7
+scaleChangeRate = 7.0
 
 [node name="Player Souls Panel" type="Panel" parent="."]
-editor/display_folded = true
-margin_top = 20.0
+self_modulate = Color( 1, 1, 1, 0.588235 )
+margin_top = 33.68
 margin_right = 153.0
-margin_bottom = 57.0
+margin_bottom = 70.68
 
 [node name="Player Souls Sprite Animation" type="Sprite" parent="Player Souls Panel"]
 self_modulate = Color( 0, 0.505882, 1, 1 )
 position = Vector2( 24.2657, 13.0578 )
 scale = Vector2( 1.55981, 1.54051 )
-texture = ExtResource( 8 )
+texture = ExtResource( 11 )
 hframes = 7
 
 [node name="Player Souls Animation" type="AnimationPlayer" parent="Player Souls Panel/Player Souls Sprite Animation"]
@@ -231,7 +251,7 @@ tree_root = SubResource( 7 )
 anim_player = NodePath("../Player Souls Animation")
 active = true
 parameters/playback = SubResource( 8 )
-script = ExtResource( 9 )
+script = ExtResource( 12 )
 
 [node name="Player Souls Text" type="Label" parent="Player Souls Panel"]
 anchor_left = 1.0
@@ -244,21 +264,14 @@ text = "X  20"
 valign = 1
 
 [node name="Scene Indicator" type="TextureRect" parent="."]
+visible = false
 self_modulate = Color( 0, 0, 0, 1 )
 anchor_right = 1.0
 anchor_bottom = 1.0
-texture = ExtResource( 10 )
+texture = ExtResource( 13 )
 expand = true
-script = ExtResource( 11 )
+script = ExtResource( 14 )
 fadeRate = 500.0
-
-[node name="Fader" type="TextureRect" parent="."]
-anchor_right = 1.0
-anchor_bottom = 1.0
-texture = ExtResource( 7 )
-expand = true
-script = ExtResource( 12 )
-faderRate = 0.7
 
 [node name="Flash Pointer Holder" type="Control" parent="."]
 editor/display_folded = true
@@ -275,10 +288,19 @@ margin_top = -131.5
 margin_right = 239.5
 margin_bottom = 131.5
 rect_pivot_offset = Vector2( 239, 131 )
-texture = ExtResource( 13 )
+texture = ExtResource( 15 )
 expand = true
-script = ExtResource( 14 )
+script = ExtResource( 16 )
 fadeRate = 2.0
+
+[node name="Fader" type="TextureRect" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 17 )
+expand = true
+script = ExtResource( 18 )
+faderRate = 0.7
 
 [node name="Pause Resume Panel" type="Panel" parent="."]
 pause_mode = 2
@@ -286,7 +308,7 @@ visible = false
 self_modulate = Color( 0, 0, 0, 0.588235 )
 anchor_right = 1.0
 anchor_bottom = 1.0
-script = ExtResource( 15 )
+script = ExtResource( 19 )
 resumeButtonNodePath = NodePath("Resume Button")
 mainMenuButtonNodePath = NodePath("Main Menu Button")
 
@@ -301,7 +323,7 @@ margin_left = -125.0
 margin_top = -60.0
 margin_right = 125.0
 margin_bottom = -20.0
-texture_normal = ExtResource( 7 )
+texture_normal = ExtResource( 17 )
 expand = true
 
 [node name="Resume Label" type="Label" parent="Pause Resume Panel/Resume Button"]
@@ -323,7 +345,7 @@ margin_left = -125.0
 margin_top = 20.0
 margin_right = 125.0
 margin_bottom = 59.9998
-texture_normal = ExtResource( 7 )
+texture_normal = ExtResource( 17 )
 expand = true
 
 [node name="Main Menu Label" type="Label" parent="Pause Resume Panel/Main Menu Button"]

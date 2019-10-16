@@ -197,6 +197,7 @@ portalCountDisplayLabelNodePath = NodePath("../../../CanvasLayer/GUI/Portal Disp
 
 [node name="Player" parent="Game World" instance=ExtResource( 9 )]
 editor/display_folded = true
+playerHeartScaleBlinkerNodePath = NodePath("../../CanvasLayer/GUI/Player Health Panel/Player Heart")
 
 [node name="Player Shooter" parent="Game World/Player" index="3"]
 editor/display_folded = false
@@ -229,9 +230,6 @@ lockTopRightCorner = Vector2( 2945, -2000 )
 [node name="GUI" parent="CanvasLayer" instance=ExtResource( 11 )]
 
 [node name="FPS Panel" parent="CanvasLayer/GUI" index="0"]
-editor/display_folded = false
-
-[node name="Player Health Panel" parent="CanvasLayer/GUI" index="3"]
 editor/display_folded = false
 
 [node name="Player Souls Sprite Animation" parent="CanvasLayer/GUI/Player Souls Panel" index="0"]

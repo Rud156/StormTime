@@ -11,7 +11,6 @@ namespace StormTime.Common
         private bool _zeroHealthEventFired;
 
         public delegate void HealthChanged(float currentHealth, float maxHealth);
-
         public delegate void ZeroHealth();
 
         public HealthChanged healthChanged;

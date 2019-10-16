@@ -10,7 +10,7 @@ extents = Vector2( 6.52631, 6.52594 )
 
 [node name="Enemy Bullet" type="RigidBody2D"]
 light_mask = 2
-collision_layer = 4
+collision_layer = 8
 collision_mask = 3
 gravity_scale = 0.0
 contacts_reported = 1

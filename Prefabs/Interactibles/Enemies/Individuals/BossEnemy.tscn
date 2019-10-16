@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=2]
+[gd_scene load_steps=39 format=2]
 
 [ext_resource path="res://Scripts/Enemy/Boss/BossController.cs" type="Script" id=1]
 [ext_resource path="res://Scripts/Enemy/Boss/BossArmController.cs" type="Script" id=2]
@@ -23,6 +23,7 @@
 [ext_resource path="res://Scripts/Enemy/Boss/CircleWorldFill.cs" type="Script" id=21]
 [ext_resource path="res://Prefabs/Interactibles/Bullets/Boss Bullets/Circle Blur Bullet.tscn" type="PackedScene" id=22]
 [ext_resource path="res://Scripts/Enemy/Boss/InnerCircleShot.cs" type="Script" id=23]
+[ext_resource path="res://Scripts/Common/HealthDisplay.cs" type="Script" id=24]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 12.3397, 3.74849 )
@@ -88,7 +89,6 @@ minAbilityAttackPercent = 0.5
 maxAbilityArmAttackPercent = 0.95
 
 [node name="Left Arm" type="Node2D" parent="."]
-editor/display_folded = true
 position = Vector2( -120, 0 )
 scale = Vector2( 3, 3 )
 script = ExtResource( 2 )
@@ -108,7 +108,6 @@ timeBetweenChargedAttacks = 1.5
 chargedAttackIncreaseRate = 0.75
 
 [node name="Top Part RigidBody" type="RigidBody2D" parent="Left Arm"]
-editor/display_folded = true
 position = Vector2( -12, -10 )
 collision_layer = 4
 collision_mask = 3
@@ -384,6 +383,7 @@ position = Vector2( 31, 95 )
 position = Vector2( 0, 100 )
 
 [node name="Body" type="RigidBody2D" parent="."]
+editor/display_folded = true
 collision_layer = 4
 collision_mask = 3
 mode = 1
@@ -405,6 +405,7 @@ position = Vector2( 0.149887, 0 )
 shape = SubResource( 3 )
 
 [node name="Boss Attacks" type="Node2D" parent="."]
+editor/display_folded = true
 
 [node name="Single Arm Attack" type="Node2D" parent="Boss Attacks"]
 script = ExtResource( 15 )
@@ -462,6 +463,13 @@ timeBetweenShot = 0.1
 
 [node name="Boss Total Health Setter" type="Node2D" parent="."]
 script = ExtResource( 9 )
+
+[node name="Boss Total Health Display" type="Node2D" parent="Boss Total Health Setter"]
+script = ExtResource( 24 )
+minHealthColor = Color( 1, 0, 0, 1 )
+halfHealthColor = Color( 1, 1, 0, 1 )
+maxHealthColor = Color( 0, 1, 0, 1 )
+healthSetterNodePath = NodePath("..")
 
 [node name="Light Occuluder" type="Node2D" parent="."]
 editor/display_folded = true

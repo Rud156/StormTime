@@ -99,6 +99,7 @@ namespace StormTime.Enemy.Boss
                 _bossAttacks.Add(GetNode<BossBaseAttack>(bossAttacks[i]));
             }
 
+            GD.Print("Setting Boss Total Health");
             SetBossMaxHealth();
             ComputeTotalBossHealth();
 
@@ -155,53 +156,52 @@ namespace StormTime.Enemy.Boss
 
         private void UpdateIdleState(float delta)
         {
-            // TODO: Activate this later on...
-            // _bossTimer -= delta;
-            // if (_bossTimer <= 0)
-            // {
-            //     SetBossState(GetRandomAttack());
-            // }
+            _bossTimer -= delta;
+            if (_bossTimer <= 0)
+            {
+                SetBossState(GetRandomAttack());
+            }
 
             // TODO: Remove this after testing all attacks
 
-            // Switch To Idle State
-            if (Input.IsActionJustPressed(SceneControls.Testing_1))
-            {
-                SetBossState(BossState.Idle);
-            }
-            // Single Arm Attack
-            else if (Input.IsActionJustPressed(SceneControls.Testing_2))
-            {
-                SetBossState(BossState.SingleArmShot);
-            }
-            // Double Arm Attack
-            else if (Input.IsActionJustPressed(SceneControls.Testing_3))
-            {
-                SetBossState(BossState.DualArmShot);
-            }
-            // Inner Circle Shot
-            else if (Input.IsActionJustPressed(SceneControls.Testing_4))
-            {
-                SetBossState(BossState.AbilityAttack);
-                _abilityAttackIndex = 2;
-            }
-            // Bounce Circle Shot
-            else if (Input.IsActionJustPressed(SceneControls.Testing_5))
-            {
-                SetBossState(BossState.AbilityAttack);
-                _abilityAttackIndex = 0;
-            }
-            // Circle World Fill
-            else if (Input.IsActionJustPressed(SceneControls.Testing_6))
-            {
-                SetBossState(BossState.AbilityAttack);
-                _abilityAttackIndex = 1;
-            }
-            // Frenzy Attack Shot
-            else if (Input.IsActionJustPressed(SceneControls.Testing_7))
-            {
-                SetBossState(BossState.FrenzySpinningShot);
-            }
+            // // Switch To Idle State
+            // if (Input.IsActionJustPressed(SceneControls.Testing_1))
+            // {
+            //     SetBossState(BossState.Idle);
+            // }
+            // // Single Arm Attack
+            // else if (Input.IsActionJustPressed(SceneControls.Testing_2))
+            // {
+            //     SetBossState(BossState.SingleArmShot);
+            // }
+            // // Double Arm Attack
+            // else if (Input.IsActionJustPressed(SceneControls.Testing_3))
+            // {
+            //     SetBossState(BossState.DualArmShot);
+            // }
+            // // Inner Circle Shot
+            // else if (Input.IsActionJustPressed(SceneControls.Testing_4))
+            // {
+            //     SetBossState(BossState.AbilityAttack);
+            //     _abilityAttackIndex = 2;
+            // }
+            // // Bounce Circle Shot
+            // else if (Input.IsActionJustPressed(SceneControls.Testing_5))
+            // {
+            //     SetBossState(BossState.AbilityAttack);
+            //     _abilityAttackIndex = 0;
+            // }
+            // // Circle World Fill
+            // else if (Input.IsActionJustPressed(SceneControls.Testing_6))
+            // {
+            //     SetBossState(BossState.AbilityAttack);
+            //     _abilityAttackIndex = 1;
+            // }
+            // // Frenzy Attack Shot
+            // else if (Input.IsActionJustPressed(SceneControls.Testing_7))
+            // {
+            //     SetBossState(BossState.FrenzySpinningShot);
+            // }
         }
 
         private void UpdateSingleArmShot(float delta)

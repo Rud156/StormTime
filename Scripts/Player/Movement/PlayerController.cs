@@ -25,6 +25,7 @@ namespace StormTime.Player.Movement
         // Other Controls
         [Export] public NodePath playerShootingNodePath;
         [Export] public NodePath playerHealthSetterNodePath;
+        [Export] public NodePath playerHeartScaleBlinkerNodePath;
 
         // Souls Manager
         [Export] public int lowSoulsCount = 5;
@@ -45,6 +46,7 @@ namespace StormTime.Player.Movement
 
         private PlayerShooting _playerShooting;
         private HealthSetter _playerHealthSetter;
+        private ScaleBlinker _playerHeartScaleBlinker;
 
         private PlayerState _playerState;
         private Vector2 _movement;
@@ -62,6 +64,7 @@ namespace StormTime.Player.Movement
         {
             _playerShooting = GetNode<PlayerShooting>(playerShootingNodePath);
             _playerHealthSetter = GetNode<HealthSetter>(playerHealthSetterNodePath);
+            _playerHeartScaleBlinker = GetNode<ScaleBlinker>(playerHeartScaleBlinkerNodePath);
 
             _movement = new Vector2();
             _currentMovementSpeed = movementSpeed;
@@ -190,6 +193,7 @@ namespace StormTime.Player.Movement
             {
                 float damageAmount = ((Bullet)bullet).GetBulletDamage();
                 _playerHealthSetter.SubtractHealth(damageAmount);
+                _playerHeartScaleBlinker.StartScaleBlinking();
             }
         }
 

@@ -12,6 +12,8 @@ namespace StormTime.Enemy.Boss
         private float _timeBetweenEachAttack;
         private float _currentAttackTimer;
 
+        private int _previousArmIndex;
+
         public override void _Ready()
         {
             _bossArmControllers = new List<BossArmController>();
@@ -43,6 +45,8 @@ namespace StormTime.Enemy.Boss
         {
             base.LaunchAttack();
 
+            _previousArmIndex = -1;
+
             LaunchRandomArmAttack();
             _currentAttackTimer = _timeBetweenEachAttack;
         }
@@ -56,6 +60,13 @@ namespace StormTime.Enemy.Boss
             int randomArmIndex = (int)(GD.Randi() % _bossArmControllers.Count);
             randomArmIndex = Mathf.Abs(randomArmIndex);
             _bossArmControllers[randomArmIndex].LaunchDualArmAttack(_timeBetweenEachAttack);
+
+            if (_previousArmIndex != -1)
+            {
+                _bossArmControllers[_previousArmIndex].ClearDualArmAttack();
+            }
+
+            _previousArmIndex = randomArmIndex;
         }
 
         #endregion

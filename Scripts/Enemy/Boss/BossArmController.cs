@@ -107,6 +107,15 @@ namespace StormTime.Enemy.Boss
 
             _firstArmHealthSetter.healthChanged += HandleFirstArmHealthChange;
             _secondArmHealthSetter.healthChanged += HandleSecondArmHealthChange;
+            // This is done as all child nodes fire their ready before the parent
+            HandleFirstArmHealthChange(_firstArmHealthSetter.GetCurrentHealth(), _firstArmHealthSetter.GetMaxHealth());
+            HandleSecondArmHealthChange(_secondArmHealthSetter.GetCurrentHealth(), _secondArmHealthSetter.GetMaxHealth());
+        }
+
+        public override void _ExitTree()
+        {
+            _firstArmHealthSetter.healthChanged -= HandleFirstArmHealthChange;
+            _secondArmHealthSetter.healthChanged -= HandleSecondArmHealthChange;
         }
 
         public override void _Process(float delta)
@@ -206,6 +215,12 @@ namespace StormTime.Enemy.Boss
             SetArmAttackState(ArmAttackState.DualArmAttack);
         }
 
+        public void ClearDualArmAttack()
+        {
+            // This is just a fallback in case the attack is not actually launched
+            LaunchChargedAttack();
+        }
+
         public void LaunchFirstArmAttack(float attackTimer)
         {
             _attackTimer = attackTimer;
@@ -256,6 +271,12 @@ namespace StormTime.Enemy.Boss
 
         private void UpdateChargedAttack(float delta)
         {
+            // TODO: This is actually a hacky fix. Check why this is happening
+            if (_chargedBullet == null)
+            {
+                return;
+            }
+
             _attackVariable_1 += delta * chargedAttackIncreaseRate;
             _chargedBullet.SetGlobalScale(Vector2.One * _attackVariable_1);
         }
@@ -297,6 +318,8 @@ namespace StormTime.Enemy.Boss
 
         private void HandleFirstArmHealthChange(float currentHealth, float maxHealth)
         {
+            GD.Print($"First Arm Current Health: {currentHealth}, Max Health: {maxHealth}");
+
             _armStatus.firstArmHealth = currentHealth;
             _armStatus.firstArmMaxHealth = maxHealth;
 
@@ -313,6 +336,8 @@ namespace StormTime.Enemy.Boss
 
         private void HandleSecondArmHealthChange(float currentHealth, float maxHealth)
         {
+            GD.Print($"Second Arm Current Health: {currentHealth}, Max Health: {maxHealth}");
+
             _armStatus.secondArmHealth = currentHealth;
             _armStatus.secondArmMaxHealth = maxHealth;
 

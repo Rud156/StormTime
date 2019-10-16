@@ -97,6 +97,7 @@
     <Compile Include="Scripts\UI\FlasherObjectPointer.cs" />
     <Compile Include="Scripts\UI\FPSLabel.cs" />
     <Compile Include="Scripts\UI\PauseAndResume.cs" />
+    <Compile Include="Scripts\UI\ScaleBlinker.cs" />
     <Compile Include="Scripts\UI\TextTyper.cs" />
     <Compile Include="Scripts\UI\TyperDialogue.cs" />
     <Compile Include="Scripts\UI\WarningManager.cs" />

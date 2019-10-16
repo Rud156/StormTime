@@ -11,7 +11,7 @@ namespace StormTime.Common
         [Export] public NodePath healthSetterNodePath;
 
         private TextureProgress _healthProgress;
-        private HealthSetter _healthSetter; // TODO: Remove this later on...
+        private HealthSetter _healthSetter;
 
         private float _maxHealth;
         private float _currentHealth;
@@ -36,7 +36,7 @@ namespace StormTime.Common
 
             _healthProgress.SetMax(_maxHealth);
             _healthProgress.SetValue(_currentHealth);
-            
+
             float healthRatio = _currentHealth / _maxHealth;
             _healthProgress.SetTintProgress(healthRatio <= 0.5f
                 ? minHealthColor.LinearInterpolate(halfHealthColor, healthRatio * 2)
