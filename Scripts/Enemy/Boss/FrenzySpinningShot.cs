@@ -10,7 +10,7 @@ namespace StormTime.Enemy.Boss
 
         // Shot Info
         [Export] public int totalCircleBullets;
-        [Export] public float totalSprayBullets;
+        [Export] public int totalSprayShotBullets;
         [Export] public float sprayRotationIncrementAmount;
         [Export] public float timeBetweenSprayShots;
         [Export] public float timeBetweenCircleShots;
@@ -47,6 +47,7 @@ namespace StormTime.Enemy.Boss
             {
                 LaunchSprayShot();
                 _currentSprayTimer = timeBetweenSprayShots;
+                _currentRotationAmount += sprayRotationIncrementAmount;
             }
 
             _currentCircleTimer -= delta;
@@ -55,7 +56,6 @@ namespace StormTime.Enemy.Boss
                 LaunchCircleShot();
 
                 _currentCircleTimer = timeBetweenCircleShots;
-                _currentRotationAmount += sprayRotationIncrementAmount;
             }
         }
 
@@ -70,6 +70,7 @@ namespace StormTime.Enemy.Boss
                 _bulletHolder.AddChild(bossBulletInstance);
 
                 bossBulletInstance.SetGlobalRotationDegrees(currentCircleAngle + rotationOffset);
+                bossBulletInstance.SetGlobalPosition(_bossAttackPoint.GetGlobalPosition());
 
                 float xVelocity = Mathf.Cos(Mathf.Deg2Rad(currentCircleAngle));
                 float yVelocity = Mathf.Sin(Mathf.Deg2Rad(currentCircleAngle));
@@ -82,15 +83,16 @@ namespace StormTime.Enemy.Boss
 
         private void LaunchSprayShot()
         {
-            float angleDiff = 360.0f / totalSprayBullets;
+            float angleDiff = 360.0f / totalSprayShotBullets;
             float currentSprayAngle = _currentRotationAmount;
 
-            for (int i = 0; i < totalSprayBullets; i++)
+            for (int i = 0; i < totalSprayShotBullets; i++)
             {
                 BossBullet bossBulletInstance = (BossBullet)bulletPrefab.Instance();
                 _bulletHolder.AddChild(bossBulletInstance);
 
                 bossBulletInstance.SetGlobalRotationDegrees(currentSprayAngle + rotationOffset);
+                bossBulletInstance.SetGlobalPosition(_bossAttackPoint.GetGlobalPosition());
 
                 float xVelocity = Mathf.Cos(Mathf.Deg2Rad(currentSprayAngle));
                 float yVelocity = Mathf.Sin(Mathf.Deg2Rad(currentSprayAngle));

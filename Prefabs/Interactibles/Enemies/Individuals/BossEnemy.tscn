@@ -384,7 +384,6 @@ position = Vector2( 31, 95 )
 position = Vector2( 0, 100 )
 
 [node name="Body" type="RigidBody2D" parent="."]
-editor/display_folded = true
 collision_layer = 4
 collision_mask = 3
 mode = 1
@@ -400,7 +399,6 @@ script = ExtResource( 9 )
 maxHealth = 200.0
 
 [node name="Body Attack Point" type="Node2D" parent="Body"]
-position = Vector2( 0, 36 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Body"]
 position = Vector2( 0.149887, 0 )
@@ -429,12 +427,11 @@ script = ExtResource( 17 )
 bulletPrefab = ExtResource( 18 )
 attackTimer = 14.0
 bossAttackPointNodePath = NodePath("../../Body/Body Attack Point")
-rotationOffset = 90.0
 totalCircleBullets = 35
-totalSprayBullets = 5.0
-sprayRotationIncrementAmount = 10.0
+totalSprayShotBullets = 5
+sprayRotationIncrementAmount = 25.0
 timeBetweenSprayShots = 0.3
-timeBetweenCircleShots = 1.0
+timeBetweenCircleShots = 2.0
 
 [node name="Bounce Circle Shot Attack" type="Node2D" parent="Boss Attacks"]
 script = ExtResource( 19 )
