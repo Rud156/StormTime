@@ -134,7 +134,7 @@ namespace StormTime.Player.Movement
 
         private void HandlePlayerFloatingMovement(float delta)
         {
-            ConstantRotatePlayer(delta);
+            ContinuousRotatePlayer(delta);
             FloatingScaleChange(delta);
             LerpPlayerToPosition(delta);
         }
@@ -188,13 +188,12 @@ namespace StormTime.Player.Movement
 
         #region Player Floating Movement
 
-        private void ConstantRotatePlayer(float delta) => Rotate(Mathf.Deg2Rad(rotationRate * delta));
+        private void ContinuousRotatePlayer(float delta) => Rotate(Mathf.Deg2Rad(rotationRate * delta));
 
         private void FloatingScaleChange(float delta)
         {
             float scaleMultiplier = Mathf.Sin(scaleChangeFrequency * _playerTime);
-            float scaleAmount = ExtensionFunctions.Map(scaleMultiplier, -1, 1,
-                minScaleAmount, maxScaleAmount);
+            float scaleAmount = ExtensionFunctions.Map(scaleMultiplier, -1, 1, minScaleAmount, maxScaleAmount);
 
             _targetScale = Vector2.One * scaleAmount;
         }
@@ -388,6 +387,7 @@ namespace StormTime.Player.Movement
             // TODo: Handle this
             // Spawn Effect Probably
 
+            SetPlayerState(PlayerState.PlayerDead);
             GD.Print("Player Dead");
         }
 

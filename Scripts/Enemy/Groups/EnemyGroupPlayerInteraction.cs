@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Godot;
 using StormTime.Player.Modifiers;
 using StormTime.Player.Movement;
+using StormTime.Scene.MainScene;
 using StormTime.UI;
 using StormTime.Utils;
 
@@ -79,6 +80,8 @@ namespace StormTime.Enemy.Groups
                 return;
             }
 
+            GameManager.instance.PlayerEnemyShopInteractionStarted();
+
             DisablePlayerAndShowDialogues();
             SetPlayerInteractionState(PlayerInteractionState.Active);
         }
@@ -155,6 +158,8 @@ namespace StormTime.Enemy.Groups
         private void ResetPlayerAndDialogues()
         {
             ClearDialogues();
+
+            GameManager.instance.PlayerEnemyShopInteractionEnded();
 
             _playerController.SetPlayerState(PlayerController.PlayerState.PlayerInControlMovement);
             _playerController.ActivateShooting();

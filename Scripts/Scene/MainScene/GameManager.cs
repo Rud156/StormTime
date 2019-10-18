@@ -57,12 +57,7 @@ namespace StormTime.Scene.MainScene
 
         public override void _Process(float delta)
         {
-            if (!Input.IsActionJustPressed(SceneControls.Cancel))
-            {
-                return;
-            }
-
-            if (_playerInteractingWithShop)
+            if (!Input.IsActionJustPressed(SceneControls.Cancel) || _playerInteractingWithShop)
             {
                 return;
             }

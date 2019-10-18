@@ -7,7 +7,7 @@ using StormTime.Utils;
 
 namespace StormTime.Scene.MainScene
 {
-    public class PortalController : Node2D
+    public class PortalController : Area2D
     {
         [Export] public int maxRevealCount;
         [Export] public NodePath portalCountDisplayLabelNodePath;
@@ -34,6 +34,12 @@ namespace StormTime.Scene.MainScene
             _portalCountDisplayLabel.SetText($"X  {_currentRevealCount}");
 
             PlaceAtRandomYPosition();
+        }
+
+        public override void _ExitTree()
+        {
+            Disconnect("body_entered", this, nameof(HandlePlayerEntered));
+            Disconnect("body_exited", this, nameof(HandlePlayerExited));
         }
 
         public override void _Process(float delta)
@@ -126,7 +132,7 @@ namespace StormTime.Scene.MainScene
 
         private void HandlePlayerEntered(PhysicsBody2D other)
         {
-            if (other.Name != TagManager.PlayerTag)
+            if (!(other is PlayerController))
             {
                 return;
             }

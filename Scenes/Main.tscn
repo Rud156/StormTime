@@ -222,9 +222,7 @@ lockTopRightCorner = Vector2( 2945, -2000 )
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="GUI" parent="CanvasLayer" instance=ExtResource( 11 )]
-
-[node name="FPS Panel" parent="CanvasLayer/GUI" index="0"]
-editor/display_folded = false
+editor/display_folded = true
 
 [node name="Player Souls Sprite Animation" parent="CanvasLayer/GUI/Player Souls Panel" index="0"]
 editor/display_folded = true

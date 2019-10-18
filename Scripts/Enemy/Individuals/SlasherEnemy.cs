@@ -10,14 +10,19 @@ namespace StormTime.Enemy.Individuals
         [Export] public float attackingWaitTime;
         [Export] public float rotationRate;
         [Export] public NodePath slasherEffectNode;
+        [Export] public NodePath slasherEnemyCollisionNodePath;
 
         private Particles2D _slasherEffect;
         private float _currentRotationRate;
 
+        private SlasherEnemyCollision _slasherEnemyCollision;
+
         public override void _Ready()
         {
             base._Ready();
+
             _slasherEffect = GetNode<Particles2D>(slasherEffectNode);
+            _slasherEnemyCollision = GetNode<SlasherEnemyCollision>(slasherEnemyCollisionNodePath);
         }
 
         protected override void UpdateAttacking(float delta)
@@ -45,6 +50,16 @@ namespace StormTime.Enemy.Individuals
 
             _currentRotationRate = rotationRate;
             _slasherEffect.SetEmitting(true);
+
+            _slasherEnemyCollision.SetAttackingState(true);
+        }
+
+        protected override void EndAttack()
+        {
+            base.EndAttack();
+
+            _slasherEffect.SetEmitting(false);
+            _slasherEnemyCollision.SetAttackingState(false);
         }
     }
 }

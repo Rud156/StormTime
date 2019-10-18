@@ -1,20 +1,21 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Scripts/Enemy/Individuals/SlasherEnemy.cs" type="Script" id=1]
 [ext_resource path="res://Prefabs/Effects/Enemy Death.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Prefabs/Interactibles/Player/PlayerSoul.tscn" type="PackedScene" id=3]
-[ext_resource path="res://Textures/Blur Rectangle.png" type="Texture" id=4]
-[ext_resource path="res://Textures/Slash_Shape_White.png" type="Texture" id=5]
-[ext_resource path="res://Prefabs/Effects/Slash GB.tscn" type="PackedScene" id=6]
-[ext_resource path="res://Scripts/Common/HealthSetter.cs" type="Script" id=7]
-[ext_resource path="res://Scripts/Common/HealthDisplay.cs" type="Script" id=8]
-[ext_resource path="res://Textures/White Pixel.png" type="Texture" id=9]
+[ext_resource path="res://Scripts/Enemy/Individuals/SlasherEnemyCollision.cs" type="Script" id=4]
+[ext_resource path="res://Textures/Blur Rectangle.png" type="Texture" id=5]
+[ext_resource path="res://Textures/Slash_Shape_White.png" type="Texture" id=6]
+[ext_resource path="res://Prefabs/Effects/Slash GB.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Scripts/Common/HealthSetter.cs" type="Script" id=8]
+[ext_resource path="res://Scripts/Common/HealthDisplay.cs" type="Script" id=9]
+[ext_resource path="res://Textures/White Pixel.png" type="Texture" id=10]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 60, 56.6667 )
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 125, 90 )
+extents = Vector2( 105.09, 87.2025 )
 
 [node name="SlasherEnemy" type="KinematicBody2D"]
 scale = Vector2( 0.6, 0.6 )
@@ -44,11 +45,17 @@ attackingPlayerMovementSpeed = 350.0
 attackingWaitTime = 2.0
 rotationRate = 350.0
 slasherEffectNode = NodePath("Slasher Enemy Container/Slash Effect")
+slasherEnemyCollisionNodePath = NodePath("Enemy Collision Checker")
 
 [node name="Inner Collision Shape" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
 
-[node name="Effect Collision Shape" type="CollisionShape2D" parent="."]
+[node name="Enemy Collision Checker" type="Area2D" parent="."]
+script = ExtResource( 4 )
+playerDamagerPerTime = 3.0
+playerDamageTimer = 0.5
+
+[node name="Enemy Body Collision" type="CollisionShape2D" parent="Enemy Collision Checker"]
 shape = SubResource( 2 )
 
 [node name="Slasher Enemy Container" type="Node2D" parent="."]
@@ -58,13 +65,13 @@ editor/display_folded = true
 light_mask = 2
 position = Vector2( 0.0994987, 1.90735e-006 )
 scale = Vector2( 0.06, 0.2 )
-texture = ExtResource( 4 )
+texture = ExtResource( 5 )
 
 [node name="Sprite" type="Sprite" parent="Slasher Enemy Container"]
 light_mask = 2
-texture = ExtResource( 5 )
+texture = ExtResource( 6 )
 
-[node name="Slash Effect" parent="Slasher Enemy Container" instance=ExtResource( 6 )]
+[node name="Slash Effect" parent="Slasher Enemy Container" instance=ExtResource( 7 )]
 scale = Vector2( 7, 7 )
 
 [node name="Launch Points" type="Node2D" parent="Slasher Enemy Container"]
@@ -87,11 +94,12 @@ position = Vector2( 60.199, -34 )
 scale = Vector2( 0.3, 0.3 )
 
 [node name="Enemy Health" type="Node2D" parent="."]
-script = ExtResource( 7 )
+editor/display_folded = true
+script = ExtResource( 8 )
 maxHealth = 150.0
 
 [node name="Enemy Health Display" type="Node2D" parent="Enemy Health"]
-script = ExtResource( 8 )
+script = ExtResource( 9 )
 minHealthColor = Color( 1, 0, 0, 1 )
 halfHealthColor = Color( 1, 0.866667, 0, 1 )
 maxHealthColor = Color( 0, 0.109804, 1, 1 )
@@ -108,8 +116,8 @@ margin_bottom = -111.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 value = 50.0
-texture_under = ExtResource( 9 )
-texture_progress = ExtResource( 9 )
+texture_under = ExtResource( 10 )
+texture_progress = ExtResource( 10 )
 tint_under = Color( 0, 0, 0, 0.392157 )
 tint_progress = Color( 1, 0, 0, 1 )
 nine_patch_stretch = true
