@@ -20,5 +20,21 @@ namespace StormTime.Utils
 
             return vector;
         }
+
+        public static Vector2 MoveTowards(Vector2 current, Vector2 target, float maxDistanceDelta)
+        {
+            float toVector_x = target.x - current.x;
+            float toVector_y = target.y - current.y;
+
+            float sqDist = toVector_x * toVector_x + toVector_y * toVector_y;
+
+            if (sqDist == 0 || (maxDistanceDelta >= 0 && sqDist <= maxDistanceDelta * maxDistanceDelta))
+                return target;
+
+            float dist = Mathf.Sqrt(sqDist);
+
+            return new Vector2(current.x + toVector_x / dist * maxDistanceDelta,
+                current.y + toVector_y / dist * maxDistanceDelta);
+        }
     }
 }

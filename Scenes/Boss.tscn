@@ -59,11 +59,7 @@ editor/display_folded = true
 idleSwitchTimer = 0.7
 
 [node name="Left Arm" parent="Game World/BossEnemy" index="0"]
-editor/display_folded = false
 bulletHolderNodePath = NodePath("../../Boss Bullet Holder")
-
-[node name="Top Part RigidBody" parent="Game World/BossEnemy/Left Arm" index="0"]
-editor/display_folded = false
 
 [node name="Right Arm" parent="Game World/BossEnemy" index="1"]
 bulletHolderNodePath = NodePath("../../Boss Bullet Holder")
@@ -98,6 +94,7 @@ bulletHolderNodePath = NodePath("../../../Boss Bullet Holder")
 healthProgressNodePath = NodePath("../../../../CanvasLayer/Additional Scene Controls/Boss Health Bar")
 
 [node name="Player" parent="Game World" instance=ExtResource( 6 )]
+editor/display_folded = true
 position = Vector2( -315.013, 209.949 )
 playerHeartScaleBlinkerNodePath = NodePath("../../CanvasLayer/GUI/Player Health Panel/Player Heart")
 
@@ -155,7 +152,6 @@ stretch_margin_right = 50
 stretch_margin_bottom = 75
 
 [node name="GUI" parent="CanvasLayer" instance=ExtResource( 10 )]
-editor/display_folded = true
 
 [node name="FPS Panel" parent="CanvasLayer/GUI" index="0"]
 margin_top = -92.17
@@ -178,9 +174,6 @@ parameters/playback = SubResource( 1 )
 
 [node name="Flash Pointer Holder" parent="CanvasLayer/GUI" index="6"]
 visible = false
-
-[node name="Fader" parent="CanvasLayer/GUI" index="7"]
-visible = true
 
 [node name="Pause Resume Panel" parent="CanvasLayer/GUI" index="8"]
 editor/display_folded = true

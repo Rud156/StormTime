@@ -238,6 +238,9 @@ editor/display_folded = true
 [node name="AnimationTree" parent="CanvasLayer/GUI/Player Souls Panel/Player Souls Sprite Animation" index="1"]
 parameters/playback = SubResource( 9 )
 
+[node name="Fader" parent="CanvasLayer/GUI" index="7"]
+visible = true
+
 [editable path="Game World/Player"]
 
 [editable path="CanvasLayer/GUI"]

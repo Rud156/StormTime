@@ -318,8 +318,6 @@ namespace StormTime.Enemy.Boss
 
         private void HandleFirstArmHealthChange(float currentHealth, float maxHealth)
         {
-            GD.Print($"First Arm Current Health: {currentHealth}, Max Health: {maxHealth}");
-
             _armStatus.firstArmHealth = currentHealth;
             _armStatus.firstArmMaxHealth = maxHealth;
 
@@ -336,8 +334,6 @@ namespace StormTime.Enemy.Boss
 
         private void HandleSecondArmHealthChange(float currentHealth, float maxHealth)
         {
-            GD.Print($"Second Arm Current Health: {currentHealth}, Max Health: {maxHealth}");
-
             _armStatus.secondArmHealth = currentHealth;
             _armStatus.secondArmMaxHealth = maxHealth;
 

@@ -68,6 +68,7 @@ polygon = PoolVector2Array( -96.4662, -54.452, -71.0709, -54.8201, -71.0709, -42
 polygon = PoolVector2Array( 71.6242, -55.3723, 97.1128, -55.5147, 97.2552, -41.9872, 85.0093, -41.1329, 84.8669, -29.3142, 73.1906, -28.887, 73.0482, -16.9259, 46.9901, -16.4987, 46.4205, -31.1653, 58.6664, -32.162, 58.524, -43.4112, 70.4851, -43.8384 )
 
 [node name="BossEnemy" type="Node2D"]
+modulate = Color( 1, 0.537255, 0, 1 )
 script = ExtResource( 1 )
 bodyNodePath = NodePath("Body")
 leftArmNodePath = NodePath("Left Arm")
@@ -87,6 +88,10 @@ minDualArmAttackPercent = 0.25
 maxDualArmAttackPercent = 0.5
 minAbilityAttackPercent = 0.5
 maxAbilityArmAttackPercent = 0.95
+movementRadius = 300.0
+movementSpeed = 50.0
+movementTimer = 7.0
+movementReachedDistance = 30.0
 
 [node name="Left Arm" type="Node2D" parent="."]
 position = Vector2( -120, 0 )
@@ -122,14 +127,13 @@ armDetachForce = 5.0
 texture = ExtResource( 7 )
 normal_map = ExtResource( 8 )
 script = ExtResource( 9 )
-maxHealth = 100.0
+maxHealth = 300.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Left Arm/Top Part RigidBody"]
 position = Vector2( 0, -0.140991 )
 shape = SubResource( 1 )
 
 [node name="Bottom Part RigidBody" type="RigidBody2D" parent="Left Arm"]
-editor/display_folded = true
 position = Vector2( -12, 11 )
 collision_layer = 4
 collision_mask = 3
@@ -145,7 +149,7 @@ texture = ExtResource( 7 )
 normal_map = ExtResource( 8 )
 flip_v = true
 script = ExtResource( 9 )
-maxHealth = 100.0
+maxHealth = 300.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Left Arm/Bottom Part RigidBody"]
 shape = SubResource( 1 )
@@ -160,7 +164,6 @@ position = Vector2( -24, 6.5 )
 position = Vector2( -25, 0 )
 
 [node name="Right Arm" type="Node2D" parent="."]
-editor/display_folded = true
 position = Vector2( 120, 0 )
 scale = Vector2( 3, 3 )
 script = ExtResource( 2 )
@@ -180,7 +183,6 @@ timeBetweenChargedAttacks = 1.5
 chargedAttackIncreaseRate = 0.75
 
 [node name="Top Part RigidBody" type="RigidBody2D" parent="Right Arm"]
-editor/display_folded = true
 position = Vector2( 12, -10 )
 collision_layer = 4
 collision_mask = 3
@@ -196,13 +198,12 @@ texture = ExtResource( 7 )
 normal_map = ExtResource( 8 )
 flip_h = true
 script = ExtResource( 9 )
-maxHealth = 100.0
+maxHealth = 300.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Right Arm/Top Part RigidBody"]
 shape = SubResource( 1 )
 
 [node name="Bottom Part RigidBody" type="RigidBody2D" parent="Right Arm"]
-editor/display_folded = true
 position = Vector2( 12, 11 )
 collision_layer = 4
 collision_mask = 3
@@ -219,7 +220,7 @@ normal_map = ExtResource( 8 )
 flip_h = true
 flip_v = true
 script = ExtResource( 9 )
-maxHealth = 100.0
+maxHealth = 300.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Right Arm/Bottom Part RigidBody"]
 shape = SubResource( 1 )
@@ -234,7 +235,6 @@ position = Vector2( 24, 6.5 )
 position = Vector2( 25, 0 )
 
 [node name="Top Arm" type="Node2D" parent="."]
-editor/display_folded = true
 position = Vector2( 0, -78 )
 script = ExtResource( 2 )
 firstArmNodePath = NodePath("Left Part RigidBody/Left Part")
@@ -253,7 +253,6 @@ timeBetweenChargedAttacks = 1.5
 chargedAttackIncreaseRate = 0.75
 
 [node name="Left Part RigidBody" type="RigidBody2D" parent="Top Arm"]
-editor/display_folded = true
 position = Vector2( -55, -48 )
 collision_layer = 4
 collision_mask = 3
@@ -269,13 +268,12 @@ scale = Vector2( 3, 3 )
 texture = ExtResource( 10 )
 normal_map = ExtResource( 11 )
 script = ExtResource( 9 )
-maxHealth = 100.0
+maxHealth = 300.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Top Arm/Left Part RigidBody"]
 shape = SubResource( 2 )
 
 [node name="Right Part RigidBody" type="RigidBody2D" parent="Top Arm"]
-editor/display_folded = true
 position = Vector2( 55, -48 )
 collision_layer = 4
 collision_mask = 3
@@ -292,7 +290,7 @@ texture = ExtResource( 10 )
 normal_map = ExtResource( 11 )
 flip_h = true
 script = ExtResource( 9 )
-maxHealth = 100.0
+maxHealth = 300.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Top Arm/Right Part RigidBody"]
 shape = SubResource( 2 )
@@ -307,7 +305,6 @@ position = Vector2( 31, -95 )
 position = Vector2( 0, -100 )
 
 [node name="Bottom Arm" type="Node2D" parent="."]
-editor/display_folded = true
 position = Vector2( 0, 78 )
 script = ExtResource( 2 )
 firstArmNodePath = NodePath("Left Part RigidBody/Left Part")
@@ -326,7 +323,6 @@ timeBetweenChargedAttacks = 1.5
 chargedAttackIncreaseRate = 0.75
 
 [node name="Left Part RigidBody" type="RigidBody2D" parent="Bottom Arm"]
-editor/display_folded = true
 position = Vector2( -55, 51 )
 collision_layer = 4
 collision_mask = 3
@@ -343,14 +339,13 @@ texture = ExtResource( 10 )
 normal_map = ExtResource( 11 )
 flip_v = true
 script = ExtResource( 9 )
-maxHealth = 100.0
+maxHealth = 300.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Bottom Arm/Left Part RigidBody"]
 position = Vector2( -0.790543, 0 )
 shape = SubResource( 2 )
 
 [node name="Right Part RigidBody" type="RigidBody2D" parent="Bottom Arm"]
-editor/display_folded = true
 position = Vector2( 55, 51 )
 collision_layer = 4
 collision_mask = 3
@@ -368,7 +363,7 @@ normal_map = ExtResource( 11 )
 flip_h = true
 flip_v = true
 script = ExtResource( 9 )
-maxHealth = 100.0
+maxHealth = 300.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Bottom Arm/Right Part RigidBody"]
 shape = SubResource( 2 )
@@ -383,7 +378,6 @@ position = Vector2( 31, 95 )
 position = Vector2( 0, 100 )
 
 [node name="Body" type="RigidBody2D" parent="."]
-editor/display_folded = true
 collision_layer = 4
 collision_mask = 3
 mode = 1
@@ -396,7 +390,7 @@ scale = Vector2( 3, 3 )
 texture = ExtResource( 13 )
 normal_map = ExtResource( 14 )
 script = ExtResource( 9 )
-maxHealth = 200.0
+maxHealth = 600.0
 
 [node name="Body Attack Point" type="Node2D" parent="Body"]
 
@@ -462,6 +456,7 @@ angleIncrementAmount = 25.0
 timeBetweenShot = 0.1
 
 [node name="Boss Total Health Setter" type="Node2D" parent="."]
+editor/display_folded = true
 script = ExtResource( 9 )
 
 [node name="Boss Total Health Display" type="Node2D" parent="Boss Total Health Setter"]
@@ -473,6 +468,7 @@ healthSetterNodePath = NodePath("..")
 
 [node name="Light Occuluder" type="Node2D" parent="."]
 editor/display_folded = true
+visible = false
 
 [node name="Light Occuluder 1" type="LightOccluder2D" parent="Light Occuluder"]
 occluder = SubResource( 4 )

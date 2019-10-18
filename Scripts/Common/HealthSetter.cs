@@ -60,7 +60,15 @@ namespace StormTime.Common
 
         public void ForceSetCurrentHealth(float amount)
         {
-            _currentHealth = amount;
+            if (amount > _maxHealth)
+            {
+                _currentHealth = _maxHealth;
+            }
+            else
+            {
+                _currentHealth = amount;
+            }
+
             HandleHealthChange();
         }
 

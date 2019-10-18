@@ -20,6 +20,7 @@ namespace StormTime.Player.Shooting
         [Export] public float shootDelay;
         [Export] public int singleShotSoulDecrementCount = 1;
         [Export] public float weaponLockedErrorDisplayTime = 3;
+        [Export] public float timeBetweenAutoShot;
 
         // Shot Gun Specific Stats
         [Export] public float shotGunAngleDiff = 20;

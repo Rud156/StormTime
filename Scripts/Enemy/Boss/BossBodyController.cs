@@ -37,6 +37,8 @@ namespace StormTime.Enemy.Boss
 
             _bossBodyHealthSetter = GetNode<HealthSetter>(bossBodyNodePath);
             _bossBodyHealthSetter.healthChanged += HandleBodyHealthChanged;
+
+            HandleBodyHealthChanged(_bossBodyHealthSetter.GetCurrentHealth(), _bossBodyHealthSetter.GetMaxHealth());
         }
 
         public override void _ExitTree() => _bossBodyHealthSetter.healthChanged -= HandleBodyHealthChanged;

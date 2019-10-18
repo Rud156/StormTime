@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Godot;
 using StormTime.Common;
 using StormTime.Utils;
-using StormTime.Weapon;
 
 namespace StormTime.Enemy.Boss
 {
@@ -33,6 +32,12 @@ namespace StormTime.Enemy.Boss
         [Export] public float maxDualArmAttackPercent;
         [Export] public float minAbilityAttackPercent;
         [Export] public float maxAbilityArmAttackPercent;
+
+        // Boss Movement
+        [Export] public float movementRadius;
+        [Export] public float movementSpeed;
+        [Export] public float movementTimer;
+        [Export] public float movementReachedDistance;
 
         public delegate void BossDead();
         public BossDead onBossDead;
@@ -72,6 +77,10 @@ namespace StormTime.Enemy.Boss
 
         private BossHealthBodyStatus _bossHealthBodyStatus;
         private HealthSetter _bossTotalHealthSetter;
+
+        private float _currentMovementTimer;
+        private bool _bossReachedDestination;
+        private Vector2 _targetMovementPosition;
 
         public override void _Ready()
         {
@@ -121,6 +130,8 @@ namespace StormTime.Enemy.Boss
 
         public override void _Process(float delta)
         {
+            UpdateBossMovement(delta);
+
             switch (_currentBossState)
             {
                 case BossState.Idle:
@@ -154,13 +165,37 @@ namespace StormTime.Enemy.Boss
 
         #region State Updates
 
+        private void UpdateBossMovement(float delta)
+        {
+            if (_bossReachedDestination)
+            {
+                _currentMovementTimer -= delta;
+                if (_currentMovementTimer <= 0)
+                {
+                    _targetMovementPosition = VectorHelpers.Random2D() * movementRadius;
+                    _bossReachedDestination = false;
+                    _currentMovementTimer = movementTimer;
+                }
+            }
+            else
+            {
+                Vector2 finalPosition = VectorHelpers.MoveTowards(GetGlobalPosition(), _targetMovementPosition, movementSpeed * delta);
+                SetGlobalPosition(finalPosition);
+
+                if (_targetMovementPosition.DistanceSquaredTo(finalPosition) <= movementReachedDistance)
+                {
+                    _bossReachedDestination = true;
+                }
+            }
+        }
+
         private void UpdateIdleState(float delta)
         {
-            _bossTimer -= delta;
-            if (_bossTimer <= 0)
-            {
-                SetBossState(GetRandomAttack());
-            }
+            // _bossTimer -= delta;
+            // if (_bossTimer <= 0)
+            // {
+            //     SetBossState(GetRandomAttack());
+            // }
 
             // TODO: Remove this after testing all attacks
 
@@ -289,6 +324,8 @@ namespace StormTime.Enemy.Boss
             totalHealth += (bottomArmStatus.firstArmHealth + bottomArmStatus.secondArmHealth);
             totalHealth += bodyStatus.bodyHealth;
 
+            GD.Print($"Total Health: {totalHealth}");
+
             _bossTotalHealthSetter.ForceSetCurrentHealth(totalHealth);
         }
 
@@ -327,6 +364,8 @@ namespace StormTime.Enemy.Boss
             totalMaxHealth += (topArmStatus.firstArmMaxHealth + topArmStatus.secondArmMaxHealth);
             totalMaxHealth += (bottomArmStatus.firstArmMaxHealth + bottomArmStatus.secondArmMaxHealth);
             totalMaxHealth += bodyStatus.bodyMaxHealth;
+
+            GD.Print($"Max Boss Health: {totalMaxHealth}");
 
             _bossTotalHealthSetter.SetMaxHealth(totalMaxHealth);
 
