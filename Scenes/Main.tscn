@@ -193,8 +193,10 @@ __meta__ = {
 [node name="Portal" parent="Game World/Portal Holder" instance=ExtResource( 8 )]
 portalCountDisplayLabelNodePath = NodePath("../../../CanvasLayer/GUI/Portal Display Panel/Portal Left Count")
 portalEnteredText = "Interact To Enter New World"
+playerHealthSetterNodePath = NodePath("../../Player/Player Health")
 
 [node name="Player" parent="Game World" instance=ExtResource( 9 )]
+editor/display_folded = true
 playerHeartScaleBlinkerNodePath = NodePath("../../CanvasLayer/GUI/Player Health Panel/Player Heart")
 
 [node name="Player Shooter" parent="Game World/Player" index="3"]

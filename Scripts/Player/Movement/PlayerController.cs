@@ -4,6 +4,7 @@ using StormTime.Common;
 using StormTime.Player.Data;
 using StormTime.Player.Modifiers;
 using StormTime.Player.Shooting;
+using StormTime.Scene.MainScene;
 using StormTime.UI;
 using StormTime.Utils;
 using StormTime.Weapon;
@@ -384,11 +385,11 @@ namespace StormTime.Player.Movement
 
         private void HandlePlayerHealthZero()
         {
-            // TODo: Handle this
+            // TODO: Handle this
             // Spawn Effect Probably
 
+            _playerShooting.DeActivateShooting();
             SetPlayerState(PlayerState.PlayerDead);
-            GD.Print("Player Dead");
         }
 
         private void HandleSoulsChange(int currentSouls) => _isSoulsLow = currentSouls <= lowSoulsCount;

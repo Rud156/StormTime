@@ -1,4 +1,5 @@
 using Godot;
+using StormTime.Common;
 using StormTime.Player.Data;
 using StormTime.Player.Modifiers;
 using StormTime.Player.Movement;
@@ -16,17 +17,26 @@ namespace StormTime.Scene.MainScene
         [Export] public float maxYPosition;
         [Export] public string portalEnteredText;
 
+        // Player Based Controls
+        [Export] public NodePath playerHealthSetterNodePath;
+
         private bool _playerIsInside;
         private bool _playerInteracted;
         private PlayerController _playerController;
+        private HealthSetter _playerHealthSetter;
 
         private int _currentRevealCount;
         private Label _portalCountDisplayLabel;
+
+        private bool _isInteractionDisabled;
 
         public override void _Ready()
         {
             Connect("body_entered", this, nameof(HandlePlayerEntered));
             Connect("body_exited", this, nameof(HandlePlayerExited));
+
+            _playerHealthSetter = GetNode<HealthSetter>(playerHealthSetterNodePath);
+            _playerHealthSetter.zeroHealth += HandlePlayerHealthZero;
 
             _currentRevealCount = maxRevealCount;
 
@@ -40,11 +50,18 @@ namespace StormTime.Scene.MainScene
         {
             Disconnect("body_entered", this, nameof(HandlePlayerEntered));
             Disconnect("body_exited", this, nameof(HandlePlayerExited));
+
+            _playerHealthSetter.zeroHealth -= HandlePlayerHealthZero;
         }
 
         public override void _Process(float delta)
         {
             CheckAndUpdateFlasherStatus();
+
+            if (_isInteractionDisabled)
+            {
+                return;
+            }
 
             if (Input.IsActionJustPressed(SceneControls.Interact))
             {
@@ -59,6 +76,16 @@ namespace StormTime.Scene.MainScene
             }
         }
 
+        #region External Functions
+
+        public void DeActivatePortalInteraction() => _isInteractionDisabled = true;
+
+        public void ActivatePortalInteraction() => _isInteractionDisabled = false;
+
+        #endregion
+
+        #region Utility Functions
+
         private void CheckAndUpdateFlasherStatus()
         {
             bool isFlasherActive = FlasherObjectPointer.instance.IsFlashingActive(this);
@@ -71,8 +98,6 @@ namespace StormTime.Scene.MainScene
                 FlasherObjectPointer.instance.SetRotation(rotationAngle, this);
             }
         }
-
-        #region Utility Functions
 
         private void PlaceAtRandomYPosition()
         {
@@ -100,8 +125,7 @@ namespace StormTime.Scene.MainScene
             int currentSouls = PlayerModifierSoulsManager.instance.GetSoulsCount();
             if (currentSouls < soulsRequirement)
             {
-                DialogueUiManager.instance.DisplaySingleStringTimed(
-                    $"Not Enough Souls to enter the doorway. (soulsRequirement)", 3);
+                DialogueUiManager.instance.DisplaySingleStringTimed($"Not Enough Souls to enter the doorway. (soulsRequirement)", 3);
             }
             else
             {
@@ -155,6 +179,8 @@ namespace StormTime.Scene.MainScene
             _playerIsInside = false;
             _playerController = null;
         }
+
+        private void HandlePlayerHealthZero() => DeActivatePortalInteraction();
 
         #endregion
     }
