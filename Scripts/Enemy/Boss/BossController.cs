@@ -191,11 +191,11 @@ namespace StormTime.Enemy.Boss
 
         private void UpdateIdleState(float delta)
         {
-            // _bossTimer -= delta;
-            // if (_bossTimer <= 0)
-            // {
-            //     SetBossState(GetRandomAttack());
-            // }
+            _bossTimer -= delta;
+            if (_bossTimer <= 0)
+            {
+                SetBossState(GetRandomAttack());
+            }
 
             // TODO: Remove this after testing all attacks
 

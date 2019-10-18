@@ -34,7 +34,8 @@ playerTargetDistance = 500.0
 playerAttackDistance = 150.0
 maxPlayerFollowDistance = 800.0
 movementSpeed = 250.0
-attackTime = 5.0
+attackTime = 7.0
+targetingAttackTime = 0.5
 launchPointsPath = [ NodePath("Wheel Enemy Container/Launch Points/LaunchPoint_1"), NodePath("Wheel Enemy Container/Launch Points/LaunchPoint_2"), NodePath("Wheel Enemy Container/Launch Points/LaunchPoint_3"), NodePath("Wheel Enemy Container/Launch Points/LaunchPoint_4"), NodePath("Wheel Enemy Container/Launch Points/LaunchPoint_5"), NodePath("Wheel Enemy Container/Launch Points/LaunchPoint_6"), NodePath("Wheel Enemy Container/Launch Points/LaunchPoint_7"), NodePath("Wheel Enemy Container/Launch Points/LaunchPoint_8") ]
 soulsPrefab = ExtResource( 3 )
 minSoulsAmount = 3.0
@@ -43,7 +44,7 @@ rangeMultiplier = 100.0
 rotationRate = 200.0
 lowHealthRotationRate = 400.0
 lowHealthActivatorRatio = 0.3
-totalShotCount = 10.0
+totalShotCount = 27.0
 enemyBulletPrefab = ExtResource( 4 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -61,6 +62,7 @@ light_mask = 2
 texture = ExtResource( 6 )
 
 [node name="Launch Points" type="Node2D" parent="Wheel Enemy Container"]
+editor/display_folded = true
 
 [node name="LaunchPoint_1" type="Node2D" parent="Wheel Enemy Container/Launch Points"]
 position = Vector2( 70, 0 )
@@ -99,7 +101,7 @@ occluder = SubResource( 2 )
 
 [node name="Enemy Health" type="Node2D" parent="."]
 script = ExtResource( 7 )
-maxHealth = 75.0
+maxHealth = 300.0
 
 [node name="Enemy Health Display" type="Node2D" parent="Enemy Health"]
 script = ExtResource( 8 )

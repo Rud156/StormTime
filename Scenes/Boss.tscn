@@ -94,7 +94,6 @@ bulletHolderNodePath = NodePath("../../../Boss Bullet Holder")
 healthProgressNodePath = NodePath("../../../../CanvasLayer/Additional Scene Controls/Boss Health Bar")
 
 [node name="Player" parent="Game World" instance=ExtResource( 6 )]
-editor/display_folded = true
 position = Vector2( -315.013, 209.949 )
 playerHeartScaleBlinkerNodePath = NodePath("../../CanvasLayer/GUI/Player Health Panel/Player Heart")
 
@@ -103,7 +102,6 @@ playerBulletHolderNodePath = NodePath("../../Player Bullet Holder")
 
 [node name="Player Health" parent="Game World/Player" index="5"]
 editor/display_folded = false
-maxHealth = 100000.0
 
 [node name="Health Display" parent="Game World/Player/Player Health" index="0"]
 healthProgressNodePath = NodePath("../../../../CanvasLayer/GUI/Player Health Panel/Player Health")

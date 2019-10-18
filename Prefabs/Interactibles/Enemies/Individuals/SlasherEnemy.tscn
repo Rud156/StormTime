@@ -88,7 +88,7 @@ scale = Vector2( 0.3, 0.3 )
 
 [node name="Enemy Health" type="Node2D" parent="."]
 script = ExtResource( 7 )
-maxHealth = 50.0
+maxHealth = 200.0
 
 [node name="Enemy Health Display" type="Node2D" parent="Enemy Health"]
 script = ExtResource( 8 )

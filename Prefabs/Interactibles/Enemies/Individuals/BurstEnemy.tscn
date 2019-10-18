@@ -34,7 +34,8 @@ playerTargetDistance = 700.0
 playerAttackDistance = 150.0
 maxPlayerFollowDistance = 800.0
 movementSpeed = 250.0
-attackTime = 10.0
+attackTime = 14.0
+targetingAttackTime = 0.5
 launchPointsPath = [ NodePath("Burst Enemy Container/Launch Points/LaunchPoint_1"), NodePath("Burst Enemy Container/Launch Points/LaunchPoint_2"), NodePath("Burst Enemy Container/Launch Points/LaunchPoint_3"), NodePath("Burst Enemy Container/Launch Points/LaunchPoint_4") ]
 soulsPrefab = ExtResource( 3 )
 minSoulsAmount = 1.0
@@ -43,7 +44,7 @@ rangeMultiplier = 100.0
 rotationRate = 200.0
 rotationTime = 0.5
 rotationAttackCounts = 2.0
-timeDelayBetweenShots = 0.5
+timeDelayBetweenShots = 0.25
 enemyBulletPrefab = ExtResource( 4 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -84,7 +85,7 @@ occluder = SubResource( 2 )
 
 [node name="Enemy Health" type="Node2D" parent="."]
 script = ExtResource( 7 )
-maxHealth = 75.0
+maxHealth = 300.0
 
 [node name="Enemy Health Display" type="Node2D" parent="Enemy Health"]
 script = ExtResource( 8 )

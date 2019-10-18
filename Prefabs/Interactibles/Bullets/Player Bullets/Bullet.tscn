@@ -19,7 +19,7 @@ script = ExtResource( 1 )
 bulletTrailPrefab = ExtResource( 2 )
 bulletExplosionPrefab = ExtResource( 3 )
 bulletSpeed = 750.0
-bulletLifeTime = 1.0
+bulletLifeTime = 0.7
 bulletTrailTimer = 0.04
 bulletDamageAmount = 5.0
 

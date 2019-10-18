@@ -1,5 +1,4 @@
 using Godot;
-using StormTime.Utils;
 using StormTime.Weapon;
 
 namespace StormTime.Enemy.Individuals

@@ -91,8 +91,8 @@ namespace StormTime.Player.Shooting
             _playerWeapons = new Dictionary<WeaponType, WeaponState>
             {
                 {WeaponType.SingleShot, new WeaponState() {weaponType = WeaponType.SingleShot, isUnlocked = true}},
-                {WeaponType.Shotgun, new WeaponState() {weaponType = WeaponType.Shotgun, isUnlocked = true}},
-                {WeaponType.ChargeGun, new WeaponState() {weaponType = WeaponType.ChargeGun, isUnlocked = true}}
+                {WeaponType.Shotgun, new WeaponState() {weaponType = WeaponType.Shotgun, isUnlocked = false}},
+                {WeaponType.ChargeGun, new WeaponState() {weaponType = WeaponType.ChargeGun, isUnlocked = false}}
             };
         }
 
@@ -297,13 +297,6 @@ namespace StormTime.Player.Shooting
             if (_chargedShotBullet == null)
             {
                 return;
-            }
-
-            if (_currentDamageDiffPercent != 0)
-            {
-                float damageChange = _chargedShotBullet.GetBulletDamage() * _currentDamageDiffPercent / 100;
-                _currentDamageDiff += damageChange;
-                _currentDamageDiffPercent = 0;
             }
 
             _playerChargedShotShootingPosition.RemoveChild(_chargedShotBullet);

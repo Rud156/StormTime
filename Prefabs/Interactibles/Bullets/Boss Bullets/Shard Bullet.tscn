@@ -21,7 +21,7 @@ bulletExplosionPrefab = ExtResource( 3 )
 bulletSpeed = 150.0
 bulletLifeTime = 10.0
 bulletTrailTimer = 0.1
-bulletDamageAmount = 10.0
+bulletDamageAmount = 5.0
 bulletSpritePath = NodePath("Shard Sprite")
 autoSetInitialColor = false
 

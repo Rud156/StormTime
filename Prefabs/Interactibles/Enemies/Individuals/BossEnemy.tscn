@@ -94,6 +94,7 @@ movementTimer = 7.0
 movementReachedDistance = 30.0
 
 [node name="Left Arm" type="Node2D" parent="."]
+editor/display_folded = true
 position = Vector2( -120, 0 )
 scale = Vector2( 3, 3 )
 script = ExtResource( 2 )
@@ -113,6 +114,7 @@ timeBetweenChargedAttacks = 1.5
 chargedAttackIncreaseRate = 0.75
 
 [node name="Top Part RigidBody" type="RigidBody2D" parent="Left Arm"]
+editor/display_folded = true
 position = Vector2( -12, -10 )
 collision_layer = 4
 collision_mask = 3
@@ -134,6 +136,7 @@ position = Vector2( 0, -0.140991 )
 shape = SubResource( 1 )
 
 [node name="Bottom Part RigidBody" type="RigidBody2D" parent="Left Arm"]
+editor/display_folded = true
 position = Vector2( -12, 11 )
 collision_layer = 4
 collision_mask = 3
@@ -164,6 +167,7 @@ position = Vector2( -24, 6.5 )
 position = Vector2( -25, 0 )
 
 [node name="Right Arm" type="Node2D" parent="."]
+editor/display_folded = true
 position = Vector2( 120, 0 )
 scale = Vector2( 3, 3 )
 script = ExtResource( 2 )
@@ -183,6 +187,7 @@ timeBetweenChargedAttacks = 1.5
 chargedAttackIncreaseRate = 0.75
 
 [node name="Top Part RigidBody" type="RigidBody2D" parent="Right Arm"]
+editor/display_folded = true
 position = Vector2( 12, -10 )
 collision_layer = 4
 collision_mask = 3
@@ -204,6 +209,7 @@ maxHealth = 300.0
 shape = SubResource( 1 )
 
 [node name="Bottom Part RigidBody" type="RigidBody2D" parent="Right Arm"]
+editor/display_folded = true
 position = Vector2( 12, 11 )
 collision_layer = 4
 collision_mask = 3
@@ -235,6 +241,7 @@ position = Vector2( 24, 6.5 )
 position = Vector2( 25, 0 )
 
 [node name="Top Arm" type="Node2D" parent="."]
+editor/display_folded = true
 position = Vector2( 0, -78 )
 script = ExtResource( 2 )
 firstArmNodePath = NodePath("Left Part RigidBody/Left Part")
@@ -253,6 +260,7 @@ timeBetweenChargedAttacks = 1.5
 chargedAttackIncreaseRate = 0.75
 
 [node name="Left Part RigidBody" type="RigidBody2D" parent="Top Arm"]
+editor/display_folded = true
 position = Vector2( -55, -48 )
 collision_layer = 4
 collision_mask = 3
@@ -274,6 +282,7 @@ maxHealth = 300.0
 shape = SubResource( 2 )
 
 [node name="Right Part RigidBody" type="RigidBody2D" parent="Top Arm"]
+editor/display_folded = true
 position = Vector2( 55, -48 )
 collision_layer = 4
 collision_mask = 3
@@ -305,6 +314,7 @@ position = Vector2( 31, -95 )
 position = Vector2( 0, -100 )
 
 [node name="Bottom Arm" type="Node2D" parent="."]
+editor/display_folded = true
 position = Vector2( 0, 78 )
 script = ExtResource( 2 )
 firstArmNodePath = NodePath("Left Part RigidBody/Left Part")
@@ -323,6 +333,7 @@ timeBetweenChargedAttacks = 1.5
 chargedAttackIncreaseRate = 0.75
 
 [node name="Left Part RigidBody" type="RigidBody2D" parent="Bottom Arm"]
+editor/display_folded = true
 position = Vector2( -55, 51 )
 collision_layer = 4
 collision_mask = 3
@@ -346,6 +357,7 @@ position = Vector2( -0.790543, 0 )
 shape = SubResource( 2 )
 
 [node name="Right Part RigidBody" type="RigidBody2D" parent="Bottom Arm"]
+editor/display_folded = true
 position = Vector2( 55, 51 )
 collision_layer = 4
 collision_mask = 3
@@ -378,6 +390,7 @@ position = Vector2( 31, 95 )
 position = Vector2( 0, 100 )
 
 [node name="Body" type="RigidBody2D" parent="."]
+editor/display_folded = true
 collision_layer = 4
 collision_mask = 3
 mode = 1
@@ -399,7 +412,6 @@ position = Vector2( 0.149887, 0 )
 shape = SubResource( 3 )
 
 [node name="Boss Attacks" type="Node2D" parent="."]
-editor/display_folded = true
 
 [node name="Single Arm Attack" type="Node2D" parent="Boss Attacks"]
 script = ExtResource( 15 )
@@ -414,7 +426,7 @@ script = ExtResource( 16 )
 bulletPrefab = ExtResource( 3 )
 attackTimer = 14.0
 bossAttackPointNodePath = NodePath("../../Body/Body Attack Point")
-dualArmAttackCount = 2.0
+dualArmAttackCount = 4.0
 bossArmControllerNodePaths = [ NodePath("../../Left Arm"), NodePath("../../Right Arm"), NodePath("../../Top Arm"), NodePath("../../Bottom Arm") ]
 
 [node name="Fenzy Spinning Shot Attack" type="Node2D" parent="Boss Attacks"]
@@ -425,7 +437,7 @@ bossAttackPointNodePath = NodePath("../../Body/Body Attack Point")
 totalCircleBullets = 35
 totalSprayShotBullets = 5
 sprayRotationIncrementAmount = 25.0
-timeBetweenSprayShots = 0.3
+timeBetweenSprayShots = 0.2
 timeBetweenCircleShots = 2.0
 
 [node name="Bounce Circle Shot Attack" type="Node2D" parent="Boss Attacks"]
