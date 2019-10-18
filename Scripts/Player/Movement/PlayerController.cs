@@ -32,6 +32,7 @@ namespace StormTime.Player.Movement
         [Export] public float lowSoulsHealthDecrementRate;
         [Export] public float lowHealthWarningPercent = 0.3f;
         [Export] public Color lowHealthWarningColor;
+        [Export] public int playerHitSoulsDecrementCount;
 
         // ShotGun Weapon Recoil
         [Export] public float shotGunRecoilForce;
@@ -194,6 +195,8 @@ namespace StormTime.Player.Movement
                 float damageAmount = ((Bullet)bullet).GetBulletDamage();
                 _playerHealthSetter.SubtractHealth(damageAmount);
                 _playerHeartScaleBlinker.StartScaleBlinking();
+
+                PlayerModifierSoulsManager.instance.DecrementSouls(playerHitSoulsDecrementCount);
             }
         }
 
@@ -239,10 +242,7 @@ namespace StormTime.Player.Movement
 
                 case PlayerModifierTypes.SacrificialItem.ShootTimeSacrificeDamageIncrease:
                     {
-                        float shootingTimeIncrease = _playerShooting.GetCurrentShootingDelay() *
-                                                     sacrificialItemInfo.reducedPercent / 100;
-                        _playerShooting.SetCurrentShootingDelay(_playerShooting.GetCurrentShootingDelay() + shootingTimeIncrease);
-
+                        _playerShooting.SetCurrentShootingDelay(sacrificialItemInfo.reducedPercent / 100.0f);
                         _playerShooting.AddToDamageDifferencePercent(sacrificialItemInfo.increasedPercent);
                     }
                     break;

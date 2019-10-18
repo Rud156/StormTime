@@ -31,6 +31,7 @@ playerShootingNodePath = NodePath("Player Shooter")
 playerHealthSetterNodePath = NodePath("Player Health")
 lowSoulsHealthDecrementRate = 1.0
 lowHealthWarningColor = Color( 1, 0, 0, 1 )
+playerHitSoulsDecrementCount = 3
 shotGunRecoilForce = 1000.0
 shotGunRecoilAffectTime = 0.1
 
@@ -53,9 +54,11 @@ playerBulletPrefab = ExtResource( 5 )
 playerChargedBulletPrefab = ExtResource( 6 )
 playerShootingPositionNodePath = NodePath("Player Shooting Position")
 playerChargedShootingPositionNodePath = NodePath("Charged Shooting Position")
-shootDelay = 0.3
+singleShotShootDelay = 0.2
+shotGunShootDelay = 0.7
 chargeGunMaxScaleAmount = 2.0
 chargeGunScaleIncrementRate = 0.5
+chargeGunShootDelay = 1.4
 
 [node name="Player Shooting Position" type="Node2D" parent="Player Shooter"]
 position = Vector2( 80, 0 )

@@ -14,10 +14,6 @@ namespace StormTime.Weapon
 
         private bool _isStatic;
 
-        private float _maxScalePossible;
-        private float _currentScaleAmount;
-        private float _collisionLifeDecrement;
-
         public override void _Process(float delta)
         {
             if (_isStatic)
@@ -46,7 +42,7 @@ namespace StormTime.Weapon
                     _currentBulletTimeLeft -= delta * maxCollisionLifeDecrement;
                 }
 
-                if (!IsColliderEnemyAffector((Object)_collidingBodies[0]) || _currentBulletTimeLeft <= 0)
+                if (_currentBulletTimeLeft <= 0 || !IsColliderEnemyAffector((Object)_collidingBodies[0]))
                 {
                     RemoveBulletFromTree();
                 }
@@ -60,16 +56,6 @@ namespace StormTime.Weapon
         public void SetAsStaticBullet() => _isStatic = true;
 
         public void SetAsDynamicBullet() => _isStatic = false;
-
-        public void SetMaxScale(float maxScale) => _maxScalePossible = maxScale;
-
-        public void SetCurrentScale(float currentScale)
-        {
-            _currentScaleAmount = currentScale;
-            _collisionLifeDecrement = ExtensionFunctions.Map(
-                _currentScaleAmount, 0, _maxScalePossible,
-                maxCollisionLifeDecrement, minCollisionLifeDecrement);
-        }
 
         #endregion
 

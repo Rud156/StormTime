@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using Godot;
-using StormTime.Player.Modifiers;
 using StormTime.Player.Movement;
 using StormTime.UI;
 using StormTime.Utils;
@@ -17,23 +16,20 @@ namespace StormTime.Player.Shooting
         [Export] public PackedScene playerChargedBulletPrefab;
         [Export] public NodePath playerShootingPositionNodePath;
         [Export] public NodePath playerChargedShootingPositionNodePath;
-        [Export] public float shootDelay;
-        [Export] public int singleShotSoulDecrementCount = 1;
         [Export] public float weaponLockedErrorDisplayTime = 3;
-        [Export] public float timeBetweenAutoShot;
+
+        // Single Shot Specific Stats
+        [Export] public float singleShotShootDelay;
 
         // Shot Gun Specific Stats
         [Export] public float shotGunAngleDiff = 20;
         [Export] public int shotGunBulletCount = 5;
-        [Export] public int shotGunShotSoulDecrementCount = 3;
+        [Export] public float shotGunShootDelay;
 
         // Charge Gun Specific Stats
         [Export] public float chargeGunMaxScaleAmount = 7;
         [Export] public float chargeGunScaleIncrementRate;
-        [Export] public int chargedShotSoulDecrementCount = 5;
-
-        // Souls Info
-        [Export] public int totalShotsBeforeSoulsDecrement = 15;
+        [Export] public float chargeGunShootDelay;
 
         private Node2D _playerBulletHolder;
         private Node2D _playerBulletShootingPosition;
@@ -41,17 +37,18 @@ namespace StormTime.Player.Shooting
         private PlayerController _playerRoot;
 
         private bool _shootingActive;
-        private float _currentShootDelay;
-        private float _currentShootTimeLeft;
+        private float _singleShotTimeLeft;
+        private float _shotGunTimeLeft;
+        private float _chargedGunTimeLeft;
+        private float _currentSingleShotDelay;
+        private float _currentShotGunShotDelay;
+        private float _currentChargedShotDelay;
 
         private float _currentDamageDiff; // Add this value to the original damage value of the bullet
         private float _currentDamageDiffPercent;
 
-        public int _currentShotCount;
-
         // Charged Shot Weapon
         private float _chargeWeaponCurrentScale;
-        private bool _chargeWeaponActive;
         private ChargedBullet _chargedShotBullet;
 
         // Freezer Bought
@@ -80,7 +77,10 @@ namespace StormTime.Player.Shooting
         public override void _Ready()
         {
             _shootingActive = true;
-            _currentShootDelay = shootDelay;
+
+            _currentSingleShotDelay = singleShotShootDelay;
+            _currentShotGunShotDelay = shotGunShootDelay;
+            _currentChargedShotDelay = chargeGunShootDelay;
 
             _playerBulletHolder = GetNode<Node2D>(playerBulletHolderNodePath);
             _playerBulletShootingPosition = GetNode<Node2D>(playerShootingPositionNodePath);
@@ -91,32 +91,84 @@ namespace StormTime.Player.Shooting
             _playerWeapons = new Dictionary<WeaponType, WeaponState>
             {
                 {WeaponType.SingleShot, new WeaponState() {weaponType = WeaponType.SingleShot, isUnlocked = true}},
-                {WeaponType.Shotgun, new WeaponState() {weaponType = WeaponType.Shotgun, isUnlocked = false}},
-                {WeaponType.ChargeGun, new WeaponState() {weaponType = WeaponType.ChargeGun, isUnlocked = false}}
+                {WeaponType.Shotgun, new WeaponState() {weaponType = WeaponType.Shotgun, isUnlocked = true}},
+                {WeaponType.ChargeGun, new WeaponState() {weaponType = WeaponType.ChargeGun, isUnlocked = true}}
             };
-
-            _currentShotCount = totalShotsBeforeSoulsDecrement;
         }
 
         public override void _Process(float delta)
         {
-            _currentShootTimeLeft -= delta;
+            HandlePlayerWeaponSwitch();
 
             if (!_shootingActive)
             {
                 return;
             }
 
-            if (Input.IsActionJustPressed(SceneControls.Shoot) && _currentShootTimeLeft <= 0 &&
-                PlayerModifierSoulsManager.instance.HasSouls())
+            switch (_currentWeaponType)
             {
-                HandleWeaponShooting();
+                case WeaponType.SingleShot:
+                    UpdateSingleShotWeapon(delta);
+                    break;
+
+                case WeaponType.Shotgun:
+                    UpdateShotGunWeapon(delta);
+                    break;
+
+                case WeaponType.ChargeGun:
+                    UpdateChargedWeapon(delta);
+                    break;
+
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
+
+        #region Player Weapon State Update
+
+        private void UpdateSingleShotWeapon(float delta)
+        {
+            if (!Input.IsActionPressed(SceneControls.Shoot))
+            {
+                _singleShotTimeLeft = 0;
+                return;
             }
 
-            if (_chargeWeaponActive && _currentWeaponType == WeaponType.ChargeGun)
+            _singleShotTimeLeft -= delta;
+            if (_singleShotTimeLeft <= 0)
+            {
+                HandleWeaponShooting();
+                _singleShotTimeLeft = _currentSingleShotDelay;
+            }
+        }
+
+        private void UpdateShotGunWeapon(float delta)
+        {
+            _shotGunTimeLeft -= delta;
+
+            if (_shotGunTimeLeft <= 0)
             {
                 if (Input.IsActionPressed(SceneControls.Shoot))
                 {
+                    HandleWeaponShooting();
+                    _shotGunTimeLeft = _currentShotGunShotDelay;
+                }
+            }
+        }
+
+        private void UpdateChargedWeapon(float delta)
+        {
+            _chargedGunTimeLeft -= delta;
+
+            if (_chargedGunTimeLeft <= 0)
+            {
+                if (Input.IsActionPressed(SceneControls.Shoot))
+                {
+                    if (_chargedShotBullet == null)
+                    {
+                        HandleWeaponShooting();
+                    }
+
                     _chargeWeaponCurrentScale += delta * chargeGunScaleIncrementRate;
                     if (_chargeWeaponCurrentScale > chargeGunMaxScaleAmount)
                     {
@@ -128,11 +180,12 @@ namespace StormTime.Player.Shooting
                 else if (Input.IsActionJustReleased(SceneControls.Shoot))
                 {
                     ShootChargedBullet();
+                    _chargedGunTimeLeft = _currentChargedShotDelay;
                 }
             }
-
-            HandlePlayerWeaponSwitch();
         }
+
+        #endregion
 
         #region Utility Functions
 
@@ -154,7 +207,6 @@ namespace StormTime.Player.Shooting
                 case WeaponType.ChargeGun:
                     {
                         _chargeWeaponCurrentScale = 1;
-                        _chargeWeaponActive = true;
 
                         _chargedShotBullet = (ChargedBullet)playerChargedBulletPrefab.Instance();
                         _playerChargedShotShootingPosition.AddChild(_chargedShotBullet);
@@ -198,14 +250,12 @@ namespace StormTime.Player.Shooting
                 }
                 else
                 {
-                    DialogueUiManager.instance
-                        .DisplaySingleStringTimed($"{weaponType.ToString()} weapon not yet owned",
-                        weaponLockedErrorDisplayTime);
+                    DialogueUiManager.instance.DisplaySingleStringTimed($"{weaponType.ToString()} weapon not yet owned", weaponLockedErrorDisplayTime);
                 }
             }
         }
 
-        private void ShootSingleShotBullet(Vector2 forwardVectorNormalized, bool decrementSouls = true)
+        private void ShootSingleShotBullet(Vector2 forwardVectorNormalized)
         {
             Bullet bulletInstance = (Bullet)playerBulletPrefab.Instance();
             _playerBulletHolder.AddChild(bulletInstance);
@@ -221,14 +271,6 @@ namespace StormTime.Player.Shooting
             bulletInstance.SetGlobalPosition(_playerBulletShootingPosition.GetGlobalPosition());
             bulletInstance.LaunchBullet(forwardVectorNormalized);
             bulletInstance.SetFreezingBulletState(_freezingBulletBought);
-
-            _currentShootTimeLeft = _currentShootDelay;
-
-            if (decrementSouls)
-            {
-                bulletShot?.Invoke(_currentWeaponType);
-                CheckAndDecrementSoulsCount(singleShotSoulDecrementCount);
-            }
         }
 
         private void ShootShotGunBullet()
@@ -242,13 +284,12 @@ namespace StormTime.Player.Shooting
                 float yVelocity = Mathf.Sin(Mathf.Deg2Rad(currentAngle));
 
                 Vector2 launchVelocity = new Vector2(xVelocity, yVelocity);
-                ShootSingleShotBullet(launchVelocity.Normalized(), false);
+                ShootSingleShotBullet(launchVelocity.Normalized());
 
                 currentAngle += shotGunAngleDiff;
             }
 
             bulletShot?.Invoke(_currentWeaponType);
-            CheckAndDecrementSoulsCount(shotGunShotSoulDecrementCount);
         }
 
         private void ShootChargedBullet()
@@ -273,8 +314,6 @@ namespace StormTime.Player.Shooting
                 0, chargeGunMaxScaleAmount, 0, maxDamage);
 
             _chargedShotBullet.SetBulletDamage(mappedDamage);
-            _chargedShotBullet.SetMaxScale(chargeGunMaxScaleAmount);
-            _chargedShotBullet.SetCurrentScale(_chargeWeaponCurrentScale);
             _chargedShotBullet.SetGlobalPosition(_playerChargedShotShootingPosition.GetGlobalPosition());
             _chargedShotBullet.SetGlobalScale(Vector2.One * _chargeWeaponCurrentScale);
 
@@ -289,21 +328,8 @@ namespace StormTime.Player.Shooting
             _chargedShotBullet.LaunchBullet(new Vector2(xVelocity, yVelocity).Normalized());
 
             _chargedShotBullet = null;
-            _chargeWeaponActive = false;
-            _currentShootTimeLeft = _currentShootDelay;
 
             bulletShot?.Invoke(_currentWeaponType);
-            CheckAndDecrementSoulsCount(chargedShotSoulDecrementCount);
-        }
-
-        private void CheckAndDecrementSoulsCount(int decrementSoulCount)
-        {
-            _currentShotCount -= decrementSoulCount;
-            if (_currentShotCount <= 0)
-            {
-                PlayerModifierSoulsManager.instance.DecrementSouls(1);
-                _currentShotCount = totalShotsBeforeSoulsDecrement;
-            }
         }
 
         #endregion
@@ -322,9 +348,16 @@ namespace StormTime.Player.Shooting
 
         public void DeActivateShooting() => _shootingActive = false;
 
-        public float GetCurrentShootingDelay() => _currentShootDelay;
+        public void SetCurrentShootingDelay(float shootingChangePercent)
+        {
+            float singleShotDelayChangeAmount = _currentSingleShotDelay * shootingChangePercent;
+            float shotGunDelayChangeAmount = _currentShotGunShotDelay * shootingChangePercent;
+            float chargeGunDelayChangeAmount = _currentChargedShotDelay * shootingChangePercent;
 
-        public void SetCurrentShootingDelay(float shootingDelay) => _currentShootDelay = shootingDelay;
+            _currentSingleShotDelay += singleShotDelayChangeAmount;
+            _currentShotGunShotDelay += shotGunDelayChangeAmount;
+            _currentChargedShotDelay += chargeGunDelayChangeAmount;
+        }
 
         public float GetShootingDamageDiff() => _currentDamageDiff;
 

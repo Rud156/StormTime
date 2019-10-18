@@ -93,7 +93,7 @@ bulletExplosionPrefab = ExtResource( 3 )
 bulletSpeed = 450.0
 bulletLifeTime = 2.0
 bulletTrailTimer = 0.1
-bulletDamageAmount = 20.0
+bulletDamageAmount = 5.0
 minCollisionLifeDecrement = 2.0
 maxCollisionLifeDecrement = 35.0
 
