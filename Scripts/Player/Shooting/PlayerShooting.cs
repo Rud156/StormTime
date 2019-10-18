@@ -120,7 +120,7 @@ namespace StormTime.Player.Shooting
                     break;
 
                 default:
-                    throw new ArgumentOutOfRangeException();
+                    throw new ArgumentOutOfRangeException(nameof(_currentWeaponType), _currentWeaponType, null);
             }
         }
 
@@ -219,7 +219,7 @@ namespace StormTime.Player.Shooting
                     break;
 
                 default:
-                    throw new ArgumentOutOfRangeException();
+                    throw new ArgumentOutOfRangeException(nameof(_currentWeaponType), _currentWeaponType, null);
             }
         }
 

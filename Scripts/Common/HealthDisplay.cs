@@ -28,8 +28,6 @@ namespace StormTime.Common
 
         private void HandleHealthChanged(float currentHealth, float maxHealth)
         {
-            GD.Print($"Current Health: {currentHealth}, Max Health: {maxHealth}");
-
             _healthProgress.SetMax(maxHealth);
             _healthProgress.SetValue(currentHealth);
 

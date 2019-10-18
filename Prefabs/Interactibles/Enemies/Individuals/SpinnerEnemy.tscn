@@ -38,8 +38,8 @@ attackTime = 7.0
 targetingAttackTime = 0.5
 launchPointsPath = [ NodePath("Spinner Enemy Container/Launch Points/LaunchPoint_1"), NodePath("Spinner Enemy Container/Launch Points/LaunchPoint_2") ]
 soulsPrefab = ExtResource( 3 )
-minSoulsAmount = 1.0
-maxSoulsAmount = 7.0
+minSoulsAmount = 7.0
+maxSoulsAmount = 14.0
 rangeMultiplier = 150.0
 rotationRate = 200.0
 rotationSwitchTime = 3.0
@@ -78,7 +78,7 @@ scale = Vector2( 0.5, 0.5 )
 [node name="Enemy Health" type="Node2D" parent="."]
 editor/display_folded = true
 script = ExtResource( 7 )
-maxHealth = 300.0
+maxHealth = 180.0
 
 [node name="Enemy Health Display" type="Node2D" parent="Enemy Health"]
 script = ExtResource( 8 )

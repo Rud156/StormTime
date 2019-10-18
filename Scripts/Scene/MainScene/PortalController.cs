@@ -14,6 +14,7 @@ namespace StormTime.Scene.MainScene
         [Export] public int soulsRequirement;
         [Export] public float minYPosition;
         [Export] public float maxYPosition;
+        [Export] public string portalEnteredText;
 
         private bool _playerIsInside;
         private bool _playerInteracted;
@@ -132,6 +133,8 @@ namespace StormTime.Scene.MainScene
 
             _playerIsInside = true;
             _playerController = (PlayerController)other;
+
+            DialogueUiManager.instance.DisplaySingleString(portalEnteredText);
         }
 
         private void HandlePlayerExited(PhysicsBody2D other)
@@ -140,6 +143,8 @@ namespace StormTime.Scene.MainScene
             {
                 return;
             }
+
+            DialogueUiManager.instance.ClearSingleDialogue();
 
             _playerIsInside = false;
             _playerController = null;

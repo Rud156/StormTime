@@ -14,7 +14,6 @@ namespace StormTime.Player.Modifiers
         #endregion
 
         public delegate void HandleStatusChanged(int currentSouls);
-
         public HandleStatusChanged handleStatusChanged;
 
         private Label _soulsLabel;

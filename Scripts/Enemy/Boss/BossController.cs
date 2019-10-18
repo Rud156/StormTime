@@ -159,7 +159,7 @@ namespace StormTime.Enemy.Boss
                     break;
 
                 default:
-                    throw new ArgumentOutOfRangeException();
+                    throw new ArgumentOutOfRangeException(nameof(_currentBossState), _currentBossState, null);
             }
         }
 

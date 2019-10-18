@@ -38,11 +38,15 @@ namespace StormTime.Player.Movement
         [Export] public float shotGunRecoilForce;
         [Export] public float shotGunRecoilAffectTime;
 
+        // Player Dead Data
+        [Export] public PackedScene playerDeadEffectPrefab;
+
         public enum PlayerState
         {
             PlayerInControlMovement,
             PlayerFloatingMovement,
-            PlayerDisabled
+            PlayerDisabled,
+            PlayerDead
         }
 
         private PlayerShooting _playerShooting;
@@ -75,8 +79,19 @@ namespace StormTime.Player.Movement
             SetPlayerState(PlayerState.PlayerInControlMovement);
 
             _playerHealthSetter.healthChanged += HandleHeathChange;
+            _playerHealthSetter.zeroHealth += HandlePlayerHealthZero;
+
             _playerShooting.bulletShot += HandleBulletShot;
             PlayerModifierSoulsManager.instance.handleStatusChanged += HandleSoulsChange;
+        }
+
+        public override void _ExitTree()
+        {
+            _playerHealthSetter.healthChanged -= HandleHeathChange;
+            _playerHealthSetter.zeroHealth -= HandlePlayerHealthZero;
+
+            _playerShooting.bulletShot += HandleBulletShot;
+            PlayerModifierSoulsManager.instance.handleStatusChanged -= HandleSoulsChange;
         }
 
         public override void _Process(float delta) => _playerTime += delta;
@@ -99,6 +114,13 @@ namespace StormTime.Player.Movement
                 case PlayerState.PlayerDisabled:
                     HandlePlayerDisabled(delta);
                     break;
+
+                case PlayerState.PlayerDead:
+                    HandlePlayerDead(delta);
+                    break;
+
+                default:
+                    throw new ArgumentException();
             }
         }
 
@@ -119,7 +141,12 @@ namespace StormTime.Player.Movement
 
         private void HandlePlayerDisabled(float delta)
         {
+            // Don't do anything as all controls need to be disabled
+        }
 
+        private void HandlePlayerDead(float delta)
+        {
+            // TODO: Do something here. Probably...
         }
 
         #region Player Control Movement
@@ -259,7 +286,7 @@ namespace StormTime.Player.Movement
                     break;
 
                 default:
-                    throw new ArgumentOutOfRangeException();
+                    throw new ArgumentOutOfRangeException(nameof(sacrificialItemInfo.sacrificialItem), sacrificialItemInfo.sacrificialItem, null);
             }
         }
 
@@ -287,7 +314,7 @@ namespace StormTime.Player.Movement
                     break;
 
                 default:
-                    throw new ArgumentOutOfRangeException();
+                    throw new ArgumentOutOfRangeException(nameof(shopItemInfo.shopItem), shopItemInfo.shopItem, null);
             }
         }
 
@@ -354,6 +381,14 @@ namespace StormTime.Player.Movement
             {
                 WarningManager.instance.StopWarning(this);
             }
+        }
+
+        private void HandlePlayerHealthZero()
+        {
+            // TODo: Handle this
+            // Spawn Effect Probably
+
+            GD.Print("Player Dead");
         }
 
         private void HandleSoulsChange(int currentSouls) => _isSoulsLow = currentSouls <= lowSoulsCount;

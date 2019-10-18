@@ -164,16 +164,16 @@ namespace StormTime.Player.Modifiers
             switch (shopItem)
             {
                 case ShopItem.HealthPotion:
-                    return 30;
+                    return 50;
 
                 case ShopItem.BulletsFreezeEnemy:
-                    return 100;
+                    return 175;
 
                 case ShopItem.ShotGun:
-                    return 80;
+                    return 120;
 
                 case ShopItem.ChargeGun:
-                    return 60;
+                    return 90;
 
                 default:
                     throw new ArgumentOutOfRangeException(nameof(shopItem), shopItem, null);

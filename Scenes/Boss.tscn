@@ -121,6 +121,7 @@ lockBottomLeftCorner = Vector2( -1120, 1310 )
 lockTopRightCorner = Vector2( 1120, -1310 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+editor/display_folded = true
 
 [node name="Additional Scene Controls" type="Control" parent="CanvasLayer"]
 editor/display_folded = true
@@ -172,6 +173,9 @@ parameters/playback = SubResource( 1 )
 
 [node name="Flash Pointer Holder" parent="CanvasLayer/GUI" index="6"]
 visible = false
+
+[node name="Fader" parent="CanvasLayer/GUI" index="7"]
+visible = true
 
 [node name="Pause Resume Panel" parent="CanvasLayer/GUI" index="8"]
 editor/display_folded = true

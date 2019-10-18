@@ -38,8 +38,8 @@ attackTime = 7.0
 targetingAttackTime = 0.5
 launchPointsPath = [ NodePath("Wheel Enemy Container/Launch Points/LaunchPoint_1"), NodePath("Wheel Enemy Container/Launch Points/LaunchPoint_2"), NodePath("Wheel Enemy Container/Launch Points/LaunchPoint_3"), NodePath("Wheel Enemy Container/Launch Points/LaunchPoint_4"), NodePath("Wheel Enemy Container/Launch Points/LaunchPoint_5"), NodePath("Wheel Enemy Container/Launch Points/LaunchPoint_6"), NodePath("Wheel Enemy Container/Launch Points/LaunchPoint_7"), NodePath("Wheel Enemy Container/Launch Points/LaunchPoint_8") ]
 soulsPrefab = ExtResource( 3 )
-minSoulsAmount = 3.0
-maxSoulsAmount = 10.0
+minSoulsAmount = 10.0
+maxSoulsAmount = 18.0
 rangeMultiplier = 100.0
 rotationRate = 200.0
 lowHealthRotationRate = 400.0
@@ -101,7 +101,7 @@ occluder = SubResource( 2 )
 
 [node name="Enemy Health" type="Node2D" parent="."]
 script = ExtResource( 7 )
-maxHealth = 300.0
+maxHealth = 180.0
 
 [node name="Enemy Health Display" type="Node2D" parent="Enemy Health"]
 script = ExtResource( 8 )

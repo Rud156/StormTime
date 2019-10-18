@@ -147,7 +147,7 @@ namespace StormTime.Enemy.Individuals
                     break;
 
                 default:
-                    throw new ArgumentOutOfRangeException();
+                    throw new ArgumentOutOfRangeException(nameof(_enemyState), _enemyState, null);
             }
         }
 

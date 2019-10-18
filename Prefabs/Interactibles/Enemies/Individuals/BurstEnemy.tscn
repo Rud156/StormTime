@@ -38,8 +38,8 @@ attackTime = 14.0
 targetingAttackTime = 0.5
 launchPointsPath = [ NodePath("Burst Enemy Container/Launch Points/LaunchPoint_1"), NodePath("Burst Enemy Container/Launch Points/LaunchPoint_2"), NodePath("Burst Enemy Container/Launch Points/LaunchPoint_3"), NodePath("Burst Enemy Container/Launch Points/LaunchPoint_4") ]
 soulsPrefab = ExtResource( 3 )
-minSoulsAmount = 1.0
-maxSoulsAmount = 10.0
+minSoulsAmount = 7.0
+maxSoulsAmount = 12.0
 rangeMultiplier = 100.0
 rotationRate = 200.0
 rotationTime = 0.5
@@ -85,7 +85,7 @@ occluder = SubResource( 2 )
 
 [node name="Enemy Health" type="Node2D" parent="."]
 script = ExtResource( 7 )
-maxHealth = 300.0
+maxHealth = 180.0
 
 [node name="Enemy Health Display" type="Node2D" parent="Enemy Health"]
 script = ExtResource( 8 )
