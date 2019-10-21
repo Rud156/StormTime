@@ -10,7 +10,7 @@ namespace StormTime.Enemy.Boss
 
         private List<BossArmController> _bossArmControllers;
         private float _timeBetweenEachAttack;
-        private float _currentAttackTimer;
+        private float _currentSingleAttackTimer;
 
         private int _previousArmIndex;
 
@@ -29,16 +29,21 @@ namespace StormTime.Enemy.Boss
 
         public override bool UpdateAttack(float delta)
         {
-            bool updateAttack = base.UpdateAttack(delta);
+            bool attackComplete = base.UpdateAttack(delta);
 
-            _currentAttackTimer -= delta;
-            if (_currentAttackTimer <= 0)
+            _currentSingleAttackTimer -= delta;
+            if (_currentSingleAttackTimer <= 0)
             {
                 LaunchRandomArmAttack();
-                _currentAttackTimer = _timeBetweenEachAttack;
+                _currentSingleAttackTimer = _timeBetweenEachAttack;
             }
 
-            return updateAttack;
+            if (attackComplete)
+            {
+                ClearEndAttack();
+            }
+
+            return attackComplete;
         }
 
         public override void LaunchAttack()
@@ -46,20 +51,37 @@ namespace StormTime.Enemy.Boss
             base.LaunchAttack();
 
             _previousArmIndex = -1;
+            _currentSingleAttackTimer = _timeBetweenEachAttack;
 
             LaunchRandomArmAttack();
-            _currentAttackTimer = _timeBetweenEachAttack;
         }
 
         #endregion
 
         #region Utility Functions
 
+        private void ClearEndAttack() => _bossArmControllers[_previousArmIndex].ClearDualArmAttack();
+
         private void LaunchRandomArmAttack()
         {
             int randomArmIndex = (int)(GD.Randi() % _bossArmControllers.Count);
             randomArmIndex = Mathf.Abs(randomArmIndex);
-            _bossArmControllers[randomArmIndex].LaunchDualArmAttack(_timeBetweenEachAttack);
+
+            while (true)
+            {
+                BossArmController bossArmController = _bossArmControllers[randomArmIndex];
+                BossArmController.ArmStatus armStatus = bossArmController.GetArmStatus();
+                if (armStatus.firstArmAlive && armStatus.secondArmAlive)
+                {
+                    bossArmController.LaunchDualArmAttack(_timeBetweenEachAttack);
+                    break;
+                }
+                else
+                {
+                    randomArmIndex = (int)(GD.Randi() % _bossArmControllers.Count);
+                    randomArmIndex = Mathf.Abs(randomArmIndex);
+                }
+            }
 
             if (_previousArmIndex != -1)
             {

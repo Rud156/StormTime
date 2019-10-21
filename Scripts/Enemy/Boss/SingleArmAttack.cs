@@ -11,7 +11,7 @@ namespace StormTime.Enemy.Boss
 
         private List<BossArmController> _bossArmControllers;
         private float _timeBetweenEachAttack;
-        private float _currentAttackTimer;
+        private float _currentSingleAttackTimer;
 
         public override void _Ready()
         {
@@ -28,16 +28,16 @@ namespace StormTime.Enemy.Boss
 
         public override bool UpdateAttack(float delta)
         {
-            bool updateAttack = base.UpdateAttack(delta);
+            bool attackComplete = base.UpdateAttack(delta);
 
-            _currentAttackTimer -= delta;
-            if (_currentAttackTimer <= 0)
+            _currentSingleAttackTimer -= delta;
+            if (_currentSingleAttackTimer <= 0)
             {
                 LaunchRandomArmAttack();
-                _currentAttackTimer = _timeBetweenEachAttack;
+                _currentSingleAttackTimer = _timeBetweenEachAttack;
             }
 
-            return updateAttack;
+            return attackComplete;
         }
 
         public override void LaunchAttack()
@@ -45,7 +45,7 @@ namespace StormTime.Enemy.Boss
             base.LaunchAttack();
 
             LaunchRandomArmAttack();
-            _currentAttackTimer = _timeBetweenEachAttack;
+            _currentSingleAttackTimer = _timeBetweenEachAttack;
         }
 
         #endregion

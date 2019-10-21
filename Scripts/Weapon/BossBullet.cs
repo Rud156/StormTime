@@ -14,8 +14,6 @@ namespace StormTime.Weapon
         [Export] public float scaleRate = 7;
         [Export] public bool useBulletScaling;
 
-        private bool _canExplode;
-        private bool _hasTrail;
         private bool _isStatic;
 
         private bool _scalingActive;
@@ -26,11 +24,6 @@ namespace StormTime.Weapon
             if (_isStatic)
             {
                 return;
-            }
-
-            if (_hasTrail)
-            {
-                HandleTrailSpawnAndUpdate(delta);
             }
 
             if (_scalingActive)
@@ -59,15 +52,6 @@ namespace StormTime.Weapon
         }
 
         #region External Functions
-
-        public void SetBulletAsExplosion() => _canExplode = true;
-
-        public void SetBulletAsNonExplosion() => _canExplode = false;
-
-        public void SetBulletHasTrail() => _hasTrail = true;
-
-        public void SetBulletHasNoTrail() => _hasTrail = false;
-
         public void SetAsStaticBullet() => _isStatic = true;
 
         public void SetAsDynamicBullet() => _isStatic = false;
@@ -92,22 +76,6 @@ namespace StormTime.Weapon
             }
         }
 
-        protected override void SpawnBulletExplosion()
-        {
-            if (!_canExplode)
-            {
-                return;
-            }
-        }
-
-        protected override void SpawnBulletTrail()
-        {
-            if (!_hasTrail)
-            {
-                return;
-            }
-        }
-
         #endregion
 
         #region Utility Functions
@@ -123,15 +91,7 @@ namespace StormTime.Weapon
             _currentScaleAmount += scaleRate * delta;
         }
 
-        private void HandleBossBulletDestruction()
-        {
-            if (_canExplode)
-            {
-                SpawnBulletExplosion();
-            }
-
-            RemoveBulletFromTree();
-        }
+        private void HandleBossBulletDestruction() => RemoveBulletFromTree();
 
         #endregion
     }

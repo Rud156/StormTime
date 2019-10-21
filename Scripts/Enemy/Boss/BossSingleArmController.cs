@@ -38,6 +38,11 @@ namespace StormTime.Enemy.Boss
         // Event Function from Bullet Collision
         public void BulletCollisionNotification(object bullet, bool isFreezingBullet)
         {
+            if (_armDestructionActive)
+            {
+                return;
+            }
+
             bool isPLayerBullet = !(bullet is EnemyBullet);
 
             if (isPLayerBullet)
@@ -49,7 +54,15 @@ namespace StormTime.Enemy.Boss
 
         public void DestroyArm()
         {
-            Color currentColor = GetModulate();
+            Node2D targetParent = (Node2D)GetParent().GetParent().GetParent();
+            Vector2 initialPosition = GetGlobalPosition();
+
+            GetParent().RemoveChild(this);
+            targetParent.AddChild(this);
+
+            SetGlobalPosition(initialPosition);
+
+            Color currentColor = GetSelfModulate();
             _currentAlpha = currentColor.a;
 
             _armDestructionActive = true;
@@ -68,16 +81,15 @@ namespace StormTime.Enemy.Boss
         {
             _currentAlpha -= armAlphaChangeRate * delta;
 
-            Color currentColor = GetModulate();
+            Color currentColor = GetSelfModulate();
             currentColor.a = _currentAlpha;
 
-            SetModulate(currentColor);
+            SetSelfModulate(currentColor);
 
             if (_currentAlpha <= 0)
             {
                 QueueFree();
             }
-
         }
 
         #endregion

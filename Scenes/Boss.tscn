@@ -94,6 +94,7 @@ bulletHolderNodePath = NodePath("../../../Boss Bullet Holder")
 healthProgressNodePath = NodePath("../../../../CanvasLayer/Additional Scene Controls/Boss Health Bar")
 
 [node name="Player" parent="Game World" instance=ExtResource( 6 )]
+editor/display_folded = true
 position = Vector2( -315.013, 209.949 )
 playerHeartScaleBlinkerNodePath = NodePath("../../CanvasLayer/GUI/Player Health Panel/Player Heart")
 

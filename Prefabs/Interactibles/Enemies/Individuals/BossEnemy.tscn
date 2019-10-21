@@ -26,7 +26,7 @@
 [ext_resource path="res://Scripts/Common/HealthDisplay.cs" type="Script" id=24]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 12.3397, 3.74849 )
+extents = Vector2( 37.1277, 18.8793 )
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 22.9475, 51.1947 )
@@ -68,7 +68,6 @@ polygon = PoolVector2Array( -96.4662, -54.452, -71.0709, -54.8201, -71.0709, -42
 polygon = PoolVector2Array( 71.6242, -55.3723, 97.1128, -55.5147, 97.2552, -41.9872, 85.0093, -41.1329, 84.8669, -29.3142, 73.1906, -28.887, 73.0482, -16.9259, 46.9901, -16.4987, 46.4205, -31.1653, 58.6664, -32.162, 58.524, -43.4112, 70.4851, -43.8384 )
 
 [node name="BossEnemy" type="Node2D"]
-modulate = Color( 1, 0.537255, 0, 1 )
 script = ExtResource( 1 )
 bodyNodePath = NodePath("Body")
 leftArmNodePath = NodePath("Left Arm")
@@ -96,7 +95,6 @@ movementReachedDistance = 30.0
 [node name="Left Arm" type="Node2D" parent="."]
 editor/display_folded = true
 position = Vector2( -120, 0 )
-scale = Vector2( 3, 3 )
 script = ExtResource( 2 )
 firstArmNodePath = NodePath("Top Part RigidBody/Top Part")
 secondArmNodePath = NodePath("Bottom Part RigidBody/Bottom Part")
@@ -115,17 +113,20 @@ chargedAttackIncreaseRate = 0.75
 
 [node name="Top Part RigidBody" type="RigidBody2D" parent="Left Arm"]
 editor/display_folded = true
-position = Vector2( -12, -10 )
+position = Vector2( -35, -35 )
 collision_layer = 4
 collision_mask = 3
 mode = 1
+gravity_scale = 0.0
 script = ExtResource( 6 )
 healthSetterNodePath = NodePath("Top Part")
-armAlphaChangeRate = 7.0
-armRotationRate = 3.0
-armDetachForce = 5.0
+armAlphaChangeRate = 1.0
+armRotationRate = 14.0
+armDetachForce = 50.0
 
 [node name="Top Part" type="Sprite" parent="Left Arm/Top Part RigidBody"]
+self_modulate = Color( 1, 0.537255, 0, 1 )
+scale = Vector2( 3, 3 )
 texture = ExtResource( 7 )
 normal_map = ExtResource( 8 )
 script = ExtResource( 9 )
@@ -137,17 +138,20 @@ shape = SubResource( 1 )
 
 [node name="Bottom Part RigidBody" type="RigidBody2D" parent="Left Arm"]
 editor/display_folded = true
-position = Vector2( -12, 11 )
+position = Vector2( -35, 35 )
 collision_layer = 4
 collision_mask = 3
 mode = 1
+gravity_scale = 0.0
 script = ExtResource( 6 )
 healthSetterNodePath = NodePath("Bottom Part")
-armAlphaChangeRate = 7.0
-armRotationRate = 3.0
-armDetachForce = 5.0
+armAlphaChangeRate = 1.0
+armRotationRate = 14.0
+armDetachForce = 50.0
 
 [node name="Bottom Part" type="Sprite" parent="Left Arm/Bottom Part RigidBody"]
+self_modulate = Color( 1, 0.537255, 0, 1 )
+scale = Vector2( 3, 3 )
 texture = ExtResource( 7 )
 normal_map = ExtResource( 8 )
 flip_v = true
@@ -158,18 +162,17 @@ maxHealth = 300.0
 shape = SubResource( 1 )
 
 [node name="Top Attack Point" type="Node2D" parent="Left Arm"]
-position = Vector2( -24, -6.5 )
+position = Vector2( -60, -20 )
 
 [node name="Bottom Attack Point" type="Node2D" parent="Left Arm"]
-position = Vector2( -24, 6.5 )
+position = Vector2( -60, 20 )
 
 [node name="Dual Attack Point" type="Node2D" parent="Left Arm"]
-position = Vector2( -25, 0 )
+position = Vector2( -50, 0 )
 
 [node name="Right Arm" type="Node2D" parent="."]
 editor/display_folded = true
 position = Vector2( 120, 0 )
-scale = Vector2( 3, 3 )
 script = ExtResource( 2 )
 firstArmNodePath = NodePath("Top Part RigidBody/Top Part")
 secondArmNodePath = NodePath("Bottom Part RigidBody/Bottom Part")
@@ -188,17 +191,20 @@ chargedAttackIncreaseRate = 0.75
 
 [node name="Top Part RigidBody" type="RigidBody2D" parent="Right Arm"]
 editor/display_folded = true
-position = Vector2( 12, -10 )
+position = Vector2( 35, -35 )
 collision_layer = 4
 collision_mask = 3
 mode = 1
+gravity_scale = 0.0
 script = ExtResource( 6 )
 healthSetterNodePath = NodePath("Top Part")
-armAlphaChangeRate = 7.0
-armRotationRate = 3.0
-armDetachForce = 5.0
+armAlphaChangeRate = 1.0
+armRotationRate = 14.0
+armDetachForce = 50.0
 
 [node name="Top Part" type="Sprite" parent="Right Arm/Top Part RigidBody"]
+self_modulate = Color( 1, 0.537255, 0, 1 )
+scale = Vector2( 3, 3 )
 texture = ExtResource( 7 )
 normal_map = ExtResource( 8 )
 flip_h = true
@@ -210,17 +216,20 @@ shape = SubResource( 1 )
 
 [node name="Bottom Part RigidBody" type="RigidBody2D" parent="Right Arm"]
 editor/display_folded = true
-position = Vector2( 12, 11 )
+position = Vector2( 35, 35 )
 collision_layer = 4
 collision_mask = 3
 mode = 1
+gravity_scale = 0.0
 script = ExtResource( 6 )
 healthSetterNodePath = NodePath("Bottom Part")
-armAlphaChangeRate = 7.0
-armRotationRate = 3.0
-armDetachForce = 5.0
+armAlphaChangeRate = 1.0
+armRotationRate = 14.0
+armDetachForce = 50.0
 
 [node name="Bottom Part" type="Sprite" parent="Right Arm/Bottom Part RigidBody"]
+self_modulate = Color( 1, 0.537255, 0, 1 )
+scale = Vector2( 3, 3 )
 texture = ExtResource( 7 )
 normal_map = ExtResource( 8 )
 flip_h = true
@@ -232,16 +241,15 @@ maxHealth = 300.0
 shape = SubResource( 1 )
 
 [node name="Top Attack Point" type="Node2D" parent="Right Arm"]
-position = Vector2( 24, -6.5 )
+position = Vector2( 60, -20 )
 
 [node name="Bottom Attack Point" type="Node2D" parent="Right Arm"]
-position = Vector2( 24, 6.5 )
+position = Vector2( 60, 20 )
 
 [node name="Dual Attack Point" type="Node2D" parent="Right Arm"]
-position = Vector2( 25, 0 )
+position = Vector2( 50, 0 )
 
 [node name="Top Arm" type="Node2D" parent="."]
-editor/display_folded = true
 position = Vector2( 0, -78 )
 script = ExtResource( 2 )
 firstArmNodePath = NodePath("Left Part RigidBody/Left Part")
@@ -265,13 +273,15 @@ position = Vector2( -55, -48 )
 collision_layer = 4
 collision_mask = 3
 mode = 1
+gravity_scale = 0.0
 script = ExtResource( 6 )
 healthSetterNodePath = NodePath("Left Part")
-armAlphaChangeRate = 7.0
-armRotationRate = 3.0
-armDetachForce = 5.0
+armAlphaChangeRate = 1.0
+armRotationRate = 14.0
+armDetachForce = 50.0
 
 [node name="Left Part" type="Sprite" parent="Top Arm/Left Part RigidBody"]
+self_modulate = Color( 1, 0.537255, 0, 1 )
 scale = Vector2( 3, 3 )
 texture = ExtResource( 10 )
 normal_map = ExtResource( 11 )
@@ -287,13 +297,15 @@ position = Vector2( 55, -48 )
 collision_layer = 4
 collision_mask = 3
 mode = 1
+gravity_scale = 0.0
 script = ExtResource( 6 )
 healthSetterNodePath = NodePath("Right Part")
-armAlphaChangeRate = 7.0
-armRotationRate = 3.0
-armDetachForce = 5.0
+armAlphaChangeRate = 1.0
+armRotationRate = 14.0
+armDetachForce = 50.0
 
 [node name="Right Part" type="Sprite" parent="Top Arm/Right Part RigidBody"]
+self_modulate = Color( 1, 0.537255, 0, 1 )
 scale = Vector2( 3, 3 )
 texture = ExtResource( 10 )
 normal_map = ExtResource( 11 )
@@ -338,13 +350,15 @@ position = Vector2( -55, 51 )
 collision_layer = 4
 collision_mask = 3
 mode = 1
+gravity_scale = 0.0
 script = ExtResource( 6 )
 healthSetterNodePath = NodePath("Left Part")
-armAlphaChangeRate = 7.0
-armRotationRate = 3.0
-armDetachForce = 5.0
+armAlphaChangeRate = 1.0
+armRotationRate = 14.0
+armDetachForce = 50.0
 
 [node name="Left Part" type="Sprite" parent="Bottom Arm/Left Part RigidBody"]
+self_modulate = Color( 1, 0.537255, 0, 1 )
 scale = Vector2( 3, 3 )
 texture = ExtResource( 10 )
 normal_map = ExtResource( 11 )
@@ -362,13 +376,15 @@ position = Vector2( 55, 51 )
 collision_layer = 4
 collision_mask = 3
 mode = 1
+gravity_scale = 0.0
 script = ExtResource( 6 )
 healthSetterNodePath = NodePath("Right Part")
-armAlphaChangeRate = 7.0
-armRotationRate = 3.0
-armDetachForce = 5.0
+armAlphaChangeRate = 1.0
+armRotationRate = 14.0
+armDetachForce = 50.0
 
 [node name="Right Part" type="Sprite" parent="Bottom Arm/Right Part RigidBody"]
+self_modulate = Color( 1, 0.537255, 0, 1 )
 scale = Vector2( 3, 3 )
 texture = ExtResource( 10 )
 normal_map = ExtResource( 11 )
@@ -399,11 +415,12 @@ bossBodyNodePath = NodePath("Boss Body Part")
 bodyAttackNodePath = NodePath("Body Attack Point")
 
 [node name="Boss Body Part" type="Sprite" parent="Body"]
+self_modulate = Color( 1, 0.537255, 0, 1 )
 scale = Vector2( 3, 3 )
 texture = ExtResource( 13 )
 normal_map = ExtResource( 14 )
 script = ExtResource( 9 )
-maxHealth = 600.0
+maxHealth = 1200.0
 
 [node name="Body Attack Point" type="Node2D" parent="Body"]
 
@@ -412,6 +429,7 @@ position = Vector2( 0.149887, 0 )
 shape = SubResource( 3 )
 
 [node name="Boss Attacks" type="Node2D" parent="."]
+editor/display_folded = true
 
 [node name="Single Arm Attack" type="Node2D" parent="Boss Attacks"]
 script = ExtResource( 15 )
@@ -455,9 +473,9 @@ script = ExtResource( 21 )
 bulletPrefab = ExtResource( 22 )
 attackTimer = 9.0
 bossAttackPointNodePath = NodePath("../../Body/Body Attack Point")
-eachShotBulletCount = 10.0
+eachShotBulletCount = 5.0
 timeBetweenShot = 0.3
-angleIncrementAmount = 15.0
+angleIncrementAmount = 25.0
 
 [node name="Inner Circle Shot Attack" type="Node2D" parent="Boss Attacks"]
 script = ExtResource( 23 )
@@ -468,7 +486,6 @@ angleIncrementAmount = 25.0
 timeBetweenShot = 0.1
 
 [node name="Boss Total Health Setter" type="Node2D" parent="."]
-editor/display_folded = true
 script = ExtResource( 9 )
 
 [node name="Boss Total Health Display" type="Node2D" parent="Boss Total Health Setter"]
@@ -480,7 +497,6 @@ healthSetterNodePath = NodePath("..")
 
 [node name="Light Occuluder" type="Node2D" parent="."]
 editor/display_folded = true
-visible = false
 
 [node name="Light Occuluder 1" type="LightOccluder2D" parent="Light Occuluder"]
 occluder = SubResource( 4 )

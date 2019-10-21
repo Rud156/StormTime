@@ -324,7 +324,7 @@ namespace StormTime.Enemy.Boss
             totalHealth += (bottomArmStatus.firstArmHealth + bottomArmStatus.secondArmHealth);
             totalHealth += bodyStatus.bodyHealth;
 
-            GD.Print($"Total Health: {totalHealth}");
+            GD.Print($"Total Boss Health: {totalHealth}");
 
             _bossTotalHealthSetter.ForceSetCurrentHealth(totalHealth);
         }

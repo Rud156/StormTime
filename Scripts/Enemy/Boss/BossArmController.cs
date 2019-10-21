@@ -327,6 +327,8 @@ namespace StormTime.Enemy.Boss
 
                 _firstArmSingleController.DestroyArm();
                 _firstArmHealthSetter.healthChanged -= HandleFirstArmHealthChange;
+
+                NotifyArmDestroyed();
             }
 
             NotifyArmStatusChanged();
@@ -343,6 +345,8 @@ namespace StormTime.Enemy.Boss
 
                 _secondArmSingleController.DestroyArm();
                 _secondArmHealthSetter.healthChanged -= HandleSecondArmHealthChange;
+
+                NotifyArmDestroyed();
             }
 
             NotifyArmStatusChanged();

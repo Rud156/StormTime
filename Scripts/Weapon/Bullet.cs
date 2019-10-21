@@ -10,6 +10,8 @@ namespace StormTime.Weapon
         [Export] public float bulletLifeTime;
         [Export] public float bulletTrailTimer;
         [Export] public float bulletDamageAmount;
+        [Export] public bool bulletHasTrail;
+        [Export] public bool bulletHasExplosion;
 
         protected Vector2 _launchVelocity;
         protected float _currentBulletTimeLeft;
@@ -90,6 +92,11 @@ namespace StormTime.Weapon
 
         protected virtual void SpawnBulletExplosion()
         {
+            if (!bulletHasExplosion)
+            {
+                return;
+            }
+
             Node2D bulletExplosionInstance = (Node2D)bulletExplosionPrefab.Instance();
             GetParent().AddChild(bulletExplosionInstance);
 
@@ -98,6 +105,11 @@ namespace StormTime.Weapon
 
         protected virtual void SpawnBulletTrail()
         {
+            if (!bulletHasTrail)
+            {
+                return;
+            }
+
             Node2D bulletTrailInstance = (Node2D)bulletTrailPrefab.Instance();
             GetParent().AddChild(bulletTrailInstance);
 

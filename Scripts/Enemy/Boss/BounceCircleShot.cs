@@ -33,9 +33,9 @@ namespace StormTime.Enemy.Boss
 
         public override bool UpdateAttack(float delta)
         {
-            bool updateAttack = base.UpdateAttack(delta);
+            bool attackComplete = base.UpdateAttack(delta);
             UpdateShooting(delta);
-            return updateAttack;
+            return attackComplete;
         }
 
         public override void LaunchAttack()
