@@ -70,12 +70,14 @@
     <Compile Include="Scripts\Enemy\Boss\FrenzySpinningShot.cs" />
     <Compile Include="Scripts\Enemy\Boss\InnerCircleShot.cs" />
     <Compile Include="Scripts\Enemy\Boss\SingleArmAttack.cs" />
+    <Compile Include="Scripts\Enemy\Individuals\BombEnemy.cs" />
     <Compile Include="Scripts\Enemy\Individuals\BurstEnemy.cs" />
     <Compile Include="Scripts\Enemy\Individuals\Enemy.cs" />
     <Compile Include="Scripts\Enemy\Groups\EnemyGroup.cs" />
     <Compile Include="Scripts\Enemy\Groups\EnemyGroupPlayerInteraction.cs" />
     <Compile Include="Scripts\Enemy\Groups\EnemySpawner.cs" />
     <Compile Include="Scripts\Enemy\Groups\EnemySpawnPoint.cs" />
+    <Compile Include="Scripts\Enemy\Individuals\LaserEnemy.cs" />
     <Compile Include="Scripts\Enemy\Individuals\SlasherEnemy.cs" />
     <Compile Include="Scripts\Enemy\Individuals\SlasherEnemyCollision.cs" />
     <Compile Include="Scripts\Enemy\Individuals\SpinnerEnemy.cs" />
@@ -106,10 +108,12 @@
     <Compile Include="Scripts\Utils\SceneControls.cs" />
     <Compile Include="Scripts\Utils\TagManager.cs" />
     <Compile Include="Scripts\Utils\VectorHelpers.cs" />
+    <Compile Include="Scripts\Weapon\BombBullet.cs" />
     <Compile Include="Scripts\Weapon\BossBullet.cs" />
     <Compile Include="Scripts\Weapon\Bullet.cs" />
     <Compile Include="Scripts\Weapon\ChargedBullet.cs" />
     <Compile Include="Scripts\Weapon\EnemyBullet.cs" />
+    <Compile Include="Scripts\Weapon\EnemyLaser.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Scenes\" />
