@@ -116,6 +116,11 @@ namespace StormTime.Enemy.Individuals
                 OverHeadCheckForEnemyState();
             }
 
+            if (_enemyState == EnemyState.Targeting || _enemyState == EnemyState.Homing || _enemyState == EnemyState.Wandering)
+            {
+                OrientEnemyToPlayer(delta);
+            }
+
             switch (_enemyState)
             {
                 case EnemyState.Homing:
@@ -268,6 +273,8 @@ namespace StormTime.Enemy.Individuals
         protected virtual void EndAttack() => _enemyTimer = 0;
 
         protected virtual void EnemyLaunchSingleShotAttack() { }
+
+        protected virtual void OrientEnemyToPlayer(float delta) { }
 
         protected void UpdateDead(float delta)
         {
