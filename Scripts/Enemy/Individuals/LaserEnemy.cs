@@ -137,6 +137,7 @@ namespace StormTime.Enemy.Individuals
             Node2D launchPoint = _launchPoints[0];
             enemyLaserInstance.SetGlobalPosition(launchPoint.GetGlobalPosition());
             enemyLaserInstance.SetGlobalRotationDegrees(_rotationNode.GetGlobalRotationDegrees() + rotationOffset);
+            enemyLaserInstance.LaunchBullet(Vector2.Zero);
 
             _currentLaser = enemyLaserInstance;
             _laserLaunched = true;
