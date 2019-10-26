@@ -5,8 +5,9 @@ using StormTime.Player.Movement;
 
 namespace StormTime.Weapon
 {
-    public class EnemyLaser : EnemyBullet
+    public class EnemyLaser : Node2D
     {
+        [Export] public float laserDamagerPerTime;
         [Export] public float timeBetweenDamage;
         [Export] public float laserStartUpTime;
         [Export] public float laserDestroyAfterTime;
@@ -74,19 +75,7 @@ namespace StormTime.Weapon
             }
         }
 
-        public override void _PhysicsProcess(float delta)
-        {
-            // Do Nothing Here...
-            // This ensures that the laser is destroyed only using the DestroyLaser function
-        }
-
-
         #region External Functions
-
-        public override void LaunchBullet(Vector2 forwardVectorNormalized)
-        {
-
-        }
 
         public void DestroyLaser()
         {
@@ -121,7 +110,7 @@ namespace StormTime.Weapon
             if (_currentLaserTimer <= 0)
             {
                 _currentLaserTimer = timeBetweenDamage;
-                _playerController?.TakeExternalDamage(GetBulletDamage());
+                _playerController?.TakeExternalDamage(laserDamagerPerTime);
             }
         }
 
@@ -130,11 +119,13 @@ namespace StormTime.Weapon
             _currentLaserTimer -= delta;
             if (_currentLaserTimer <= 0)
             {
-                base.RemoveBulletFromTree();
+                RemoveBulletFromTree();
             }
         }
 
         #endregion
+
+        private void RemoveBulletFromTree() => QueueFree();
 
         private void HandleBodyEntered(PhysicsBody2D other)
         {

@@ -1,0 +1,45 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://Scripts/Weapon/BombBullet.cs" type="Script" id=1]
+[ext_resource path="res://Prefabs/Effects/Bullet Trail GB.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Prefabs/Effects/Bomb Bullet Explosion.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Scripts/Extensions/Rotator.cs" type="Script" id=4]
+[ext_resource path="res://Textures/BombBullet.png" type="Texture" id=5]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 35.2609
+
+[sub_resource type="CircleShape2D" id=2]
+radius = 13.9165
+
+[node name="Bomb Bullet" type="RigidBody2D"]
+script = ExtResource( 1 )
+bulletTrailPrefab = ExtResource( 2 )
+bulletExplosionPrefab = ExtResource( 3 )
+bulletSpeed = 150.0
+bulletLifeTime = 7.0
+bulletTrailTimer = 0.1
+bulletDamageAmount = 10.0
+bulletHasTrail = true
+bulletSpritePath = NodePath("../Bomb Bullet/Rotator/Bomb Sprite")
+autoSetInitialColor = false
+explosionRadius = 200.0
+explosionDamageAmount = 30.0
+collisionShapeNodePath = NodePath("../Bomb Bullet/Bomb Explosion Collision/Bomb Explosion Collision Shape")
+explosionCollisionAreaNodePath = NodePath("../Bomb Bullet/Bomb Explosion Collision")
+
+[node name="Bullet Collision Shape" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+
+[node name="Rotator" type="Node2D" parent="."]
+script = ExtResource( 4 )
+rotationSpeed = 150.0
+
+[node name="Bomb Sprite" type="Sprite" parent="Rotator"]
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 5 )
+
+[node name="Bomb Explosion Collision" type="Area2D" parent="."]
+
+[node name="Bomb Explosion Collision Shape" type="CollisionShape2D" parent="Bomb Explosion Collision"]
+shape = SubResource( 2 )

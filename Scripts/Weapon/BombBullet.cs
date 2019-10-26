@@ -9,7 +9,6 @@ namespace StormTime.Weapon
         [Export] public float explosionDamageAmount;
         [Export] public NodePath collisionShapeNodePath;
         [Export] public NodePath explosionCollisionAreaNodePath;
-        [Export] public PackedScene explosionEffectPrefab;
 
         private CollisionShape2D _collisionShape;
         private Area2D _explosionCollisionArea;
@@ -38,7 +37,7 @@ namespace StormTime.Weapon
 
         protected override void RemoveBulletFromTree()
         {
-            Node2D explosionEffectInstance = (Node2D)explosionEffectPrefab.Instance();
+            Node2D explosionEffectInstance = (Node2D)bulletExplosionPrefab.Instance();
             GetParent().AddChild(explosionEffectInstance);
 
             _playerController?.TakeExternalDamage(explosionDamageAmount);

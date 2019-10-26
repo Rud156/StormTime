@@ -1,0 +1,78 @@
+[gd_scene load_steps=15 format=2]
+
+[ext_resource path="res://Scripts/Effects/ParticlesCleaner.cs" type="Script" id=1]
+[ext_resource path="res://Textures/Glow Circle.png" type="Texture" id=2]
+[ext_resource path="res://Scripts/Effects/ParticleActivator.cs" type="Script" id=3]
+[ext_resource path="res://Textures/White Circle.png" type="Texture" id=4]
+
+[sub_resource type="Gradient" id=10]
+offsets = PoolRealArray( 0, 0.149007, 0.860927, 1 )
+colors = PoolColorArray( 1, 0, 0, 0, 1, 0, 0, 1, 1, 0.4, 0, 1, 1, 1, 1, 0 )
+
+[sub_resource type="GradientTexture" id=11]
+gradient = SubResource( 10 )
+
+[sub_resource type="Curve" id=8]
+_data = [ Vector2( 0, 0 ), 0.0, 0.0, 0, 0, Vector2( 1, 1 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=9]
+curve = SubResource( 8 )
+
+[sub_resource type="ParticlesMaterial" id=7]
+flag_disable_z = true
+gravity = Vector3( 0, 0, 0 )
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+scale = 0.5
+scale_curve = SubResource( 9 )
+color_ramp = SubResource( 11 )
+
+[sub_resource type="Gradient" id=12]
+offsets = PoolRealArray( 0, 0.13245, 0.609272, 1 )
+colors = PoolColorArray( 1, 0, 0, 0, 1, 0, 0, 1, 0, 0.0712891, 1, 1, 0.0458984, 0, 1, 0 )
+
+[sub_resource type="GradientTexture" id=13]
+gradient = SubResource( 12 )
+
+[sub_resource type="Curve" id=14]
+_data = [ Vector2( 0, 0 ), 0.0, 1.77031, 0, 0, Vector2( 1, 1 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=15]
+curve = SubResource( 14 )
+
+[sub_resource type="ParticlesMaterial" id=6]
+emission_shape = 1
+emission_sphere_radius = 50.0
+flag_disable_z = true
+spread = 180.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 500.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+scale = 0.1
+scale_curve = SubResource( 15 )
+color_ramp = SubResource( 13 )
+hue_variation = 0.1
+hue_variation_random = 1.0
+
+[node name="Bomb Bullet Explosion" type="Node2D"]
+script = ExtResource( 1 )
+cleanupWaitTime = 0.7
+
+[node name="Explosion Circle" type="Particles2D" parent="."]
+emitting = false
+amount = 2
+lifetime = 0.3
+one_shot = true
+process_material = SubResource( 7 )
+texture = ExtResource( 2 )
+script = ExtResource( 3 )
+
+[node name="Burst Internal Effect" type="Particles2D" parent="."]
+emitting = false
+amount = 100
+lifetime = 0.5
+one_shot = true
+process_material = SubResource( 6 )
+texture = ExtResource( 4 )
+script = ExtResource( 3 )
