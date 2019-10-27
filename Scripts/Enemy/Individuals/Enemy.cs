@@ -118,7 +118,7 @@ namespace StormTime.Enemy.Individuals
 
             if (_enemyState == EnemyState.Targeting || _enemyState == EnemyState.Homing || _enemyState == EnemyState.Wandering)
             {
-                OrientEnemyToPlayer(delta);
+                OrientEnemyToTarget(delta, _targetPosition);
             }
 
             switch (_enemyState)
@@ -274,7 +274,7 @@ namespace StormTime.Enemy.Individuals
 
         protected virtual void EnemyLaunchSingleShotAttack() { }
 
-        protected virtual void OrientEnemyToPlayer(float delta) { }
+        protected virtual void OrientEnemyToTarget(float delta, Vector2 targetPosition) { }
 
         protected void UpdateDead(float delta)
         {

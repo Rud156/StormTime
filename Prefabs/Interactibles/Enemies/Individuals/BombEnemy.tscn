@@ -1,102 +1,71 @@
 [gd_scene load_steps=12 format=2]
 
-[ext_resource path="res://Scripts/Enemy/Individuals/WheelEnemy.cs" type="Script" id=1]
+[ext_resource path="res://Scripts/Enemy/Individuals/BombEnemy.cs" type="Script" id=1]
 [ext_resource path="res://Prefabs/Effects/Enemy Death.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Prefabs/Interactibles/Player/PlayerSoul.tscn" type="PackedScene" id=3]
-[ext_resource path="res://Prefabs/Interactibles/Bullets/Normal Enemy Bullets/Enemy Bullet.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Prefabs/Interactibles/Bullets/Normal Enemy Bullets/Bomb Bullet.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Textures/light.png" type="Texture" id=5]
-[ext_resource path="res://Textures/Wheel_Shape_White.png" type="Texture" id=6]
+[ext_resource path="res://Textures/BombEnemyShape.png" type="Texture" id=6]
 [ext_resource path="res://Scripts/Common/HealthSetter.cs" type="Script" id=7]
 [ext_resource path="res://Scripts/Common/HealthDisplay.cs" type="Script" id=8]
 [ext_resource path="res://Textures/White Pixel.png" type="Texture" id=9]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 70, 70 )
+extents = Vector2( 48.7412, 54.1878 )
 
 [sub_resource type="OccluderPolygon2D" id=2]
-polygon = PoolVector2Array( 0, -66.6667, 50, -50, 66.6667, 0, 50, 50, 0, 66.6667, -50, 50, -66.6667, 0, -50, -50 )
+polygon = PoolVector2Array( -48.56, -40.3326, -33.4453, -55.1325, -9.82844, -43.1666, 8.12033, -43.4815, 29.5329, -53.8729, 47.4817, -41.5922, 48.4264, 52.5602, -49.8196, 51.3006 )
 
-[node name="WheelEnemy" type="KinematicBody2D"]
+[node name="BombEnemy" type="KinematicBody2D"]
 scale = Vector2( 0.3, 0.3 )
 collision_layer = 4
 collision_mask = 3
 script = ExtResource( 1 )
-enemySpriteNodePath = NodePath("Wheel Enemy Container/Sprite")
-rotationNodePath = NodePath("Wheel Enemy Container")
+enemySpriteNodePath = NodePath("Bomb Enemy Container/Sprite")
+rotationNodePath = NodePath("Bomb Enemy Container")
 enemyHealthSetterNodePath = NodePath("Enemy Health")
 enemyDeathEffectPrefab = ExtResource( 2 )
 explorationRadius = 200.0
-idleTime = 5.0
+idleTime = 3.0
 minWanderingReachDistance = 10.0
 enemyFreezeTime = 3.0
 enemyFreezeRatio = 0.1
 playerTargetDistance = 500.0
 playerAttackDistance = 150.0
 maxPlayerFollowDistance = 800.0
-movementSpeed = 250.0
-attackTime = 7.0
-targetingAttackTime = 0.5
-launchPointsPath = [ NodePath("Wheel Enemy Container/Launch Points/LaunchPoint_1"), NodePath("Wheel Enemy Container/Launch Points/LaunchPoint_2"), NodePath("Wheel Enemy Container/Launch Points/LaunchPoint_3"), NodePath("Wheel Enemy Container/Launch Points/LaunchPoint_4"), NodePath("Wheel Enemy Container/Launch Points/LaunchPoint_5"), NodePath("Wheel Enemy Container/Launch Points/LaunchPoint_6"), NodePath("Wheel Enemy Container/Launch Points/LaunchPoint_7"), NodePath("Wheel Enemy Container/Launch Points/LaunchPoint_8") ]
+movementSpeed = 300.0
+attackTime = 10.0
+targetingAttackTime = 3.0
+launchPointsPath = [ NodePath("Bomb Enemy Container/Launch Points/LaunchPoint_1") ]
 soulsPrefab = ExtResource( 3 )
 minSoulsAmount = 10.0
-maxSoulsAmount = 18.0
+maxSoulsAmount = 20.0
 rangeMultiplier = 100.0
-rotationRate = 200.0
-lowHealthRotationRate = 400.0
-lowHealthActivatorRatio = 0.3
-totalShotCount = 27.0
-enemyBulletPrefab = ExtResource( 4 )
+timeBetweenShots = 2.0
+bombPrefab = ExtResource( 4 )
+rotationRate = 0.7
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
 
-[node name="Wheel Enemy Container" type="Node2D" parent="."]
+[node name="Bomb Enemy Container" type="Node2D" parent="."]
 
-[node name="Shadow Sprite" type="Sprite" parent="Wheel Enemy Container"]
+[node name="Shadow Sprite" type="Sprite" parent="Bomb Enemy Container"]
 light_mask = 2
 scale = Vector2( 0.175, 0.175 )
 texture = ExtResource( 5 )
 
-[node name="Sprite" type="Sprite" parent="Wheel Enemy Container"]
+[node name="Sprite" type="Sprite" parent="Bomb Enemy Container"]
 light_mask = 2
 texture = ExtResource( 6 )
 
-[node name="Launch Points" type="Node2D" parent="Wheel Enemy Container"]
-editor/display_folded = true
+[node name="Launch Points" type="Node2D" parent="Bomb Enemy Container"]
 
-[node name="LaunchPoint_1" type="Node2D" parent="Wheel Enemy Container/Launch Points"]
+[node name="LaunchPoint_1" type="Node2D" parent="Bomb Enemy Container/Launch Points"]
 position = Vector2( 70, 0 )
 scale = Vector2( 0.3, 0.3 )
 
-[node name="LaunchPoint_2" type="Node2D" parent="Wheel Enemy Container/Launch Points"]
-position = Vector2( 50, 50 )
-scale = Vector2( 0.3, 0.3 )
-
-[node name="LaunchPoint_3" type="Node2D" parent="Wheel Enemy Container/Launch Points"]
-position = Vector2( 0, 70 )
-scale = Vector2( 0.3, 0.3 )
-
-[node name="LaunchPoint_4" type="Node2D" parent="Wheel Enemy Container/Launch Points"]
-position = Vector2( -50, 50 )
-scale = Vector2( 0.3, 0.3 )
-
-[node name="LaunchPoint_5" type="Node2D" parent="Wheel Enemy Container/Launch Points"]
-position = Vector2( -70, 0 )
-scale = Vector2( 0.3, 0.3 )
-
-[node name="LaunchPoint_6" type="Node2D" parent="Wheel Enemy Container/Launch Points"]
-position = Vector2( -50, -50 )
-scale = Vector2( 0.3, 0.3 )
-
-[node name="LaunchPoint_7" type="Node2D" parent="Wheel Enemy Container/Launch Points"]
-position = Vector2( 0, -70.0001 )
-scale = Vector2( 0.3, 0.3 )
-
-[node name="LaunchPoint_8" type="Node2D" parent="Wheel Enemy Container/Launch Points"]
-position = Vector2( 50, -50 )
-scale = Vector2( 0.3, 0.3 )
-
-[node name="LightOccluder2D" type="LightOccluder2D" parent="Wheel Enemy Container"]
+[node name="LightOccluder2D" type="LightOccluder2D" parent="Bomb Enemy Container"]
 occluder = SubResource( 2 )
 
 [node name="Enemy Health" type="Node2D" parent="."]
@@ -108,8 +77,8 @@ script = ExtResource( 8 )
 minHealthColor = Color( 1, 0, 0, 1 )
 halfHealthColor = Color( 0, 0.976471, 1, 1 )
 maxHealthColor = Color( 0.803922, 0, 1, 1 )
-healthProgressNodePath = NodePath("../../UI Display/Health Display")
-healthSetterNodePath = NodePath("..")
+healthProgressNodePath = NodePath("../../../BombEnemy/UI Display/Health Display")
+healthSetterNodePath = NodePath("../../../BombEnemy/Enemy Health")
 
 [node name="UI Display" type="Control" parent="."]
 margin_left = -125.0

@@ -29,7 +29,7 @@ namespace StormTime.Enemy.Individuals
 
             if (_currentAttackTimer > 0)
             {
-                OrientEnemyToPlayer(delta);
+                OrientEnemyToTarget(delta, PlayerVariables.LastPlayerPosition);
                 _currentAttackTimer -= delta;
             }
             else if (_currentAttackTimer <= 0)
@@ -54,17 +54,17 @@ namespace StormTime.Enemy.Individuals
             bombBulletInstance.LaunchBullet(launchVector.Normalized());
         }
 
-        protected override void OrientEnemyToPlayer(float delta)
+        protected override void OrientEnemyToTarget(float delta, Vector2 targetPosition)
         {
             Vector2 currentPosition = GetGlobalPosition();
             _targetRotation = -Mathf.Rad2Deg(Mathf.Atan2(
-                currentPosition.x - PlayerVariables.LastPlayerPosition.x,
-                currentPosition.y - PlayerVariables.LastPlayerPosition.y
+                currentPosition.x - targetPosition.x,
+                currentPosition.y - targetPosition.y
             )) - 90;
 
 
-            float currentRotation = ExtensionFunctions.LerpAngleDeg(GetGlobalRotationDegrees(), _targetRotation, rotationRate * delta);
-            SetGlobalRotation(currentRotation);
+            float currentRotation = ExtensionFunctions.LerpAngleDeg(_rotationNode.GetGlobalRotationDegrees(), _targetRotation, rotationRate * delta);
+            _rotationNode.SetGlobalRotationDegrees(currentRotation);
         }
 
         #endregion

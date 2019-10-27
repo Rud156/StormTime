@@ -39,6 +39,7 @@ namespace StormTime.Enemy.Individuals
             base._Ready();
 
             _laserLaunchEffect = GetNode<ParticlesCustomController>(laserLaunchEffectNodePath);
+            _laserLaunchEffect.DeActivateParticleEffects();
         }
 
         #region Overridden Parent
@@ -66,7 +67,7 @@ namespace StormTime.Enemy.Individuals
             if (_currentTimeBetweenLaserShot > 0)
             {
                 _currentTimeBetweenLaserShot -= delta;
-                OrientEnemyToPlayer(delta);
+                OrientEnemyToTarget(delta, PlayerVariables.LastPlayerPosition);
             }
             else if (_currentTimeBetweenLaserShot <= 0)
             {
@@ -108,17 +109,17 @@ namespace StormTime.Enemy.Individuals
             bulletInstance.LaunchBullet(launchVector.Normalized());
         }
 
-        protected override void OrientEnemyToPlayer(float delta)
+        protected override void OrientEnemyToTarget(float delta, Vector2 targetPosition)
         {
             Vector2 currentPosition = GetGlobalPosition();
             _targetRotation = -Mathf.Rad2Deg(Mathf.Atan2(
-                currentPosition.x - PlayerVariables.LastPlayerPosition.x,
-                currentPosition.y - PlayerVariables.LastPlayerPosition.y
+                currentPosition.x - targetPosition.x,
+                currentPosition.y - targetPosition.y
             )) - 90;
 
 
-            float currentRotation = ExtensionFunctions.LerpAngleDeg(GetGlobalRotationDegrees(), _targetRotation, rotationRate * delta);
-            SetGlobalRotation(currentRotation);
+            float currentRotation = ExtensionFunctions.LerpAngleDeg(_rotationNode.GetGlobalRotationDegrees(), _targetRotation, rotationRate * delta);
+            _rotationNode.SetGlobalRotationDegrees(currentRotation);
         }
 
         protected override void RemoveEnemyFromWorld()

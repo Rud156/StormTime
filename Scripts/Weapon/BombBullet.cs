@@ -40,6 +40,8 @@ namespace StormTime.Weapon
             Node2D explosionEffectInstance = (Node2D)bulletExplosionPrefab.Instance();
             GetParent().AddChild(explosionEffectInstance);
 
+            explosionEffectInstance.SetGlobalPosition(GetGlobalPosition());
+
             _playerController?.TakeExternalDamage(explosionDamageAmount);
 
             base.RemoveBulletFromTree();

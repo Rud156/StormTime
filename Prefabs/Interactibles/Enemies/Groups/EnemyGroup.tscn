@@ -2,9 +2,9 @@
 
 [ext_resource path="res://Scripts/Enemy/Groups/EnemyGroup.cs" type="Script" id=1]
 [ext_resource path="res://Prefabs/Interactibles/Enemies/Individuals/WheelEnemy.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Prefabs/Interactibles/Enemies/Individuals/BurstEnemy.tscn" type="PackedScene" id=3]
-[ext_resource path="res://Prefabs/Interactibles/Enemies/Individuals/SpinnerEnemy.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Prefabs/Interactibles/Enemies/Individuals/SlasherEnemy.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Prefabs/Interactibles/Enemies/Individuals/LaserEnemy.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Prefabs/Interactibles/Enemies/Individuals/BombEnemy.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Prefabs/Interactibles/Enemies/Individuals/SpinnerEnemy.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Scripts/Enemy/Groups/EnemyGroupPlayerInteraction.cs" type="Script" id=6]
 [ext_resource path="res://Textures/RingFadeOut.png" type="Texture" id=7]
 [ext_resource path="res://Textures/Star2.png" type="Texture" id=8]
@@ -45,7 +45,7 @@ enemyPlayerInteractionNodePath = NodePath("Interaction Area")
 shopSettingPercent = 0.2
 enemyColors = PoolColorArray( 0.517647, 0, 1, 1, 1, 0, 0, 1, 0, 1, 0, 1, 0, 0, 1, 1 )
 enemyTypes = [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ) ]
-enemyDangerValues = PoolIntArray( 2, 1, 1, 3 )
+enemyDangerValues = PoolIntArray( 2, 2, 1, 3 )
 spawnPointsNodePaths = [ NodePath("Spawn Points/SpawnPoint_1"), NodePath("Spawn Points/SpawnPoint_2"), NodePath("Spawn Points/SpawnPoint_3"), NodePath("Spawn Points/SpawnPoint_4"), NodePath("Spawn Points/SpawnPoint_5"), NodePath("Spawn Points/SpawnPoint_6"), NodePath("Spawn Points/SpawnPoint_7"), NodePath("Spawn Points/SpawnPoint_8"), NodePath("Spawn Points/SpawnPoint_9"), NodePath("Spawn Points/SpawnPoint_10"), NodePath("Spawn Points/SpawnPoint_11"), NodePath("Spawn Points/SpawnPoint_12"), NodePath("Spawn Points/SpawnPoint_13"), NodePath("Spawn Points/SpawnPoint_14"), NodePath("Spawn Points/SpawnPoint_15"), NodePath("Spawn Points/SpawnPoint_16"), NodePath("Spawn Points/SpawnPoint_17"), NodePath("Spawn Points/SpawnPoint_18"), NodePath("Spawn Points/SpawnPoint_19"), NodePath("Spawn Points/SpawnPoint_20") ]
 
 [node name="Spawn Points" type="Node2D" parent="."]
