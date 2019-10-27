@@ -11,10 +11,10 @@
 [ext_resource path="res://Textures/White Pixel.png" type="Texture" id=9]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 48.7412, 54.1878 )
+extents = Vector2( 67.6366, 59.6569 )
 
 [sub_resource type="OccluderPolygon2D" id=2]
-polygon = PoolVector2Array( -48.56, -40.3326, -33.4453, -55.1325, -9.82844, -43.1666, 8.12033, -43.4815, 29.5329, -53.8729, 47.4817, -41.5922, 48.4264, 52.5602, -49.8196, 51.3006 )
+polygon = PoolVector2Array( -62.1808, -58.0291, -61.7738, 58.3589, 49.3238, 58.3589, 65.1949, 38.8252, 49.7307, 10.3387, 49.3238, -13.6714, 65.1949, -38.0885, 48.9168, -58.0291 )
 
 [node name="BombEnemy" type="KinematicBody2D"]
 scale = Vector2( 0.3, 0.3 )
@@ -43,7 +43,7 @@ maxSoulsAmount = 20.0
 rangeMultiplier = 100.0
 timeBetweenShots = 2.0
 bombPrefab = ExtResource( 4 )
-rotationRate = 0.7
+rotationRate = 3.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
@@ -57,6 +57,8 @@ texture = ExtResource( 5 )
 
 [node name="Sprite" type="Sprite" parent="Bomb Enemy Container"]
 light_mask = 2
+rotation = 1.5708
+scale = Vector2( 1.2, 1.2 )
 texture = ExtResource( 6 )
 
 [node name="Launch Points" type="Node2D" parent="Bomb Enemy Container"]
@@ -77,7 +79,7 @@ script = ExtResource( 8 )
 minHealthColor = Color( 1, 0, 0, 1 )
 halfHealthColor = Color( 0, 0.976471, 1, 1 )
 maxHealthColor = Color( 0.803922, 0, 1, 1 )
-healthProgressNodePath = NodePath("../../../BombEnemy/UI Display/Health Display")
+healthProgressNodePath = NodePath("../../UI Display/Health Display")
 healthSetterNodePath = NodePath("../../../BombEnemy/Enemy Health")
 
 [node name="UI Display" type="Control" parent="."]

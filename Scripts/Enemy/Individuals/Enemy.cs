@@ -344,7 +344,12 @@ namespace StormTime.Enemy.Individuals
 
         public void SetPlayerHostileState(bool playerHostile = true) => _playerHostile = playerHostile;
 
-        public void EmitOnHostileOnPlayerAttack() => _parentEnemyGroup.SetPlayerAsHostile();
+        public void EmitOnHostileOnPlayerAttack()
+        {
+            // _parentEnemyGroup.SetPlayerAsHostile();
+
+            SetPlayerHostileState(true);
+        }
 
         #endregion
 

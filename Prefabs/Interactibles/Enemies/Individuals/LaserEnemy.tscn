@@ -48,8 +48,7 @@ timeBeforeLaserShot = 0.5
 laserShotTotalTime = 4.0
 laserPrefab = ExtResource( 4 )
 laserBulletPrefab = ExtResource( 5 )
-rotationRate = 0.7
-rotationOffset = 90.0
+rotationRate = 3.0
 laserLaunchEffectNodePath = NodePath("Laser Enemy Container/Laser Launch Effect")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

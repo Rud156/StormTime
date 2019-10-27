@@ -19,7 +19,6 @@ namespace StormTime.Enemy.Individuals
 
         // Movement
         [Export] public float rotationRate;
-        [Export] public float rotationOffset;
 
         // Effects
         [Export] public NodePath laserLaunchEffectNodePath;
@@ -57,6 +56,7 @@ namespace StormTime.Enemy.Individuals
             _currentLaser?.DestroyLaser();
             _currentLaser = null;
 
+            _laserLaunched = false;
             _laserLaunchEffect.DeActivateParticleEffects();
         }
 
@@ -87,6 +87,8 @@ namespace StormTime.Enemy.Individuals
                         _currentLaser.DestroyLaser();
                         _currentLaser = null;
 
+                        _laserLaunched = false;
+
                         _laserLaunchEffect.DeActivateParticleEffects();
                         ResetTimers();
                     }
@@ -101,6 +103,7 @@ namespace StormTime.Enemy.Individuals
 
             Node2D launchPoint = _launchPoints[0];
             bulletInstance.SetGlobalPosition(launchPoint.GetGlobalPosition());
+            bulletInstance.SetGlobalRotation(_rotationNode.GetGlobalRotation());
 
             float rotation = _rotationNode.GetGlobalRotation();
             float xVelocity = Mathf.Cos(rotation);
@@ -129,6 +132,8 @@ namespace StormTime.Enemy.Individuals
             _currentLaser?.DestroyLaser();
             _currentLaser = null;
 
+            _laserLaunched = false;
+
             base.RemoveEnemyFromWorld();
         }
 
@@ -148,7 +153,7 @@ namespace StormTime.Enemy.Individuals
 
             Node2D launchPoint = _launchPoints[0];
             enemyLaserInstance.SetGlobalPosition(launchPoint.GetGlobalPosition());
-            enemyLaserInstance.SetGlobalRotationDegrees(_rotationNode.GetGlobalRotationDegrees() + rotationOffset);
+            enemyLaserInstance.SetGlobalRotationDegrees(_rotationNode.GetGlobalRotationDegrees());
 
             _currentLaser = enemyLaserInstance;
             _laserLaunched = true;

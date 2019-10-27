@@ -44,7 +44,7 @@ rangeMultiplier = 100.0
 rotationRate = 200.0
 lowHealthRotationRate = 400.0
 lowHealthActivatorRatio = 0.3
-totalShotCount = 27.0
+totalShotCount = 14.0
 enemyBulletPrefab = ExtResource( 4 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
