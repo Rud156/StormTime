@@ -1,0 +1,68 @@
+[gd_scene load_steps=12 format=2]
+
+[ext_resource path="res://Scripts/Effects/ParticlesCustomController.cs" type="Script" id=1]
+[ext_resource path="res://Textures/Glow Circle.png" type="Texture" id=2]
+[ext_resource path="res://Textures/Star2.png" type="Texture" id=3]
+
+[sub_resource type="Gradient" id=1]
+offsets = PoolRealArray( 0, 0.168874, 0.403974, 0.589404, 0.847682, 1 )
+colors = PoolColorArray( 1, 0, 0, 0, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 0, 0, 0 )
+
+[sub_resource type="GradientTexture" id=2]
+gradient = SubResource( 1 )
+
+[sub_resource type="ParticlesMaterial" id=3]
+emission_shape = 1
+emission_sphere_radius = 100.0
+flag_disable_z = true
+spread = 180.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 1000.0
+initial_velocity_random = 1.0
+angular_velocity = 4.89053e-043
+orbit_velocity = 1.0
+orbit_velocity_random = 0.0
+radial_accel = 100.0
+tangential_accel = 100.0
+damping_random = 1.0
+scale = 0.05
+color_ramp = SubResource( 2 )
+
+[sub_resource type="Gradient" id=4]
+offsets = PoolRealArray( 0, 0.195364, 0.788079, 1 )
+colors = PoolColorArray( 0, 1, 0, 0, 0, 1, 0, 1, 0.14902, 0.45098, 0.498039, 1, 0.14902, 0.45098, 0.498039, 0 )
+
+[sub_resource type="GradientTexture" id=5]
+gradient = SubResource( 4 )
+
+[sub_resource type="Curve" id=6]
+_data = [ Vector2( 0, 0 ), 0.0, 3.34662, 0, 0, Vector2( 0.47365, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), -4.19409, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=7]
+curve = SubResource( 6 )
+
+[sub_resource type="ParticlesMaterial" id=8]
+flag_disable_z = true
+gravity = Vector3( 0, 0, 0 )
+angular_velocity = 100.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+scale = 0.15
+scale_curve = SubResource( 7 )
+color_ramp = SubResource( 5 )
+
+[node name="Laser Launch Effect" type="Node2D"]
+script = ExtResource( 1 )
+particleEffectsNodePaths = [ NodePath("Spinning Circles"), NodePath("Beam Center") ]
+
+[node name="Spinning Circles" type="Particles2D" parent="."]
+scale = Vector2( 0.4, 0.4 )
+amount = 20
+lifetime = 3.0
+process_material = SubResource( 3 )
+texture = ExtResource( 2 )
+
+[node name="Beam Center" type="Particles2D" parent="."]
+amount = 7
+process_material = SubResource( 8 )
+texture = ExtResource( 3 )

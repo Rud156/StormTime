@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Scripts/Enemy/Individuals/LaserEnemy.cs" type="Script" id=1]
 [ext_resource path="res://Prefabs/Effects/Enemy Death.tscn" type="PackedScene" id=2]
@@ -7,9 +7,10 @@
 [ext_resource path="res://Prefabs/Interactibles/Bullets/Normal Enemy Bullets/Laser Bullet.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Textures/light.png" type="Texture" id=6]
 [ext_resource path="res://Textures/LaserEnemyShape.png" type="Texture" id=7]
-[ext_resource path="res://Scripts/Common/HealthSetter.cs" type="Script" id=8]
-[ext_resource path="res://Scripts/Common/HealthDisplay.cs" type="Script" id=9]
-[ext_resource path="res://Textures/White Pixel.png" type="Texture" id=10]
+[ext_resource path="res://Prefabs/Effects/Laser Launch Effect.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Scripts/Common/HealthSetter.cs" type="Script" id=9]
+[ext_resource path="res://Scripts/Common/HealthDisplay.cs" type="Script" id=10]
+[ext_resource path="res://Textures/White Pixel.png" type="Texture" id=11]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 70, 70 )
@@ -26,12 +27,30 @@ enemySpriteNodePath = NodePath("Laser Enemy Container/Sprite")
 rotationNodePath = NodePath("Laser Enemy Container")
 enemyHealthSetterNodePath = NodePath("Enemy Health")
 enemyDeathEffectPrefab = ExtResource( 2 )
+explorationRadius = 200.0
+idleTime = 3.0
+minWanderingReachDistance = 10.0
+enemyFreezeTime = 3.0
+enemyFreezeRatio = 0.1
+playerTargetDistance = 500.0
+playerAttackDistance = 150.0
+maxPlayerFollowDistance = 800.0
+movementSpeed = 250.0
+attackTime = 10.0
+targetingAttackTime = 0.7
 launchPointsPath = [ NodePath("Laser Enemy Container/Launch Points/LaunchPoint_1") ]
 soulsPrefab = ExtResource( 3 )
+minSoulsAmount = 10.0
+maxSoulsAmount = 18.0
+rangeMultiplier = 100.0
+timeBetweenLaserShot = 2.0
+timeBeforeLaserShot = 0.5
+laserShotTotalTime = 4.0
 laserPrefab = ExtResource( 4 )
 laserBulletPrefab = ExtResource( 5 )
 rotationRate = 7.0
 rotationOffset = 90.0
+laserLaunchEffectNodePath = NodePath("Laser Enemy Container/Laser Launch Effect")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
@@ -48,6 +67,9 @@ light_mask = 2
 rotation = 1.5708
 texture = ExtResource( 7 )
 
+[node name="Laser Launch Effect" parent="Laser Enemy Container" instance=ExtResource( 8 )]
+position = Vector2( 95, 0 )
+
 [node name="Launch Points" type="Node2D" parent="Laser Enemy Container"]
 editor/display_folded = true
 
@@ -60,11 +82,11 @@ occluder = SubResource( 2 )
 
 [node name="Enemy Health" type="Node2D" parent="."]
 editor/display_folded = true
-script = ExtResource( 8 )
+script = ExtResource( 9 )
 maxHealth = 180.0
 
 [node name="Enemy Health Display" type="Node2D" parent="Enemy Health"]
-script = ExtResource( 9 )
+script = ExtResource( 10 )
 minHealthColor = Color( 1, 0, 0, 1 )
 halfHealthColor = Color( 0, 0.976471, 1, 1 )
 maxHealthColor = Color( 0.803922, 0, 1, 1 )
@@ -83,8 +105,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 margin_right = -2.0
 value = 50.0
-texture_under = ExtResource( 10 )
-texture_progress = ExtResource( 10 )
+texture_under = ExtResource( 11 )
+texture_progress = ExtResource( 11 )
 tint_under = Color( 0, 0, 0, 0.392157 )
 tint_progress = Color( 1, 0, 0, 1 )
 nine_patch_stretch = true

@@ -1,4 +1,5 @@
 using Godot;
+using StormTime.Extensions;
 using StormTime.Player.Data;
 using StormTime.Utils;
 using StormTime.Weapon;
@@ -27,7 +28,7 @@ namespace StormTime.Enemy.Individuals
         private float _currentTimeLeftBeforeLaserShot;
         private float _currentTimeLeftForLaserShot;
 
-        private Particles2D _laserLaunchEffect;
+        private ParticlesCustomController _laserLaunchEffect;
         private EnemyLaser _currentLaser;
         private bool _laserLaunched;
 
@@ -37,7 +38,7 @@ namespace StormTime.Enemy.Individuals
         {
             base._Ready();
 
-            _laserLaunchEffect = GetNode<Particles2D>(laserLaunchEffectNodePath);
+            _laserLaunchEffect = GetNode<ParticlesCustomController>(laserLaunchEffectNodePath);
         }
 
         #region Overridden Parent
@@ -55,7 +56,7 @@ namespace StormTime.Enemy.Individuals
             _currentLaser?.DestroyLaser();
             _currentLaser = null;
 
-            _laserLaunchEffect.SetEmitting(false);
+            _laserLaunchEffect.DeActivateParticleEffects();
         }
 
         protected override void UpdateAttacking(float delta)
@@ -71,7 +72,7 @@ namespace StormTime.Enemy.Individuals
             {
                 if (!_laserLaunchEffect.IsEmitting())
                 {
-                    _laserLaunchEffect.SetEmitting(true);
+                    _laserLaunchEffect.ActivateParticleEffects();
                 }
                 _currentTimeLeftBeforeLaserShot -= delta;
 
@@ -85,7 +86,7 @@ namespace StormTime.Enemy.Individuals
                         _currentLaser.DestroyLaser();
                         _currentLaser = null;
 
-                        _laserLaunchEffect.SetEmitting(false);
+                        _laserLaunchEffect.DeActivateParticleEffects();
                         ResetTimers();
                     }
                 }
@@ -122,7 +123,7 @@ namespace StormTime.Enemy.Individuals
 
         protected override void RemoveEnemyFromWorld()
         {
-            _laserLaunchEffect.SetEmitting(false);
+            _laserLaunchEffect.DeActivateParticleEffects();
 
             _currentLaser?.DestroyLaser();
             _currentLaser = null;
