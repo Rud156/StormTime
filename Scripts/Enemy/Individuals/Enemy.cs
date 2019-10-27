@@ -291,7 +291,7 @@ namespace StormTime.Enemy.Individuals
                 deathEffectInstance.SetEffectGradient(_parentEnemyGroup.GetGroupGradientTexture());
                 deathEffectInstance.SetGlobalPosition(GetGlobalPosition());
 
-                QueueFree();
+                RemoveEnemyFromWorld();
             }
         }
 
@@ -349,6 +349,11 @@ namespace StormTime.Enemy.Individuals
         #endregion
 
         #region Utility Functions
+
+        protected virtual void RemoveEnemyFromWorld()
+        {
+            QueueFree();
+        }
 
         protected void MoveToTowardsTarget(Vector2 targetPosition) =>
             MoveToTowardsTarget(targetPosition, movementSpeed);

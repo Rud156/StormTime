@@ -1,0 +1,90 @@
+[gd_scene load_steps=13 format=2]
+
+[ext_resource path="res://Scripts/Enemy/Individuals/LaserEnemy.cs" type="Script" id=1]
+[ext_resource path="res://Prefabs/Effects/Enemy Death.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Prefabs/Interactibles/Player/PlayerSoul.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Prefabs/Interactibles/Bullets/Normal Enemy Bullets/Laser Beam.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Prefabs/Interactibles/Bullets/Normal Enemy Bullets/Laser Bullet.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Textures/light.png" type="Texture" id=6]
+[ext_resource path="res://Textures/LaserEnemyShape.png" type="Texture" id=7]
+[ext_resource path="res://Scripts/Common/HealthSetter.cs" type="Script" id=8]
+[ext_resource path="res://Scripts/Common/HealthDisplay.cs" type="Script" id=9]
+[ext_resource path="res://Textures/White Pixel.png" type="Texture" id=10]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 70, 70 )
+
+[sub_resource type="OccluderPolygon2D" id=2]
+polygon = PoolVector2Array( -71.549, -70.4791, 72.4418, -70.4791, 71.7961, 73.5117, 71.7961, 73.5117, 71.7961, 73.5117, -74.1318, 73.5117 )
+
+[node name="LaserEnemy" type="KinematicBody2D"]
+scale = Vector2( 0.3, 0.3 )
+collision_layer = 4
+collision_mask = 3
+script = ExtResource( 1 )
+enemySpriteNodePath = NodePath("Laser Enemy Container/Sprite")
+rotationNodePath = NodePath("Laser Enemy Container")
+enemyHealthSetterNodePath = NodePath("Enemy Health")
+enemyDeathEffectPrefab = ExtResource( 2 )
+launchPointsPath = [ NodePath("Laser Enemy Container/Launch Points/LaunchPoint_1") ]
+soulsPrefab = ExtResource( 3 )
+laserPrefab = ExtResource( 4 )
+laserBulletPrefab = ExtResource( 5 )
+rotationRate = 7.0
+rotationOffset = 90.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+
+[node name="Laser Enemy Container" type="Node2D" parent="."]
+
+[node name="Shadow Sprite" type="Sprite" parent="Laser Enemy Container"]
+light_mask = 2
+scale = Vector2( 0.175, 0.175 )
+texture = ExtResource( 6 )
+
+[node name="Sprite" type="Sprite" parent="Laser Enemy Container"]
+light_mask = 2
+rotation = 1.5708
+texture = ExtResource( 7 )
+
+[node name="Launch Points" type="Node2D" parent="Laser Enemy Container"]
+editor/display_folded = true
+
+[node name="LaunchPoint_1" type="Node2D" parent="Laser Enemy Container/Launch Points"]
+position = Vector2( 70, 0 )
+scale = Vector2( 0.3, 0.3 )
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="Laser Enemy Container"]
+occluder = SubResource( 2 )
+
+[node name="Enemy Health" type="Node2D" parent="."]
+editor/display_folded = true
+script = ExtResource( 8 )
+maxHealth = 180.0
+
+[node name="Enemy Health Display" type="Node2D" parent="Enemy Health"]
+script = ExtResource( 9 )
+minHealthColor = Color( 1, 0, 0, 1 )
+halfHealthColor = Color( 0, 0.976471, 1, 1 )
+maxHealthColor = Color( 0.803922, 0, 1, 1 )
+healthProgressNodePath = NodePath("../../../LaserEnemy/UI Display/Health Display")
+healthSetterNodePath = NodePath("../../../LaserEnemy/Enemy Health")
+
+[node name="UI Display" type="Control" parent="."]
+editor/display_folded = true
+margin_left = -125.0
+margin_top = -125.0
+margin_right = 125.0
+margin_bottom = -111.0
+
+[node name="Health Display" type="TextureProgress" parent="UI Display"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = -2.0
+value = 50.0
+texture_under = ExtResource( 10 )
+texture_progress = ExtResource( 10 )
+tint_under = Color( 0, 0, 0, 0.392157 )
+tint_progress = Color( 1, 0, 0, 1 )
+nine_patch_stretch = true

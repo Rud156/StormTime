@@ -5,42 +5,42 @@
 [ext_resource path="res://Scripts/Effects/ParticleActivator.cs" type="Script" id=3]
 [ext_resource path="res://Textures/White Circle.png" type="Texture" id=4]
 
-[sub_resource type="Gradient" id=10]
+[sub_resource type="Gradient" id=1]
 offsets = PoolRealArray( 0, 0.149007, 0.860927, 1 )
 colors = PoolColorArray( 1, 0, 0, 0, 1, 0, 0, 1, 1, 0.4, 0, 1, 1, 1, 1, 0 )
 
-[sub_resource type="GradientTexture" id=11]
-gradient = SubResource( 10 )
+[sub_resource type="GradientTexture" id=2]
+gradient = SubResource( 1 )
 
-[sub_resource type="Curve" id=8]
+[sub_resource type="Curve" id=3]
 _data = [ Vector2( 0, 0 ), 0.0, 0.0, 0, 0, Vector2( 1, 1 ), 0.0, 0.0, 0, 0 ]
 
-[sub_resource type="CurveTexture" id=9]
-curve = SubResource( 8 )
+[sub_resource type="CurveTexture" id=4]
+curve = SubResource( 3 )
 
-[sub_resource type="ParticlesMaterial" id=7]
+[sub_resource type="ParticlesMaterial" id=5]
 flag_disable_z = true
 gravity = Vector3( 0, 0, 0 )
 orbit_velocity = 0.0
 orbit_velocity_random = 0.0
 scale = 0.5
-scale_curve = SubResource( 9 )
-color_ramp = SubResource( 11 )
+scale_curve = SubResource( 4 )
+color_ramp = SubResource( 2 )
 
-[sub_resource type="Gradient" id=12]
+[sub_resource type="Gradient" id=6]
 offsets = PoolRealArray( 0, 0.13245, 0.609272, 1 )
 colors = PoolColorArray( 1, 0, 0, 0, 1, 0, 0, 1, 0, 0.0712891, 1, 1, 0.0458984, 0, 1, 0 )
 
-[sub_resource type="GradientTexture" id=13]
-gradient = SubResource( 12 )
+[sub_resource type="GradientTexture" id=7]
+gradient = SubResource( 6 )
 
-[sub_resource type="Curve" id=14]
+[sub_resource type="Curve" id=8]
 _data = [ Vector2( 0, 0 ), 0.0, 1.77031, 0, 0, Vector2( 1, 1 ), 0.0, 0.0, 0, 0 ]
 
-[sub_resource type="CurveTexture" id=15]
-curve = SubResource( 14 )
+[sub_resource type="CurveTexture" id=9]
+curve = SubResource( 8 )
 
-[sub_resource type="ParticlesMaterial" id=6]
+[sub_resource type="ParticlesMaterial" id=10]
 emission_shape = 1
 emission_sphere_radius = 50.0
 flag_disable_z = true
@@ -50,8 +50,8 @@ initial_velocity = 500.0
 orbit_velocity = 0.0
 orbit_velocity_random = 0.0
 scale = 0.1
-scale_curve = SubResource( 15 )
-color_ramp = SubResource( 13 )
+scale_curve = SubResource( 9 )
+color_ramp = SubResource( 7 )
 hue_variation = 0.1
 hue_variation_random = 1.0
 
@@ -64,7 +64,7 @@ emitting = false
 amount = 2
 lifetime = 0.3
 one_shot = true
-process_material = SubResource( 7 )
+process_material = SubResource( 5 )
 texture = ExtResource( 2 )
 script = ExtResource( 3 )
 
@@ -73,6 +73,6 @@ emitting = false
 amount = 100
 lifetime = 0.5
 one_shot = true
-process_material = SubResource( 6 )
+process_material = SubResource( 10 )
 texture = ExtResource( 4 )
 script = ExtResource( 3 )

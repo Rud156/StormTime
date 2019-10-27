@@ -1,117 +1,37 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://Scripts/Weapon/EnemyLaser.cs" type="Script" id=1]
-[ext_resource path="res://Textures/White Pixel.png" type="Texture" id=2]
-
-[sub_resource type="Gradient" id=3]
-offsets = PoolRealArray( 0, 0.162252, 0.596026, 1 )
-colors = PoolColorArray( 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 0, 1, 1, 0, 0, 0 )
-
-[sub_resource type="GradientTexture" id=4]
-gradient = SubResource( 3 )
-
-[sub_resource type="Curve" id=5]
-_data = [ Vector2( 0, 0.4791 ), 0.0, 0.0, 0, 0, Vector2( 1, 1 ), 0.156469, 0.0, 0, 0 ]
-
-[sub_resource type="CurveTexture" id=6]
-curve = SubResource( 5 )
-
-[sub_resource type="ParticlesMaterial" id=2]
-flag_disable_z = true
-gravity = Vector3( 0, 0, 0 )
-orbit_velocity = 0.0
-orbit_velocity_random = 0.0
-scale_curve = SubResource( 6 )
-color_ramp = SubResource( 4 )
-
-[sub_resource type="Curve" id=7]
-_data = [ Vector2( 0, 0 ), 0.0, 0.0, 0, 0, Vector2( 0.247348, 1 ), 0.0, 0.0, 0, 0, Vector2( 0.51085, 0 ), 0.0, 0.0, 0, 0, Vector2( 0.749551, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
-
-[sub_resource type="CurveTexture" id=8]
-curve = SubResource( 7 )
-
-[sub_resource type="ParticlesMaterial" id=9]
-emission_shape = 1
-emission_sphere_radius = 50.0
-flag_disable_z = true
-spread = 5.0
-gravity = Vector3( 0, 0, 0 )
-initial_velocity = 500.0
-angular_velocity = 45.0
-angular_velocity_random = 1.0
-orbit_velocity = 0.0
-orbit_velocity_random = 0.0
-radial_accel = 50.0
-angle = 360.0
-angle_random = 1.0
-scale_curve = SubResource( 8 )
-color = Color( 0, 0.905882, 1, 1 )
-hue_variation = 0.1
-hue_variation_random = 1.0
-
-[sub_resource type="CurveTexture" id=11]
-curve = SubResource( 7 )
-
-[sub_resource type="ParticlesMaterial" id=10]
-emission_shape = 1
-emission_sphere_radius = 50.0
-flag_disable_z = true
-spread = 5.0
-gravity = Vector3( 0, 0, 0 )
-initial_velocity = 500.0
-angular_velocity = 45.0
-angular_velocity_random = 1.0
-orbit_velocity = 0.0
-orbit_velocity_random = 0.0
-radial_accel = 50.0
-angle = 360.0
-angle_random = 1.0
-scale_curve = SubResource( 11 )
-color = Color( 0, 0.905882, 1, 1 )
-hue_variation = 0.1
-hue_variation_random = 1.0
+[ext_resource path="res://Scripts/Weapon/EnemyBullet.cs" type="Script" id=1]
+[ext_resource path="res://Prefabs/Effects/Bullet Trail GB.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Prefabs/Effects/Bullet Explosion GB.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Textures/White Pixel.png" type="Texture" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 801.84, 59.7245 )
+extents = Vector2( 31.9973, 6.51729 )
 
-[node name="Laser Bullet" type="Node2D"]
+[node name="Laser Bullet" type="RigidBody2D"]
+light_mask = 2
+collision_layer = 8
+collision_mask = 3
+gravity_scale = 0.0
+contacts_reported = 1
+contact_monitor = true
 script = ExtResource( 1 )
-laserDamagerPerTime = 3.0
-timeBetweenDamage = 0.3
-laserStartUpTime = 0.5
-laserDestroyAfterTime = 0.5
-laserAreaNodePath = NodePath("Collision Checker")
-laserLineEffectNodePaths = [ NodePath("Particles Holder/Flash Effect"), NodePath("Particles Holder/Sparks Effect 1"), NodePath("Particles Holder/Sparks Effect 2") ]
+bulletTrailPrefab = ExtResource( 2 )
+bulletExplosionPrefab = ExtResource( 3 )
+bulletSpeed = 350.0
+bulletLifeTime = 2.0
+bulletTrailTimer = 0.1
+bulletDamageAmount = 10.0
+bulletHasTrail = true
+bulletSpritePath = NodePath("../Laser Bullet/Sprite")
+autoSetInitialColor = false
 
-[node name="Particles Holder" type="Node2D" parent="."]
-editor/display_folded = true
+[node name="Sprite" type="Sprite" parent="."]
+self_modulate = Color( 1, 0.560784, 0, 1 )
+position = Vector2( 32, 0 )
+scale = Vector2( 2, 0.4 )
+texture = ExtResource( 4 )
 
-[node name="Flash Effect" type="Particles2D" parent="Particles Holder"]
-position = Vector2( 800, 0 )
-scale = Vector2( 50, 2 )
-amount = 7
-process_material = SubResource( 2 )
-texture = ExtResource( 2 )
-
-[node name="Sparks Effect 1" type="Particles2D" parent="Particles Holder"]
-amount = 50
-lifetime = 3.0
-randomness = 1.0
-process_material = SubResource( 9 )
-texture = ExtResource( 2 )
-
-[node name="Sparks Effect 2" type="Particles2D" parent="Particles Holder"]
-position = Vector2( 1550, 0 )
-rotation = 3.14159
-amount = 50
-lifetime = 3.0
-randomness = 1.0
-process_material = SubResource( 10 )
-texture = ExtResource( 2 )
-
-[node name="Collision Checker" type="Area2D" parent="."]
-editor/display_folded = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Collision Checker"]
-position = Vector2( 814.87, 0 )
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 32, 0 )
 shape = SubResource( 1 )

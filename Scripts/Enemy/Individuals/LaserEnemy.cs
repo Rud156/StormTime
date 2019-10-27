@@ -120,6 +120,16 @@ namespace StormTime.Enemy.Individuals
             SetGlobalRotation(currentRotation);
         }
 
+        protected override void RemoveEnemyFromWorld()
+        {
+            _laserLaunchEffect.SetEmitting(false);
+
+            _currentLaser?.DestroyLaser();
+            _currentLaser = null;
+
+            base.RemoveEnemyFromWorld();
+        }
+
         #endregion
 
         #region Utility Functions
