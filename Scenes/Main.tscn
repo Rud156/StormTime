@@ -70,12 +70,11 @@ pauseResumeControllerNodePath = NodePath("../../../CanvasLayer/GUI/Pause Resume 
 [node name="Bullets Holder" type="Node2D" parent="Game World"]
 
 [node name="Enemy Spawn Points" type="Node2D" parent="Game World"]
-editor/display_folded = true
 position = Vector2( 0, 1 )
 script = ExtResource( 5 )
 enemyGroupPrefab = ExtResource( 6 )
-minEnemyGroupsToSpawn = 18
-maxEnemyGroupsToSpawn = 22
+minEnemyGroupsToSpawn = 22
+maxEnemyGroupsToSpawn = 25
 enemyGroupGradients = [ SubResource( 2 ), SubResource( 4 ), SubResource( 6 ), SubResource( 8 ) ]
 enemyGroupColors = PoolColorArray( 1, 0.537255, 0, 0.392157, 0.517647, 0, 1, 0.392157, 0, 1, 0.670588, 0.392157, 1, 0, 0.607843, 0.392157 )
 worldSpawnNodePaths = [ NodePath("Enemy Group Spawn Point_1"), NodePath("Enemy Group Spawn Point_25"), NodePath("Enemy Group Spawn Point_26"), NodePath("Enemy Group Spawn Point_2"), NodePath("Enemy Group Spawn Point_3"), NodePath("Enemy Group Spawn Point_4"), NodePath("Enemy Group Spawn Point_5"), NodePath("Enemy Group Spawn Point_6"), NodePath("Enemy Group Spawn Point_7"), NodePath("Enemy Group Spawn Point_8"), NodePath("Enemy Group Spawn Point_9"), NodePath("Enemy Group Spawn Point_10"), NodePath("Enemy Group Spawn Point_11"), NodePath("Enemy Group Spawn Point_12"), NodePath("Enemy Group Spawn Point_13"), NodePath("Enemy Group Spawn Point_14"), NodePath("Enemy Group Spawn Point_15"), NodePath("Enemy Group Spawn Point_16"), NodePath("Enemy Group Spawn Point_17"), NodePath("Enemy Group Spawn Point_18"), NodePath("Enemy Group Spawn Point_19"), NodePath("Enemy Group Spawn Point_20"), NodePath("Enemy Group Spawn Point_21"), NodePath("Enemy Group Spawn Point_22"), NodePath("Enemy Group Spawn Point_23"), NodePath("Enemy Group Spawn Point_24") ]
@@ -185,6 +184,7 @@ position = Vector2( 251.291, -1110.76 )
 maxEnemyDangerLevel = 8
 
 [node name="Portal Holder" type="Node2D" parent="Game World"]
+editor/display_folded = true
 position = Vector2( 3000, 1682.44 )
 __meta__ = {
 "_edit_group_": true

@@ -27,16 +27,13 @@ namespace StormTime.Weapon
             collisionShape.SetRadius(explosionRadius);
         }
 
-        public override void _ExitTree()
-        {
-            _explosionCollisionArea.Disconnect("body_entered", this, nameof(HandleBodyEntered));
-            _explosionCollisionArea.Disconnect("body_exited", this, nameof(HandleBodyExited));
-        }
-
         #region Overridden Parent
 
         protected override void RemoveBulletFromTree()
         {
+            _explosionCollisionArea.Disconnect("body_entered", this, nameof(HandleBodyEntered));
+            _explosionCollisionArea.Disconnect("body_exited", this, nameof(HandleBodyExited));
+
             Node2D explosionEffectInstance = (Node2D)bulletExplosionPrefab.Instance();
             GetParent().AddChild(explosionEffectInstance);
 

@@ -1,5 +1,4 @@
 using Godot;
-using StormTime.Utils;
 
 namespace StormTime.Weapon
 {
@@ -9,8 +8,7 @@ namespace StormTime.Weapon
     /// </summary>
     public class ChargedBullet : Bullet
     {
-        [Export] public float minCollisionLifeDecrement;
-        [Export] public float maxCollisionLifeDecrement;
+        [Export] public float collisionLifeDecrement;
 
         private bool _isStatic;
 
@@ -36,14 +34,14 @@ namespace StormTime.Weapon
             {
                 if (_collidingBodies.Count != 0)
                 {
-                    SpawnBulletExplosion();
                     NotifyCollider((Object)_collidingBodies[0]);
 
-                    _currentBulletTimeLeft -= delta * maxCollisionLifeDecrement;
+                    _currentBulletTimeLeft -= delta * collisionLifeDecrement;
                 }
 
                 if (_currentBulletTimeLeft <= 0 || !IsColliderEnemyAffector((Object)_collidingBodies[0]))
                 {
+                    SpawnBulletExplosion();
                     RemoveBulletFromTree();
                 }
             }

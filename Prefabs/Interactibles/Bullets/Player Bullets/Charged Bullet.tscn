@@ -91,13 +91,12 @@ script = ExtResource( 1 )
 bulletTrailPrefab = ExtResource( 2 )
 bulletExplosionPrefab = ExtResource( 3 )
 bulletSpeed = 450.0
-bulletLifeTime = 3.0
+bulletLifeTime = 5.0
 bulletTrailTimer = 0.1
 bulletDamageAmount = 50.0
 bulletHasTrail = true
 bulletHasExplosion = true
-minCollisionLifeDecrement = 2.0
-maxCollisionLifeDecrement = 35.0
+collisionLifeDecrement = 3.0
 
 [node name="Bullet Particles Star" type="Particles2D" parent="."]
 scale = Vector2( 0.4, 0.4 )

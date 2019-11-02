@@ -91,8 +91,8 @@ namespace StormTime.Player.Shooting
             _playerWeapons = new Dictionary<WeaponType, WeaponState>
             {
                 {WeaponType.SingleShot, new WeaponState() {weaponType = WeaponType.SingleShot, isUnlocked = true}},
-                {WeaponType.Shotgun, new WeaponState() {weaponType = WeaponType.Shotgun, isUnlocked = false}},
-                {WeaponType.ChargeGun, new WeaponState() {weaponType = WeaponType.ChargeGun, isUnlocked = false}}
+                {WeaponType.Shotgun, new WeaponState() {weaponType = WeaponType.Shotgun, isUnlocked = true}},
+                {WeaponType.ChargeGun, new WeaponState() {weaponType = WeaponType.ChargeGun, isUnlocked = true}}
             };
         }
 
