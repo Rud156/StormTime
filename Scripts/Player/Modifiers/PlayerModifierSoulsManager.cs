@@ -37,6 +37,17 @@ namespace StormTime.Player.Modifiers
 
         #region External Functions
 
+        public void ForceSetPlayerSouls(int soulsAmount)
+        {
+            if (soulsAmount < 0)
+            {
+                return;
+            }
+
+            _currentSoulsAmount = soulsAmount;
+            HandleSoulsChange();
+        }
+
         public void DecrementSouls(int amount)
         {
             _currentSoulsAmount -= amount;

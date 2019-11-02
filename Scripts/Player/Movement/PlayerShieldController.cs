@@ -1,11 +1,12 @@
 using Godot;
 using StormTime.Player.Modifiers;
 using StormTime.Utils;
+using StormTime.Weapon;
 
 namespace StormTime.Player.Controllers
 {
 
-    public class PlayerShieldController : RigidBody2D
+    public class PlayerShieldController : Area2D
     {
         // Prefabs
         [Export] public NodePath playerShieldNodePath;
@@ -30,7 +31,13 @@ namespace StormTime.Player.Controllers
         {
             _playerShield = GetNode<Sprite>(playerShieldNodePath);
             _currentShieldActiveTimer = playerShieldActiveTimer;
+
+            DeActivateShield();
+
+            Connect("body_entered", this, nameof(HandlePhysicsObjectEntered));
         }
+
+        public override void _ExitTree() => Disconnect("body_entered", this, nameof(HandlePhysicsObjectEntered));
 
         public override void _Process(float delta)
         {
@@ -104,9 +111,22 @@ namespace StormTime.Player.Controllers
             _currentShieldActiveTimer -= shieldTimerDecreaseAmount;
         }
 
+        public bool IsShieldActive() => _isShieldActive;
+
         #endregion
 
         #region Utility Functions
+
+        private void HandlePhysicsObjectEntered(PhysicsBody2D other)
+        {
+            if (!(other is EnemyBullet))
+            {
+                return;
+            }
+
+            EnemyBullet enemyBullet = (EnemyBullet)other;
+            enemyBullet.ForceDestroyBullet();
+        }
 
         private void DeActivateShield()
         {

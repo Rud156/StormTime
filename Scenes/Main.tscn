@@ -70,6 +70,7 @@ pauseResumeControllerNodePath = NodePath("../../../CanvasLayer/GUI/Pause Resume 
 [node name="Bullets Holder" type="Node2D" parent="Game World"]
 
 [node name="Enemy Spawn Points" type="Node2D" parent="Game World"]
+editor/display_folded = true
 position = Vector2( 0, 1 )
 script = ExtResource( 5 )
 enemyGroupPrefab = ExtResource( 6 )

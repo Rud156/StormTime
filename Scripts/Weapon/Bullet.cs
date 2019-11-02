@@ -57,6 +57,12 @@ namespace StormTime.Weapon
             SetLinearVelocity(_launchVelocity);
         }
 
+        public void ForceDestroyBullet()
+        {
+            SpawnBulletExplosion();
+            RemoveBulletFromTree();
+        }
+
         public float GetBulletDamage() => _currentDamageAmount;
 
         public void SetBulletDamage(float damageAmount) => _currentDamageAmount = damageAmount;

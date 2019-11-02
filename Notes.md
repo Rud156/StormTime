@@ -6,8 +6,8 @@
 - [X] Laser Enemy. This is a new type of enemy. It targets the player and shoot a laser beam directed at them. This is will make it difficult for the player to avoid if there are multiple of them as they kind of block paths that the player can use to easily move. Has a slightly low danger value as the lasers can be avoided easily.
 - [X] Bomb Enemy. This is also a new type of enemy that shoots short range bullets towards the player that causes a ring damage. The player must understand the range and stay away from it. The danger value should be on the same level as Wheel Enemy as it can become difficult when there are multiple of them in a certain range.
 - [X] The player needs a kind of shield when they exit a shop or player modifier as the number of bullet that are being shot, does not give them a breathing room.
-- [ ] The frequency of shops must increase so that it allows the player to replenish their health as and when required.
 - [X] A secondary purpose of souls is a temporary player shield. It makes the player invulnerable for a short amount of time. It consumes a certain number of souls. Also it can be modified by using player modifier.
+- [ ] The frequency of shops must increase so that it allows the player to replenish their health as and when required.
 
 ### Things that must exist
 

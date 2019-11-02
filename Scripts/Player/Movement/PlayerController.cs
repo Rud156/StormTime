@@ -231,7 +231,15 @@ namespace StormTime.Player.Controllers
             }
         }
 
-        public void TakeExternalDamage(float damageAmount) => _playerHealthSetter.SubtractHealth(damageAmount);
+        public void TakeExternalDamage(float damageAmount)
+        {
+            if (_playerShieldController.IsShieldActive())
+            {
+                return;
+            }
+
+            _playerHealthSetter.SubtractHealth(damageAmount);
+        }
 
         public void ActivatePlayerShield() => _playerShieldController.CheckAndActivateShield();
 

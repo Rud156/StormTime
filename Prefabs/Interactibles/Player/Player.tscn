@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://Scripts/Player/Movement/PlayerController.cs" type="Script" id=1]
 [ext_resource path="res://Textures/Blur Rectangle.png" type="Texture" id=2]
@@ -9,9 +9,15 @@
 [ext_resource path="res://Textures/light.png" type="Texture" id=7]
 [ext_resource path="res://Scripts/Common/HealthSetter.cs" type="Script" id=8]
 [ext_resource path="res://Scripts/Common/HealthDisplay.cs" type="Script" id=9]
+[ext_resource path="res://Scripts/Player/Movement/PlayerShieldController.cs" type="Script" id=10]
+[ext_resource path="res://Scripts/Extensions/Rotator.cs" type="Script" id=11]
+[ext_resource path="res://Textures/Sun Shield.png" type="Texture" id=12]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 70, 70 )
+
+[sub_resource type="CircleShape2D" id=2]
+radius = 302.052
 
 [node name="Player" type="KinematicBody2D"]
 scale = Vector2( 0.3, 0.3 )
@@ -27,6 +33,7 @@ maxScaleAmount = 0.5
 scaleChangeFrequency = 7.0
 rotationRate = 30.0
 lerpVelocity = 7.0
+playerShieldControllerNodePath = NodePath("Player Shield")
 playerShootingNodePath = NodePath("Player Shooter")
 playerHealthSetterNodePath = NodePath("Player Health")
 lowSoulsHealthDecrementRate = 1.0
@@ -87,3 +94,25 @@ minHealthColor = Color( 1, 0, 0, 1 )
 halfHealthColor = Color( 1, 1, 0, 1 )
 maxHealthColor = Color( 0, 1, 0, 1 )
 healthSetterNodePath = NodePath("..")
+
+[node name="Player Shield" type="Area2D" parent="."]
+collision_layer = 2
+script = ExtResource( 10 )
+playerShieldNodePath = NodePath("Shield Rotator/Shield Sprite")
+playerShieldActiveTimer = 5.0
+playerShieldSoulCount = 5
+activeCollisionLayers = PoolIntArray( 1 )
+activeCollisionMasks = PoolIntArray( 0 )
+inActiveCollisionLayers = PoolIntArray( 10 )
+inActiveCollisionMasks = PoolIntArray( 10 )
+
+[node name="Shield Rotator" type="Node2D" parent="Player Shield"]
+script = ExtResource( 11 )
+rotationSpeed = 50.0
+
+[node name="Shield Sprite" type="Sprite" parent="Player Shield/Shield Rotator"]
+self_modulate = Color( 1, 1, 1, 0.392157 )
+texture = ExtResource( 12 )
+
+[node name="Shield Collision Shape" type="CollisionShape2D" parent="Player Shield"]
+shape = SubResource( 2 )
