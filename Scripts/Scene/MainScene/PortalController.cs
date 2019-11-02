@@ -129,6 +129,10 @@ namespace StormTime.Scene.MainScene
             }
             else
             {
+                PlayerModifierSoulsManager.instance.DecrementSouls(soulsRequirement);
+                int currentSoulsLeft = PlayerModifierSoulsManager.instance.GetSoulsCount();
+                PlayerVariables.PlayerSoulsCount = currentSoulsLeft;
+
                 DisablePlayerAndSwitchScene();
             }
         }

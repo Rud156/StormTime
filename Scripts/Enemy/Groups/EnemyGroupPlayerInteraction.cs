@@ -164,6 +164,7 @@ namespace StormTime.Enemy.Groups
             _playerController.SetPlayerState(PlayerController.PlayerState.PlayerInControlMovement);
             _playerController.ActivateShooting();
             _playerController.ResetSizeDefaults();
+            _playerController.ActivatePlayerShield();
         }
 
         #region Shop Interactions

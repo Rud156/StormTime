@@ -10,6 +10,7 @@ namespace StormTime.Utils
         public const string Right = "ui_right";
 
         public const string Interact = "ui_interact";
+        public const string Shield = "ui_shield";
         public const string Shoot = "ui_shoot";
         public const string ShootSpecial = "ui_special_shoot";
         public const string Cancel = "ui_cancel";

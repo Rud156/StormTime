@@ -1,5 +1,6 @@
 using Godot;
 using StormTime.Player.Modifiers;
+using StormTime.Utils;
 
 namespace StormTime.Player.Controllers
 {
@@ -31,6 +32,25 @@ namespace StormTime.Player.Controllers
             _currentShieldActiveTimer = playerShieldActiveTimer;
         }
 
+        public override void _Process(float delta)
+        {
+            if (!_isShieldActive)
+            {
+                if (Input.IsActionJustPressed(SceneControls.Shield))
+                {
+                    CheckAndActivateShield();
+                }
+            }
+            else
+            {
+                _shieldActiveTimeLeft -= delta;
+                if (_shieldActiveTimeLeft <= 0)
+                {
+                    DeActivateShield();
+                }
+            }
+        }
+
         #region External Functions
 
         public void BulletCollisionNotification(object bullet, bool isFreezingBullet)
@@ -39,19 +59,49 @@ namespace StormTime.Player.Controllers
             // Which it does automatically
         }
 
-        public void ActivateShield()
+        public void CheckAndActivateShield()
         {
             if (!PlayerModifierSoulsManager.instance.HasNSouls(playerShieldSoulCount))
             {
                 return;
             }
 
+            _isShieldActive = true;
+            _shieldActiveTimeLeft = _currentShieldActiveTimer;
+
+            _playerShield.SetVisible(true);
+
+            foreach (int collisionLayerBit in inActiveCollisionLayers)
+            {
+                SetCollisionLayerBit(collisionLayerBit, false);
+            }
+            foreach (int collisionMaskBit in inActiveCollisionMasks)
+            {
+                SetCollisionMaskBit(collisionMaskBit, false);
+            }
+
+            foreach (int collisionLayerBit in activeCollisionLayers)
+            {
+                SetCollisionLayerBit(collisionLayerBit, true);
+            }
+            foreach (int collisionMaskBit in activeCollisionMasks)
+            {
+                SetCollisionMaskBit(collisionMaskBit, true);
+            }
+
             PlayerModifierSoulsManager.instance.DecrementSouls(playerShieldSoulCount);
         }
 
-        public void IncrementShieldTimer()
+        public void IncrementShieldTimerByPercent(float percentAmount)
         {
+            float shieldTimerIncreaseAmount = _currentShieldActiveTimer * percentAmount / 100;
+            _currentShieldActiveTimer += shieldTimerIncreaseAmount;
+        }
 
+        public void DecrementShieldTimerByPercent(float percentAmount)
+        {
+            float shieldTimerDecreaseAmount = _currentShieldActiveTimer * percentAmount / 100;
+            _currentShieldActiveTimer -= shieldTimerDecreaseAmount;
         }
 
         #endregion
@@ -61,6 +111,26 @@ namespace StormTime.Player.Controllers
         private void DeActivateShield()
         {
 
+            foreach (int collisionLayerBit in inActiveCollisionLayers)
+            {
+                SetCollisionLayerBit(collisionLayerBit, true);
+            }
+            foreach (int collisionMaskBit in inActiveCollisionMasks)
+            {
+                SetCollisionMaskBit(collisionMaskBit, true);
+            }
+
+            foreach (int collisionLayerBit in activeCollisionLayers)
+            {
+                SetCollisionLayerBit(collisionLayerBit, false);
+            }
+            foreach (int collisionMaskBit in activeCollisionMasks)
+            {
+                SetCollisionMaskBit(collisionMaskBit, false);
+            }
+
+            _isShieldActive = false;
+            _playerShield.SetVisible(false);
         }
 
         #endregion

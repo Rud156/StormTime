@@ -22,9 +22,8 @@ namespace StormTime.Player.Controllers
         [Export] public float rotationRate;
         [Export] public float lerpVelocity;
 
-        // Shield Info
-        [Export] public NodePath playerShield;
-        [Export] public float baseShieldTimer;
+        // Shield
+        [Export] public NodePath playerShieldControllerNodePath;
 
         // Other Controls
         [Export] public NodePath playerShootingNodePath;
@@ -54,6 +53,7 @@ namespace StormTime.Player.Controllers
         }
 
         private PlayerShooting _playerShooting;
+        private PlayerShieldController _playerShieldController;
         private HealthSetter _playerHealthSetter;
         private ScaleBlinker _playerHeartScaleBlinker;
 
@@ -67,13 +67,12 @@ namespace StormTime.Player.Controllers
         private float _playerTime;
         private float _currentShotGunRecoilTime;
 
-        private float _currentShieldTimer;
-
         private bool _isSoulsLow;
 
         public override void _Ready()
         {
             _playerShooting = GetNode<PlayerShooting>(playerShootingNodePath);
+            _playerShieldController = GetNode<PlayerShieldController>(playerShieldControllerNodePath);
             _playerHealthSetter = GetNode<HealthSetter>(playerHealthSetterNodePath);
             _playerHeartScaleBlinker = GetNode<ScaleBlinker>(playerHeartScaleBlinkerNodePath);
 
@@ -232,8 +231,9 @@ namespace StormTime.Player.Controllers
             }
         }
 
-        public void TakeExternalDamage(float damageAmount) =>
-            _playerHealthSetter.SubtractHealth(damageAmount);
+        public void TakeExternalDamage(float damageAmount) => _playerHealthSetter.SubtractHealth(damageAmount);
+
+        public void ActivatePlayerShield() => _playerShieldController.CheckAndActivateShield();
 
         public void ResetSizeDefaults() => _targetScale = Vector2.One * defaultScaleAmount;
 
@@ -246,9 +246,7 @@ namespace StormTime.Player.Controllers
                         float speedLossAmount = _currentMovementSpeed * sacrificialItemInfo.reducedPercent / 100;
                         _currentMovementSpeed -= speedLossAmount;
 
-                        float maxHealthIncrease =
-                            _playerHealthSetter.GetMaxHealth() * sacrificialItemInfo.increasedPercent / 100;
-
+                        float maxHealthIncrease = _playerHealthSetter.GetMaxHealth() * sacrificialItemInfo.increasedPercent / 100;
                         _playerHealthSetter.SetMaxHealth(_playerHealthSetter.GetMaxHealth() + maxHealthIncrease);
                     }
                     break;
@@ -264,8 +262,7 @@ namespace StormTime.Player.Controllers
 
                 case PlayerModifierTypes.SacrificialItem.HealthSacrificeDamageIncrease:
                     {
-                        float healthLossAmount =
-                            _playerHealthSetter.GetMaxHealth() * sacrificialItemInfo.reducedPercent / 100;
+                        float healthLossAmount = _playerHealthSetter.GetMaxHealth() * sacrificialItemInfo.reducedPercent / 100;
                         _playerHealthSetter.SetMaxHealth(_playerHealthSetter.GetMaxHealth() - healthLossAmount);
 
                         _playerShooting.AddToDamageDifferencePercent(sacrificialItemInfo.increasedPercent);
@@ -281,9 +278,44 @@ namespace StormTime.Player.Controllers
 
                 case PlayerModifierTypes.SacrificialItem.HealthSacrificeSpeedIncrease:
                     {
-                        float healthLossAmount =
-                            _playerHealthSetter.GetMaxHealth() * sacrificialItemInfo.reducedPercent / 100;
+                        float healthLossAmount = _playerHealthSetter.GetMaxHealth() * sacrificialItemInfo.reducedPercent / 100;
                         _playerHealthSetter.SetMaxHealth(_playerHealthSetter.GetMaxHealth() - healthLossAmount);
+
+                        float speedIncrease = _currentMovementSpeed * sacrificialItemInfo.increasedPercent / 100;
+                        _currentMovementSpeed += speedIncrease;
+                    }
+                    break;
+
+                case PlayerModifierTypes.SacrificialItem.SpeedSacrificeShieldTimeIncrease:
+                    {
+                        float speedLossAmount = _currentMovementSpeed * sacrificialItemInfo.reducedPercent / 100;
+                        _currentMovementSpeed -= speedLossAmount;
+
+                        _playerShieldController.IncrementShieldTimerByPercent(sacrificialItemInfo.increasedPercent);
+                    }
+                    break;
+
+                case PlayerModifierTypes.SacrificialItem.HealthSacrificeShieldTimeIncrease:
+                    {
+                        float healthLossAmount = _playerHealthSetter.GetMaxHealth() * sacrificialItemInfo.reducedPercent / 100;
+                        _playerHealthSetter.SetMaxHealth(_playerHealthSetter.GetMaxHealth() - healthLossAmount);
+
+                        _playerShieldController.IncrementShieldTimerByPercent(sacrificialItemInfo.increasedPercent);
+                    }
+                    break;
+
+                case PlayerModifierTypes.SacrificialItem.ShieldTimeSacrificeHealthBoost:
+                    {
+                        _playerShieldController.DecrementShieldTimerByPercent(sacrificialItemInfo.reducedPercent);
+
+                        float maxHealthIncrease = _playerHealthSetter.GetMaxHealth() * sacrificialItemInfo.increasedPercent / 100;
+                        _playerHealthSetter.SetMaxHealth(_playerHealthSetter.GetMaxHealth() + maxHealthIncrease);
+                    }
+                    break;
+
+                case PlayerModifierTypes.SacrificialItem.ShieldTimeSacrificeSpeedIncrease:
+                    {
+                        _playerShieldController.DecrementShieldTimerByPercent(sacrificialItemInfo.reducedPercent);
 
                         float speedIncrease = _currentMovementSpeed * sacrificialItemInfo.increasedPercent / 100;
                         _currentMovementSpeed += speedIncrease;

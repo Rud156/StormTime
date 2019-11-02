@@ -21,7 +21,11 @@ namespace StormTime.Player.Modifiers
             SpeedSacrificeDamageIncrease,
             HealthSacrificeDamageIncrease,
             ShootTimeSacrificeDamageIncrease,
-            HealthSacrificeSpeedIncrease
+            HealthSacrificeSpeedIncrease,
+            SpeedSacrificeShieldTimeIncrease,
+            HealthSacrificeShieldTimeIncrease,
+            ShieldTimeSacrificeHealthBoost,
+            ShieldTimeSacrificeSpeedIncrease
         }
 
         #region Sacrificial Items
@@ -57,6 +61,18 @@ namespace StormTime.Player.Modifiers
 
                 case SacrificialItem.HealthSacrificeSpeedIncrease:
                     return "Sacrifice max health but increase speed by 20%";
+
+                case SacrificialItem.SpeedSacrificeShieldTimeIncrease:
+                    return "Become slower but add 20% to shield time";
+
+                case SacrificialItem.HealthSacrificeShieldTimeIncrease:
+                    return "Sacrifice max health but add 25% to shield time";
+
+                case SacrificialItem.ShieldTimeSacrificeHealthBoost:
+                    return "Decrease shield time but increase maximum health by 10%";
+
+                case SacrificialItem.ShieldTimeSacrificeSpeedIncrease:
+                    return "Decrease shield time but increase speed by 20%";
 
                 default:
                     throw new ArgumentOutOfRangeException(nameof(sacrificialItem), sacrificialItem, null);
@@ -104,6 +120,38 @@ namespace StormTime.Player.Modifiers
                     {
                         sacrificialItem = SacrificialItem.HealthSacrificeSpeedIncrease,
                         reducedPercent = 10,
+                        increasedPercent = 20
+                    };
+
+                case SacrificialItem.SpeedSacrificeShieldTimeIncrease:
+                    return new SacrificialItemInfo()
+                    {
+                        sacrificialItem = SacrificialItem.SpeedSacrificeShieldTimeIncrease,
+                        reducedPercent = 20,
+                        increasedPercent = 20
+                    };
+
+                case SacrificialItem.HealthSacrificeShieldTimeIncrease:
+                    return new SacrificialItemInfo()
+                    {
+                        sacrificialItem = SacrificialItem.HealthSacrificeShieldTimeIncrease,
+                        reducedPercent = 10,
+                        increasedPercent = 25
+                    };
+
+                case SacrificialItem.ShieldTimeSacrificeHealthBoost:
+                    return new SacrificialItemInfo()
+                    {
+                        sacrificialItem = SacrificialItem.ShieldTimeSacrificeHealthBoost,
+                        reducedPercent = 25,
+                        increasedPercent = 10
+                    };
+
+                case SacrificialItem.ShieldTimeSacrificeSpeedIncrease:
+                    return new SacrificialItemInfo()
+                    {
+                        sacrificialItem = SacrificialItem.ShieldTimeSacrificeSpeedIncrease,
+                        reducedPercent = 20,
                         increasedPercent = 20
                     };
 

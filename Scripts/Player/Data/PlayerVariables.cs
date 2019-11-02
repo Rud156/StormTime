@@ -11,6 +11,9 @@ namespace StormTime.Player.Data
         public static float PlayerCurrentMovementSpeed;
         public static float PlayerCurrentShootingDamageDiff;
 
+        // Player Souls
+        public static int PlayerSoulsCount;
+
         public static void ClearPlayerData()
         {
             PlayerCurrentMaxHealth = 0;
