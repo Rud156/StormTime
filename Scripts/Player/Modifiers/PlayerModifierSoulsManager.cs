@@ -55,6 +55,8 @@ namespace StormTime.Player.Modifiers
             HandleSoulsChange();
         }
 
+        public bool HasNSouls(int soulCount) => _currentSoulsAmount >= soulCount;
+
         public bool HasSouls() => _currentSoulsAmount > 0;
 
         public int GetSoulsCount() => _currentSoulsAmount;

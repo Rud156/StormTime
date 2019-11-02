@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System;
 using Godot;
-using StormTime.Player.Movement;
+using StormTime.Player.Controllers;
 
 namespace StormTime.Weapon
 {

@@ -4,12 +4,11 @@ using StormTime.Common;
 using StormTime.Player.Data;
 using StormTime.Player.Modifiers;
 using StormTime.Player.Shooting;
-using StormTime.Scene.MainScene;
 using StormTime.UI;
 using StormTime.Utils;
 using StormTime.Weapon;
 
-namespace StormTime.Player.Movement
+namespace StormTime.Player.Controllers
 {
     public class PlayerController : KinematicBody2D
     {
@@ -22,6 +21,10 @@ namespace StormTime.Player.Movement
         [Export] public float scaleChangeFrequency;
         [Export] public float rotationRate;
         [Export] public float lerpVelocity;
+
+        // Shield Info
+        [Export] public NodePath playerShield;
+        [Export] public float baseShieldTimer;
 
         // Other Controls
         [Export] public NodePath playerShootingNodePath;
@@ -63,6 +66,8 @@ namespace StormTime.Player.Movement
 
         private float _playerTime;
         private float _currentShotGunRecoilTime;
+
+        private float _currentShieldTimer;
 
         private bool _isSoulsLow;
 
@@ -147,7 +152,7 @@ namespace StormTime.Player.Movement
 
         private void HandlePlayerDead(float delta)
         {
-            // TODO: Do something here. Probably...
+            // TODO: Do something here. Of Course...
         }
 
         #region Player Control Movement

@@ -1,5 +1,5 @@
 using Godot;
-using StormTime.Player.Movement;
+using StormTime.Player.Controllers;
 
 namespace StormTime.Enemy.Individuals
 {

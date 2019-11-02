@@ -2,7 +2,7 @@ using Godot;
 using StormTime.Common;
 using StormTime.Player.Data;
 using StormTime.Player.Modifiers;
-using StormTime.Player.Movement;
+using StormTime.Player.Controllers;
 using StormTime.UI;
 using StormTime.Utils;
 
